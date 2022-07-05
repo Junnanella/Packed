@@ -9,7 +9,8 @@ A website that provides a curated playlist based on a user's input such as mood,
 
 ## Intended market
 
-Target audience ranges in age from 13-65. 
+Target audience ranges in age from 13-65. This will most benefit people with a hard time finding new music to listen to and are sick of hearing the same 5 songs. 
+
 ## Functionality
 
 * Can find biggest hits based on a specific year 
