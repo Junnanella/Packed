@@ -20,3 +20,8 @@ Target audience ranges in age from 13-65. This will most benefit people with a h
 * A user can give a like or a dislike to a song recommendation which would impact future recommendations 
 * Users can share music with other users(too difficult?)
 * Can return liked artists' concerts playing nearby 
+
+
+* weather
+* exchange rate
+* adapters for power
