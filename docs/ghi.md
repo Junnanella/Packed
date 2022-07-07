@@ -20,7 +20,7 @@ We also plan to incorporate charts to visualize average temps and average price 
 
 ![trip details](wireframes/trip_details_page.png)
 
-### Create Packing List Page
+## Create Packing List Page
 
 On this page, the user can add items to their packing list from three sections.
 
@@ -30,13 +30,13 @@ On this page, the user can add items to their packing list from three sections.
 
 ![create packing list](wireframes/create_packing_list.png)
 
-### Packing Lists Page
+## Packing Lists Page
 
 On this page, the user can see the names of all of their packing list and will be able to click on them to redirect to the details of that particular packing list
 
 ![packing lists](wireframes/packing_lists_page.png)
 
-### Packing List Page
+## Packing List Page
 
 On this page, the user can view the details of their saved packing list. They will also have the option to edit the list. The page will also contain the details for the trip associated to this specific packing list.
 
