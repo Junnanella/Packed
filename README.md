@@ -1,27 +1,22 @@
-# auro
+# packed
 
 * Junella
 * Josiah
 * Karmina
 * William
 
-A website that provides a curated playlist based on a user's input such as mood, pictures, location, age etc. 
+A useful webapp for planning and packing for your next trip.
 
 ## Intended market
 
-Target audience ranges in age from 13-65. This will most benefit people with a hard time finding new music to listen to and are sick of hearing the same 5 songs. 
+Anyone who is new to travel or going somewhere they may not have visited someplace before.
 
 ## Functionality
 
-* Can find biggest hits based on a specific year 
-* Adds visualizer background to music while it plays based on ...(still deciding)
-* Can return a list of popular songs based off location 
-* Leave short reviews on recommended songs 
-* A user can give a like or a dislike to a song recommendation which would impact future recommendations 
-* Users can share music with other users(too difficult?)
-* Can return liked artists' concerts playing nearby 
+* A user will input a origin city. destination city, country and optionally travel dates. When the form is submitted, the user is presented with 3 pieces of info: 
+1) the average temp for their specified dates in that location. If they did not specify dates, a bar chart shows the average temp per month. 
+2) the average round trip price for that time of the year. If none is provided, a bar chart shows the average price per month
+3) the current exchange rate from the USD to destination currency
+* below the three pieces of above info, there is a button to create a packing list. The packing list page has suggestions which contain things like the right power adapter for that country, phone charger, passport holder and other basic essentials. The user can incorporate suggestions, add their own items and save the packing list if they have an account (next bullet point)
+* User authentication system. Someone with an account can view upcoming trips and packing lists. Account holders can also reference packing lists from past trips.
 
-
-* weather
-* exchange rate
-* adapters for power
