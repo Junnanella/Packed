@@ -33,6 +33,7 @@
 | Name | Type | Unique | Optional |
 |-|-|-|-|
 | item | ForeignKey to Item | no | no |
+| packing_list | ForeignKey to PackingList | no | no |
 | quantity | positive integer | no | no |
 | packed | boolean | no | no |
 
