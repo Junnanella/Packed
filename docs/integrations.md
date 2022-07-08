@@ -1,4 +1,8 @@
-List of needed integrations: +
+# Integrations
+
+The application will need to get the following kinds of
+data from third-party sources:
+
 
 * Weather API
    - Will show historical data for weather so a user can 
