@@ -22,3 +22,19 @@ services:
       - "8001:8001"
     volumes:
       - ./api/weather:/app
+  flights:
+    build:
+      context: ./api/flights
+      dockerfile: ./Dockerfile.dev
+    ports:
+      - "8002:8002"
+    volumes:
+      - ./api/flights:/app
+  currency:
+    build:
+      context: ./api/currency
+      dockerfile: ./Dockerfile.dev
+    ports:
+      - "8003:8003"
+    volumes:
+      - ./api/currency:/app
