@@ -1,0 +1,24 @@
+services:
+  ghi:
+    image: node:lts-bullseye
+    command: /bin/bash run.sh
+    working_dir: /app
+    volumes:
+      - ./ghi:/app
+    ports:
+      - "3000:3000"
+    environment:
+      HOST_OS: ${OS}
+      NODE_ENV: development
+      HOST: "0.0.0.0"
+      REACT_APP_FASTAPI_WEATHER: http://localhost:8001
+      REACT_APP_FASTAPI_FLIGHTS: http://localhost:8002
+      REACT_APP_FASTAPI_CURRENCY: http://localhost:8003
+  weather:
+    build:
+      context: ./api/weather
+      dockerfile: ./Dockerfile.dev
+    ports:
+      - "8001:8001"
+    volumes:
+      - ./api/weather:/app
