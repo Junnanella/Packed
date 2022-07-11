@@ -3,7 +3,7 @@ from fastapi import FastAPI
 
 app = FastAPI()
 
-@app.get("./test")
-def test_react(): 
-    return "Testing"
+@app.get("/")
+def read_root():
+    return {"Hello": "World"}
 

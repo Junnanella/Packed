@@ -19,7 +19,7 @@ services:
       context: ./api/weather
       dockerfile: ./Dockerfile.dev
     ports:
-      - "8001:8001"
+      - "8001:8000"
     volumes:
       - ./api/weather:/app
   flights:
@@ -27,7 +27,7 @@ services:
       context: ./api/flights
       dockerfile: ./Dockerfile.dev
     ports:
-      - "8002:8002"
+      - "8002:8000"
     volumes:
       - ./api/flights:/app
   currency:
@@ -35,6 +35,6 @@ services:
       context: ./api/currency
       dockerfile: ./Dockerfile.dev
     ports:
-      - "8003:8003"
+      - "8003:8000"
     volumes:
       - ./api/currency:/app
