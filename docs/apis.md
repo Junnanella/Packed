@@ -1,6 +1,6 @@
 # APIs
 
-- Currency Exchange API: https://polygon.io/docs/stocks/getting-started
+- Currency Exchange API: https://apilayer.com/marketplace/exchangerates_data-api#documentation-tab
 - Flight API: Still looking for a free one 
 - Weather API: https://www.visualcrossing.com/resources/documentation/weather-api/timeline-weather-api/ 
 
