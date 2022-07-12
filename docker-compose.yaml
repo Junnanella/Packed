@@ -22,6 +22,8 @@ services:
       - "8001:8000"
     volumes:
       - ./api/weather:/app
+    environment:
+      WEATHER_API_KEY: ${WEATHER_API_KEY}
   flights:
     build:
       context: ./api/flights
