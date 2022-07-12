@@ -10,6 +10,10 @@ export const TripForm = (props) => {
 
   const onSubmit = async (event) => {
     event.preventDefault();
+    setOriginCity("");
+    setDestinationCity("");
+    setDepartureDate("");
+    setReturnDate("");
     setSubmitIsSuccessful(true);
   };
 
