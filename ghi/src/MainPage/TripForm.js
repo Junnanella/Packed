@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "./main_page.css";
 
 export const TripForm = (props) => {
   const [originCity, setOriginCity] = useState("");
@@ -94,7 +95,9 @@ export const TripForm = (props) => {
             <button className="btn btn-primary">Submit</button>
           </form>
           {submitIsSuccessful && (
-            <div>Form has been successfully submitted!</div>
+            <div className="trip-form-success">
+              Form has been successfully submitted!
+            </div>
           )}
         </div>
       </div>
