@@ -8,7 +8,7 @@ app = FastAPI()
 
 WEATHER_API_KEY = os.environ["WEATHER_API_KEY"]
 base_url = "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/"
-rest_of_path = f"?unitGroup=us&elements=tempmax%2Ctempmin%2Ctemp&key={WEATHER_API_KEY}&contentType=json"
+rest_of_path = f"?unitGroup=us&elements=name%2Ctempmax%2Ctempmin%2Ctemp&include=days%2Ccurrent&key={WEATHER_API_KEY}&contentType=json"
 # months = {
 #     {1:"Jan"},
 #     {2:"Feb"},
@@ -64,7 +64,7 @@ def get_weather(query):
 #     temp = (max_temp + min_temp) / 2
 #     return temp
 
-    
+
 @app.get("/temperature/year")
 def temp_list(city:str, country:str):
     dates = ["today"]
