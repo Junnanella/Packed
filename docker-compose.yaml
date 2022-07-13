@@ -44,6 +44,9 @@ services:
       - "8003:8000"
     volumes:
       - ./api/currency:/app
+    environment:
+      DATABASE_URL: postgresql://locations:password@postgres/locations
+      WAIT_HOSTS: postgres:5432
   packing-lists:
     build:
         context: ./packing-lists
@@ -65,7 +68,7 @@ services:
       volumes:
           - postgres-data:/var/lib/postgresql/data
       environment:
-          - POSTGRES_MULTIPLE_DATABASES=packed,users
+          - POSTGRES_MULTIPLE_DATABASES=packed,users,locations
           - POSTGRES_PASSWORD=test-databases
       ports:
           - 15432:5432
