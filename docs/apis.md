@@ -73,7 +73,6 @@ Input:
 ```json
 {
   "city": string,
-  "state": string,
   "country": string,
 }
 ```
@@ -82,9 +81,19 @@ Output:
 
 ```json
 {
-  "id": int,
-  "weather_data": string,
+  "temps": [
+    {
+      "date": {
+        "today": 75.9
+      }
+    },
+    {
+      "date": {
+        "2022-06-13": 71.3
+      }
+    },
+  ]
 }
 ```
 
-Creating a new location will query a weather API to get historical weather data going back a maximum of 12 months. It will return a monthly breakdown of the average temperature so that the user can determine the best time to travel. 
+Creating a new location will query a weather API to get historical weather data going back 12 months. It will return a monthly breakdown of the average temperature so that the user can determine the best time to travel. 

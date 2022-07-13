@@ -41,7 +41,7 @@ class WeatherQueries:
         return data
 
 
-@app.get("/temperature/year", response_model=TempsOut)
+@app.get("/api/weather", response_model=TempsOut)
 def temp_list(city:str, country:str, query=Depends(WeatherQueries)):
     dates = ["today"]
     dates += query.get_date_list(datetime.date.today())

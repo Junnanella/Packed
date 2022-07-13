@@ -51,7 +51,7 @@ def test_temp_list():
     }
 
     # ACT
-    response = client.get("/temperature/year?city=Berlin&country=Germany")
+    response = client.get("/api/weather?city=Berlin&country=Germany")
 
 
     # ASSERT
