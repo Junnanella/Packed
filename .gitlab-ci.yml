@@ -1,0 +1,19 @@
+stages:
+  - test
+  # - build
+
+weather-unit-test-job:
+  image: python:3-bullseye
+  stage: test
+  script:
+    - cd api/weather
+    - pip install -r requirements.txt
+    - python -m pytest
+
+# build-front-end-job:
+#   stage: build
+#   image: node:lts-bullseye
+#   script:
+#     - cd ghi
+#     - npm install
+#     - npm run build
