@@ -1,3 +1,7 @@
+volumes:
+  postgres-data:
+    external: true
+
 services:
   ghi:
     image: node:lts-bullseye
@@ -40,3 +44,28 @@ services:
       - "8003:8000"
     volumes:
       - ./api/currency:/app
+  packing-lists:
+    build:
+        context: ./packing-lists
+        dockerfile: ./Dockerfile.dev
+    ports:
+        - "8004:8000"
+    volumes:
+        - ./packing-lists:/app
+    depends_on:
+      - postgres
+    environment:
+        DATABASE_URL: postgresql://packed:password@postgres/packed
+        WAIT_HOSTS: postgres:5432
+        WAIT_TIMEOUT: 120
+  postgres:
+      build:
+          context: ./relational-data
+          dockerfile: ./Dockerfile.dev
+      volumes:
+          - postgres-data:/var/lib/postgresql/data
+      environment:
+          - POSTGRES_MULTIPLE_DATABASES=packed,users
+          - POSTGRES_PASSWORD=test-databases
+      ports:
+          - 15432:5432

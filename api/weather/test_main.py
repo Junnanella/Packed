@@ -11,6 +11,7 @@ class FakeWeatherQueries:
             "days": [{"temp": 5},]
         }
         return data
+    
     def get_date_list(self, today):
         return ["2022-06-12", "2022-05-12",]
 

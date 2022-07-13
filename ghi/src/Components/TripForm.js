@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./main_page.css";
 
 export const TripForm = (props) => {
@@ -7,15 +8,16 @@ export const TripForm = (props) => {
   const [departureDate, setDepartureDate] = useState("");
   const [returnDate, setReturnDate] = useState("");
 
-  const [submitIsSuccessful, setSubmitIsSuccessful] = useState(false);
+  // to navigate to travel details page
+  // and pass user input data
+  const navigate = useNavigate();
 
   const onSubmit = async (event) => {
     event.preventDefault();
-    setOriginCity("");
-    setDestinationCity("");
-    setDepartureDate("");
-    setReturnDate("");
-    setSubmitIsSuccessful(true);
+    // need to define the correct attribute names for navigate url
+    navigate(
+      `/travel_details?origin=${originCity}&destination=${destinationCity}&departure_date=${departureDate}&return_date=${returnDate}`
+    );
   };
 
   const onChangeOriginCity = (event) => {
@@ -94,11 +96,6 @@ export const TripForm = (props) => {
             </div>
             <button className="btn btn-primary">Submit</button>
           </form>
-          {submitIsSuccessful && (
-            <div className="trip-form-success">
-              Form has been successfully submitted!
-            </div>
-          )}
         </div>
       </div>
     </div>
