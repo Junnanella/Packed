@@ -16,9 +16,13 @@ Whether or not the user is logged in, they will be able to enter details of thei
 
 After hitting submit on the homepage, the user will be redirected to a page listing data based on their inputs. Then they have the option to start creating a packing list.
 We also plan to incorporate charts to visualize average temps and average price for the travel month by using bootstrap.
-([React Bootstrap Charts](https://mdbootstrap.com/docs/react/advanced/charts/))
 
-![trip details](wireframes/trip_details_page.png)
+#### Resources:
+
+([mdbootstrap charts](https://mdbootstrap.com/docs/react/advanced/charts/))
+([devwares bootstrap charts](https://www.devwares.com/docs/contrast/react/chart/))
+
+![trip details](wireframes/updated_trip_details_page.png)
 
 ## Create Packing List Page
 
