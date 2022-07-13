@@ -1,7 +1,8 @@
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import MainPage from "./MainPage/MainPage";
-import Nav from "./MainPage/Nav";
+import MainPage from "./Components/MainPage";
+import Nav from "./Components/Nav";
+import TravelDetailPage from "./Components/TravelDetailPage";
 
 export default function App() {
   return (
@@ -10,6 +11,7 @@ export default function App() {
       <div>
         <Routes>
           <Route path="/" element={<MainPage />} />
+          <Route path="/travel_details" element={<TravelDetailPage />} />
         </Routes>
       </div>
     </BrowserRouter>
