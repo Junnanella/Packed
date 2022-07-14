@@ -1,6 +1,7 @@
 // import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 // import { loadWeatherData, loadCurrencyData, loadFlightData } from "./MainApi";
+import Chart from "./Charts";
 
 export default function TravelDetailPage() {
   const [searchParams] = useSearchParams();
@@ -39,11 +40,12 @@ export default function TravelDetailPage() {
   //   fetchData();
   // }, [origin, destination, departure_date, return_date]);
 
-  // return (
-  //   <div>
-  //     <p>{weather}</p>
-  //     <p>{currency}</p>
-  //     <p>{flights}</p>
-  //   </div>
-  // );
+  // <p>{weather}</p>
+  // <p>{currency}</p>
+  // <p>{flights}</p>
+  return (
+    <div>
+      <Chart />
+    </div>
+  );
 }

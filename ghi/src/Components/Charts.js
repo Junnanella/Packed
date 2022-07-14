@@ -45,8 +45,8 @@ export default function Chart() {
   });
 
   return (
-    <div>
-      <h3 className="mt-5">Line chart</h3>
+    <div className="offset-3 col-6">
+      <h3 className="mt-5">Sample chart</h3>
       <Line data={data} options={{ responsive: true }} />
     </div>
   );
