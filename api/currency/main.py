@@ -1,8 +1,5 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Depends
 import requests
-import json
-# set to today 
-
 
 app = FastAPI()
 
@@ -22,8 +19,6 @@ def get_currency_rate(url):
 
   response = requests.request("GET", url, headers=headers, data = payload)
 
-
-  status_code = response.status_code
   result = response.text
   result_split = str(result).splitlines()[-2]
   return result_split
@@ -51,4 +46,3 @@ def currency_exchange_rate(origin_country, destination_country):
 #     "date": "2022-07-11",
 #     "result": 0.997805
 # }
-
