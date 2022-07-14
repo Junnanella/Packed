@@ -1,3 +1,14 @@
+## July 13, 2022
+
+Today, I worked on:
+
+- Researching how to implement a data chart with bootstrap & react. We plan to use this for displaying 12 months of average temperatures and average flight costs.
+- Getting a mock line chart to render on the browser.
+
+As a team, we discussed updates for each of our project areas. We also group programmed to unblock calls to the currency api.
+
+Implementing a chart was a lot more difficult than I had anticipated. The example docs I initially looked at did not have all the information that I needed in order to properly run the example code that I pasted over into our application for testing. Had to do a lot of digging to find several extra imports needed in order to get the test line chart to properly render on the browser.
+
 ## July 12, 2022
 
 Today, I worked on:
