@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Depends
 import requests
 
 app = FastAPI()
@@ -46,4 +46,3 @@ def currency_exchange_rate(origin_country, destination_country):
 #     "date": "2022-07-11",
 #     "result": 0.997805
 # }
-

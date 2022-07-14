@@ -36,6 +36,17 @@ services:
       - "8002:8000"
     volumes:
       - ./api/flights:/app
+  locations:
+    build:
+      context: ./api/locations
+      dockerfile: ./Dockerfile.dev
+    ports:
+      - "8004:8000"
+    volumes:
+      - ./api/locations:/app
+    environment:
+      DATABASE_URL: postgresql://locations:password@postgres/locations
+      WAIT_HOSTS: postgres:5432
   currency:
     build:
       context: ./api/currency
@@ -49,7 +60,7 @@ services:
         context: ./packing-lists
         dockerfile: ./Dockerfile.dev
     ports:
-        - "8004:8000"
+        - "8005:8000"
     volumes:
         - ./packing-lists:/app
     depends_on:
@@ -65,7 +76,7 @@ services:
       volumes:
           - postgres-data:/var/lib/postgresql/data
       environment:
-          - POSTGRES_MULTIPLE_DATABASES=packed,users
+          - POSTGRES_MULTIPLE_DATABASES=packed,users,locations
           - POSTGRES_PASSWORD=test-databases
       ports:
           - 15432:5432
