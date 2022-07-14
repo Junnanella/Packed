@@ -17,3 +17,32 @@ weather-unit-test-job:
 #     - cd ghi
 #     - npm install
 #     - npm run build
+
+# --------CURRENCY------------------------------------------
+currency-unit-test-job:
+  image: python:3-bullseye
+  stage: test
+  script:
+    - cd api/currency
+    - pip install -r requirements.txt
+    # - python -m pytest, still working on one unit test
+# lint-test-job:
+#   image: python:3-bullseye
+#   stage: test
+#   script:
+#     - pip install flake8
+#     - flake8 api  # Run flake8 on Python project to check
+#                   # for code quality
+
+# front-end-build-job:
+#   stage: build
+#   image: node:lts-bullseye
+#   needs:
+#     - api-unit-test-job  # These two jobs must succeed for
+#     - lint-test-job      # this build-job to run
+#   script:
+#     - cd ghi
+#     - npm install
+#     - npm run build  # Build the React application
+# --------CURRENCY------------------------------------------
+
