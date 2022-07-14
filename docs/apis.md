@@ -67,7 +67,7 @@ with the new database id.
 Creating a new flight date/flight location will query a flight API which will search all available flights to said destination. It will then return a list of all those flights and include their prices. 
 
 * **Method**: `GET`
-* **Path**: /api/weather
+* **Path**: /api/weather/country name/city name (spaces are okay for multi-word names)
 
 Input:
 
