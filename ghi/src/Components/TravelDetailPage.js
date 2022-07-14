@@ -1,6 +1,7 @@
-// import { useEffect, useState } from "react";
+// import { useEffect } from "react";
+import { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
-// import { loadWeatherData, loadCurrencyData, loadFlightData } from "./MainApi";
+import { loadWeatherData } from "./MainApi";
 import Chart from "./Charts";
 
 export default function TravelDetailPage() {
@@ -10,7 +11,15 @@ export default function TravelDetailPage() {
   const departure_date = searchParams.get("departure_date");
   const return_date = searchParams.get("return_date");
 
-  console.log(origin, destination, departure_date, return_date);
+  useEffect(() => {
+    async function fetchData() {
+      const response = await loadWeatherData("Seoul", "South Korea");
+      console.log("response ", response);
+    }
+    fetchData();
+  }, []);
+
+  return <div>{}</div>;
 
   // define state for render data
   // match initial data type to
@@ -40,12 +49,9 @@ export default function TravelDetailPage() {
   //   fetchData();
   // }, [origin, destination, departure_date, return_date]);
 
-  // <p>{weather}</p>
-  // <p>{currency}</p>
-  // <p>{flights}</p>
-  return (
-    <div>
-      <Chart />
-    </div>
-  );
+  // return (
+  //   <div>
+  //     <Chart />
+  //   </div>
+  // );
 }

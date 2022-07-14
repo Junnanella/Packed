@@ -8,16 +8,13 @@ import os
 
 app = FastAPI()
 
-origins = [
-    "http://localhost:3000",
-    os.environ.get("CORS_HOST", None)
-]
+origins = ["http://localhost:3000", os.environ.get("CORS_HOST", None)]
 
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
     allow_credentials=True,
-    allow_methods=["*"],
+    allow_methods=["GET"],
     allow_headers=["*"],
 )
 
@@ -36,7 +33,7 @@ class TempsOut(BaseModel):
 
 
 class WeatherQueries:
-    def get_date_list(self, today:datetime):
+    def get_date_list(self, today: datetime):
         dates = []
         month_back = today.month - 1
         day = today.day if today.day < 29 else 28
@@ -56,8 +53,8 @@ class WeatherQueries:
         return data
 
 
-@app.get("/api/weather/{country}/{city}", response_model=TempsOut)
-def temp_list(city:str, country:str, query=Depends(WeatherQueries)):
+@app.get("/api/weather/", response_model=TempsOut)
+def temp_list(city: str, country: str, query=Depends(WeatherQueries)):
     dates = ["today"]
     dates += query.get_date_list(datetime.date.today())
     temps = []
@@ -71,7 +68,5 @@ def temp_list(city:str, country:str, query=Depends(WeatherQueries)):
         #     {"temp_min": data["days"][0]["tempmin"]},
         #     {"temp": data["days"][0]["temp"]},
         # ]})
-        temps.append(
-            {"date": { date: data["days"][0]["temp"]}}
-        )
+        temps.append({"date": {date: data["days"][0]["temp"]}})
     return {"temps": temps}

@@ -1,8 +1,19 @@
-export const loadWeatherData = async () => {
-  // const response = await fetch("http://localhost:8001/api/weather/");
-  // const responseJson = await response.json();
-  // return responseJson;
-  return "weather data";
+import { createBrowserHistory } from "history";
+
+export const loadWeatherData = async (city, country) => {
+  const response = await fetch(
+    `http://localhost:8001/api/weather?city=${encodeURIComponent(
+      city
+    )}&country=${encodeURIComponent(country)}`
+  );
+
+  if (!response.ok) {
+    console.error(await response.json());
+    throw new Error(`Failed to get weather data -- HTTP ${response.status}`);
+  }
+
+  const responseJson = await response.json();
+  return responseJson;
 };
 
 export const loadFlightData = async () => {
