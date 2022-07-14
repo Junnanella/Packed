@@ -1,0 +1,3 @@
+import os
+
+CURRENCY_RATE_API_KEY= os.environ["CURRENCY_RATE_API_KEY"]

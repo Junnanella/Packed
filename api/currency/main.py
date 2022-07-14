@@ -1,5 +1,8 @@
 from fastapi import FastAPI, Depends
 import requests
+import os
+
+CURRENCY_RATE_API_KEY= os.environ["CURRENCY_RATE_API_KEY"]
 
 app = FastAPI()
 
@@ -7,14 +10,14 @@ url = "https://api.apilayer.com/exchangerates_data/convert?to=EUR&from=USD&amoun
 
 payload = {}
 headers= {
-  "apikey": "BzBwcOYZtoPuGSspEZkc5B6poXqOaS48"
+  "apikey": CURRENCY_RATE_API_KEY
 }
 
 def get_currency_rate(url): 
 
   payload = {}
   headers= {
-    "apikey": "BzBwcOYZtoPuGSspEZkc5B6poXqOaS48"
+    "apikey": CURRENCY_RATE_API_KEY
   }
 
   response = requests.request("GET", url, headers=headers, data = payload)

@@ -1,14 +1,15 @@
 from main import app
 from fastapi import FastAPI
 import requests
-import json
 from fastapi.testclient import TestClient
+import os
 
+CURRENCY_RATE_API_KEY= os.environ["CURRENCY_RATE_API_KEY"]
 client = TestClient(app)
 url = "https://api.apilayer.com/exchangerates_data/convert?to=EUR&from=USD&amount=1"
 payload = {}
 headers= {
-    "apikey": "BzBwcOYZtoPuGSspEZkc5B6poXqOaS48"
+    "apikey": CURRENCY_RATE_API_KEY
   }
 
 def test_get_currency_result():
