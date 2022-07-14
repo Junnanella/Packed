@@ -26,9 +26,10 @@ def test_get_currency():
     response = client.get("/api/convert")
     response.status_code == 200
     response = requests.request("GET", url, headers=headers, data = payload)
-    result = response.text
-    result_split = str(result).splitlines()[-2]
-    assert currency == float(result_split)
+    result = response.json()
+    result_split = result["result"]
+    assert (currency["result"]) == type(float(result_split))
+    
 
 
 
