@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./main_page.css";
 
 export const TripForm = (props) => {
   const [originCity, setOriginCity] = useState("");
