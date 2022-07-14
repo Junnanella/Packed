@@ -2,7 +2,8 @@
 
 - Currency Exchange API: https://apilayer.com/marketplace/exchangerates_data-api#documentation-tab
 - Flight API: Still looking for a free one 
-- Weather API: https://www.visualcrossing.com/resources/documentation/weather-api/timeline-weather-api/ 
+- Weather API: https://www.visualcrossing.com/resources/documentation/weather-api/timeline-weather-api/
+- Locations API: localhost:8004/api/locations
 
 * **Method**: `GET`
 * **Path**: /api/currency_exchange_rate
@@ -97,3 +98,28 @@ Output:
 ```
 
 Creating a new location will query a weather API to get historical weather data going back 12 months. It will return a monthly breakdown of the average temperature so that the user can determine the best time to travel. 
+
+
+* **Method**: `GET`
+* **Path**: /api/locations
+
+Output:
+
+```json
+{
+  "countries": [
+    {
+      "id": 1,
+      "currency_code": "EUR",
+      "country": "Germany",
+    },
+    {
+      "id": 2,
+      "currency_code": "USD",
+      "country": "United States of America",
+    },
+  ]
+}
+```
+
+The list of returned countries will be used to populate the country dropdown form in the GHI. When a user selects a country, the currency_code is sent to the currency api and the country is sent to the weather api

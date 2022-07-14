@@ -1,11 +1,26 @@
 import json
 from fastapi import FastAPI, Depends
 import requests
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import datetime
 import os
 
 app = FastAPI()
+
+origins = [
+    "http://localhost:3000",
+    os.environ.get("CORS_HOST", None)
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 
 WEATHER_API_KEY = os.environ["WEATHER_API_KEY"]
 base_url = "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/"
