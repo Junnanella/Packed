@@ -1,7 +1,10 @@
 from psycopg_pool import ConnectionPool
 import os
 
-pool = ConnectionPool(conninfo=os.environ["DATABASE_URL"])
+try:
+    pool = ConnectionPool(conninfo=os.environ["DATABASE_URL"])
+except KeyError:
+    pool = None
 
 class CurrencyQueries:
     def structure_countries(self, country:list):

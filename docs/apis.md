@@ -67,7 +67,7 @@ with the new database id.
 Creating a new flight date/flight location will query a flight API which will search all available flights to said destination. It will then return a list of all those flights and include their prices. 
 
 * **Method**: `GET`
-* **Path**: /api/weather/country name/city name (spaces are okay for multi-word names)
+* **Path**: /api/weather
 
 Input:
 
@@ -84,14 +84,12 @@ Output:
 {
   "temps": [
     {
-      "date": {
-        "today": 75.9
-      }
+      "date": "today",
+      "temperature": 75.9
     },
     {
-      "date": {
-        "2022-06-13": 71.3
-      }
+      "date": "2022-06-14",
+      "temperature": 75.9
     },
   ]
 }

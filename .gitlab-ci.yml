@@ -2,6 +2,7 @@ stages:
   - test
   # - build
 
+# TEST
 weather-unit-test-job:
   image: python:3-bullseye
   stage: test
@@ -10,15 +11,14 @@ weather-unit-test-job:
     - pip install -r requirements.txt
     - python -m pytest
 
-# build-front-end-job:
-#   stage: build
-#   image: node:lts-bullseye
-#   script:
-#     - cd ghi
-#     - npm install
-#     - npm run build
+locations-unit-test-job:
+  image: python:3-bullseye
+  stage: test
+  script:
+    - cd api/locations
+    - pip install -r requirements.txt
+    - python -m pytest
 
-# --------CURRENCY------------------------------------------
 currency-unit-test-job:
   image: python:3-bullseye
   stage: test
@@ -26,6 +26,7 @@ currency-unit-test-job:
     - cd api/currency
     - pip install -r requirements.txt
     # - python -m pytest, still working on one unit test
+
 # lint-test-job:
 #   image: python:3-bullseye
 #   stage: test
@@ -34,6 +35,7 @@ currency-unit-test-job:
 #     - flake8 api  # Run flake8 on Python project to check
 #                   # for code quality
 
+# BUILD
 # front-end-build-job:
 #   stage: build
 #   image: node:lts-bullseye
@@ -45,4 +47,3 @@ currency-unit-test-job:
 #     - npm install
 #     - npm run build  # Build the React application
 # --------CURRENCY------------------------------------------
-

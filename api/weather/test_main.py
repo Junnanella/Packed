@@ -45,14 +45,14 @@ def test_temp_list():
     app.dependency_overrides[WeatherQueries] = FakeWeatherQueries
     correct_info = {
         "temps": [
-            {"date": {"today": 5}},
-            {"date": {"2022-06-12": 5}},
-            {"date": {"2022-05-12": 5}},
+            {"date": "today", "temperature":  5},
+            {"date": "2022-06-12", "temperature": 5},
+            {"date": "2022-05-12", "temperature": 5},
         ]
     }
 
     # ACT
-    response = client.get("/api/weather/baden baden/germany")
+    response = client.get("/api/weather?country=berlin&city=germany")
 
 
     # ASSERT

@@ -1,6 +1,7 @@
 import json
 from fastapi import FastAPI, Depends
 import requests
+import random
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import datetime
@@ -54,7 +55,7 @@ class WeatherQueries:
         return data
 
 
-@app.get("/api/weather/", response_model=TempsOut)
+@app.get("/api/weather", response_model=TempsOut)
 def temp_list(city: str, country: str, query=Depends(WeatherQueries)):
     dates = ["today"]
     dates += query.get_date_list(datetime.date.today())
@@ -70,4 +71,26 @@ def temp_list(city: str, country: str, query=Depends(WeatherQueries)):
         #     {"temp": data["days"][0]["temp"]},
         # ]})
         temps.append({"date": date, "temperature": data["days"][0]["temp"]})
+    return {"temps": temps}
+
+@app.get("/api/weather/fake", response_model=TempsOut)
+def fake_temp_list(country: str, city: str):
+    random_temperatures = random.sample(range(15, 85), 12)
+    dates = [
+        "today",
+        "2022-06-12",
+        "2022-05-12",
+        "2022-04-12",
+        "2022-03-12",
+        "2022-02-12",
+        "2022-01-12",
+        "2021-12-12",
+        "2021-11-12",
+        "2021-10-12",
+        "2021-09-12",
+        "2021-08-12",
+    ]
+    temps = []
+    for index in range(12):
+        temps.append({"date": dates[index], "temperature": random_temperatures[index]})
     return {"temps": temps}
