@@ -1,5 +1,3 @@
-import { createBrowserHistory } from "history";
-
 export const loadWeatherData = async (city, country) => {
   const response = await fetch(
     `http://localhost:8001/api/weather?city=${encodeURIComponent(
@@ -13,7 +11,7 @@ export const loadWeatherData = async (city, country) => {
   }
 
   const responseJson = await response.json();
-  return responseJson;
+  return responseJson.temps;
 };
 
 export const loadFlightData = async () => {

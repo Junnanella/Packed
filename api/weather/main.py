@@ -25,7 +25,8 @@ rest_of_path = f"?unitGroup=us&elements=name%2Ctempmax%2Ctempmin%2Ctemp&include=
 
 
 class TempOut(BaseModel):
-    date: dict
+    date: str
+    temperature: float
 
 
 class TempsOut(BaseModel):
@@ -68,5 +69,5 @@ def temp_list(city: str, country: str, query=Depends(WeatherQueries)):
         #     {"temp_min": data["days"][0]["tempmin"]},
         #     {"temp": data["days"][0]["temp"]},
         # ]})
-        temps.append({"date": {date: data["days"][0]["temp"]}})
+        temps.append({"date": date, "temperature": data["days"][0]["temp"]})
     return {"temps": temps}
