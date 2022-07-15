@@ -32,7 +32,8 @@ def get_currency_rate(url):
 
     result = response.text
     result_split = str(result).splitlines()[-2]
-    return result_split
+    rate = result_split[12:-1]
+    return rate
 
 
 @app.get("/api/convert")

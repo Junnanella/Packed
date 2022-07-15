@@ -11,9 +11,20 @@ const useCurrencyData = () => {
     }
     fetchData();
   }, []);
+
+  return currencyRate;
 };
 
 export default function CurrencyInfo() {
   const currencyRate = useCurrencyData();
-  return "Hi, I'm Currency Info!!";
+  const [originCode, setOriginCode] = useState("EUR");
+  const [destinationCode, setDestinationCode] = useState("USD");
+
+  return (
+    <div className="offset-3 col-6">
+      <h1>
+        1 {originCode} = {currencyRate} {destinationCode}
+      </h1>
+    </div>
+  );
 }

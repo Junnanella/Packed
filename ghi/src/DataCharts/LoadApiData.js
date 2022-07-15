@@ -7,7 +7,7 @@ export const loadWeatherData = async (city, country) => {
 
   return temps;
 
-  // use below to connect with actual api
+  // use below to connect with actual api. Working!
   // const response = await fetch(
   //   `http://localhost:8001/api/weather?city=${encodeURIComponent(
   //     city
@@ -43,6 +43,9 @@ export const loadFlightData = async (
 };
 
 export const loadCurrencyData = async (origin_country, destination_country) => {
+  // return '    "result": 1.472104';
+  // return '    '1.472104';
+  // use the below to connect to actual api. Working!
   const response = await fetch(
     `http://localhost:8003/api/convert?origin_country=${encodeURIComponent(
       origin_country
@@ -55,6 +58,8 @@ export const loadCurrencyData = async (origin_country, destination_country) => {
   }
 
   const responseJson = await response.json();
-  console.log(responseJson);
+
+  // // console.log(typeof responseJson); string
+  // // console.log(responseJson); "result": 0.99245
   return responseJson;
 };
