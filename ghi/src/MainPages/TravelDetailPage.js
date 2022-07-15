@@ -1,6 +1,6 @@
 // import { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
-import Chart from "../AfterSubmit/WeatherChart";
+import Chart from "../DataCharts/WeatherChart";
 
 export default function TravelDetailPage() {
   const [searchParams] = useSearchParams();
