@@ -27,7 +27,7 @@ const useWeatherData = () => {
   return weather;
 };
 
-export default function Chart() {
+export default function WeatherChart() {
   const weather = useWeatherData();
 
   const date_list = weather.map(({ date }) => date);
@@ -42,18 +42,12 @@ export default function Chart() {
         borderColor: "rgb(194, 116, 161)",
         data: temp_list,
       },
-      //   {
-      //     label: "Flight Costs",
-      //     backgroundColor: "rgba(71, 225, 167, 0.5)",
-      //     borderColor: "rgb(71, 225, 167)",
-      //     data: [165, 259, 290, 181, 256, 255, 340, 290, 175, 180, 77, 167],
-      //   },
     ],
   };
 
   return (
     <div className="offset-3 col-6">
-      <h3 className="mt-5">Sample chart</h3>
+      <h3 className="mt-5">Weather Chart</h3>
       <Line data={data} options={{ responsive: true }} />
     </div>
   );
