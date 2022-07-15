@@ -55,9 +55,8 @@ services:
       - "8003:8000"
     volumes:
       - ./api/currency:/app
-    some-service:
-      environment:
-        CURRENCY_RATE_API_KEY: ${CURRENCY_RATE_API_KEY}
+    environment:
+      CURRENCY_RATE_API_KEY: ${CURRENCY_RATE_API_KEY}
   packing-lists:
     build:
         context: ./packing-lists
