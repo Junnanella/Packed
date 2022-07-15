@@ -43,8 +43,18 @@ export const loadFlightData = async (
 };
 
 export const loadCurrencyData = async (origin_country, destination_country) => {
-  return { result: 78.09 };
-  // const response = await fetch("http://localhost:8003/api/currency");
-  // const responseJson = await response.json();
-  // return responseJson;
+  const response = await fetch(
+    `http://localhost:8003/api/convert?origin_country=${encodeURIComponent(
+      origin_country
+    )}&destination_country=${encodeURIComponent(destination_country)}`
+  );
+
+  if (!response.ok) {
+    console.error(await response.json());
+    throw new Error(`Failed to get currency data -- HTTP ${response.status}`);
+  }
+
+  const responseJson = await response.json();
+  console.log(responseJson);
+  return responseJson;
 };
