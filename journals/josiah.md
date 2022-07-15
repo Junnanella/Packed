@@ -27,4 +27,18 @@ Today, I worked on:
 * Building a fourth FastAPI microservice called locations to be used by the front end form.
 * Implementing basic Continuous Integration testing on the weather and locations APIs to run unittests.
 
+The group and I talked about building unit tests for our APIs.
+
 Working with PostgreSQL and Psycopg was a bit of a challenge today. I had an interesting issue where I tried to make a query looking for a specific row from the locations table using a WHERE clause as follows: """...WHERE country LIKE '%%s%';""", (country_variable). I was unable to escape the like clause to inject the value from country_variable. I found another way to make it work and was really happy about it until I realized that the query I was making was not the information I needed in the first place. At least I learned a lot from the docs for PostgreSQL and Psycopg. Next time, I will also plan ahead more.
+
+## July 14, 2022
+
+Today, I worked on:
+* Structuring packing list models in exaclidraw
+* Updating unit tests for locations and weather
+* Creating fake weather api endpoint to save weather tokens while in development
+* Researching oauth for react
+
+The group and I discussed modifying the ghi structure so that when a user submits the form, they are presented with the graphs AND can build the packing list on the same page. We also discussed CI/CD variables stored in Gitlab to allow for CI testing.
+
+Today was a tricky because there are two large challenges that lie ahead. Building the Django microservice for packing lists AND implementing oauth. The tricky thing is that I do not know in what sequence to do it. Also, authentication is still a big mystery to me and learning about it is daunting. I looked into a promise based feature for React called Axios that can integrate authentication, but have not learned more yet. After thinking it over, I will likely take the next few days to dive into authentication while the rest of the team work on the front end and Django project.
