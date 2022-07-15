@@ -78,6 +78,16 @@ WSGI_APPLICATION = 'packed.wsgi.application'
 DATABASES = {}
 DATABASES["default"] = dj_database_url.config()
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'postgres-data',
+#         'USER': 'packed',
+#         'PASSWORD': 'password',
+#         'HOST': '127.0.0.0',
+#         'PORT': '5432',
+#     }
+# }
 
 
 # Password validation
