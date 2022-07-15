@@ -36,15 +36,15 @@ export const loadFlightData = async (
   ];
 
   return flights;
+  // use and update the below to connect with actual api
   // const response = await fetch("http://localhost:8002/api/flights");
   // const responseJson = await response.json();
   // return responseJson.flights;
 };
 
-export const loadCurrencyData = async () => {
-  return 78.6;
+export const loadCurrencyData = async (origin_country, destination_country) => {
+  return { result: 78.09 };
   // const response = await fetch("http://localhost:8003/api/currency");
   // const responseJson = await response.json();
   // return responseJson;
-  return "currency data";
 };

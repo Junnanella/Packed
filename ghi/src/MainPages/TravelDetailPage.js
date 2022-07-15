@@ -2,6 +2,7 @@
 import { useSearchParams } from "react-router-dom";
 import WeatherChart from "../DataCharts/WeatherChart";
 import FlightChart from "../DataCharts/FlightChart";
+import CurrencyInfo from "../DataCharts/CurrencyInfo";
 
 export default function TravelDetailPage() {
   const [searchParams] = useSearchParams();
@@ -15,6 +16,7 @@ export default function TravelDetailPage() {
     <div>
       <WeatherChart />
       <FlightChart />
+      <CurrencyInfo />
     </div>
   );
 }
