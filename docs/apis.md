@@ -6,14 +6,14 @@
 - Locations API: localhost:8004/api/locations
 
 * **Method**: `GET`
-* **Path**: /api/currency_exchange_rate
+* **Path**: /api/convert
 
 Input:
 
-```json
+```json 
 {
-  "date": string,  
-  "country": string,
+  "origin_country": string,  
+  "destination_country": string,
 }
 ```
 
@@ -22,12 +22,12 @@ Output:
 ```json
 {
   "id": int,
-  "current_exchange_rate": int,
+  "result": float,
 }
 ```
 
-Creating a new country/date will query a currency exchange rate API
-and will return the current days exchange rate from USD to the created country's currency
+Creating a new origin country/ destination country will query a currency exchange rate API
+and will return the current days exchange rate from USD(example origin country) to the created destinations country's currency. The amount to convert will be hardcoded as 1 so currency rate will only be returned for 1 USD (example origin country)
 
 
 * **Method**: `GET`
