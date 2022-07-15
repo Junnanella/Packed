@@ -1,3 +1,7 @@
+# July 14 
+Today I was able to fix my second unit test that kept failing, turns out I just needed to update the assertion to compare the type of the output and compare that rather than just the output itself. Makes sense because the goal of my unit test was to only 
+test the type of value returned from the API call not the call itself since currency is constantly changing I can't hard code an amount. I also updated my apis.md file to keep it updated with what the API is returning for Junella who is working on the front end. Later today and tomorrow I'll begin working on the packing lists service. 
+
 # July 13 
 Today I was able to get my API function running to return only the "result" data from the API call with the help of my team. I didn't realize before that I already had the return value that I wanted but I just didn't know how to turn it into a callable function. 
 
