@@ -2,6 +2,15 @@
 
 Today, I worked on:
 
+- Getting a dynamic chart to render on the browser that includes data fetched from the weather API.
+- Redesigning page that user gets sent to after submitting trip form.
+
+Once again, the chart implementation was a challenge. For a while I could not get fetched data to render on the chart. It would only work with hard coded data. But based on examples in docs, it seemed like it SHOULD work. After giving my brain some time to rest, I realized that I was using the useState hook for the data that I was rendering on the chart, but never reset it. So the initial state were blank lists, then once the fetching was complete, the data was not reset, so it never rendered. The solution was just to remove the useState hook for the data. This works because I'm already keeping track of state that get plugged into that data variable earlier in the code. In short, the lesson is not to blindly mimic what you see in docs, really try to take it line by line and understand what's happening and in what order.
+
+## July 13, 2022
+
+Today, I worked on:
+
 - Researching how to implement a data chart with bootstrap & react. We plan to use this for displaying 12 months of average temperatures and average flight costs.
 - Getting a mock line chart to render on the browser.
 

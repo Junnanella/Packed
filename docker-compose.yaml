@@ -56,7 +56,7 @@ services:
     volumes:
       - ./api/currency:/app
     environment:
-        CURRENCY_RATE_API_KEY: ${CURRENCY_RATE_API_KEY}
+      CURRENCY_RATE_API_KEY: ${CURRENCY_RATE_API_KEY}
   packing-lists:
     build:
         context: ./packing-lists
