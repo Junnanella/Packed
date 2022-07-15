@@ -9,7 +9,7 @@ import {
   CategoryScale,
   //   Title,
 } from "chart.js";
-import { loadWeatherData } from "./MainApi";
+import { loadWeatherData } from "./LoadApiData";
 
 ChartJS.register(LineElement, PointElement, LinearScale, CategoryScale);
 

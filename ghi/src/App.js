@@ -1,8 +1,8 @@
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import MainPage from "./Components/MainPage";
-import Nav from "./Components/Nav";
-import TravelDetailPage from "./Components/TravelDetailPage";
+import MainPage from "./MainPages/MainPage";
+import Nav from "./MainPages/Nav";
+import TravelDetailPage from "./MainPages/TravelDetailPage";
 
 export default function App() {
   return (
