@@ -1,0 +1,79 @@
+OPTION 1:
+{
+    items: {
+        category1: [
+            {
+                name: t-shirt,
+                id: 1,
+            },
+            {
+                name: sunglasses,
+                id: 2,
+            }
+            {
+                name: hat,
+                id: 3,
+            },
+        ],
+        electronics: [
+            {
+                name: phone charger,
+                id: 7,
+            },
+            {
+                name: external battery,
+                id: 8,
+            }
+        ],
+        essentials: [
+            {
+                name: passport,
+                id: 7,
+            },
+            {
+                name: international-sim,
+                id: 8,
+            }
+        ],
+    }
+}
+
+
+
+OPTION 2:
+{
+    items: [
+        {
+            name: t-shirt,
+            id: 1,
+            category: {
+                id: 1,
+                name: clothing,
+            }
+        },
+        {
+            name: phone charger,
+            id: 7,
+            category: {
+                id: 1,
+                name: clothing,
+            }
+        },
+        {
+            name: t-shirt,
+            id: 1,
+            category: {
+                id: 2,
+                name: electronics,
+            }
+        },
+        {
+            name: passport,
+            id: 1,
+            category: {
+                id: 3,
+                name: essentials,
+            }
+        },
+    ]
+}

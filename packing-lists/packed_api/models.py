@@ -51,7 +51,7 @@ class Item(models.Model):
     # related_name = "users_packing_list_items", 
     # on_delete - models.CASCADE
     # )
-    user_item = models.PositiveIntegerField(null=True)
+    user_item = models.PositiveIntegerField(null=True, blank=True)
 
     def __str__(self):
         return self.name

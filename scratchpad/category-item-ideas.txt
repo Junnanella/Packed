@@ -1,0 +1,23 @@
+--------
+CONDITIONS:
+- hot
+- moderate
+- cold
+- any
+- international
+--------
+
+CATEGORY: clothing:
+- winter hat (cold)
+- coat (cold)
+- sunglasses (hot)
+
+CATEGORY: electronics:
+- phone charger
+- external battery
+
+CATEGORY: essentials:
+- passport (international)
+- eSIM for that country (not packable but an important thing)
+
+Remember to check if the country you are traveling to needs a VISA.
