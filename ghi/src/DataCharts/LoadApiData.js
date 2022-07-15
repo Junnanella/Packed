@@ -44,22 +44,22 @@ export const loadFlightData = async (
 
 export const loadCurrencyData = async (origin_country, destination_country) => {
   // return '    "result": 1.472104';
-  // return '    '1.472104';
+  return "1.472104";
   // use the below to connect to actual api. Working!
-  const response = await fetch(
-    `http://localhost:8003/api/convert?origin_country=${encodeURIComponent(
-      origin_country
-    )}&destination_country=${encodeURIComponent(destination_country)}`
-  );
+  // const response = await fetch(
+  //   `http://localhost:8003/api/convert?origin_country=${encodeURIComponent(
+  //     origin_country
+  //   )}&destination_country=${encodeURIComponent(destination_country)}`
+  // );
 
-  if (!response.ok) {
-    console.error(await response.json());
-    throw new Error(`Failed to get currency data -- HTTP ${response.status}`);
-  }
+  // if (!response.ok) {
+  //   console.error(await response.json());
+  //   throw new Error(`Failed to get currency data -- HTTP ${response.status}`);
+  // }
 
-  const responseJson = await response.json();
+  // const responseJson = await response.json();
 
-  // // console.log(typeof responseJson); string
-  // // console.log(responseJson); "result": 0.99245
-  return responseJson;
+  // // // console.log(typeof responseJson); string
+  // // // console.log(responseJson); "result": 0.99245
+  // return responseJson;
 };
