@@ -5,6 +5,7 @@ from fastapi.testclient import TestClient
 import os
 
 CURRENCY_RATE_API_KEY= os.environ["CURRENCY_RATE_API_KEY"]
+
 client = TestClient(app)
 url = "https://api.apilayer.com/exchangerates_data/convert?to=EUR&from=USD&amount=1"
 payload = {}
