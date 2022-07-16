@@ -34,7 +34,6 @@ def currency_exchange_rate(origin_country, destination_country):
 
 
 # API call output 
-
 # {
 #     "success": true,
 #     "query": {

@@ -1,3 +1,7 @@
+# July 15
+Today I fixed the CI/CD issue that was causing my tests to fail when I pushed my code to the repo. I also completed the packed-lists models and admin.py files. I need to work on doing the views which I know I will struggle with. I think I have the encoders done but I will continue researching this weekend to prep for the upcoming week and come ready with questions.  
+
+
 # July 14 
 Today I was able to fix my second unit test that kept failing, turns out I just needed to update the assertion to compare the type of the output and compare that rather than just the output itself. Makes sense because the goal of my unit test was to only 
 test the type of value returned from the API call not the call itself since currency is constantly changing I can't hard code an amount. I also updated my apis.md file to keep it updated with what the API is returning for Junella who is working on the front end. Later today and tomorrow I'll begin working on the packing lists service. 
