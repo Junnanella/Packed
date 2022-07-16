@@ -15,6 +15,7 @@ CATEGORY: clothing:
 CATEGORY: electronics:
 - phone charger
 - external battery
+- power adapter for that country
 
 CATEGORY: essentials:
 - passport (international)
