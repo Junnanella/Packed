@@ -1,4 +1,15 @@
-## July 13, 2022
+## July 15, 2022
+
+Today, I worked on:
+
+- Connecting to the currency api from the frontend and rendering the data as designed.
+- Getting a mock flight data chart to render on the frontend.
+- Reorganizing frontend component files and creating new ones for components that still need to be built out.
+- Updating ghi docs with current design for the travel data outputs, that is now in combination with the create a packing list components.
+
+I also pair programmed with a teammate to retructure the response that the frontend receives from the currency api. It was initially returning a string that included what could be thought of as a key value. After some trial and error, we decided to take a substring of that output, staring after ":" and goes all the way to the end of the string. So the final result looks like we are just receiving the value.
+
+## July 14, 2022
 
 Today, I worked on:
 
