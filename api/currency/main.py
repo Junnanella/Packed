@@ -1,39 +1,54 @@
 from fastapi import FastAPI, Depends
 import requests
 import os
+from fastapi.middleware.cors import CORSMiddleware
 
-CURRENCY_RATE_API_KEY= os.environ["CURRENCY_RATE_API_KEY"]
+CURRENCY_RATE_API_KEY = os.environ["CURRENCY_RATE_API_KEY"]
 
 app = FastAPI()
+
+origins = ["http://localhost:3000", os.environ.get("CORS_HOST", None)]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["GET"],
+    allow_headers=["*"],
+)
 
 url = "https://api.apilayer.com/exchangerates_data/convert?to=EUR&from=USD&amount=1"
 
 payload = {}
-headers= {
-  "apikey": CURRENCY_RATE_API_KEY
-}
+headers = {"apikey": CURRENCY_RATE_API_KEY}
 
-def get_currency_rate(url): 
 
-  payload = {}
-  headers= {
-    "apikey": CURRENCY_RATE_API_KEY
-  }
+def get_currency_rate(url):
 
-  response = requests.request("GET", url, headers=headers, data = payload)
+    payload = {}
+    headers = {"apikey": CURRENCY_RATE_API_KEY}
 
-  result = response.text
-  result_split = str(result).splitlines()[-2]
-  return result_split
+    response = requests.request("GET", url, headers=headers, data=payload)
+
+    result = response.text
+    result_split = str(result).splitlines()[-2]
+    rate = result_split[12:-1]
+    return rate
+
 
 @app.get("/api/convert")
 def currency_exchange_rate(origin_country, destination_country):
     url = f"https://api.apilayer.com/exchangerates_data/convert?to={origin_country}&from={destination_country}&amount=1"
-    currency_rate = get_currency_rate(url)  
+    currency_rate = get_currency_rate(url)
     return currency_rate
 
 
+<<<<<<< HEAD
 # API call output 
+=======
+# API call output
+
+>>>>>>> 40bb636334e566fe0a0b622eec3d7d6a98253932
 # {
 #     "success": true,
 #     "query": {
