@@ -52,7 +52,8 @@ class ItemEncoder(ModelEncoder):
         "user_item"
     ]
     encoders = {
-        "category_name" : CategoryEncoder()
+        "category" : CategoryEncoder(),
+        "condition": ConditionEncoder(),
     }
 
 class PackingListItemEncoder(ModelEncoder):
@@ -79,7 +80,7 @@ def api_categories(request):
             {'categories' : categories},
             encoder= CategoryEncoder,
         )
-    
+
     else: 
         try:
             content = json.loads(request.body)
@@ -93,4 +94,46 @@ def api_categories(request):
             return JsonResponse(
             {'message' : "Unsuccessful POST"},
             status = 400)
-            
+
+@require_http_methods(["GET"])
+def api_conditional_items(request, condition):
+    if request.method =="GET":
+        conditional_items = []
+        if condition != "any":
+            condition = Condition.objects.get(item_condition=condition)
+            conditional_items = Item.objects.filter(condition=condition)
+        any_condition = Condition.objects.get(item_condition="any")
+        general_items = Item.objects.filter(condition=any_condition)
+        return JsonResponse(
+            {"items": [{"conditional_items": conditional_items}, {"general_items": general_items}]},
+            encoder=ItemEncoder,
+            safe=False,
+        )
+
+@require_http_methods(["GET", "POST"])
+def api_list_items(request):
+    if request.method == "GET":
+        items = Item.objects.all()
+        return JsonResponse(
+            {"items": items},
+            encoder=ItemEncoder
+        )
+    else:
+        content = json.loads(request.body)
+        try:
+            if "condition" in content:
+                condition = Condition.objects.get(item_condition=content["condition"])
+                content["condition"] = condition
+            if "category" in content:
+                category = Category.objects.get(category_name=content["category"])
+                content["category"] = category
+            item = Item.objects.create(**content)
+            return JsonResponse(
+                item,
+                encoder=ItemEncoder,
+                safe=False
+            )   
+        except IntegrityError: 
+            return JsonResponse(
+            {'message' : "Unsuccessful POST"},
+            status = 400)

@@ -45,7 +45,7 @@ class Item(models.Model):
         on_delete= models.CASCADE
     )
     suggested = models.BooleanField()
-    condition = models.ManyToManyField(Condition)
+    condition = models.ForeignKey("Condition", related_name="items", on_delete=models.CASCADE)
     # users_item = models.ForeignKey(             
     # User, 
     # related_name = "users_packing_list_items", 
