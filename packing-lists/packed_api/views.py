@@ -1,9 +1,18 @@
 from black import Mode
 # from django.shortcuts import render
 from common.json import ModelEncoder
-from .models import PackingList, Category, Condition, Item, PackingListItem
+from .models import PackingList, Category, Condition, Item, PackingListItem 
 
 # Create your views here.
+# class User(ModelEncoder):
+#     model = User
+#     properties = [
+#         "id",
+#         "username",
+#         "email",
+#         "password"
+#     ]
+
 class PackingListEncoder(ModelEncoder):
     model = PackingList
     properties = [

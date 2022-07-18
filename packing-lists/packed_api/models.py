@@ -23,7 +23,7 @@ class PackingList(models.Model):
     location = models.CharField(max_length=100)
     
     def __str__(self):
-        return self.name
+        return self.packing_list_name
 
 class Category(models.Model):
     category_name = models.CharField(max_length=20, unique=True)
@@ -54,7 +54,7 @@ class Item(models.Model):
     user_item = models.PositiveIntegerField(null=True, blank=True)
 
     def __str__(self):
-        return self.name
+        return self.item_name
 
 class PackingListItem(models.Model): 
     item = models.ForeignKey(
