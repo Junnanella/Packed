@@ -8,7 +8,7 @@ class PackingListEncoder(ModelEncoder):
     model = PackingList
     properties = [
         "id",
-        "name",
+        "packing_list_name",
         "created",
         "travel_date",
         "completed",
@@ -18,31 +18,42 @@ class PackingListEncoder(ModelEncoder):
 class CategoryEncoder(ModelEncoder):
     model = Category
     properties = [
+        "id",
         "category_name"
     ]
 
 class ConditionEncoder(ModelEncoder):
     model = Condition
     properties = [
+        "id",
         "item_condition"
     ]
 
 class ItemEncoder(ModelEncoder):
     model = Item
     properties = [
-        "name",
+        "id",
+        "item_name",
         "category",
         "suggested",
         "condition",
         "user_item"
     ]
+    encoders = {
+        "category_name" : CategoryEncoder()
+    }
 
 class PackingListItemEncoder(ModelEncoder):
     model = PackingListItem
     properties = [
+        "id",
         "item",
         "owner",
         "quantity",
         "packed",
         "packing_list",
     ]
+    encoders = {
+        "item_name" : ItemEncoder(),
+        "packing_list_name" : PackingListEncoder()
+    }
