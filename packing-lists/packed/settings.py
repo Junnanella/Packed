@@ -26,12 +26,6 @@ SECRET_KEY = 'django-insecure-lddlk0ug77=wykgil(3b*j9dv15v*azd$23vs#cv=7aa#s5pah
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-# ALLOWED_HOSTS = ["localhost"]
-
-# # CORS_ALLOWED_ORIGINS = ["http://localhost:8000"]
-# CORS_ALLOW_CREDENTIALS = True
-# Application definition
-
 INSTALLED_APPS = [
     "corsheaders",
     'packed_api.apps.PackedApiConfig',
@@ -48,21 +42,25 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ALLOWED_HOSTS = ["localhost"]
+ALLOWED_HOSTS = ["localhost", "packing-lists"]
 
-# CORS_ALLOWED_ORIGINS = ["http://localhost:8000"]
-CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000"
+]
 
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:3000",
-    "http://localhost:8000",
 ]
+
+CORS_ALLOW_CREDENTIALS = True
+
+DJWTO_MODE = "TWO-COOKIES"
+DJWTO_ACCESS_TOKEN_LIFETIME = None
 
 ROOT_URLCONF = 'packed.urls'
 
@@ -90,17 +88,6 @@ WSGI_APPLICATION = 'packed.wsgi.application'
 
 DATABASES = {}
 DATABASES["default"] = dj_database_url.config()
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'postgres-data',
-#         'USER': 'packed',
-#         'PASSWORD': 'password',
-#         'HOST': '127.0.0.0',
-#         'PORT': '5432',
-#     }
-# }
 
 
 # Password validation
