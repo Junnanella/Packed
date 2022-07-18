@@ -63,3 +63,4 @@ def fake_currency_exchange_rate(origin_country, destination_country):
 #     "date": "2022-07-11",
 #     "result": 0.997805
 # }
+
