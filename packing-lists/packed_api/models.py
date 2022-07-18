@@ -11,7 +11,7 @@ from django.db import models
     #     return self.username
 
 class PackingList(models.Model):
-    name = models.CharField(max_length=100)
+    packing_list_name = models.CharField(max_length=100)
     # owner = models.ForeignKey(
     # User,
     # related_name = "packing_list",
@@ -38,7 +38,7 @@ class Condition(models.Model):
         return self.item_condition
 
 class Item(models.Model):                                   
-    name = models.CharField(max_length=100)
+    item_name = models.CharField(max_length=100)
     category = models.ForeignKey(
         Category, 
         related_name= "items", 

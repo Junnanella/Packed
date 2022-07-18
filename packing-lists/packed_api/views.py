@@ -36,6 +36,9 @@ class ItemEncoder(ModelEncoder):
         "condition",
         "user_item"
     ]
+    encoders = {
+        "category_name" : CategoryEncoder()
+    }
 
 class PackingListItemEncoder(ModelEncoder):
     model = PackingListItem
@@ -46,3 +49,8 @@ class PackingListItemEncoder(ModelEncoder):
         "packed",
         "packing_list",
     ]
+    encoders = {
+        "item_name" : ItemEncoder(),
+        "packing_list_name" : PackingListEncoder()
+    }
+    
