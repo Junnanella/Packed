@@ -72,6 +72,7 @@ class PackingListItemEncoder(ModelEncoder):
     }
 
 
+# Categories -------
 @require_http_methods(["GET", "POST"])
 def api_categories(request):
     if request.method == "GET":
@@ -94,53 +95,17 @@ def api_categories(request):
             return JsonResponse(
             {'message' : "Unsuccessful POST"},
             status = 400)
+    
+@require_http_methods(["PUT", "DELETE"])
+def api_category(request, pk):
+    pass
 
-@require_http_methods(["GET", "PUT", "DELETE"])
-def api_conditional_items(request, condition):
-    if request.method =="GET":
-        conditional_items = []
-        if condition != "any":
-            condition = Condition.objects.get(item_condition=condition)
-            conditional_items = Item.objects.filter(condition=condition)
-        any_condition = Condition.objects.get(item_condition="any")
-        general_items = Item.objects.filter(condition=any_condition)
-        return JsonResponse(
-            {"items": [{"conditional_items": conditional_items}, {"general_items": general_items}]},
-            encoder=ItemEncoder,
-            safe=False,
-        )
-    # ****
-    elif request.method == "DELETE":
-        try:
-            conditional_item = Condition.objects.get(item_condition=condition)
-            conditional_item.delete()
-            return JsonResponse(
-                {"message": "Delete was successful"}
-            )
-        except Condition.DoesNotExist:
-            return JsonResponse(
-                {'message': "Does not exist"},
-                status=400,
-            )
-    else: 
-        try:
-            content = json.loads(request.body)
-            Condition.objects.filter(conditional_items).update(**content)
-            conditional_item = Condition.objects.get(item_condition=conditional_item)
-            return JsonResponse(
-                conditional_item,
-                encoder=ConditionEncoder,
-                safe=False
-            )
-        except Condition.DoesNotExist:
-            return JsonResponse(
-                {'message': 'Does not exist'},
-                status = 400,
-            )
-    # ****
-            
+# END Categories ----
+
+
+# Items ----
 @require_http_methods(["GET", "POST"])
-def api_list_items(request):
+def api_items(request):
     if request.method == "GET":
         items = Item.objects.all()
         return JsonResponse(
@@ -167,6 +132,69 @@ def api_list_items(request):
             {'message' : "Unsuccessful POST"},
             status = 400)
 
+
+@require_http_methods(["GET"])
+def api_conditional_items(request, condition):
+    if request.method =="GET":
+        conditional_items = []
+        if condition != "any":
+            condition = Condition.objects.get(item_condition=condition)
+            conditional_items = Item.objects.filter(condition=condition)
+        any_condition = Condition.objects.get(item_condition="any")
+        general_items = Item.objects.filter(condition=any_condition)
+        return JsonResponse(
+            {"items": [{"conditional_items": conditional_items}, {"general_items": general_items}]},
+            encoder=ItemEncoder,
+            safe=False,
+        )
+
+
+@require_http_methods(["PUT", "DELETE"])
+def api_item(request, pk):
+    if request.method == "DELETE":
+        try:
+            conditional_item = Condition.objects.get(item_condition=condition)
+            conditional_item.delete()
+            return JsonResponse(
+                {"message": "Delete was successful"}
+            )
+        except Condition.DoesNotExist:
+            return JsonResponse(
+                {'message': "Does not exist"},
+                status=400,
+            )
+    else: 
+        try:
+            content = json.loads(request.body)
+            Condition.objects.filter(conditional_items).update(**content)
+            conditional_item = Condition.objects.get(item_condition=conditional_item)
+            return JsonResponse(
+                conditional_item,
+                encoder=ConditionEncoder,
+                safe=False
+            )
+        except Condition.DoesNotExist:
+            return JsonResponse(
+                {'message': 'Does not exist'},
+                status = 400,
+            )
+        
+# END Items ----
+
+
+# Conditions -----
+@require_http_methods(["GET", 'POST'])
+def api_conditions(request):
+    if request.method =="GET":
+        all_conditions = Condition.objects.all()
+        return JsonResponse(
+            {"all conditions": all_conditions},
+            encoder= ConditionEncoder,
+        )
+    else: #post goes here
+        pass
+
+
 @require_http_methods(["DELETE", "PUT"])
 def api_condition(request, pk):
     if request.method == "DELETE":
@@ -180,7 +208,8 @@ def api_condition(request, pk):
                 {'message': "Does not exist"},
                 status=400,
             )
-    # else: 
+    else: # PUT goes here
+        pass
     #     try:
     #         content = json.loads(request.body)
     #         Condition.objects.filter(id=pk).update(**content)
@@ -196,14 +225,10 @@ def api_condition(request, pk):
     #             status = 400,
     #         )
 
-@require_http_methods(["GET"])
-def api_get_all_conditions(request):
-    if request.method =="GET":
-        all_conditions = Condition.objects.all()
-        return JsonResponse(
-            {"all conditions": all_conditions},
-            encoder= ConditionEncoder,
-        )
+# END Conditions -----
+
+# Packing Lists -----
+
 # @require_http_methods(["GET", "POST"])
 # def api_packing_lists(request, user_id):
 #     if request.method == "GET":
@@ -216,3 +241,5 @@ def api_get_all_conditions(request):
 #         )
 #     else:
 #         pass
+
+# END Packing Lists ----
