@@ -13,22 +13,26 @@ import { loadWeatherData } from "./LoadApiData";
 
 ChartJS.register(LineElement, PointElement, LinearScale, CategoryScale);
 
-const useWeatherData = () => {
+const useWeatherData = (destination_city, destination_country) => {
   const [weather, setWeather] = useState([]);
 
   useEffect(() => {
     async function fetchData() {
-      const weather_response = await loadWeatherData("Seoul", "South Korea");
+      const weather_response = await loadWeatherData(
+        destination_city,
+        destination_country
+      );
       setWeather(weather_response);
     }
     fetchData();
-  }, []);
+  }, [destination_city, destination_country]);
 
   return weather;
 };
 
-export default function WeatherChart() {
-  const weather = useWeatherData();
+export default function WeatherChart(props) {
+  const { destination_city, destination_country } = props;
+  const weather = useWeatherData(destination_city, destination_country);
 
   const date_list = weather.map(({ date }) => date);
   const temp_list = weather.map(({ temperature }) => temperature);

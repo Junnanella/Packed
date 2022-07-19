@@ -1,26 +1,26 @@
 export const loadWeatherData = async (city, country) => {
-  const temps = [
-    { date: "today", temperature: 78 },
-    { date: "2022-06-14", temperature: 71.3 },
-    { date: "2022-05-14", temperature: 60.6 },
-  ];
+  // const temps = [
+  //   { date: "today", temperature: 78 },
+  //   { date: "2022-06-14", temperature: 71.3 },
+  //   { date: "2022-05-14", temperature: 60.6 },
+  // ];
 
-  return temps;
+  // return temps;
 
   // use below to connect with actual api. Working!
-  // const response = await fetch(
-  //   `http://localhost:8001/api/weather?city=${encodeURIComponent(
-  //     city
-  //   )}&country=${encodeURIComponent(country)}`
-  // );
+  const response = await fetch(
+    `http://localhost:8001/api/weather?city=${encodeURIComponent(
+      city
+    )}&country=${encodeURIComponent(country)}`
+  );
 
-  // if (!response.ok) {
-  //   console.error(await response.json());
-  //   throw new Error(`Failed to get weather data -- HTTP ${response.status}`);
-  // }
+  if (!response.ok) {
+    console.error(await response.json());
+    throw new Error(`Failed to get weather data -- HTTP ${response.status}`);
+  }
 
-  // const responseJson = await response.json();
-  // return responseJson.temps;
+  const responseJson = await response.json();
+  return responseJson.temps;
 };
 
 export const loadFlightData = async (
