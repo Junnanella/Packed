@@ -1,15 +1,7 @@
 export const loadWeatherData = async (city, country) => {
-  // const temps = [
-  //   { date: "today", temperature: 78 },
-  //   { date: "2022-06-14", temperature: 71.3 },
-  //   { date: "2022-05-14", temperature: 60.6 },
-  // ];
-
-  // return temps;
-
-  // use below to connect with actual api. Working!
+  // REMOVE "fake" from url before deploying!!
   const response = await fetch(
-    `http://localhost:8001/api/weather?city=${encodeURIComponent(
+    `http://localhost:8001/api/weather/fake?city=${encodeURIComponent(
       city
     )}&country=${encodeURIComponent(country)}`
   );
