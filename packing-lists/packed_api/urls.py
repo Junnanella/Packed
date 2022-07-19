@@ -5,7 +5,8 @@ from .views import (
     api_conditional_items,
     api_items,
     api_condition,
-    api_conditions
+    api_conditions,
+    api_item
 )
 
 urlpatterns = [
@@ -14,4 +15,5 @@ urlpatterns = [
     path("items/<str:condition>", api_conditional_items, name="api_conditional_items"),    
     path("conditions/<int:pk>/", api_condition, name="api_condition"),
     path("conditions", api_conditions, name="api_conditions"), 
+    path("item/<int:pk>/", api_item, name="api_item"),
 ]

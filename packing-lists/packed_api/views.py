@@ -49,11 +49,11 @@ class ItemEncoder(ModelEncoder):
         "category",
         "suggested",
         "condition",
-        "user_item"
+        "user_item",
     ]
     encoders = {
         "category" : CategoryEncoder(),
-        "item_condition": ConditionEncoder(),
+        "condition": ConditionEncoder(),
     }
 
 class PackingListItemEncoder(ModelEncoder):
@@ -153,27 +153,27 @@ def api_conditional_items(request, condition):
 def api_item(request, pk):
     if request.method == "DELETE":
         try:
-            conditional_item = Condition.objects.get(item_condition=condition)
-            conditional_item.delete()
+            item = Item.objects.get(id=pk)
+            item.delete()
             return JsonResponse(
                 {"message": "Delete was successful"}
             )
-        except Condition.DoesNotExist:
+        except:
             return JsonResponse(
-                {'message': "Does not exist"},
+                {'message': "Item does not exist"},
                 status=400,
             )
-    else: 
+    else: # PUT goes here  
         try:
             content = json.loads(request.body)
-            Condition.objects.filter(conditional_items).update(**content)
-            conditional_item = Condition.objects.get(item_condition=conditional_item)
+            Item.objects.filter(id=pk).update(**content)
+            item = Item.objects.get(id=pk)
             return JsonResponse(
-                conditional_item,
-                encoder=ConditionEncoder,
+                item,
+                encoder=ItemEncoder,
                 safe=False
             )
-        except Condition.DoesNotExist:
+        except Item.DoesNotExist:
             return JsonResponse(
                 {'message': 'Does not exist'},
                 status = 400,
@@ -192,7 +192,21 @@ def api_conditions(request):
             encoder= ConditionEncoder,
         )
     else: #post goes here
-        pass
+        try:
+            content = json.loads(request.body)
+            condition = Condition.objects.create(**content)
+            return JsonResponse(
+                condition,
+                encoder=ConditionEncoder,
+                safe=False,
+            )
+        except: 
+            return JsonResponse(
+                {"message": "Could not create condition"},
+                status=400,
+            )
+
+
 
 
 @require_http_methods(["DELETE", "PUT"])
@@ -208,22 +222,21 @@ def api_condition(request, pk):
                 {'message': "Does not exist"},
                 status=400,
             )
-    else: # PUT goes here
-        pass
-    #     try:
-    #         content = json.loads(request.body)
-    #         Condition.objects.filter(id=pk).update(**content)
-    #         conditional_item = Condition.objects.get(item_condition=conditional_item)
-    #         return JsonResponse(
-    #             conditional_item,
-    #             encoder=ConditionEncoder,
-    #             safe=False
-    #         )
-    #     except Condition.DoesNotExist:
-    #         return JsonResponse(
-    #             {'message': 'Does not exist'},
-    #             status = 400,
-    #         )
+    else: # PUT goes here  
+        try:
+            content = json.loads(request.body)
+            Condition.objects.filter(id=pk).update(**content)
+            condition = Condition.objects.get(id=pk)
+            return JsonResponse(
+                condition,
+                encoder=ConditionEncoder,
+                safe=False
+            )
+        except Condition.DoesNotExist:
+            return JsonResponse(
+                {'message': 'Does not exist'},
+                status = 400,
+            )
 
 # END Conditions -----
 
