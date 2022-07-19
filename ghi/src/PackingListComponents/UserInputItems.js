@@ -18,15 +18,19 @@ export const UserItemForm = (props) => {
         <input
           onChange={onChangeUserItem}
           value={userItem}
-          placeholder="Add an Item"
+          placeholder="Item Name"
           required
           type="text"
           name="user_item"
           id="user_item"
           className="form-control"
         />
-        <button className="btn" type="button" onClick={onClick}>
-          ✅
+        <button
+          className="btn btn-outline-success"
+          type="button"
+          onClick={onClick}
+        >
+          Add
         </button>
       </div>
     </div>

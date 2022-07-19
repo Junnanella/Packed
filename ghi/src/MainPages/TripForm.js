@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export const TripForm = (props) => {
-  const [originCity, setOriginCity] = useState("");
+  const [originCountry, setOriginCountry] = useState("");
   const [destinationCity, setDestinationCity] = useState("");
+  const [destinationCountry, setDestinationCountry] = useState("");
   const [departureDate, setDepartureDate] = useState("");
   const [returnDate, setReturnDate] = useState("");
 
@@ -15,16 +16,20 @@ export const TripForm = (props) => {
     event.preventDefault();
     // need to define the correct attribute names for navigate url
     navigate(
-      `/travel_details?origin=${originCity}&destination=${destinationCity}&departure_date=${departureDate}&return_date=${returnDate}`
+      `/travel_details?origin=${originCountry}&destination_city=${destinationCity}&destination_country=${destinationCountry}&departure_date=${departureDate}&return_date=${returnDate}`
     );
   };
 
-  const onChangeOriginCity = (event) => {
-    setOriginCity(() => event.target.value);
+  const onChangeOriginCountry = (event) => {
+    setOriginCountry(() => event.target.value);
   };
 
   const onChangeDestinationCity = (event) => {
     setDestinationCity(() => event.target.value);
+  };
+
+  const onChangeDestinationCountry = (event) => {
+    setDestinationCountry(() => event.target.value);
   };
 
   const onChangeDepartureDate = (event) => {
@@ -43,16 +48,16 @@ export const TripForm = (props) => {
           <form onSubmit={onSubmit}>
             <div className="form-floating mb-3">
               <input
-                onChange={onChangeOriginCity}
-                value={originCity}
+                onChange={onChangeOriginCountry}
+                value={originCountry}
                 placeholder="Leaving from"
                 required
                 type="text"
-                name="origin_city"
-                id="origin_city"
+                name="origin_country"
+                id="origin_country"
                 className="form-control"
               />
-              <label htmlFor="name">Origin City</label>
+              <label htmlFor="name">Origin Country</label>
             </div>
             <div className="form-floating mb-3">
               <input
@@ -66,6 +71,19 @@ export const TripForm = (props) => {
                 className="form-control"
               />
               <label htmlFor="name">Destination City</label>
+            </div>
+            <div className="form-floating mb-3">
+              <input
+                onChange={onChangeDestinationCountry}
+                value={destinationCountry}
+                placeholder="Going to"
+                required
+                type="text"
+                name="destination_country"
+                id="destination_country"
+                className="form-control"
+              />
+              <label htmlFor="name">Destination Country</label>
             </div>
             <div className="form-floating mb-3">
               <input
