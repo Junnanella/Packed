@@ -5,6 +5,7 @@ export const UserItemForm = (props) => {
 
   const onClick = async (event) => {
     console.log(userItem);
+    setUserItem("");
   };
 
   const onChangeUserItem = (event) => {
