@@ -42,6 +42,10 @@ def currency_exchange_rate(origin_country, destination_country):
     currency_rate = get_currency_rate(url)
     return currency_rate
 
+@app.get("/api/fake/convert")
+def fake_currency_exchange_rate(origin_country, destination_country):
+    return "'result': .987"
+
 
 # API call output
 
@@ -59,3 +63,4 @@ def currency_exchange_rate(origin_country, destination_country):
 #     "date": "2022-07-11",
 #     "result": 0.997805
 # }
+

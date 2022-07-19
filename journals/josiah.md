@@ -42,3 +42,15 @@ Today, I worked on:
 The group and I discussed modifying the ghi structure so that when a user submits the form, they are presented with the graphs AND can build the packing list on the same page. We also discussed CI/CD variables stored in Gitlab to allow for CI testing.
 
 Today was a tricky because there are two large challenges that lie ahead. Building the Django microservice for packing lists AND implementing oauth. The tricky thing is that I do not know in what sequence to do it. Also, authentication is still a big mystery to me and learning about it is daunting. I looked into a promise based feature for React called Axios that can integrate authentication, but have not learned more yet. After thinking it over, I will likely take the next few days to dive into authentication while the rest of the team work on the front end and Django project.
+
+## July 15, 2022
+
+Today, I worked on:
+* Creating a logo for Packed on Canva
+* Further authentication research
+* Mapping packing list models on excalidraw
+* Creating scratchpad directory for packing list suggestion ideas
+
+The group and I discussed the relationships between the models for the packing list project. There was some confusion on the difference between the Condition and Category models but we came to a suitable solution.
+
+Today was a bit of a grind because I am not an expert in logo design. I kept going to websites to find something I like. When I finally found something, they tried to make me pay for it. After a few rounds of that, I finally found something that will work temporarily. On a brighter note, brainstorming a few creative ideas for packing list items was fun! Finally, I learned about token authentication via JWTs stored in localstorage vs cookies. 
