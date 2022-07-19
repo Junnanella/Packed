@@ -1,87 +1,33 @@
 from black import Mode
 from django.http import JsonResponse
 from django.views.decorators.http import require_http_methods
-from psycopg2 import IntegrityError
-# from django.shortcuts import render
-from common.json import ModelEncoder
-from .models import PackingList, Category, Condition, Item, PackingListItem 
 import json
-# Create your views here.
-# class User(ModelEncoder):
-#     model = User
-#     properties = [
-#         "id",
-#         "username",
-#         "email",
-#         "password"
-#     ]
+from common.json import ModelEncoder
+from .encoders import (
+    PackingListItemEncoder,
+    PackingListEncoder,
+    CategoryEncoder,
+    ConditionEncoder,
+    ItemEncoder,
+)
+from .models import (
+    PackingListItem,
+    PackingList,
+    Category,
+    Condition,
+    Item,
+)
 
-class PackingListEncoder(ModelEncoder):
-    model = PackingList
-    properties = [
-        "id",
-        "packing_list_name",
-        "created",
-        "travel_date",
-        "completed",
-        "location"
-    ]
+# Category Views -------
 
-class CategoryEncoder(ModelEncoder):
-    model = Category
-    properties = [
-        "id",
-        "category_name"
-    ]
-
-class ConditionEncoder(ModelEncoder):
-    model = Condition
-    properties = [
-        "id",
-        "item_condition"
-    ]
-
-class ItemEncoder(ModelEncoder):
-    model = Item
-    properties = [
-        "id",
-        "item_name",
-        "category",
-        "suggested",
-        "condition",
-        "user_item"
-    ]
-    encoders = {
-        "category" : CategoryEncoder(),
-        "item_condition": ConditionEncoder(),
-    }
-
-class PackingListItemEncoder(ModelEncoder):
-    model = PackingListItem
-    properties = [
-        "id",
-        "item",
-        "owner",
-        "quantity",
-        "packed",
-        "packing_list",
-    ]
-    encoders = {
-        "item_name" : ItemEncoder(),
-        "packing_list_name" : PackingListEncoder()
-    }
-
-
-# Categories -------
 @require_http_methods(["GET", "POST"])
 def api_categories(request):
     if request.method == "GET":
-        categories = Category.objects.all()
+        categories = Category.objects.all().order_by("id")
         return JsonResponse(
             {'categories' : categories},
             encoder= CategoryEncoder,
         )
-
     else: 
         try:
             content = json.loads(request.body)
@@ -91,19 +37,56 @@ def api_categories(request):
                 encoder=CategoryEncoder,
                 safe=False
             )
-        except IntegrityError: 
+        except TypeError: 
             return JsonResponse(
-            {'message' : "Unsuccessful POST"},
-            status = 400)
+                {'message' : "Failed to create category"},
+                status = 400,
+            )
     
-@require_http_methods(["PUT", "DELETE"])
+@require_http_methods(["GET", "PUT", "DELETE"])
 def api_category(request, pk):
-    pass
+    if request.method =="GET":
+        try:
+            category = Category.objects.get(id=pk)
+            return JsonResponse(
+                category,
+                encoder=CategoryEncoder,
+                safe=False,
+            )
+        except Category.DoesNotExist:
+            return JsonResponse(
+                {"message": f"Category with id number of {pk} does not exist"}
+            )
+    elif request.method =="PUT":
+        try:
+            content = json.loads(request.body)
+            category = Category.objects.filter(id=pk)
+            category.update(**content)
+            return JsonResponse(
+                category,
+                encoder=CategoryEncoder,
+                safe=False,
+            )
+        except Category.DoesNotExist:
+            return JsonResponse(
+                {"message": "Category does not exist"},
+                status = 400,
+            )
+    else:
+        try:
+            count, _ = Category.objects.filter(id=pk).delete()
+            return JsonResponse(
+                {"deleted": count > 0}
+            )
+        except Category.DoesNotExist:
+            return JsonResponse(
+                {'message': "The message you are trying to delete does not exist"},
+                status=400,
+            )
 
-# END Categories ----
 
+# Item Views ------
 
-# Items ----
 @require_http_methods(["GET", "POST"])
 def api_items(request):
     if request.method == "GET":
@@ -126,27 +109,32 @@ def api_items(request):
                 item,
                 encoder=ItemEncoder,
                 safe=False
-            )   
-        except IntegrityError: 
+            )
+        except TypeError: 
             return JsonResponse(
-            {'message' : "Unsuccessful POST"},
+            {'message' : "Failed to create item"},
             status = 400)
 
 
 @require_http_methods(["GET"])
 def api_conditional_items(request, condition):
     if request.method =="GET":
-        conditional_items = []
-        if condition != "any":
-            condition = Condition.objects.get(item_condition=condition)
-            conditional_items = Item.objects.filter(condition=condition)
-        any_condition = Condition.objects.get(item_condition="any")
-        general_items = Item.objects.filter(condition=any_condition)
-        return JsonResponse(
-            {"items": [{"conditional_items": conditional_items}, {"general_items": general_items}]},
-            encoder=ItemEncoder,
-            safe=False,
-        )
+        try:
+            conditional_items = []
+            if condition != "any":
+                condition = Condition.objects.get(item_condition=condition)
+                conditional_items = Item.objects.filter(condition=condition)
+            any_condition = Condition.objects.get(item_condition="any")
+            general_items = Item.objects.filter(condition=any_condition)
+            return JsonResponse(
+                {"items": [{"conditional_items": conditional_items}, {"general_items": general_items}]},
+                encoder=ItemEncoder,
+                safe=False,
+            )
+        except Condition.DoesNotExist:
+            return JsonResponse(
+                {"message": f"'{condition}' may be an invalid condition. Also, make sure you have 'any' condition in database"}
+            )
 
 
 @require_http_methods(["PUT", "DELETE"])
