@@ -1,3 +1,14 @@
+## July 18, 2022
+
+Today, I worked on:
+
+- Researching bootstrap documentation to learn how to layout the frontend components on the browser page as per our wireframe design.
+- Started working on components for our packing list application.
+
+As a team, we group programmed writing views. We were able to set up the GET and POST views together for the categories model of our packinglist Django application.
+
+Since I've been more focused on the frontend of our application, it was great to group program a portion of the backend and work through errors together. One of which had to do with CORS and CSRF tokens. We were initially hitting erros and not able to get our POST request to return data, but we were able to fix this by removing a middleware that we had installed for the csrf tokens.
+
 ## July 15, 2022
 
 Today, I worked on:
