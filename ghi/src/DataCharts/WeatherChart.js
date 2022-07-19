@@ -51,7 +51,7 @@ export default function WeatherChart(props) {
 
   return (
     <div className="container-sm offset-3">
-      <h3 className="mt-5">Weather Chart</h3>
+      <h3 className="mt-5">Weather History</h3>
       <Line data={data} options={{ responsive: true }} />
     </div>
   );
