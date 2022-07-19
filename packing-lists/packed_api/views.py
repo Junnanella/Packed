@@ -182,3 +182,16 @@ def api_list_items(request):
             return JsonResponse(
             {'message' : "Unsuccessful POST"},
             status = 400)
+
+# @require_http_methods(["GET", "POST"])
+# def api_packing_lists(request, user_id):
+#     if request.method == "GET":
+#         owner = User.objects.get(id=user_id)
+#         packing_lists = PackingList.objects.filter(owner=owner)
+#         return JsonResponse(
+#             {"lists": packing_lists},
+#             encoder=PackingListEncoder,
+#             safe=False,
+#         )
+#     else:
+#         pass

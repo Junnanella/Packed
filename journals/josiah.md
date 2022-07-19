@@ -54,3 +54,14 @@ Today, I worked on:
 The group and I discussed the relationships between the models for the packing list project. There was some confusion on the difference between the Condition and Category models but we came to a suitable solution.
 
 Today was a bit of a grind because I am not an expert in logo design. I kept going to websites to find something I like. When I finally found something, they tried to make me pay for it. After a few rounds of that, I finally found something that will work temporarily. On a brighter note, brainstorming a few creative ideas for packing list items was fun! Finally, I learned about token authentication via JWTs stored in localstorage vs cookies. 
+
+## July 18, 2022
+
+Today, I worked on:
+* Writing views for packing list
+* Pair programming instruction with other teammates
+* Configuring settings.py to allow CORS POST requests form selected origins
+
+The group and I spent a lot of time figuring out how to approach the views. We put our primary focus on geting items based on the parameters passed from the frontend. We collectively created the main views to get the app functioning.
+
+Building views is one of my favorite activities so today was a lot of fun. The data we are receiving from the frontend and the data we are returning is formatted in a fairly complex way. I learned that drawing is very useful, especially when trying to explain data structures to others. On another note, I re-learned about where to place any cors management in the list of MIDDLEWARE in settings.py. 
