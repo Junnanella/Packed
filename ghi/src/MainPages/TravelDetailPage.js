@@ -15,23 +15,28 @@ export default function TravelDetailPage() {
 
   // Will need to pass the above variable to the corresponding components
   return (
-    <div className="container">
-      <div className="row">
-        <div className="col p-3">
-          <UserItemForm />
-        </div>
-        <div className="col g-2">
-          <div className="row">
-            <WeatherChart
-              destination_city={destination_city}
-              destination_country={destination_country}
-            />
+    <div>
+      <h1 className="display-4 fw-normal text-center">
+        Get ready to pack for {destination_city}, {destination_country}!
+      </h1>
+      <div className="container">
+        <div className="row">
+          <div className="col p-3">
+            <UserItemForm />
           </div>
-          <div className="row">
-            <FlightChart />
-          </div>
-          <div className="row gx-5">
-            <CurrencyInfo />
+          <div className="col g-2">
+            <div className="row">
+              <WeatherChart
+                destination_city={destination_city}
+                destination_country={destination_country}
+              />
+            </div>
+            <div className="row">
+              <FlightChart />
+            </div>
+            <div className="row gx-5">
+              <CurrencyInfo />
+            </div>
           </div>
         </div>
       </div>
