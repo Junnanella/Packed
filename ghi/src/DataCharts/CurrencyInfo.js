@@ -21,10 +21,10 @@ export default function CurrencyInfo() {
   const [destinationCode, setDestinationCode] = useState("USD");
 
   return (
-    <div className="offset-3 col-6">
-      <h1>
+    <div className="container-sm offset-3">
+      <h4>
         1 {originCode} = {currencyRate} {destinationCode}
-      </h1>
+      </h4>
     </div>
   );
 }

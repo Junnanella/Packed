@@ -51,7 +51,7 @@ export default function FlightChart() {
   };
 
   return (
-    <div className="offset-3 col-6">
+    <div className="container-sm offset-3">
       <h3 className="mt-5">Flights Chart</h3>
       <Line data={data} options={{ responsive: true }} />
     </div>

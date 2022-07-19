@@ -3,6 +3,7 @@ import { useSearchParams } from "react-router-dom";
 import WeatherChart from "../DataCharts/WeatherChart";
 import FlightChart from "../DataCharts/FlightChart";
 import CurrencyInfo from "../DataCharts/CurrencyInfo";
+import { UserItemForm } from "../PackingListComponents/UserInputItems";
 
 export default function TravelDetailPage() {
   const [searchParams] = useSearchParams();
@@ -13,10 +14,21 @@ export default function TravelDetailPage() {
 
   // Will need to pass the above variable to the corresponding components
   return (
-    <div>
-      <WeatherChart />
-      <FlightChart />
-      <CurrencyInfo />
+    <div className="container">
+      <div className="col col-4 p-3">
+        <UserItemForm />
+      </div>
+      <div className="col-4 gy-5">
+        <div className="row">
+          <WeatherChart />
+        </div>
+        <div className="row">
+          <FlightChart />
+        </div>
+        <div className="row">
+          <CurrencyInfo />
+        </div>
+      </div>
     </div>
   );
 }
