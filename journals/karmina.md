@@ -1,3 +1,6 @@
+# July 16
+Today my team and I pair programmed for a while to create a view for our model. It was really helpful to see how my teammates worked through problems and see their thought process in action. I also made some other updates to the views.py, I updated the encoders to include the name of Foreign Key encoders and added the "id" property that was missing. I'm excited to come back tomorrow and finish the views.py, I still have some kinks to work out but I hope they can be fixed tomorrow. 
+
 # July 15
 Today I fixed the CI/CD issue that was causing my tests to fail when I pushed my code to the repo. I also completed the packed-lists models and admin.py files. I need to work on doing the views which I know I will struggle with. I think I have the encoders done but I will continue researching this weekend to prep for the upcoming week and come ready with questions.  
 

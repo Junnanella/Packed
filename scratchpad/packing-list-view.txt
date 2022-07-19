@@ -1,0 +1,12 @@
+input from react:
+
+{request.body: 
+    {'packing_list':
+        "packing_list_name": "lotr tour",
+        "travel_date": isoformat date,
+        "location": "Vienna, Austria"
+    },
+    {'custom_items': [["shirt", 3], ["shoes", 4], ["toothpaste", 1]},
+    {'items': [[1, 2],[3, 4],[4, 1],[6, 8],[8, 2],[9, 7],]},
+    }
+}
