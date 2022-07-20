@@ -1,5 +1,6 @@
 from black import Mode
 from django.http import JsonResponse
+from django.core.exceptions import FieldDoesNotExist
 from django.views.decorators.http import require_http_methods
 import json
 from common.json import ModelEncoder
@@ -17,6 +18,24 @@ from .models import (
     Condition,
     Item,
 )
+
+def field_does_not_exist_errr():
+    return JsonResponse(
+        {"message": "Invalid field name"},
+        status = 400,
+    )
+
+def model_instance_does_not_exist_message(model_name, pk):
+    return JsonResponse(
+        {"message": f"'{model_name}' with id number of '{pk}' does not exist"},
+        status = 400,
+    )
+
+def type_error_message(model_name):
+    return JsonResponse(
+        {'message' : f"Failed to create {model_name} instance"},
+        status = 400,
+    )
 
 # Category Views -------
 @require_http_methods(["GET", "POST"])
@@ -37,10 +56,7 @@ def api_categories(request):
                 safe=False
             )
         except TypeError: 
-            return JsonResponse(
-                {'message' : "Failed to create category"},
-                status = 400,
-            )
+            return type_error_message("Category")
 
 @require_http_methods(["GET", "PUT", "DELETE"])
 def api_category(request, pk):
@@ -53,9 +69,7 @@ def api_category(request, pk):
                 safe=False,
             )
         except Category.DoesNotExist:
-            return JsonResponse(
-                {"message": f"Category with id number of {pk} does not exist"}
-            )
+            return model_instance_does_not_exist_message("Category", pk)
     elif request.method =="PUT":
         try:
             content = json.loads(request.body)
@@ -67,10 +81,9 @@ def api_category(request, pk):
                 safe=False,
             )
         except Category.DoesNotExist:
-            return JsonResponse(
-                {"message": "Category does not exist"},
-                status = 400,
-            )
+            return model_instance_does_not_exist_message("Category", pk)
+        except FieldDoesNotExist:
+            return field_does_not_exist_errr()
     else:
         try:
             count, _ = Category.objects.filter(id=pk).delete()
@@ -78,10 +91,7 @@ def api_category(request, pk):
                 {"deleted": count > 0}
             )
         except Category.DoesNotExist:
-            return JsonResponse(
-                {'message': "The message you are trying to delete does not exist"},
-                status=400,
-            )
+            return model_instance_does_not_exist_message("Category", pk)
 
 # Item Views ------
 @require_http_methods(["GET", "POST"])
@@ -96,10 +106,10 @@ def api_items(request):
         content = json.loads(request.body)
         try:
             if "condition" in content:
-                condition = Condition.objects.get(item_condition=content["condition"])
+                condition = Condition.objects.get(name=content["condition"])
                 content["condition"] = condition
             if "category" in content:
-                category = Category.objects.get(category_name=content["category"])
+                category = Category.objects.get(name=content["category"])
                 content["category"] = category
             item = Item.objects.create(**content)
             return JsonResponse(
@@ -108,9 +118,8 @@ def api_items(request):
                 safe=False
             )
         except TypeError: 
-            return JsonResponse(
-            {'message' : "Failed to create item"},
-            status = 400)
+            return type_error_message("Item")
+
 
 @require_http_methods(["GET"])
 def api_conditional_items(request, condition):
@@ -118,9 +127,9 @@ def api_conditional_items(request, condition):
         try:
             conditional_items = []
             if condition != "any":
-                condition = Condition.objects.get(item_condition=condition)
+                condition = Condition.objects.get(name=condition)
                 conditional_items = Item.objects.filter(condition=condition)
-            any_condition = Condition.objects.get(item_condition="any")
+            any_condition = Condition.objects.get(name="any")
             general_items = Item.objects.filter(condition=any_condition)
             return JsonResponse(
                 {"items": [{"conditional_items": conditional_items}, {"general_items": general_items}]},
@@ -129,8 +138,9 @@ def api_conditional_items(request, condition):
             )
         except Condition.DoesNotExist:
             return JsonResponse(
-                {"message": f"'{condition}' may be an invalid condition. Also, make sure you have 'any' condition in database"}
-            )
+                {"message":
+                    f"'{condition}' may be an invalid condition. Also, make sure you have 'any' condition in database"
+                })
 
 @require_http_methods(["GET", "PUT", "DELETE"])
 def api_item(request, pk):
@@ -143,21 +153,15 @@ def api_item(request, pk):
                 safe=False,
             )
         except Item.DoesNotExist:
-            return JsonResponse(
-                {"message": f"Item with id number of {pk} does not exist"}
-            )
+            return model_instance_does_not_exist_message("Item", pk)
     elif request.method == "DELETE":
         try:
-            item = Item.objects.get(id=pk)
-            item.delete()
+            count, _ = Item.objects.get(id=pk).delete()
             return JsonResponse(
-                {"message": "Delete was successful"}
+                {"message": count > 0}
             )
-        except:
-            return JsonResponse(
-                {'message': "Item does not exist"},
-                status=400,
-            )
+        except Item.DoesNotExist:
+            return model_instance_does_not_exist_message("Item", pk)
     else:
         try:
             content = json.loads(request.body)
@@ -169,10 +173,9 @@ def api_item(request, pk):
                 safe=False
             )
         except Item.DoesNotExist:
-            return JsonResponse(
-                {'message': 'Does not exist'},
-                status = 400,
-            )
+            return model_instance_does_not_exist_message("Item", pk)
+        except FieldDoesNotExist:
+            return field_does_not_exist_errr()
 
 # Condition Views -----
 @require_http_methods(["GET", 'POST'])
@@ -192,25 +195,29 @@ def api_conditions(request):
                 encoder=ConditionEncoder,
                 safe=False,
             )
-        except: 
-            return JsonResponse(
-                {"message": "Could not create condition"},
-                status=400,
-            )
+        except TypeError: 
+            return type_error_message("Condition")
 
-@require_http_methods(["DELETE", "PUT"])
+@require_http_methods(["GET", "DELETE", "PUT"])
 def api_condition(request, pk):
-    if request.method == "DELETE":
+    if request.method =="GET":
+        try:
+            condition = Condition.objects.get(id=pk)
+            return JsonResponse(
+                condition,
+                encoder=ConditionEncoder,
+                safe=False,
+            )
+        except Condition.DoesNotExist:
+            return model_instance_does_not_exist_message("Condition", pk)
+    elif request.method == "DELETE":
         try:
             count,_ = Condition.objects.filter(id=pk).delete()
             return JsonResponse(
                 {"deleted": count > 0}
             )
         except Condition.DoesNotExist:
-            return JsonResponse(
-                {'message': "Does not exist"},
-                status=400,
-            )
+            return model_instance_does_not_exist_message("Condition", pk)
     else:
         try:
             content = json.loads(request.body)
@@ -222,13 +229,11 @@ def api_condition(request, pk):
                 safe=False
             )
         except Condition.DoesNotExist:
-            return JsonResponse(
-                {'message': 'Does not exist'},
-                status = 400,
-            )
+            return model_instance_does_not_exist_message("Condition", pk)
+        except FieldDoesNotExist:
+            return field_does_not_exist_errr()
 
 # PackingList Views -----
-
 # @require_http_methods(["GET", "POST"])
 # def api_packing_lists(request, user_id):
 #     if request.method == "GET":
@@ -241,5 +246,3 @@ def api_condition(request, pk):
 #         )
 #     else:
 #         pass
-
-# END Packing Lists ----
