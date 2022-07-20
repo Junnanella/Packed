@@ -1,3 +1,7 @@
+# July 17
+Today I helped complete views.py, I worked alongside Josiah to complete it. After having some trouble I was able to complete
+a couple functions with delete, get, put and post methods. Now we will begin helping Junella with the front end since she has been working on it all on her own while we completed the back end. I'm nervous to start the front end as I don't feel too confident in Javascript and React but my team has been super great and helpful so I know we'll figure it out together. 
+
 # July 16
 Today my team and I pair programmed for a while to create a view for our model. It was really helpful to see how my teammates worked through problems and see their thought process in action. I also made some other updates to the views.py, I updated the encoders to include the name of Foreign Key encoders and added the "id" property that was missing. I'm excited to come back tomorrow and finish the views.py, I still have some kinks to work out but I hope they can be fixed tomorrow. 
 
