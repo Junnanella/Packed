@@ -7,9 +7,11 @@ import { UserItemForm } from "../PackingListComponents/UserInputItems";
 
 export default function TravelDetailPage() {
   const [searchParams] = useSearchParams();
-  const origin = searchParams.get("origin");
+  const origin_country = searchParams.get("origin_country");
+  const origin_code = searchParams.get("origin_code");
   const destination_city = searchParams.get("destination_city");
   const destination_country = searchParams.get("destination_country");
+  const destination_code = searchParams.get("destination_code");
   const departure_date = searchParams.get("departure_date");
   const return_date = searchParams.get("return_date");
 
@@ -35,7 +37,10 @@ export default function TravelDetailPage() {
               <FlightChart />
             </div>
             <div className="row gx-5">
-              <CurrencyInfo />
+              <CurrencyInfo
+                origin_code={origin_code}
+                destination_code={destination_code}
+              />
             </div>
           </div>
         </div>
