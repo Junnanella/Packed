@@ -1,3 +1,15 @@
+## July 19, 2022
+
+Today, I worked on:
+
+- Updating the layout of the travel detail page.
+- Updating travel form to incorporate a dropdown select menu for the origin and destination country.
+- Passing country names and currency codes from select inputs on the travel form to be used in the api calls.
+
+Near end of day, the team huddled together to discuss portions of the frontend that still need to be built out. We also briefly discussed ways to go about handling the components for the packinglist frontend portion. We will reconvene tomorrow morning to further that discussion.
+
+Today, I really struggled with pulling data from the locations api as per the user's selectionon the travel form and passing country codes to the currency api and country names to the weather api. Took a lot of trial and error, but finally got it working. As it's a bit late in the night, I will have to review my code again in the morning, with fresh eyes, to better understand how I even resolved it.
+
 ## July 18, 2022
 
 Today, I worked on:
