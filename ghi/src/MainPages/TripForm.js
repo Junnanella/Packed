@@ -24,7 +24,6 @@ export const TripForm = (props) => {
     async function fetchData() {
       const locations = await loadLocationsData();
       setLocations(locations);
-      console.log("locations:", locations);
     }
     fetchData();
   }, []);
