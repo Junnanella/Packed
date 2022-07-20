@@ -35,7 +35,7 @@ def get_flight(orginIataCode, destinationIataCode, departureDate, oneWay, :
 
 
 def get_details_of_one_eatery(amadeus_id):
-    url = "https://api.yelp.com/v3/businesses/" + amadeus_id
+    url = "" + amadeus_id
 
     headers = {
         "Authorization": "Bearer %s" % FLIGHTS_API_KEY,
