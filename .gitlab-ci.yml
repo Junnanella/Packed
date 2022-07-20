@@ -2,6 +2,13 @@ stages:
   - test
   # - build
 
+services:
+  - postgres:14.2-bullseye
+
+variables:
+  POSTGRES_PASSWORD: test
+  DATABASE_URL: postgresql://postgres:test@postgres:5432/postgres
+
 # TEST
 weather-unit-test-job:
   image: python:3-bullseye
@@ -27,6 +34,14 @@ currency-unit-test-job:
     - pip install -r requirements.txt
     # - python -m pytest, still working on one unit test
 
+packing-lists-unit-test-job:
+  image: python:3-bullseye
+  stage: test
+  script:
+    - cd packing-lists
+    - pip install -r requirements.txt
+    - python manage.py test
+  
 # lint-test-job:
 #   image: python:3-bullseye
 #   stage: test

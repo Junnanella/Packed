@@ -1,6 +1,5 @@
 from django.db import models
 
-# Create your models here.
 
 # class User(models.Model): 
 #     username= models.CharField(max_length=100)
@@ -10,8 +9,9 @@ from django.db import models
     # def __str__(self):
     #     return self.username
 
+
 class PackingList(models.Model):
-    packing_list_name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100)
     # owner = models.ForeignKey(
     # User,
     # related_name = "packing_list",
@@ -23,22 +23,25 @@ class PackingList(models.Model):
     location = models.CharField(max_length=100)
     
     def __str__(self):
-        return self.packing_list_name
+        return self.name
+
 
 class Category(models.Model):
-    category_name = models.CharField(max_length=20, unique=True)
+    name = models.CharField(max_length=20, unique=True)
 
     def __str__(self):
-        return self.category_name
+        return self.name
+
 
 class Condition(models.Model): 
-    item_condition = models.CharField(max_length=50)
+    name = models.CharField(max_length=50)
 
     def __str__(self):
-        return self.item_condition
+        return self.name
+
 
 class Item(models.Model):                                   
-    item_name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100)
     category = models.ForeignKey(
         Category, 
         related_name= "items", 
@@ -54,12 +57,13 @@ class Item(models.Model):
     user_item = models.PositiveIntegerField(null=True, blank=True)
 
     def __str__(self):
-        return self.item_name
+        return self.name
+
 
 class PackingListItem(models.Model): 
-    item = models.ForeignKey(
+    item_name = models.ForeignKey(
         Item, 
-        related_name="packing_list_item",
+        related_name="packing_lists",
         on_delete= models.CASCADE 
     )
     owner = models.PositiveIntegerField(null=True)
@@ -67,14 +71,9 @@ class PackingListItem(models.Model):
     packed = models.BooleanField()
     packing_list = models.ForeignKey(
         PackingList, 
-        related_name="packing_list",
+        related_name="items",
         on_delete= models.CASCADE
-    )  
+    )
 
     def __str__(self):
-        return self.item
-
-
-                    
-
-
+        return f"{self.item_name.name} for {self.packing_list.name}"

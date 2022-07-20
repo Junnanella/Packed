@@ -65,3 +65,14 @@ Today, I worked on:
 The group and I spent a lot of time figuring out how to approach the views. We put our primary focus on geting items based on the parameters passed from the frontend. We collectively created the main views to get the app functioning.
 
 Building views is one of my favorite activities so today was a lot of fun. The data we are receiving from the frontend and the data we are returning is formatted in a fairly complex way. I learned that drawing is very useful, especially when trying to explain data structures to others. On another note, I re-learned about where to place any cors management in the list of MIDDLEWARE in settings.py. 
+
+## July 19, 2022
+
+Today, I worked on:
+* Writing Category, Item and Condition views
+* Creating error handling for views
+* Pair programming to troubleshoot Django issues
+
+The group and I spent time coming up with the game plan for the next week. Today, we finished the MVP backend and tomorrow we will work together to fill out the front end. After a couple days of that, we hope to have the frontent at MVP level. We will then look into authentication. We also discussed react component strategies for the packing list creation form.
+
+Today, I learned a bit about making migrations in Django. After altering some fields in the models, it caused a lot of problems and I researched a bit to find a working solution. Also, I came up with a couple ways to make the code for the views more dry via helper functions for error handling. Karmina and I were having trouble getting one of her DELETE views to work and we kept refactoring the code. A SEIR had the idea to restart the docker container and that solved the issue. In the future, that will be one of the things I try if the code looks good.
