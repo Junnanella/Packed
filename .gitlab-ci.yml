@@ -34,7 +34,7 @@ currency-unit-test-job:
     - pip install -r requirements.txt
     # - python -m pytest, still working on one unit test
 
-service-name-unit-test-job:
+packing-lists-unit-test-job:
   image: python:3-bullseye
   stage: test
   script:
