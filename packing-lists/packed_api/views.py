@@ -19,7 +19,7 @@ from .models import (
     Item,
 )
 
-def field_does_not_exist_errr():
+def field_does_not_exist_error():
     return JsonResponse(
         {"message": "Invalid field name"},
         status = 400,
@@ -33,7 +33,7 @@ def model_instance_does_not_exist_message(model_name, pk):
 
 def type_error_message(model_name):
     return JsonResponse(
-        {'message' : f"Failed to create {model_name} instance"},
+        {'message' : f"Failed to create '{model_name}' instance"},
         status = 400,
     )
 
