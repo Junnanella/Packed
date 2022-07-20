@@ -39,7 +39,8 @@ export const loadCurrencyData = async (origin_country, destination_country) => {
   const response = await fetch(
     `http://localhost:8003/api/fake/convert?origin_country=${encodeURIComponent(
       origin_country
-    )}&destination_country=${encodeURIComponent(destination_country)}`
+    )}&destination_country=${encodeURIComponent(destination_country)}`,
+    { mode: "cors" }
   );
 
   if (!response.ok) {
