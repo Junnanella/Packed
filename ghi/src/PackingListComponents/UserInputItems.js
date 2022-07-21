@@ -2,11 +2,19 @@ import React, { useState } from "react";
 
 export const UserItemForm = (props) => {
   const [userItem, setUserItem] = useState("");
+  const setItems = props.setItems;
+  const items = props.items
 
   const onClick = async (event) => {
-    console.log(userItem);
+    items.push({
+      "name": userItem,
+      "suggested": false,
+    })
+    setItems(items);
+    // console.log(props.items)
     setUserItem("");
   };
+
 
   const onChangeUserItem = (event) => {
     setUserItem(() => event.target.value);
