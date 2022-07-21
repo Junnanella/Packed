@@ -6,23 +6,23 @@
 // import { loadItemsList } from "./PackingListApi";
 
 
-// const UseItemsList = (condition) => {
-//     const [itemCondition, setItemList] = useState("");
+const UseItemsList = (condition) => {
+     const [itemCondition, setItemList] = useState("");
   
-//     useEffect(() => {
-//       async function fetchData() {
-//         const item_list_response = await loadItemsList(
-//           condition
-//         );
-//         setItemList(item_list_response);
-//       }
-//       fetchData();
-//     }, [condition]);
+     useEffect(() => {
+      async function fetchData() {
+        const item_list_response = await loadItemsList(
+           condition
+         );
+         setItemList(item_list_response);
+       }
+       fetchData();
+     }, [condition]);
   
-//     return itemCondition;
-//   };
+    return itemCondition;
+   };
   
-{/* <table class="PackingListItems">
+<table class="PackingListItems">
     <tbody>
     <tr>
       <td>{suggested_item}</td>
@@ -33,4 +33,4 @@
       <td>{created_item}</td>
     </tr>
     </tbody>
-</table> */}
+</table>

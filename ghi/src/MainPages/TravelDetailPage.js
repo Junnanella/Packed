@@ -5,6 +5,8 @@ import FlightChart from "../DataCharts/FlightChart";
 import CurrencyInfo from "../DataCharts/CurrencyInfo";
 import { UserItemForm } from "../PackingListComponents/UserInputItems";
 import UseItemsList from "../PackingListComponents/Items"
+import WorkingList from "../PackingListComponents/WorkingList"
+import React, { useState, useEffect } from "react";
 
 export default function TravelDetailPage() {
   const [searchParams] = useSearchParams();
@@ -15,6 +17,7 @@ export default function TravelDetailPage() {
   const destination_code = searchParams.get("destination_code");
   const departure_date = searchParams.get("departure_date");
   const return_date = searchParams.get("return_date");
+  const [items, setItems] = useState([{"name": "car", "suggested": false}])
 
   // Will need to pass the above variable to the corresponding components
   return (
@@ -25,7 +28,8 @@ export default function TravelDetailPage() {
       <div className="container">
         <div className="row">
           <div className="col p-3">
-            <UserItemForm />
+            <UserItemForm setItems={setItems} items={items}/>
+            <WorkingList setItems={setItems} items={items}/>
           </div>
           {/* <div className="row">
             <UseItemsList />

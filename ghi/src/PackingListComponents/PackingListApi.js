@@ -3,7 +3,7 @@
 
 export const loadItemsList = async (condition) => {
     const response = await fetch(
-    'http://localhost:8005/api/items/conditions/${condition}/'
+    `http://localhost:8005/api/items/conditions/${condition}/`
     )
 
   if (!response.ok) {
@@ -13,11 +13,10 @@ export const loadItemsList = async (condition) => {
 
   const responseJson = await response.json();
   return responseJson;
-  return responseJson.items;
-  console.log(loadItemsList)
+//   return responseJson.items;
+//   console.log(loadItemsList)
 
 };
 
-// refer to USerinputitems 
 
 
