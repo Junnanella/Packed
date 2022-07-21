@@ -20,7 +20,7 @@ After hitting submit on the homepage, the user will be redirected to a page list
 - One section will have pre-loaded suggestions for basic travel items, like a toothbrush, that the user add to their packing list
 - Last section will have pre-loaded suggestions for travel items based on location, like a coat for a cold region or swim suit for a tropical region, that the user add to their packing list
 
-![packing list page](wireframes/updated_create_packing_list_page.png)
+![packing list page](wireframes/updated_create_packing_list_page_2.png)
 
 #### Resources for Charts:
 

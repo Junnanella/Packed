@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { loadLocationsData } from "./MainApi";
 
 export const TripForm = (props) => {
+  const [originCity, setOriginCity] = useState("");
   const [originCountryId, setOriginCountryId] = useState("");
   const [destinationCity, setDestinationCity] = useState("");
   const [destinationCountryId, setDestinationCountryId] = useState("");
@@ -24,7 +25,6 @@ export const TripForm = (props) => {
     async function fetchData() {
       const locations = await loadLocationsData();
       setLocations(locations);
-      console.log("locations:", locations);
     }
     fetchData();
   }, []);
@@ -37,12 +37,16 @@ export const TripForm = (props) => {
     event.preventDefault();
     // need to define the correct attribute names for navigate url
     navigate(
-      `/travel_details?origin_country=${originCountry}&origin_code=${originCode}&destination_city=${destinationCity}&destination_country=${destinationCountry}&destination_code=${destinationCode}&departure_date=${departureDate}&return_date=${returnDate}`
+      `/travel_details?origin_city=${originCity}origin_country=${originCountry}&origin_code=${originCode}&destination_city=${destinationCity}&destination_country=${destinationCountry}&destination_code=${destinationCode}&departure_date=${departureDate}&return_date=${returnDate}`
     );
   };
 
   const onChangeOriginCountryId = (event) => {
     setOriginCountryId(() => event.target.value);
+  };
+
+  const onChangeOriginCity = (event) => {
+    setOriginCity(() => event.target.value);
   };
 
   const onChangeDestinationCity = (event) => {
@@ -67,6 +71,19 @@ export const TripForm = (props) => {
         <div className="shadow p-4 mt-4">
           <h1>Enter Trip Details</h1>
           <form onSubmit={onSubmit}>
+            <div className="form-floating mb-3">
+              <input
+                onChange={onChangeOriginCity}
+                value={originCity}
+                placeholder="Coming from"
+                required
+                type="text"
+                name="origin_city"
+                id="origin_city"
+                className="form-control"
+              />
+              <label htmlFor="name">Origin City</label>
+            </div>
             <div className="form-floating mb-3">
               <select
                 onChange={onChangeOriginCountryId}
