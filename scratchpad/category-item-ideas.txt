@@ -11,14 +11,36 @@ CATEGORY: clothing:
 - winter hat (cold)
 - coat (cold)
 - sunglasses (hot)
+- scarf (cold)
+- summer hat (hot)
+- swimsuit (hot)
+- gloves (cold)
 
 CATEGORY: electronics:
 - phone charger
 - external battery
 - power adapter for that country
+- camera
+- laptop and charger
+- tablet and charger
+
+CATEGORY: toiletries
+- sunblock / sunscreen
+- moisturizer
+- cleanser
+- toothpaste
+- toothbrush
+- floss
+- shaving cream
+- shampoo
+- conditioner
+- soap
+- hair brush / comb
 
 CATEGORY: essentials:
 - passport (international)
 - eSIM for that country (not packable but an important thing)
+- eyeglasses / contact lenses
+
 
 Remember to check if the country you are traveling to needs a VISA.
