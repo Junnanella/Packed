@@ -1,17 +1,38 @@
-in case of database purge:
-- access postgres-1 CLI
-- psql -U locations locations
-\c locations
+IN CASE OF THE LOCATIONS DATABASE BEING ERASED:
 
-# create table in locations database:
-CREATE TABLE currency (
+
+
+REBUILDING DATABASE DOCKER VOLUME:
+
+WARNING: IF the databases have been restructured in docker-compose, you need to remove and re-create the docker volume 'postgres-data'.
+If this is not the case, proceed to 'REPOPULATING THE DATABASE' below.
+
+1) stop AND delete all containers for 'packed'
+2) from the terminal run the following commands: (do NOT type '>>>')
+>>> docker volume remove postgres-data
+>>> docker volume create postgres-data
+>>> docker-compose build (if on M1 Mac: DOCKER_DEFAULT_PLATFORM=linux/amd64 docker-compose build)
+>>> docker-compose up
+
+
+
+REPOPULATING THE DATABASE:
+
+STEP 1: Connect to 'locations' database:
+- You need to access postgres-1 CLI terminal from Docker Desktop (or use docker exec -it <container-name> bash)
+- When connected to the CLI, run the following two commands to connect to the locations database: (do NOT type '>>>')
+>>> psql -U locations locations
+>>> \c locations
+
+STEP 2: Create 'currency' table in 'locations' database:
+>>> CREATE TABLE currency (
   id SERIAL NOT NULL PRIMARY KEY,
   country VARCHAR(100) NOT NULL,
   currency_code VARCHAR(3) NOT NULL
 );
 
-# insert rows into currency database
-INSERT INTO currency (country, currency_code) VALUES
+STEP 3: Populate the database with the following rows:
+>>> INSERT INTO currency (country, currency_code) VALUES
         ('Afghanistan',
         'AFN')
     ,
