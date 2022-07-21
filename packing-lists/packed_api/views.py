@@ -83,7 +83,7 @@ def api_category(request, pk):
         except Category.DoesNotExist:
             return model_instance_does_not_exist_message("Category", pk)
         except FieldDoesNotExist:
-            return field_does_not_exist_errr()
+            return field_does_not_exist_error()
     else:
         try:
             count, _ = Category.objects.filter(id=pk).delete()
@@ -140,7 +140,9 @@ def api_conditional_items(request, condition):
             return JsonResponse(
                 {"message":
                     f"'{condition}' may be an invalid condition. Also, make sure you have 'any' condition in database"
-                })
+                },
+                status = 400
+                )
 
 @require_http_methods(["GET", "PUT", "DELETE"])
 def api_item(request, pk):
@@ -175,7 +177,7 @@ def api_item(request, pk):
         except Item.DoesNotExist:
             return model_instance_does_not_exist_message("Item", pk)
         except FieldDoesNotExist:
-            return field_does_not_exist_errr()
+            return field_does_not_exist_error()
 
 # Condition Views -----
 @require_http_methods(["GET", 'POST'])
@@ -231,7 +233,7 @@ def api_condition(request, pk):
         except Condition.DoesNotExist:
             return model_instance_does_not_exist_message("Condition", pk)
         except FieldDoesNotExist:
-            return field_does_not_exist_errr()
+            return field_does_not_exist_error()
 
 # PackingList Views -----
 # @require_http_methods(["GET", "POST"])
