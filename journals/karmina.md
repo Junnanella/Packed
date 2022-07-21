@@ -1,8 +1,11 @@
-# July 17
+# July 20
+Today I started to work on the front end for out Packing Lists. I'm struggling with fetching the data from our views and then rendering it on our detail page. I'll keep researching and hopefully with trial and error the front end will be completed tomorrow. 
+
+# July 19
 Today I helped complete views.py, I worked alongside Josiah to complete it. After having some trouble I was able to complete
 a couple functions with delete, get, put and post methods. Now we will begin helping Junella with the front end since she has been working on it all on her own while we completed the back end. I'm nervous to start the front end as I don't feel too confident in Javascript and React but my team has been super great and helpful so I know we'll figure it out together. 
 
-# July 16
+# July 18
 Today my team and I pair programmed for a while to create a view for our model. It was really helpful to see how my teammates worked through problems and see their thought process in action. I also made some other updates to the views.py, I updated the encoders to include the name of Foreign Key encoders and added the "id" property that was missing. I'm excited to come back tomorrow and finish the views.py, I still have some kinks to work out but I hope they can be fixed tomorrow. 
 
 # July 15

@@ -4,6 +4,7 @@ import WeatherChart from "../DataCharts/WeatherChart";
 import FlightChart from "../DataCharts/FlightChart";
 import CurrencyInfo from "../DataCharts/CurrencyInfo";
 import { UserItemForm } from "../PackingListComponents/UserInputItems";
+import UseItemsList from "../PackingListComponents/Items"
 
 export default function TravelDetailPage() {
   const [searchParams] = useSearchParams();
@@ -26,6 +27,9 @@ export default function TravelDetailPage() {
           <div className="col p-3">
             <UserItemForm />
           </div>
+          {/* <div className="row">
+            <UseItemsList />
+          </div> */}
           <div className="col g-2">
             <div className="row">
               <WeatherChart
