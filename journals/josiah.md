@@ -76,3 +76,16 @@ Today, I worked on:
 The group and I spent time coming up with the game plan for the next week. Today, we finished the MVP backend and tomorrow we will work together to fill out the front end. After a couple days of that, we hope to have the frontent at MVP level. We will then look into authentication. We also discussed react component strategies for the packing list creation form.
 
 Today, I learned a bit about making migrations in Django. After altering some fields in the models, it caused a lot of problems and I researched a bit to find a working solution. Also, I came up with a couple ways to make the code for the views more dry via helper functions for error handling. Karmina and I were having trouble getting one of her DELETE views to work and we kept refactoring the code. A SEIR had the idea to restart the docker container and that solved the issue. In the future, that will be one of the things I try if the code looks good.
+
+
+## July 20, 2022
+
+Today, I worked on:
+* Refactoring Django models and views to make names more accurate
+* Brainstorming layout of packing list react components
+* Working on packing list react components
+* Troubleshooting flight API
+
+The group and I spent a significant amount of time discussing how we wanted to layout the packing list page. Eventually, we drew out our plan on excalidraw and divided the tasks. We also worked with William in troubleshooting the flight api. The documentation is quite scarce for that.
+
+I learned a lot about function components and hooks with react. Passing state around a few components is already a pain and I look forward to implementing redux state management in a future project. Unfortunately, I was bug hunting for a good portion of the day. Interestingly, passing state between sibling componenets is a challenge. I ended up createing a useState hook in the siblings' parent component and passed down item and useItem to the child components.

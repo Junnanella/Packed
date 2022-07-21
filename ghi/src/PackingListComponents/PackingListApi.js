@@ -3,7 +3,7 @@
 
 // export const loadItemsList = async (condition) => {
 //     const response = await fetch(
-//     'http://localhost:8005/api/items/conditions/${condition}/'
+    // `http://localhost:8005/api/items/conditions/${condition}/`
 //     )
 
 //   if (!response.ok) {
