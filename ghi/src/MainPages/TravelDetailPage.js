@@ -16,7 +16,7 @@ export default function TravelDetailPage() {
   const destination_code = searchParams.get("destination_code");
   const departure_date = searchParams.get("departure_date");
   const return_date = searchParams.get("return_date");
-  const [items, setItems] = useState([{"name": "car", "suggested": false}])
+  const [items, setItems] = useState([])
 
   // Will need to pass the above variable to the corresponding components
   return (
