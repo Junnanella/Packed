@@ -1,3 +1,15 @@
+## July 20, 2022
+
+Today, I worked on:
+
+- Getting the locations database filled locally.
+- Tapping into the locations database to fill in the select countries options on the main page form.
+- Updating the ghi markdown file.
+
+As a team, we discussed the design of the packing list components in more detail through live sharing of our excalidraw. The team also tried to trouble shooting the Flights API together.
+
+I struggled a bit starting out the day with trying to access the postgres database to be able to create a table for the locations, because it feels like forever since I had done so. But with the help of google and Josiah, I was able to get things going.
+
 ## July 19, 2022
 
 Today, I worked on:
