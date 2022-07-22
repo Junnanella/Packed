@@ -1,3 +1,6 @@
+# July 21
+Today I completed one of the front end files but am having issues with another. I can't get it to render what I want it to. My team and I pair programmed to try and trouble shoot but we had no luck. We'll work with the SEIRs for some assistance. 
+
 # July 20
 Today I started to work on the front end for out Packing Lists. I'm struggling with fetching the data from our views and then rendering it on our detail page. I'll keep researching and hopefully with trial and error the front end will be completed tomorrow. 
 
