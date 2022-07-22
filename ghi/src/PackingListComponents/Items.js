@@ -6,31 +6,20 @@
 // import { loadItemsList } from "./PackingListApi";
 
 
-const UseItemsList = (condition) => {
-     const [itemCondition, setItemList] = useState("");
-  
-     useEffect(() => {
-      async function fetchData() {
-        const item_list_response = await loadItemsList(
-           condition
-         );
-         setItemList(item_list_response);
-       }
-       fetchData();
-     }, [condition]);
-  
-    return itemCondition;
-   };
-  
-<table class="PackingListItems">
-    <tbody>
-    <tr>
-      <td>{suggested_item}</td>
-    </tr>
-    </tbody>
-    <tbody>
-    <tr>
-      <td>{created_item}</td>
-    </tr>
-    </tbody>
-</table>
+// export default function SuggestedItems(props) {
+//     const [conditionalItem, setConditionalItem] = useState([])
+//     const [generalItem, setGeneralItem] = useState([])
+
+//     useEffect (() => {
+//         async function fetchData(){
+//          const response = await loadItemsList("cold")
+//          console.log("return1:",(response))
+//          console.log("return:",conditionalItem)
+//          setConditionalItem(response["conditional_items"][0])
+//         }
+//     fetchData();
+//     }
+//     ,[]
+//     )
+// }
+

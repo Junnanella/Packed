@@ -5,6 +5,7 @@ export const loadItemsList = async (condition) => {
     const response = await fetch(
     `http://localhost:8005/api/items/conditions/${condition}/`
     )
+    // console.log("Test", response)
 
   if (!response.ok) {
     console.error(await response.json());
@@ -12,10 +13,7 @@ export const loadItemsList = async (condition) => {
   }
 
   const responseJson = await response.json();
-  return responseJson;
-//   return responseJson.items;
-//   console.log(loadItemsList)
-
+  return responseJson.items;
 };
 
 
