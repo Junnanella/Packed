@@ -1,3 +1,6 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHome, faTrash, faSolid } from '@fortawesome/free-solid-svg-icons';
+
 function WorkingList({items, setItems}){
 
     function deleteItem(event) {
@@ -9,12 +12,12 @@ function WorkingList({items, setItems}){
     };
 
     return (
-        <table className="table table-sm">
+        <table className="table table-hover">
             <thead>
                 <tr>
-                    <th style={{width: "10%"}}>Quantity</th>
-                    <th>Item</th>
-                    <th style={{width: "20%"}}>Delete</th>
+                    <th className="text-center" style={{width: "13%"}}>QTY</th>
+                    <th className="text-center">{items.length === 1 ? 'Item' : "Items"}</th>
+                    <th className="text-center" style={{width: "10%"}}></th>
                 </tr>
             </thead>
             <tbody>
@@ -35,7 +38,7 @@ function WorkingList({items, setItems}){
                                 onClick={deleteItem}
                                 value={item.name}
                             >
-                                Delete
+                                <FontAwesomeIcon icon={faTrash} />
                             </button>
                         </td>
                     </tr>)
