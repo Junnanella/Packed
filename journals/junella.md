@@ -1,3 +1,13 @@
+## July 21, 2022
+
+Today, I worked on:
+
+- Writing some code to catch if I hit the limit for API calls and send back useful message, because without it, I was getting unhelpful messages in the console.
+- Updating group scratchpad to add suggested items.
+- Researching logos and inserting a custom favicon.
+
+As a team, we also worked on group programming the packing list components. We were struggling with getting the conditional items and general items to load. We were able to console log the response that included those items, but for some reason, weren't able to assign them to the state variables. After some solo tinkering, I was able to get the items to render on the browser by restructuring the data shape from our views.py reponse. I plan to walk through it with the group tomorrow to explain my solution.
+
 ## July 20, 2022
 
 Today, I worked on:
