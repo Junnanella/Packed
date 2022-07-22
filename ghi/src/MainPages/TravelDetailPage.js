@@ -30,9 +30,9 @@ export default function TravelDetailPage() {
             <UserItemForm setItems={setItems} items={items}/>
             <WorkingList setItems={setItems} items={items}/>
           </div>
-          <div className="row">
+          {/* <div className="row">
             <SuggestedItems />
-          </div>
+          </div> */}
           <div className="col g-2">
             <div className="row">
               <WeatherChart
