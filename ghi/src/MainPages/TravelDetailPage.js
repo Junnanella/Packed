@@ -3,7 +3,7 @@ import WeatherChart from "../DataCharts/WeatherChart";
 import FlightChart from "../DataCharts/FlightChart";
 import CurrencyInfo from "../DataCharts/CurrencyInfo";
 import { UserItemForm } from "../PackingListComponents/UserInputItems";
-import UseItemsList from "../PackingListComponents/Items"
+import SuggestedItems from "../PackingListComponents/Items"
 import WorkingList from "../PackingListComponents/WorkingList"
 import React, { useState, useEffect } from "react";
 
@@ -30,9 +30,9 @@ export default function TravelDetailPage() {
             <UserItemForm setItems={setItems} items={items}/>
             <WorkingList setItems={setItems} items={items}/>
           </div>
-          {/* <div className="row">
-            <UseItemsList />
-          </div> */}
+          <div className="row">
+            <SuggestedItems />
+          </div>
           <div className="col g-2">
             <div className="row">
               <WeatherChart
