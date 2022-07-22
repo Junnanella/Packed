@@ -89,3 +89,13 @@ Today, I worked on:
 The group and I spent a significant amount of time discussing how we wanted to layout the packing list page. Eventually, we drew out our plan on excalidraw and divided the tasks. We also worked with William in troubleshooting the flight api. The documentation is quite scarce for that.
 
 I learned a lot about function components and hooks with react. Passing state around a few components is already a pain and I look forward to implementing redux state management in a future project. Unfortunately, I was bug hunting for a good portion of the day. Interestingly, passing state between sibling componenets is a challenge. I ended up createing a useState hook in the siblings' parent component and passed down item and useItem to the child components.
+
+## July 21, 2022
+
+Today, I worked on:
+* Further Django view refactoring
+* Building packing GHI list components
+
+The group and I spent a lot of time troubleshooting react component issues together. I see an increasing need ot talk through the look of the website as well as nail down the flight API functionality.
+
+Today was another learning experience when it comes to react components. I was having trouble updating the state of the packing list and got help from Zynh, who was able to enlighten me on how to update values correctly when passed down as props. Also, Junella referred me to FontAwesome, a site which allows you to use icons on things like buttons instead of words. It is a very clean look!
