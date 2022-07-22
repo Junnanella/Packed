@@ -1,17 +1,23 @@
 import React, { useState } from "react";
 
-export const UserItemForm = (props) => {
+export const UserItemForm = ({items, setItems}) => {
   const [userItem, setUserItem] = useState("");
-  const setItems = props.setItems;
-  const items = props.items
 
   const onClick = async (event) => {
-    items.push({
-      "name": userItem,
-      "suggested": false,
-    })
-    setItems(items);
-    // console.log(props.items)
+    let valid = true
+    for (let item of items){
+      if (item.name.toLowerCase() === userItem.toLowerCase()) {
+        valid = false
+      }
+    }
+    if (valid) {
+      setItems([...items, {
+        "name": userItem,
+        "suggested": false,
+      }]);
+    } else {
+      alert("This item is already on your list!")
+    }
     setUserItem("");
   };
 
