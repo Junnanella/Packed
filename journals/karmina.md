@@ -1,3 +1,5 @@
+# July 22
+Today there was not alot of coding since we had lectures and mandatory fun time. My team and I did start the process of designing the look of the site but over the weekend I will focus on trying to create a table for the packing list items.  
 # July 21
 Today I completed one of the front end files but am having issues with another. I can't get it to render what I want it to. My team and I pair programmed to try and trouble shoot but we had no luck. We'll work with the SEIRs for some assistance. 
 
