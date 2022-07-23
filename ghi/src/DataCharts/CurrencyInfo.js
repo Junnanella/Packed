@@ -23,7 +23,7 @@ export default function CurrencyInfo(props) {
   const currencyRate = useCurrencyData(origin_code, destination_code);
 
   return (
-    <div className="container-sm offset-3">
+    <div className="container-sm offset-1">
       <h4>
         1 {origin_code} = {currencyRate} {destination_code}
       </h4>
