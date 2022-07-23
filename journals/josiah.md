@@ -99,3 +99,14 @@ Today, I worked on:
 The group and I spent a lot of time troubleshooting react component issues together. I see an increasing need ot talk through the look of the website as well as nail down the flight API functionality.
 
 Today was another learning experience when it comes to react components. I was having trouble updating the state of the packing list and got help from Zynh, who was able to enlighten me on how to update values correctly when passed down as props. Also, Junella referred me to FontAwesome, a site which allows you to use icons on things like buttons instead of words. It is a very clean look!
+
+## July 22, 2022
+
+Today, I worked on:
+* Discussing goals for the next week with the team
+* Refactoring packing list front end
+* Researching JWT auth (to be integrated next week)
+
+The group and I spent about 45 minutes talking about the game plan for this next week. We are going to switch the priority of the flight aip to be a stretch goal. William is now going to work with Junella on the GHI, Karmina will continue with the packing list suggestions on the front end, and I will integrate authentication. We created issues on gitlab and will abide by the due dates as much as possible.
+
+I talked with several other groups who have integrated auth into their projects and began learning about Simple JWT. We had only about an hour of project time but I will learn more over the weekend.
