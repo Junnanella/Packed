@@ -1,7 +1,10 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-function WorkingList({items, setItems}){
+function WorkingList({
+    items,
+    setItems,
+}){
 
     function deleteItem(event) {
         for (let index = 0; index < items.length; index ++) {

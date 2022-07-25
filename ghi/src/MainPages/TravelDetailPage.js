@@ -17,7 +17,6 @@ export default function TravelDetailPage() {
   const departure_date = searchParams.get("departure_date");
   const return_date = searchParams.get("return_date");
   const [items, setItems] = useState([]);
-  const [selectedSuggestedItems, setSelectedSuggestedItems] = useState([])
 
   // Will need to pass the above variable to the corresponding components
   return (
@@ -28,14 +27,20 @@ export default function TravelDetailPage() {
       <div className="container">
         <div className="row">
           <div className="col p-3">
-            <UserItemForm setItems={setItems} items={items} />
+            <UserItemForm
+              setItems={setItems}
+              items={items} 
+            />
             <SuggestedItems
-              selectedSuggestedItems={selectedSuggestedItems}
-              setSelectedSuggestedItems={setSelectedSuggestedItems} 
+              items={items}
+              setItems={setItems} 
             />
           </div>
           <div className="col p-3">
-            <WorkingList setItems={setItems} items={items} />
+            <WorkingList
+              setItems={setItems}
+              items={items} 
+            />
           </div>
           <div className="col g-2">
             <div className="row">
