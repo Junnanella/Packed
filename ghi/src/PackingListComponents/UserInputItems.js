@@ -22,6 +22,7 @@ export const UserItemForm = ({items, setItems}) => {
       setItems([...items, {
         "name": userItem,
         "suggested": false,
+        "quantity": 1,
       }]);
     } else {
       alert(message)

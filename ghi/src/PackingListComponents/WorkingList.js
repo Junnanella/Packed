@@ -6,13 +6,28 @@ function WorkingList({
     setItems,
 }){
 
-    function deleteItem(event) {
+    function findItem(name) {
         for (let index = 0; index < items.length; index ++) {
-            if (items[index].name === event.target.value) {
-                setItems([...items.filter((_, i) => i !== index)])
-            };
+            if (items[index].name === name) {
+                return index
+            }
         }
+        return "item not found!"
+    }
+
+    function deleteItem(event) {
+        const item_index = findItem(event.target.value)
+        setItems([...items.filter((_, i) => i !== item_index)])
     };
+
+    // function setQuantity(name, quantity) {
+    //     const item_index = findItem(name)
+    //     setItems([...items], items[item_index].quantity = 2)
+    //     console.log("hi", quantity) 
+    // }
+    function setQuantity(event) {
+        console.log(event.target.value)
+    }
 
     return (
         <div className="">
@@ -31,11 +46,14 @@ function WorkingList({
                                 <input
                                     className="form-control form-control-sm"
                                     type="number"
-                                    defaultValue={1}
+                                    // onChange={setQuantity}
+                                    // onChange={setQuantity(item.name, item.quantity)}
+                                    // value={item.quantity}
+                                    defaultValue={item.quantity}
                                     min={1}
                                 />
                             </td>
-                            <td>{item.name}</td>
+                            <td>{item.suggested ? item.name + " (suggested)" : item.name}</td>
                             <td>
                                 <button
                                     className="btn btn-sm btn-outline-danger"
