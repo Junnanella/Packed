@@ -26,15 +26,16 @@ export default function SuggestedItems(props) {
 
   // add onclick with set items in travel detail page , reference user input items 
 
-  const Add = (conditional_items, general_items) => {
-    props.items.push(conditional_items)
-    props.items.push(general_items)
-    return (
-      console.log(props.items)
-    )
+  function addGItem(newItem){
+    props.setItems([...props.items, newItem])
+    setGeneralItems(generalItems.filter(item => item.id !== newItem.id))
+  } 
+
+  function addCItem(newCItem){
+    props.setItems([...props.items, newCItem])
+    setConditionalItems(conditionalItems.filter(item => item.id !== newCItem.id))
   }
   
-
   return (
       <div className="container">
         <h3>Suggested Items</h3>
@@ -52,7 +53,8 @@ export default function SuggestedItems(props) {
                     <th scope="row"></th>
                     <td>{item.name}</td>
                     <td>
-                    <button onClick={Add}>
+                    <button onClick={e => addGItem(item)
+                    }>
                       Add
                     </button>
                     </td>
@@ -75,6 +77,12 @@ export default function SuggestedItems(props) {
              return (<tr>
                     <th scope="row"></th>
                     <td>{item.name}</td>
+                    <td>
+                    <button onClick={e => addCItem(item)
+                    }>
+                      Add
+                    </button>
+                    </td>
                   </tr>)
               })
             }
