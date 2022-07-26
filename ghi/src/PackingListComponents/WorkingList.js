@@ -20,13 +20,12 @@ function WorkingList({
         setItems([...items.filter((_, i) => i !== item_index)])
     };
 
-    // function setQuantity(name, quantity) {
-    //     const item_index = findItem(name)
-    //     setItems([...items], items[item_index].quantity = 2)
-    //     console.log("hi", quantity) 
-    // }
-    function setQuantity(event) {
-        console.log(event.target.value)
+    function sendData() {
+        if (items.length > 0) {
+            console.log({"items to be sent to the backend": items})
+        } else {
+            console.log("you cant create an empty packing list")
+        }
     }
 
     return (
@@ -46,11 +45,16 @@ function WorkingList({
                                 <input
                                     className="form-control form-control-sm"
                                     type="number"
-                                    // onChange={setQuantity}
-                                    // onChange={setQuantity(item.name, item.quantity)}
-                                    // value={item.quantity}
+                                    onChange={(event) => {
+                                        const newItems = [...items];
+                                        const index = findItem(item.name);
+                                        newItems[index].quantity = event.target.value;
+                                        setItems(newItems);
+                                        console.log(items)
+                                    }}
                                     defaultValue={item.quantity}
                                     min={1}
+                                    max={1000}
                                 />
                             </td>
                             <td>{item.suggested ? item.name + " (suggested)" : item.name}</td>
@@ -67,6 +71,9 @@ function WorkingList({
                     })}
                 </tbody>
             </table>
+            <div>
+                <button className="btn btn-success" onClick={sendData}>Create!</button>
+            </div>
         </div>
     );
 };
