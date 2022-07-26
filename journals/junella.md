@@ -1,3 +1,10 @@
+## July 25, 2022
+
+Today, I worked on:
+
+- Collaborating with William on the mockups for the main page design. We searched for images we may want to use and ran those ideas with Karmina and Josiah. We all William's idea of incorporating vintage travel posters to the main page, but we still need to work out how to lay those out, without overwhelming the page and overshadowing the form we would like our users to fill out.
+- I also worked more on the layout of the travel detail page, to try to get more definition between the three columns.
+
 ## July 22, 2022
 
 Today, I worked on:
