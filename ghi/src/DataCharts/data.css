@@ -1,0 +1,10 @@
+input.currency_input {
+    width: 5em;
+    text-align: right;
+    display: inline-block;
+    margin-right: 1em;
+}
+
+.currency_output {
+    display: inline-block;
+}
