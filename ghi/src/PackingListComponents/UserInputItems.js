@@ -23,6 +23,7 @@ export const UserItemForm = ({items, setItems}) => {
         "name": userItem,
         "suggested": false,
         "quantity": 1,
+        "id": null,
       }]);
     } else {
       alert(message)
