@@ -110,3 +110,15 @@ Today, I worked on:
 The group and I spent about 45 minutes talking about the game plan for this next week. We are going to switch the priority of the flight aip to be a stretch goal. William is now going to work with Junella on the GHI, Karmina will continue with the packing list suggestions on the front end, and I will integrate authentication. We created issues on gitlab and will abide by the due dates as much as possible.
 
 I talked with several other groups who have integrated auth into their projects and began learning about Simple JWT. We had only about an hour of project time but I will learn more over the weekend.
+
+
+## July 25, 2022
+
+Today, I worked on:
+* Integerating quantities into the packing list
+* Preparing to send completed packing list to the backend
+* Branstorming GUI look with team
+
+The group and I connected briefly at the start of project time but did not have any updates to go over. Part way through project time, William shared some GUI mockups on slack and the rest of us gave our feedback.
+
+Working with react hooks was a bit slow today. I spent a couple hours trying to touch up the packing list. My big challenge was updating the state with quantities of items. I tried making all sorts of helper functions before finally realizing the solution was right in front of my face. I ended up just copying the state, making a change and then setting the state to the new updated copy (NOTE TO SELF: REMEMBER TO TREAT STATE AS IMMUTABLE)
