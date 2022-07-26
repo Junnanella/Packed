@@ -5,9 +5,12 @@
 import React, { useEffect, useState } from "react";
 import { loadItemsList } from "./PackingListApi";
 
+
 export default function SuggestedItems(props) {
   const [conditionalItems, setConditionalItems] = useState([]);
   const [generalItems, setGeneralItems] = useState([]);
+  
+
 
   useEffect(() => {
     async function fetchData() {
@@ -21,18 +24,16 @@ export default function SuggestedItems(props) {
     fetchData();
   }, []);
 
-  // console.log("conditionalItems", conditionalItems);
-  // console.log("generalItems", generalItems);
-
-
   // add onclick with set items in travel detail page , reference user input items 
-  const Add = () => {
+
+  const Add = (conditional_items, general_items) => {
+    props.items.push(conditional_items)
+    props.items.push(general_items)
     return (
-      <div className="add">
-        <button>Add</button>
-      </div>
+      console.log(props.items)
     )
   }
+  
 
   return (
       <div className="container">
@@ -50,6 +51,11 @@ export default function SuggestedItems(props) {
              return (<tr>
                     <th scope="row"></th>
                     <td>{item.name}</td>
+                    <td>
+                    <button onClick={Add}>
+                      Add
+                    </button>
+                    </td>
                   </tr>)
               })
             }
