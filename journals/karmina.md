@@ -1,3 +1,8 @@
+# July 25
+Today with help from my team I got the tables for general items and suggested items to render correctly. It now renders the items created in admin. Although the styling of the table is still a bit wonky and uneven I am mainly focusing on the functionality and will come back to the design. 
+
+I now have to figure out how to implement an "add" button to the items lists so that the selected item(s) can be moved to the packing list. 
+
 # July 22
 Today there was not alot of coding since we had lectures and mandatory fun time. My team and I did start the process of designing the look of the site but over the weekend I will focus on trying to create a table for the packing list items.  
 # July 21
