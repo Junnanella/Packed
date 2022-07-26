@@ -1,5 +1,19 @@
-h1.detail-page-header {
-    margin: 60px auto 100px auto;
+body {
+    background-color: #fefdf9;
+}
+
+div.detail-page-header {
+   text-align: center;
+}
+
+h1.detail-page-header-text {
+    margin: 20px auto 20px auto;
+}
+
+img.luggage {
+    margin-bottom: 30px;
+    height: 17em;
+    opacity: 90%;
 }
 
 div.item-column {
