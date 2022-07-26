@@ -26,7 +26,7 @@ export default function TravelDetailPage() {
         <h1 className="detail-page-header-text display-4 fw-normal text-center g-5">
           Get ready to pack for {destination_city}, {destination_country}!
         </h1>
-        <img src="../luggage_neutral.png" alt="luggage" className="luggage" />
+        <img src="../luggage_cartoon.png" alt="luggage" className="luggage" />
       </div>
       <div className="container">
         <div className="row">
