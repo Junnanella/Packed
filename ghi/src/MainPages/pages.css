@@ -1,0 +1,20 @@
+h1.detail-page-header {
+    margin: 60px auto 100px auto;
+}
+
+div.item-column {
+    padding-top: 3em;
+    margin-right: 1em;
+}
+
+div.data-column {
+    text-align: left;
+    padding-right: 5em;
+    padding-bottom: 3em;
+    text-align: center;
+}
+
+div.currency-data {
+    margin-top: 1em;
+    text-align: center;
+}

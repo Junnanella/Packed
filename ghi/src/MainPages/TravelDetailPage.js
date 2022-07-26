@@ -6,6 +6,7 @@ import { UserItemForm } from "../PackingListComponents/UserInputItems";
 import SuggestedItems from "../PackingListComponents/Items";
 import WorkingList from "../PackingListComponents/WorkingList";
 import React, { useState, useEffect } from "react";
+import "./pages.css";
 
 export default function TravelDetailPage() {
   const [searchParams] = useSearchParams();
@@ -21,19 +22,19 @@ export default function TravelDetailPage() {
   // Will need to pass the above variable to the corresponding components
   return (
     <div>
-      <h1 className="display-4 fw-normal text-center">
+      <h1 className="detail-page-header display-4 fw-normal text-center g-5">
         Get ready to pack for {destination_city}, {destination_country}!
       </h1>
       <div className="container">
         <div className="row">
-          <div className="col p-3">
+          <div className="col item-column border rounded">
             <UserItemForm setItems={setItems} items={items} />
             <SuggestedItems />
           </div>
-          <div className="col p-3">
+          <div className="col item-column  border rounded">
             <WorkingList setItems={setItems} items={items} />
           </div>
-          <div className="col g-2">
+          <div className="col data-column border rounded">
             <div className="row">
               <WeatherChart
                 destination_city={destination_city}
@@ -43,7 +44,7 @@ export default function TravelDetailPage() {
             <div className="row">
               <FlightChart />
             </div>
-            <div className="row gx-5">
+            <div className="row currency-data">
               <CurrencyInfo
                 origin_code={origin_code}
                 destination_code={destination_code}
