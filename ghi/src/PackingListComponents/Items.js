@@ -12,7 +12,6 @@ export default function SuggestedItems(props) {
   useEffect(() => {
     async function fetchData() {
       const response = await loadItemsList("cold");
-      console.log("response", response);
       const conditional = response.conditional_items;
       const general = response.general_items;
       setConditionalItems(conditional);
@@ -20,9 +19,6 @@ export default function SuggestedItems(props) {
     }
     fetchData();
   }, []);
-
-  console.log("conditionalItems", conditionalItems);
-  console.log("generalItems", generalItems);
 
   return (
     <div className="container">
