@@ -21,22 +21,59 @@ export default function SuggestedItems(props) {
     fetchData();
   }, []);
 
-  console.log("conditionalItems", conditionalItems);
-  console.log("generalItems", generalItems);
+  // console.log("conditionalItems", conditionalItems);
+  // console.log("generalItems", generalItems);
+
+
+  // add onclick with set items in travel detail page , reference user input items 
+  const Add = () => {
+    return (
+      <div className="add">
+        <button>Add</button>
+      </div>
+    )
+  }
 
   return (
-    <div className="container">
-      <div className="input-group mb-3">
-        <div>
-          <h3>Conditional Items</h3>
-          {conditionalItems.map((conditional) => {
-            return <p>{conditional.name}</p>;
-          })}
-          <h3>General Items</h3>
-          {generalItems.map((general) => {
-            return <p>{general.name}</p>;
-          })}
-        </div>
+      <div className="container">
+        <h3>Suggested Items</h3>
+        <div className="input-group mb-3">
+          <div>
+          <table className="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">General Items</th>
+              </tr>
+          </thead>
+          <tbody>
+            {generalItems.map(item => { 
+             return (<tr>
+                    <th scope="row"></th>
+                    <td>{item.name}</td>
+                  </tr>)
+              })
+            }
+          </tbody>
+      </table>
+    </div>
+      </div>
+      <div className="container">
+          <table className="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">Recommended</th>
+              </tr>
+            </thead>
+            <tbody>
+              {conditionalItems.map(item => { 
+             return (<tr>
+                    <th scope="row"></th>
+                    <td>{item.name}</td>
+                  </tr>)
+              })
+            }
+            </tbody>
+      </table>
       </div>
     </div>
   );
