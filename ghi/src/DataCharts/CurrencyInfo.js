@@ -3,7 +3,7 @@ import { loadCurrencyData } from "./LoadApiData";
 import "./data.css";
 
 const useCurrencyData = (origin_country, destination_country) => {
-  const [currencyRate, setCurrencyRate] = useState("");
+  const [currencyRate, setCurrencyRate] = useState(null);
 
   useEffect(() => {
     async function fetchData() {
@@ -11,7 +11,7 @@ const useCurrencyData = (origin_country, destination_country) => {
         origin_country,
         destination_country
       );
-      setCurrencyRate(currency_response);
+      setCurrencyRate(parseFloat(currency_response));
     }
     fetchData();
   }, [origin_country, destination_country]);
@@ -24,11 +24,15 @@ export default function CurrencyInfo(props) {
   const currencyRate = useCurrencyData(origin_code, destination_code);
 
   const [currencyInput, setCurrencyInput] = useState(1);
-  const [exchangeOutput, setExchangeOutput] = useState(0.987);
+
+  if (currencyRate === null) {
+    return "Loading...";
+  }
+
+  const exchangeOutput = currencyInput * currencyRate;
 
   const onChangeCurrencyInput = (event) => {
     setCurrencyInput(() => event.target.value);
-    setExchangeOutput(() => currencyRate * event.target.value);
   };
 
   return (
@@ -42,7 +46,7 @@ export default function CurrencyInfo(props) {
         type="text"
         name="currency_input"
         id="currency_input"
-        className="currency_input"
+        className="currency_input rounded"
       />
       <h4 className="currency_output">
         {origin_code} = {exchangeOutput} {destination_code}
