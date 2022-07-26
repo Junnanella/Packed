@@ -1,3 +1,11 @@
+## July 22, 2022
+
+Today, I worked on:
+
+- Putting together a mockup of a possible final design for the main page of the application that includes a background-image, our form, the name of the application, a blurb, and a new button so the user has an option to go straight to creating their packing list.
+
+As a team, we discussed what actions still need to be taken in order for our application to be complete. We still have to finalize the functionality of our packing list feature and work on our ui design. We plan to split up on Monday into two teams, taking on each of those main tasks.
+
 ## July 21, 2022
 
 Today, I worked on:
