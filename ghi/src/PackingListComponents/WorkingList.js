@@ -1,15 +1,32 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-function WorkingList({items, setItems}){
+function WorkingList({
+    items,
+    setItems,
+}){
+
+    function findItem(name) {
+        for (let index = 0; index < items.length; index ++) {
+            if (items[index].name === name) {
+                return index
+            }
+        }
+        return "item not found!"
+    }
 
     function deleteItem(event) {
-        for (let index = 0; index < items.length; index ++) {
-            if (items[index].name === event.target.value) {
-                setItems([...items.filter((_, i) => i !== index)])
-            };
-        }
+        const item_index = findItem(event.target.value)
+        setItems([...items.filter((_, i) => i !== item_index)])
     };
+
+    function sendData() {
+        if (items.length > 0) {
+            console.log({"items to be sent to the backend": items})
+        } else {
+            console.log("you cant create an empty packing list")
+        }
+    }
 
     return (
         <div className="">
@@ -28,11 +45,19 @@ function WorkingList({items, setItems}){
                                 <input
                                     className="form-control form-control-sm"
                                     type="number"
-                                    defaultValue={1}
+                                    onChange={(event) => {
+                                        const newItems = [...items];
+                                        const index = findItem(item.name);
+                                        newItems[index].quantity = event.target.value;
+                                        setItems(newItems);
+                                        console.log(items)
+                                    }}
+                                    defaultValue={item.quantity}
                                     min={1}
+                                    max={1000}
                                 />
                             </td>
-                            <td>{item.name}</td>
+                            <td>{item.suggested ? item.name + " (suggested)" : item.name}</td>
                             <td>
                                 <button
                                     className="btn btn-sm btn-outline-danger"
@@ -46,6 +71,9 @@ function WorkingList({items, setItems}){
                     })}
                 </tbody>
             </table>
+            <div>
+                <button className="btn btn-success" onClick={sendData}>Create!</button>
+            </div>
         </div>
     );
 };

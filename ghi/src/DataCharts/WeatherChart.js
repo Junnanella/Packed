@@ -29,7 +29,7 @@ export default function WeatherChart(props) {
   return (
     <div className="container-sm offset-1 weather-component">
       <h3 className="mt-5">Expected Weather</h3>
-      <table className="weather-table">
+      {/* <table className="weather-table">
         <thead>
           {weather.temps.map((temp) => {
             if (temp.temperature > 70) {
@@ -61,7 +61,7 @@ export default function WeatherChart(props) {
             })}
           </tr>
         </tbody>
-      </table>
+      </table> */}
     </div>
   );
 }

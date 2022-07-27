@@ -32,7 +32,7 @@ currency-unit-test-job:
   script:
     - cd api/currency
     - pip install -r requirements.txt
-    # - python -m pytest, still working on one unit test
+    - python -m pytest
 
 packing-lists-unit-test-job:
   image: python:3-bullseye

@@ -20,19 +20,68 @@ export default function SuggestedItems(props) {
     fetchData();
   }, []);
 
+  // add onclick with set items in travel detail page , reference user input items
+
+  function addGItem(newItem) {
+    props.setItems([...props.items, newItem]);
+    setGeneralItems(generalItems.filter((item) => item.id !== newItem.id));
+  }
+
+  function addCItem(newCItem) {
+    props.setItems([...props.items, newCItem]);
+    setConditionalItems(
+      conditionalItems.filter((item) => item.id !== newCItem.id)
+    );
+  }
+
   return (
     <div className="container">
+      <h3>Suggested Items</h3>
       <div className="input-group mb-3">
         <div>
-          <h3>Conditional Items</h3>
-          {conditionalItems.map((conditional) => {
-            return <p>{conditional.name}</p>;
-          })}
-          <h3>General Items</h3>
-          {generalItems.map((general) => {
-            return <p>{general.name}</p>;
-          })}
+          <table className="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">General Items</th>
+              </tr>
+            </thead>
+            <tbody>
+              {generalItems.map((item) => {
+                return (
+                  <tr>
+                    <th scope="row"></th>
+                    <td>{item.name}</td>
+                    <td>
+                      <button onClick={(e) => addGItem(item)}>Add</button>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
         </div>
+      </div>
+      <div className="container">
+        <table className="table table-hover">
+          <thead>
+            <tr>
+              <th scope="col">Recommended</th>
+            </tr>
+          </thead>
+          <tbody>
+            {conditionalItems.map((item) => {
+              return (
+                <tr>
+                  <th scope="row"></th>
+                  <td>{item.name}</td>
+                  <td>
+                    <button onClick={(e) => addCItem(item)}>Add</button>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
       </div>
     </div>
   );

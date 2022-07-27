@@ -1,3 +1,13 @@
+# July 26
+Today with the help of SEIRs I was able to implement the "add" button with the functionality of moving one item in a list to another list and removing the added item from the original list. I'll touch base with my team later on to figure out what the next steps are but I am very happy I got this feature to work and am excited for whats left. 
+
+# July 25
+Today with help from my team I got the tables for general items and suggested items to render correctly. It now renders the items created in admin. Although the styling of the table is still a bit wonky and uneven I am mainly focusing on the functionality and will come back to the design. 
+
+I now have to figure out how to implement an "add" button to the items lists so that the selected item(s) can be moved to the packing list. 
+
+# July 22
+Today there was not alot of coding since we had lectures and mandatory fun time. My team and I did start the process of designing the look of the site but over the weekend I will focus on trying to create a table for the packing list items.  
 # July 21
 Today I completed one of the front end files but am having issues with another. I can't get it to render what I want it to. My team and I pair programmed to try and trouble shoot but we had no luck. We'll work with the SEIRs for some assistance. 
 
