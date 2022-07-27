@@ -22,6 +22,26 @@ export default function SuggestedItems({setItems, items}) {
 
   // add onclick with set items in travel detail page , reference user input items
 
+  function validate() {
+    for (let item of items) {
+      for (let generalItem of generalItems) {
+        if (item.name.toLowerCase() === generalItem.name.toLowerCase()) {
+          setGeneralItems(
+            generalItems.filter((generalItem) => generalItem.name.toLowerCase() !== item.name.toLowerCase())
+          );
+        }
+      }
+      for (let conditionalItem of conditionalItems) {
+        if (item.name.toLowerCase() === conditionalItem.name.toLowerCase()) {
+          setConditionalItems(
+            conditionalItems.filter((conditionalItem) => conditionalItem.name.toLowerCase() !== item.name.toLowerCase())
+          );
+        }
+      }
+    }
+  }
+  validate();
+
   function addGItem(newItem) {
     newItem.quantity = 1;
     setItems([...items, newItem]);
