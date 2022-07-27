@@ -3,12 +3,16 @@ import { useNavigate } from "react-router-dom";
 import { loadLocationsData } from "./MainApi";
 
 export const TripForm = (props) => {
+  let tomorrow = new Date()
+  tomorrow.setDate(tomorrow.getDate() + 1)
+  let nextWeek = new Date()
+  nextWeek.setDate(nextWeek.getDate() + 8)
   const [originCity, setOriginCity] = useState("");
   const [originCountryId, setOriginCountryId] = useState("");
   const [destinationCity, setDestinationCity] = useState("");
   const [destinationCountryId, setDestinationCountryId] = useState("");
-  const [departureDate, setDepartureDate] = useState("");
-  const [returnDate, setReturnDate] = useState("");
+  const [departureDate, setDepartureDate] = useState(tomorrow.toISOString().slice(0,10));
+  const [returnDate, setReturnDate] = useState(nextWeek.toISOString().slice(0,10));
   const [locations, setLocations] = useState([]);
 
   const locationsById = {};
@@ -82,7 +86,7 @@ export const TripForm = (props) => {
                 id="origin_city"
                 className="form-control"
               />
-              <label htmlFor="name">Origin City</label>
+              <label htmlFor="origin_city">Origin City</label>
             </div>
             <div className="form-floating mb-3">
               <select
@@ -114,7 +118,7 @@ export const TripForm = (props) => {
                 id="destination_city"
                 className="form-control"
               />
-              <label htmlFor="name">Destination City</label>
+              <label htmlFor="destination_city">Destination City</label>
             </div>
             <div className="form-floating mb-3">
               <select
@@ -151,7 +155,7 @@ export const TripForm = (props) => {
             <div className="form-floating mb-3">
               <input
                 onChange={onChangeReturnDate}
-                value={returnDate.return_date}
+                value={returnDate}
                 placeholder="Returning"
                 required
                 type="date"

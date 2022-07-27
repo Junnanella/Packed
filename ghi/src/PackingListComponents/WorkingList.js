@@ -50,7 +50,6 @@ function WorkingList({
                                         const index = findItem(item.name);
                                         newItems[index].quantity = event.target.value;
                                         setItems(newItems);
-                                        console.log(items)
                                     }}
                                     defaultValue={item.quantity}
                                     min={1}

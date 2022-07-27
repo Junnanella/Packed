@@ -122,3 +122,14 @@ Today, I worked on:
 The group and I connected briefly at the start of project time but did not have any updates to go over. Part way through project time, William shared some GUI mockups on slack and the rest of us gave our feedback.
 
 Working with react hooks was a bit slow today. I spent a couple hours trying to touch up the packing list. My big challenge was updating the state with quantities of items. I tried making all sorts of helper functions before finally realizing the solution was right in front of my face. I ended up just copying the state, making a change and then setting the state to the new updated copy (NOTE TO SELF: REMEMBER TO TREAT STATE AS IMMUTABLE)
+
+## July 26, 2022
+
+Today, I worked on:
+* Integrating suggested items into packing list
+* Building django view to receive packing list
+* Deployment research
+
+The group and I connected to discuss some GHI alterations involving weather data and currency. We also discussed the website appearance theme a bit.
+
+I am getting more comfortable with react hooks by the day. What is still very tricky is deployment. I have been preparing this project for deployment a little bit every week but there are a LOT of moving parts to factor in.

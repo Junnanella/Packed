@@ -5,7 +5,7 @@
 import React, { useEffect, useState } from "react";
 import { loadItemsList } from "./PackingListApi";
 
-export default function SuggestedItems(props) {
+export default function SuggestedItems({setItems, items}) {
   const [conditionalItems, setConditionalItems] = useState([]);
   const [generalItems, setGeneralItems] = useState([]);
 
@@ -22,13 +22,35 @@ export default function SuggestedItems(props) {
 
   // add onclick with set items in travel detail page , reference user input items
 
+  function validate() {
+    for (let item of items) {
+      for (let generalItem of generalItems) {
+        if (item.name.toLowerCase() === generalItem.name.toLowerCase()) {
+          setGeneralItems(
+            generalItems.filter((generalItem) => generalItem.name.toLowerCase() !== item.name.toLowerCase())
+          );
+        }
+      }
+      for (let conditionalItem of conditionalItems) {
+        if (item.name.toLowerCase() === conditionalItem.name.toLowerCase()) {
+          setConditionalItems(
+            conditionalItems.filter((conditionalItem) => conditionalItem.name.toLowerCase() !== item.name.toLowerCase())
+          );
+        }
+      }
+    }
+  }
+  validate();
+
   function addGItem(newItem) {
-    props.setItems([...props.items, newItem]);
+    newItem.quantity = 1;
+    setItems([...items, newItem]);
     setGeneralItems(generalItems.filter((item) => item.id !== newItem.id));
   }
 
   function addCItem(newCItem) {
-    props.setItems([...props.items, newCItem]);
+    newCItem.quantity = 1;
+    setItems([...items, newCItem]);
     setConditionalItems(
       conditionalItems.filter((item) => item.id !== newCItem.id)
     );
