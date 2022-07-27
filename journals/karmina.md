@@ -1,3 +1,6 @@
+# July 26
+Today with the help of SEIRs I was able to implement the "add" button with the functionality of moving one item in a list to another list and removing the added item from the original list. I'll touch base with my team later on to figure out what the next steps are but I am very happy I got this feature to work and am excited for whats left. 
+
 # July 25
 Today with help from my team I got the tables for general items and suggested items to render correctly. It now renders the items created in admin. Although the styling of the table is still a bit wonky and uneven I am mainly focusing on the functionality and will come back to the design. 
 
