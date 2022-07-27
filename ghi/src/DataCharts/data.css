@@ -1,6 +1,11 @@
 .weather-table {
-    margin-left: 10em;
+    margin: auto;
 }
+
+.weather-data {
+    padding: 1em;
+}
+
 img.weather-icon {
     width: 3em;
 }

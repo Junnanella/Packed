@@ -16,12 +16,19 @@ export const loadWeatherData = async (city, country) => {
   return {
     temps: [
       {
+        id: 1,
         date: "July",
         temperature: 75.9,
       },
       {
+        id: 2,
         date: "August",
-        temperature: 75.9,
+        temperature: 60,
+      },
+      {
+        id: 3,
+        date: "September",
+        temperature: 45.9,
       },
     ],
   };
