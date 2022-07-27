@@ -3,32 +3,47 @@ import { useState, useEffect } from "react";
 import { loadWeatherData } from "./LoadApiData";
 import "./data.css";
 
-const useWeatherData = (destination_city, destination_country) => {
+const useWeatherData = (
+  destination_city,
+  destination_country,
+  departure_date,
+  return_date
+) => {
   const [weather, setWeather] = useState([]);
 
   useEffect(() => {
     async function fetchData() {
       const weather_response = await loadWeatherData(
         destination_city,
-        destination_country
+        destination_country,
+        departure_date,
+        return_date
       );
       setWeather(weather_response);
     }
     fetchData();
-  }, [destination_city, destination_country]);
+  }, [destination_city, destination_country, departure_date, return_date]);
 
   return weather;
 };
 
 export default function WeatherChart(props) {
-  const { destination_city, destination_country } = props;
-  const weather = useWeatherData(destination_city, destination_country);
+  const { destination_city, destination_country, departure_date, return_date } =
+    props;
+  const weather = useWeatherData(
+    destination_city,
+    destination_country,
+    departure_date,
+    return_date
+  );
 
-  if (weather.temps === undefined) {
+  console.log(weather);
+
+  if (weather === undefined) {
     return "Loading...";
   }
 
-  const weatherIcon = weather.temps.map((weather) => {
+  const weatherIcon = weather.map((weather) => {
     if (weather.temperature > 70) {
       return (
         <th key={weather.id} className="weather-data">
@@ -63,12 +78,12 @@ export default function WeatherChart(props) {
         </thead>
         <tbody>
           <tr>
-            {weather.temps.map((weather) => {
+            {weather.map((weather) => {
               return <td key={weather.id}>{weather.date}</td>;
             })}
           </tr>
           <tr>
-            {weather.temps.map((weather) => {
+            {weather.map((weather) => {
               return <td key={weather.id}>{weather.temperature}</td>;
             })}
           </tr>
