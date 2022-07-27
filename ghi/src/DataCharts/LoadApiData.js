@@ -1,18 +1,30 @@
 export const loadWeatherData = async (city, country) => {
   // 🚨🚨🚨 REMOVE "fake" from url before deploying!!
-  const response = await fetch(
-    `http://localhost:8001/api/weather/fake?city=${encodeURIComponent(
-      city
-    )}&country=${encodeURIComponent(country)}`
-  );
+  // const response = await fetch(
+  //   `http://localhost:8001/api/weather/fake?city=${encodeURIComponent(
+  //     city
+  //   )}&country=${encodeURIComponent(country)}`
+  // );
 
-  if (!response.ok) {
-    console.error(await response.json());
-    throw new Error(`Failed to get weather data -- HTTP ${response.status}`);
-  }
+  // if (!response.ok) {
+  //   console.error(await response.json());
+  //   throw new Error(`Failed to get weather data -- HTTP ${response.status}`);
+  // }
 
-  const responseJson = await response.json();
-  return responseJson.temps;
+  // const responseJson = await response.json();
+  // return responseJson.temps;
+  return {
+    temps: [
+      {
+        date: "July",
+        temperature: 75.9,
+      },
+      {
+        date: "August",
+        temperature: 75.9,
+      },
+    ],
+  };
 };
 
 export const loadFlightData = async (

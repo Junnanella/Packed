@@ -1,3 +1,10 @@
+.weather-table {
+    margin-left: 10em;
+}
+img.weather-icon {
+    width: 3em;
+}
+
 input.currency_input {
     width: 5em;
     text-align: center;

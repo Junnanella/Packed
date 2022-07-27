@@ -1,17 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { Line } from "react-chartjs-2";
-import {
-  Chart as ChartJS,
-  LineElement,
-  PointElement,
-  LinearScale,
-  CategoryScale,
-  //   Title,
-} from "chart.js";
 import { loadWeatherData } from "./LoadApiData";
-
-ChartJS.register(LineElement, PointElement, LinearScale, CategoryScale);
+import "./data.css";
 
 const useWeatherData = (destination_city, destination_country) => {
   const [weather, setWeather] = useState([]);
@@ -34,25 +24,44 @@ export default function WeatherChart(props) {
   const { destination_city, destination_country } = props;
   const weather = useWeatherData(destination_city, destination_country);
 
-  const date_list = weather.map(({ date }) => date);
-  const temp_list = weather.map(({ temperature }) => temperature);
-
-  const data = {
-    labels: date_list,
-    datasets: [
-      {
-        label: "Temperatures",
-        backgroundColor: "rgba(194, 116, 161, 0.5)",
-        borderColor: "rgb(194, 116, 161)",
-        data: temp_list,
-      },
-    ],
-  };
+  console.log(weather.temps);
 
   return (
-    <div className="container-sm offset-1">
-      <h3 className="mt-5">Weather History</h3>
-      <Line data={data} options={{ responsive: true }} />
+    <div className="container-sm offset-1 weather-component">
+      <h3 className="mt-5">Expected Weather</h3>
+      <table className="weather-table">
+        <thead>
+          {weather.temps.map((temp) => {
+            if (temp.temperature > 70) {
+              return (
+                <th>
+                  <img src="../sun.png" alt="sun" className="weather-icon" />
+                </th>
+              );
+            } else {
+              return (
+                <th>
+                  <img src="../sun.png" alt="sun" className="weather-icon" />
+                </th>
+              );
+            }
+          })}
+          <th></th>
+          <th></th>
+        </thead>
+        <tbody>
+          <tr>
+            {weather.temps.map((date) => {
+              return <td>{date.date}</td>;
+            })}
+          </tr>
+          <tr>
+            {weather.temps.map((temp) => {
+              return <td>{temp.temperature}</td>;
+            })}
+          </tr>
+        </tbody>
+      </table>
     </div>
   );
 }
