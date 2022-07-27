@@ -1,3 +1,10 @@
+## July 26, 2022
+
+Today, I worked on:
+
+- Making updates to the UI for the currency exchange rate component. It now allows the user to input how much money of their origin currency they intend to bring, and updates the total of the destination currency that equals to.
+- Making updates to the UI for the weather data to be more user friendly. I removed the chart and we will now aim to render an icon and focused weather data based on the user's input dates on the homepage form.
+
 ## July 25, 2022
 
 Today, I worked on:
