@@ -5,7 +5,7 @@
 import React, { useEffect, useState } from "react";
 import { loadItemsList } from "./PackingListApi";
 
-export default function SuggestedItems(props) {
+export default function SuggestedItems({setItems, items}) {
   const [conditionalItems, setConditionalItems] = useState([]);
   const [generalItems, setGeneralItems] = useState([]);
 
@@ -23,12 +23,14 @@ export default function SuggestedItems(props) {
   // add onclick with set items in travel detail page , reference user input items
 
   function addGItem(newItem) {
-    props.setItems([...props.items, newItem]);
+    newItem.quantity = 1;
+    setItems([...items, newItem]);
     setGeneralItems(generalItems.filter((item) => item.id !== newItem.id));
   }
 
   function addCItem(newCItem) {
-    props.setItems([...props.items, newCItem]);
+    newCItem.quantity = 1;
+    setItems([...items, newCItem]);
     setConditionalItems(
       conditionalItems.filter((item) => item.id !== newCItem.id)
     );

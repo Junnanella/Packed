@@ -32,7 +32,9 @@ export default function TravelDetailPage() {
         <div className="row">
           <div className="col item-column border rounded">
             <UserItemForm setItems={setItems} items={items} />
-            <SuggestedItems />
+            <SuggestedItems
+              setItems={setItems} items={items}
+            />
           </div>
           <div className="col item-column  border rounded">
             <WorkingList setItems={setItems} items={items} />
