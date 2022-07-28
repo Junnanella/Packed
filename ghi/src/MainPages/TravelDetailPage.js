@@ -37,7 +37,7 @@ export default function TravelDetailPage() {
             />
           </div>
           <div className="col item-column  border rounded">
-            <WorkingList setItems={setItems} items={items} />
+            <WorkingList setItems={setItems} items={items} destination_country={destination_country}/>
           </div>
           <div className="col data-column border rounded">
             <div className="row">
