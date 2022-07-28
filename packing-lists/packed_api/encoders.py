@@ -27,7 +27,6 @@ class ItemEncoder(ModelEncoder):
         "id",
         "name",
         "category",
-        "user_item",
         "condition",
         "suggested",
     ]
