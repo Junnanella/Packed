@@ -7,17 +7,6 @@ from .models import (
     PackingListItem,
 )
 
-class PackingListEncoder(ModelEncoder):
-    model = PackingList
-    properties = [
-        "id",
-        "name",
-        "created",
-        "travel_date",
-        "completed",
-        "location",
-    ]
-
 class CategoryEncoder(ModelEncoder):
     model = Category
     properties = [
@@ -38,7 +27,6 @@ class ItemEncoder(ModelEncoder):
         "id",
         "name",
         "category",
-        "user_item",
         "condition",
         "suggested",
     ]
@@ -47,17 +35,54 @@ class ItemEncoder(ModelEncoder):
         "condition": ConditionEncoder(),
     }
 
+class SimpleItemEncoder(ModelEncoder):
+    model = Item
+    properties = [
+        "id",
+        "name",
+        "suggested",
+    ]
+
 class PackingListItemEncoder(ModelEncoder):
     model = PackingListItem
     properties = [
         "id",
         "item_name",
-        "owner",
         "quantity",
         "packed",
-        "packing_list",
     ]
     encoders = {
-        "item_name" : ItemEncoder(),
-        "packing_list" : PackingListEncoder()
+        "item_name" : SimpleItemEncoder(),
     }
+
+class PackingListEncoder(ModelEncoder):
+    model = PackingList
+    properties = [
+        "id",
+        "title",
+        "created",
+        "departure_date",
+        "return_date",
+        "completed",
+        "destination_city",
+        "destination_country",
+    ]
+
+
+
+# class PackingListItemEncoder(ModelEncoder):
+#     model = PackingListItem
+#     properties = [
+#         "id",
+#         "item_name",
+#         "owner",
+#         "quantity",
+#         "packed",
+#         "packing_list",
+#     ]
+#     encoders = {
+#         "item_name" : ItemEncoder(),
+#         "packing_list" : PackingListEncoder()
+#     }
+
+

@@ -4,8 +4,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 function WorkingList({
     items,
     setItems,
+    destination_city,
+    destination_country,
+    departure_date,
+    return_date,
 }){
-
+      
     function findItem(name) {
         for (let index = 0; index < items.length; index ++) {
             if (items[index].name === name) {
@@ -20,16 +24,51 @@ function WorkingList({
         setItems([...items.filter((_, i) => i !== item_index)])
     };
 
-    function sendData() {
+    async function sendData(data, url) {
+        const fetchConfig = {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers: {
+                "Content-Type": "application/json",
+            }
+        };
+        const response = await fetch(url, fetchConfig);
+        if (response.ok) {
+            const listData = await response.json();
+            return listData
+
+        } else {
+            console.error(response.status);
+        };
+    }
+
+    async function createList() {
         if (items.length > 0) {
-            console.log({"items to be sent to the backend": items})
+            const packingListData = {
+                "title": `Packing list for ${destination_city}, ${destination_country}`,
+                "departure_date": departure_date,
+                "return_date": return_date,
+                "destination_city": destination_city,
+                "destination_country": destination_country,
+                "owner": 1,
+            };
+            const packingListUrl = "http://localhost:8005/api/packing_lists/"
+            const packingList = await sendData(packingListData, packingListUrl)
+            if (packingList) {
+                const itemsData = {"items": items};
+                const itemsUrl = `http://localhost:8005/api/packing_lists/${packingList.id}/items/`;
+                const packingListItems = await sendData(itemsData, itemsUrl);
+                console.log({"packingList": packingList, "items": packingListItems});
+            }
         } else {
             console.log("you cant create an empty packing list")
         }
     }
 
+
     return (
         <div className="">
+            <h3>Packing List for {destination_country}</h3>
             <table className="table table-hover">
                 <thead>
                     <tr>
@@ -71,7 +110,7 @@ function WorkingList({
                 </tbody>
             </table>
             <div>
-                <button className="btn btn-success" onClick={sendData}>Create!</button>
+                <button className="btn btn-success" onClick={createList}>Create!</button>
             </div>
         </div>
     );

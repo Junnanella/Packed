@@ -35,7 +35,12 @@ export default function TravelDetailPage() {
             <SuggestedItems setItems={setItems} items={items} />
           </div>
           <div className="col item-column  border rounded">
-            <WorkingList setItems={setItems} items={items} />
+            <WorkingList setItems={setItems} items={items}
+              destination_city={destination_city}
+              destination_country={destination_country}
+              departure_date={departure_date}
+              return_date={return_date}
+            />
           </div>
           <div className="col data-column border rounded">
             <div className="row">

@@ -1,3 +1,4 @@
+from tkinter import Pack
 from black import Mode
 from django.http import JsonResponse
 from django.core.exceptions import FieldDoesNotExist
@@ -224,15 +225,94 @@ def api_condition(request, pk):
 
 
 # PackingList Views -----
-# @require_http_methods(["GET", "POST"])
-# def api_packing_lists(request, user_id):
-#     if request.method == "GET":
-#         owner = User.objects.get(id=user_id)
-#         packing_lists = PackingList.objects.filter(owner=owner)
-#         return JsonResponse(
-#             {"lists": packing_lists},
-#             encoder=PackingListEncoder,
-#             safe=False,
-#         )
-#     else:
-#         pass
+def create_packing_list(content):
+    data = {
+        "title": content["title"],
+        "departure_date": content["departure_date"],
+        "return_date": content["return_date"],
+        "destination_city": content["destination_city"],
+        "destination_country": content["destination_country"],
+        # owner = content["owner"]
+    }
+    try:
+        packing_list = PackingList.objects.create(**data)
+        return packing_list
+    except KeyError:
+        return None
+
+
+def add_packing_list_item(item, packing_list):
+    existing_item = Item.objects.filter(name=item["name"])
+    if item["suggested"] or len(existing_item) > 0:
+        linked_item = Item.objects.get(name=item["name"])
+        data = {
+            "item_name": linked_item,
+            "quantity": int(item["quantity"]),
+            "packing_list": packing_list,
+        }
+    else:
+        data = {
+            "name": item["name"],
+            "suggested": item["suggested"],
+        }
+        linked_item = Item.objects.create(**data)
+        data = {
+            "item_name": linked_item,
+            "quantity": int(item["quantity"]),
+            "packing_list": packing_list,
+        }
+    print(data)
+    new_packing_list_item = PackingListItem.objects.create(**data)
+    return new_packing_list_item
+
+
+@require_http_methods(["GET", "POST"])
+def api_packing_lists(request, user_id=1):
+    if request.method == "GET":
+        packing_lists = PackingList.objects.all()
+        return JsonResponse(
+            {"packing_lists": packing_lists},
+            encoder=PackingListEncoder,
+        )
+    else:
+        content = json.loads(request.body)
+        packing_list = create_packing_list(content)
+        if packing_list:
+            return JsonResponse(
+                packing_list,
+                encoder=PackingListEncoder,
+                safe=False,
+            )
+        else:
+            return JsonResponse(
+                {"message": "Failed to create packing list"},
+                status=400,
+            )
+
+
+@require_http_methods(["GET", "POST"])
+def api_packing_list_items(request, pk):
+    if request.method == "GET":
+        packing_list = PackingList.objects.get(id=pk)
+        items = PackingListItem.objects.filter(packing_list=packing_list)
+        print(items)
+        return JsonResponse(
+            {"items": items},
+            encoder=PackingListItemEncoder,
+        )
+    else:
+        content = json.loads(request.body)
+        packing_list = PackingList.objects.get(id=pk)
+        items = []
+        try:
+            for item in content["items"]:
+                items.append(
+                    add_packing_list_item(item=item, packing_list=packing_list)
+                )
+            return JsonResponse(
+                {"items": items},
+                encoder=PackingListItemEncoder,
+                safe=False,
+            )
+        except TypeError:
+            return type_error_message("Item")

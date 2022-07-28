@@ -1,12 +1,12 @@
 from json import JSONEncoder
 from django.urls import NoReverseMatch
 from django.db.models import QuerySet
-from datetime import datetime, time
+from datetime import datetime, time, date
 
 
 class DateEncoder(JSONEncoder):
     def default(self, o):
-        if isinstance(o, datetime):
+        if isinstance(o, (date, time, datetime)):
             return o.isoformat()
         else:
             return super().default(o)
