@@ -6,7 +6,7 @@ export const loadWeatherData = async (
 ) => {
   // 🚨🚨🚨 REMOVE "fake" from url before deploying!!
   const response = await fetch(
-    `http://localhost:8001/api/weather/fake?city=${encodeURIComponent(
+    `http://localhost:8001/api/weather?city=${encodeURIComponent(
       city
     )}&country=${encodeURIComponent(
       country

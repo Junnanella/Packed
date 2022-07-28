@@ -36,18 +36,23 @@ class TempsOut(BaseModel):
 
 
 class WeatherQueries:
-    def get_date_list(self, today: datetime):
+    def get_date_list(self, departure_date, return_date):
+        departure_month = int(departure_date[5:7])
+        return_month = int(return_date[5:7])
         dates = []
-        month_back = today.month - 1
-        day = today.day if today.day < 29 else 28
-        year_back = today.year
-        while month_back != today.month:
-            if month_back < 1:
-                month_back = 12
-                year_back -= 1
-            two_digit_month = str(month_back) if month_back >= 10 else f"0{month_back}"
-            dates.append(f"{year_back}-{two_digit_month}-{day}")
-            month_back -= 1
+        months = []
+        if departure_month > return_month:
+            return_month = return_month + 12
+        for i in range(departure_month, return_month + 1):
+            if i > 12:
+                i = str(i - 12)
+                months.append(f"0{i}")
+            elif i < 10:
+                months.append(f"0{i}")
+            else:
+                months.append(str(i))
+        for month in months:
+            dates.append(f"2021-{month}-01")
         return dates
 
     def get_weather(self, full_path):
@@ -64,11 +69,12 @@ def temp_list(
     return_date: str,
     query=Depends(WeatherQueries),
 ):
-    dates = ["today"]
-    dates += query.get_date_list(datetime.date.today())
+
+    dates = query.get_date_list(departure_date, return_date)
     temps = []
-    for date in dates:
-        date_section = "today" if date == "today" else f"{date}/{date}"
+    for i in range(len(dates)):
+        date = dates[i]
+        date_section = f"{date}/{date}"
         search_parameters = f"{city}%20{country}/{date_section}"
         full_path = base_url + search_parameters + rest_of_path
         data = query.get_weather(full_path)
@@ -77,7 +83,7 @@ def temp_list(
         #     {"temp_min": data["days"][0]["tempmin"]},
         #     {"temp": data["days"][0]["temp"]},
         # ]})
-        temps.append({"date": date, "temperature": data["days"][0]["temp"]})
+        temps.append({"id": i, "date": date, "temperature": data["days"][0]["temp"]})
     return {"temps": temps}
 
 
