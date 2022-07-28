@@ -11,19 +11,21 @@ from django.db import models
 
 
 class PackingList(models.Model):
-    name = models.CharField(max_length=100)
+    title = models.CharField(max_length=100, default="My Packing List")
     # owner = models.ForeignKey(
     # User,
     # related_name = "packing_list",
     # on_delete=models.CASCADE
     # )
-    created = models.DateField()
-    travel_date = models.DateField()
-    completed = models.BooleanField()
-    location = models.CharField(max_length=100)
+    created = models.DateField(auto_now_add=True)
+    departure_date = models.CharField(max_length=10, blank=True)
+    return_date = models.CharField(max_length=10, blank=True)
+    completed = models.BooleanField(default=False)
+    destination_city = models.CharField(max_length=70, blank=True)
+    destination_country = models.CharField(max_length=70, blank=True)
     
     def __str__(self):
-        return self.name
+        return self.title
 
 
 class Category(models.Model):
@@ -44,17 +46,26 @@ class Item(models.Model):
     name = models.CharField(max_length=100)
     category = models.ForeignKey(
         Category, 
-        related_name= "items", 
-        on_delete= models.CASCADE
+        related_name="items", 
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
     )
     suggested = models.BooleanField()
-    condition = models.ForeignKey("Condition", related_name="items", on_delete=models.CASCADE)
+    condition = models.ForeignKey(
+        "Condition",
+        related_name="items",
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+    )
+        
     # users_item = models.ForeignKey(             
     # User, 
     # related_name = "users_packing_list_items", 
     # on_delete - models.CASCADE
     # )
-    user_item = models.PositiveIntegerField(null=True, blank=True)
+    # user_item = models.PositiveIntegerField(null=True, blank=True)
 
     def __str__(self):
         return self.name
@@ -66,9 +77,9 @@ class PackingListItem(models.Model):
         related_name="packing_lists",
         on_delete= models.CASCADE 
     )
-    owner = models.PositiveIntegerField(null=True)
-    quantity = models.PositiveIntegerField(), 
-    packed = models.BooleanField()
+    # owner = models.PositiveIntegerField(null=True)
+    quantity = models.PositiveIntegerField()
+    packed = models.BooleanField(default=False)
     packing_list = models.ForeignKey(
         PackingList, 
         related_name="items",
@@ -76,4 +87,4 @@ class PackingListItem(models.Model):
     )
 
     def __str__(self):
-        return f"{self.item_name.name} for {self.packing_list.name}"
+        return f"{self.item_name.name} ({self.quantity}) for {self.packing_list.title}"
