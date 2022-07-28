@@ -26,6 +26,7 @@ rest_of_path = f"?unitGroup=us&elements=name%2Ctempmax%2Ctempmin%2Ctemp&include=
 
 
 class TempOut(BaseModel):
+    id: int
     date: str
     temperature: float
 
@@ -56,7 +57,13 @@ class WeatherQueries:
 
 
 @app.get("/api/weather", response_model=TempsOut)
-def temp_list(city: str, country: str, query=Depends(WeatherQueries)):
+def temp_list(
+    city: str,
+    country: str,
+    departure_date: str,
+    return_date: str,
+    query=Depends(WeatherQueries),
+):
     dates = ["today"]
     dates += query.get_date_list(datetime.date.today())
     temps = []
@@ -73,24 +80,18 @@ def temp_list(city: str, country: str, query=Depends(WeatherQueries)):
         temps.append({"date": date, "temperature": data["days"][0]["temp"]})
     return {"temps": temps}
 
+
 @app.get("/api/weather/fake", response_model=TempsOut)
-def fake_temp_list(country: str, city: str):
+def fake_temp_list(country: str, city: str, departure_date: str, return_date: str):
     random_temperatures = random.sample(range(15, 85), 12)
-    dates = [
-        "today",
-        "2022-06-12",
-        "2022-05-12",
-        "2022-04-12",
-        "2022-03-12",
-        "2022-02-12",
-        "2022-01-12",
-        "2021-12-12",
-        "2021-11-12",
-        "2021-10-12",
-        "2021-09-12",
-        "2021-08-12",
-    ]
+    dates = ["July", "August", "September"]
     temps = []
-    for index in range(12):
-        temps.append({"date": dates[index], "temperature": random_temperatures[index]})
+    for index in range(len(dates)):
+        temps.append(
+            {
+                "id": index,
+                "date": dates[index],
+                "temperature": random_temperatures[index],
+            }
+        )
     return {"temps": temps}
