@@ -51,9 +51,9 @@ export default function TravelDetailPage() {
                 return_date={return_date}
               />
             </div>
-            <div className="row">
+            {/* <div className="row">
               <FlightChart />
-            </div>
+            </div> */}
             <div className="row currency-data">
               <CurrencyInfo
                 origin_code={origin_code}
