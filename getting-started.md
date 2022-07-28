@@ -2,16 +2,18 @@ After cloning the repo or deleting the database, follow these steps to get the d
 steps with a ( >>> ) indicate to use a terminal or CLI to input the command
 
 1) Delete old version of database (if it exists) and create a new one (run commands from anywhere in your system)
-    i) any terminal >>> docker volume remove postgres-data
-    ii) any terminal >>> docker volume create postgres-data
+    i) any directory >>> docker volume remove postgres-data
+    ii) any directory >>> docker volume create postgres-data
 
 2) Build and run the project with Docker (run commands from inside top level directory of project: 'packed')
     i) from packed directory >>> docker-compose build (for M1 Macs: DOCKER_DEFAULT_PLATFORM=linux/amd64 docker-compose build
     ii) from packed directory >>> docker-compose up
 
-3) Create superuser for 'packing-lists' project. (run commands from the 'packed-packing-lists' container in Docker Desktop)
-    i) from packing-lists container CLI >>> python manage.py createsuperuser
-    ii) create a superuser for yourself to access the admin page
+3) Migrate and create superuser for 'packing-lists' project. (run commands from the 'packed-packing-lists' container in Docker Desktop)
+    i) from 'packing-lists' container CLI >>> python manage.py makemigrations
+    ii) from 'packing-lists' container CLI >>> python manage.py migrate
+    iii) from 'packing-lists' container CLI >>> python manage.py createsuperuser
+    iv) create a superuser for yourself to access the admin page
 
 4) Populate 'packing-lists' database with essential values (these steps must be done on the browser at localhost:8005/admin)
     i) log in with your credentials

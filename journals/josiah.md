@@ -133,3 +133,14 @@ Today, I worked on:
 The group and I connected to discuss some GHI alterations involving weather data and currency. We also discussed the website appearance theme a bit.
 
 I am getting more comfortable with react hooks by the day. What is still very tricky is deployment. I have been preparing this project for deployment a little bit every week but there are a LOT of moving parts to factor in.
+
+## July 27, 2022
+
+Today, I worked on:
+* Further refactoring of packing list form
+* Building view to handle creation of packing list and items
+* Writing instructions for engineers to get the project up and running after a database purge
+
+The group and I briefly discussed the GHI form page. We also discussed handling weather data from the API differently.
+
+Today was slow work with a lot of errors when creating the views to handle the creation of a packing list. I reconfigured the encoders and ended up rebuilding the database a couple of times. In the end, I created a couple helper functions in the views to actually make create the table rows. I also implemented a feature in the views that checks to make sure a user item that was input does not already exist before creating another one. Instructors will be reviewing our project tomorrow so I created a fairly comprehensive step by step to get the project up and running.
