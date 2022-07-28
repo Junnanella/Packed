@@ -82,7 +82,7 @@ export default function WeatherChart(props) {
           </tr>
           <tr>
             {weather.map((weather) => {
-              return <td key={weather.id}>{weather.temperature}</td>;
+              return <td key={weather.id}>{weather.temperature}°F</td>;
             })}
           </tr>
         </tbody>
