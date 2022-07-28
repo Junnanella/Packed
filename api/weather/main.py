@@ -72,6 +72,14 @@ def temp_list(
 
     dates = query.get_date_list(departure_date, return_date)
     temps = []
+
+    # get month names
+    months = []
+    for date in dates:
+        month = date[5:7]
+        datetime_obj = datetime.datetime.strptime(month, "%m")
+        month_name = datetime_obj.strftime("%B")
+        months.append(month_name)
     for i in range(len(dates)):
         date = dates[i]
         date_section = f"{date}/{date}"
@@ -83,7 +91,9 @@ def temp_list(
         #     {"temp_min": data["days"][0]["tempmin"]},
         #     {"temp": data["days"][0]["temp"]},
         # ]})
-        temps.append({"id": i, "date": date, "temperature": data["days"][0]["temp"]})
+        temps.append(
+            {"id": i, "date": months[i], "temperature": data["days"][0]["temp"]}
+        )
     return {"temps": temps}
 
 

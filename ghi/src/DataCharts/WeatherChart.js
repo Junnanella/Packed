@@ -37,8 +37,6 @@ export default function WeatherChart(props) {
     return_date
   );
 
-  console.log(weather);
-
   if (weather === undefined) {
     return "Loading...";
   }
