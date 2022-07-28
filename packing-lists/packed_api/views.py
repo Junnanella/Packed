@@ -242,10 +242,11 @@ def create_packing_list(content):
 
 
 def add_packing_list_item(item, packing_list):
-    if item["suggested"]:
-        suggested_item = Item.objects.get(id=item["id"])
+    existing_item = Item.objects.filter(name=item["name"])
+    if item["suggested"] or len(existing_item) > 0:
+        linked_item = Item.objects.get(name=item["name"])
         data = {
-            "item_name": suggested_item,
+            "item_name": linked_item,
             "quantity": int(item["quantity"]),
             "packing_list": packing_list,
         }
@@ -254,9 +255,9 @@ def add_packing_list_item(item, packing_list):
             "name": item["name"],
             "suggested": item["suggested"],
         }
-        user_item = Item.objects.create(**data)
+        linked_item = Item.objects.create(**data)
         data = {
-            "item_name": user_item,
+            "item_name": linked_item,
             "quantity": int(item["quantity"]),
             "packing_list": packing_list,
         }
@@ -303,18 +304,15 @@ def api_packing_list_items(request, pk):
         content = json.loads(request.body)
         packing_list = PackingList.objects.get(id=pk)
         items = []
-        # try:
-        for item in content["items"]:
-            items.append(
-                add_packing_list_item(item=item, packing_list=packing_list)
+        try:
+            for item in content["items"]:
+                items.append(
+                    add_packing_list_item(item=item, packing_list=packing_list)
+                )
+            return JsonResponse(
+                {"items": items},
+                encoder=PackingListItemEncoder,
+                safe=False,
             )
-        return JsonResponse(
-            {"items": items},
-            encoder=PackingListItemEncoder,
-            safe=False,
-        )
-        # except:
-        #     return JsonResponse(
-        #         {"message": "Failed to add items"},
-        #         status=400,
-        #     )
+        except TypeError:
+            return type_error_message("Item")
