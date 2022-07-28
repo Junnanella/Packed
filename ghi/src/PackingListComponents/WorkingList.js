@@ -9,7 +9,7 @@ function WorkingList({
     departure_date,
     return_date,
 }){
-
+      
     function findItem(name) {
         for (let index = 0; index < items.length; index ++) {
             if (items[index].name === name) {
@@ -65,8 +65,10 @@ function WorkingList({
         }
     }
 
+
     return (
         <div className="">
+            <h3>Packing List for {destination_country}</h3>
             <table className="table table-hover">
                 <thead>
                     <tr>

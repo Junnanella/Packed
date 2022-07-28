@@ -24,44 +24,56 @@ export default function WeatherChart(props) {
   const { destination_city, destination_country } = props;
   const weather = useWeatherData(destination_city, destination_country);
 
-  console.log(weather.temps);
+  if (weather.temps === undefined) {
+    return "Loading...";
+  }
+
+  const weatherIcon = weather.temps.map((weather) => {
+    if (weather.temperature > 70) {
+      return (
+        <th key={weather.id} className="weather-data">
+          <img src="../sun.png" alt="sun" className="weather-icon" />
+        </th>
+      );
+    } else if (weather.temperature < 70 && weather.temperature > 55) {
+      return (
+        <th key={weather.id} className="weather-data">
+          <img src="../cloudy.png" alt="cloudy" className="weather-icon" />
+        </th>
+      );
+    } else {
+      return (
+        <th key={weather.id} className="weather-data">
+          <img
+            src="../snowflake.jpeg"
+            alt="snowflake"
+            className="weather-icon"
+          />
+        </th>
+      );
+    }
+  });
 
   return (
     <div className="container-sm offset-1 weather-component">
       <h3 className="mt-5">Expected Weather</h3>
-      {/* <table className="weather-table">
+      <table className="weather-table">
         <thead>
-          {weather.temps.map((temp) => {
-            if (temp.temperature > 70) {
-              return (
-                <th>
-                  <img src="../sun.png" alt="sun" className="weather-icon" />
-                </th>
-              );
-            } else {
-              return (
-                <th>
-                  <img src="../sun.png" alt="sun" className="weather-icon" />
-                </th>
-              );
-            }
-          })}
-          <th></th>
-          <th></th>
+          <tr>{weatherIcon}</tr>
         </thead>
         <tbody>
           <tr>
-            {weather.temps.map((date) => {
-              return <td>{date.date}</td>;
+            {weather.temps.map((weather) => {
+              return <td key={weather.id}>{weather.date}</td>;
             })}
           </tr>
           <tr>
-            {weather.temps.map((temp) => {
-              return <td>{temp.temperature}</td>;
+            {weather.temps.map((weather) => {
+              return <td key={weather.id}>{weather.temperature}</td>;
             })}
           </tr>
         </tbody>
-      </table> */}
+      </table>
     </div>
   );
 }
