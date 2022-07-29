@@ -1,3 +1,19 @@
+## July 28, 2022
+
+Today, I worked on:
+
+- Continued working on the weather component and refactoring the backend code to take in the user inputs. It was a challenge to understand how to account for if the user's departure date is in the latter months, like December(12), and then the return date is March(03), but after testing out some code on replit to see if I could get the output I wanted, which was a list like [12, 1, 2, 3], I inserted that logic into our application's code and got it to work.
+- Getting the output to return actual month names, like "January" or "April" instead of the date strings, "2023-04-14". Took some research into datetime and testing code again on replit before inserting that logic into our application's code.
+
+At the beginning of project time, Josiah and I discussed how the original weather api backend code worked and what sort of changes may need to be done to get the new output that we want. This sort of discussion was definitely helpful, as I feel that it helped move the thought process along faster than if I tried to sit alone to figure all of it out. So it's a great reminder of the importance of colloboration and bouncing ideas off of each other.
+
+## July 27, 2022
+
+Today, I worked on:
+
+- Updating navbar to include logo
+- Continued working on the weather component to render weather icons and temp. It currently works with hardcoded data on the fake api endpoint, so now trying to refactor the code for the real api endpoint to take in the user input dates and output data accordingly. As this code was originally written by Josiah, it's taking quite some time to wrap my head around how it originally worked. Will touch base with him tomorrow to get a better understanding so that I have a better chance at refactoring it with our new intentions.
+
 ## July 26, 2022
 
 Today, I worked on:
