@@ -1,4 +1,7 @@
-# July 26
+# July 28
+Today I worked on implementing the edit/save feature for the packing list name. I got my code to briefly work but it throws some errors, after working with one of the SEIRs I have some docs to look at to try and work issues out. 
+
+# July 27
 Today I added titles to our items list and created a dynamic title for the packing list to update with the country the user is flying too. Tomorrow I'll get working on trying to implement an edit feature to the name of the packing list so the user can change it to whatever they want rather than just the default "Packing List for {destination_country}. 
 
 # July 26
