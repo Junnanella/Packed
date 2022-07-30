@@ -3,6 +3,8 @@ from black import Mode
 from django.http import JsonResponse
 from django.core.exceptions import FieldDoesNotExist
 from django.views.decorators.http import require_http_methods
+from rest_framework.decorators import permission_classes
+from rest_framework.permissions import IsAuthenticated
 import json
 from common.json import ModelEncoder
 from .encoders import (
