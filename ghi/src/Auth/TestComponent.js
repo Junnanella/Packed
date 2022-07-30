@@ -1,9 +1,12 @@
-import React from 'react'
+import React, {useContext} from 'react'
+import AuthContext from '../context/AuthContext'
+
 
 const TestComponent = () => {
+  let {name} = useContext(AuthContext);
   return (
     <div className="container col-4">
-        <p>Hi</p>
+        <p>Hi, {name}</p>
     </div>
   )
 }

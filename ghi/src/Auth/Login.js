@@ -1,11 +1,13 @@
-import React from 'react'
+import React, { useContext } from 'react';
+import AuthContext from '../context/AuthContext';
 
 const Login = () => {
+  let { loginUser } = useContext(AuthContext);
   return (
     <div className="container col-4">
         <div className="shadow p-4 mt-4">
             <h1>Login</h1>
-            <form>
+            <form onSubmit={loginUser}>
                 <div className="form-floating mb-3">
                     <input className="form-control" type="text" name="username" placeholder="Enter Username" />
                     <label htmlFor="username">Username</label>

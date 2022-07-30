@@ -2,6 +2,7 @@ import "./App.css";
 import { BrowserRouter, Routes, Route, Router } from "react-router-dom";
 import PrivateRoute from "./Auth/PrivateRoute";
 import MainPage from "./MainPages/MainPage";
+import { AuthProvider } from "./context/AuthContext";
 import Nav from "./MainPages/Nav";
 import TravelDetailPage from "./MainPages/TravelDetailPage";
 import Login from "./Auth/Login";
@@ -13,13 +14,15 @@ export default function App() {
     <BrowserRouter>
       <Nav />
       <div>
-        <Routes>
-          <Route path="/" element={<MainPage />} exact />
-          <Route path="/travel_details" element={<TravelDetailPage />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/test-component" element={<PrivateRoute><TestComponent /></PrivateRoute>} />
-        </Routes>
+        <AuthProvider>
+          <Routes>
+            <Route path="/" element={<MainPage />} exact />
+            <Route path="/travel_details" element={<TravelDetailPage />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/test-component" element={<PrivateRoute><TestComponent /></PrivateRoute>} />
+          </Routes>
+        </AuthProvider>
       </div>
     </BrowserRouter>
   );
