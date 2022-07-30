@@ -1,7 +1,10 @@
 import { NavLink } from "react-router-dom";
+import React, {useContext} from 'react'
 import "./pages.css";
+import AuthContext from "../context/AuthContext";
 
 export default function Nav() {
+  let {user, logoutUser} = useContext(AuthContext);
   return (
     <nav className="navbar navbar-expand-lg ">
       <div className="container-fluid">
@@ -12,9 +15,12 @@ export default function Nav() {
         <NavLink className="navbar-brand nav-link" to="/signup">
           Signup
         </NavLink>
-        <NavLink className="navbar-brand nav-link" to="/login">
-          Login
-        </NavLink>
+        {user ? <p onClick={logoutUser}>Logout</p> 
+          :
+          <NavLink className="navbar-brand nav-link" to="/login">
+            Login
+          </NavLink>
+        }
         <NavLink className="navbar-brand nav-link" to="/test-component">
           Test
         </NavLink>

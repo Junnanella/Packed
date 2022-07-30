@@ -12,18 +12,18 @@ import TestComponent from "./Auth/TestComponent";
 export default function App() {
   return (
     <BrowserRouter>
-      <Nav />
-      <div>
-        <AuthProvider>
-          <Routes>
-            <Route path="/" element={<MainPage />} exact />
-            <Route path="/travel_details" element={<TravelDetailPage />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<SignUp />} />
-            <Route path="/test-component" element={<PrivateRoute><TestComponent /></PrivateRoute>} />
-          </Routes>
-        </AuthProvider>
-      </div>
+      <AuthProvider>
+        <Nav />
+        <div>
+            <Routes>
+              <Route path="/" element={<MainPage />} exact />
+              <Route path="/travel_details" element={<TravelDetailPage />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<SignUp />} />
+              <Route path="/test-component" element={<PrivateRoute><TestComponent /></PrivateRoute>} />
+            </Routes>
+        </div>
+      </AuthProvider>
     </BrowserRouter>
   );
 }
