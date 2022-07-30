@@ -20,12 +20,12 @@ steps with a ( >>> ) indicate to use a terminal or CLI to input the command
     ii) create 4 conditions named as follows: 'hot', 'moderate', 'cold', 'any'
     iii) create 3 categories named as follows: 'clothing', 'electronics', 'essentials', 'misc'
     iv) create 2 items with the following properties: 
-        1) name: 'passport', condition: 'any', suggested: True, category: 'essentials', user: 1
-        2) name: 'coat', condition: 'cold', suggested: True, category: 'clothing', user: 1
+        1) name: 'passport', condition: 'any', suggested: True, category: 'essentials'
+        2) name: 'coat', condition: 'cold', suggested: True, category: 'clothing'
 
 LAST STEP, don't worry.
 5) Populate 'locations' database (these steps must be done from the 'postgres' container in Docker Desktop)
     i) refer to api/locations/countries.txt to complete this step. Start at 'REPOPULATING THE DATABASE'
 
 At this point, you can use the website at localhost:3000. Fill out the form you are greeted with and create a packing list.
-When you submit the packing list, check the console to see the data that was created in the database. You can also see it at localhost:8005/admin 
+When you submit the packing list, check the console to see the data that was created in the database. You can also see it at localhost:8005/admin

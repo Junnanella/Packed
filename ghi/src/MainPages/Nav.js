@@ -9,6 +9,15 @@ export default function Nav() {
           <img src="./packed_p.png" alt="p" className="packed-logo" />
           packed
         </NavLink>
+        <NavLink className="navbar-brand nav-link" to="/signup">
+          Signup
+        </NavLink>
+        <NavLink className="navbar-brand nav-link" to="/login">
+          Login
+        </NavLink>
+        <NavLink className="navbar-brand nav-link" to="/test-component">
+          Test
+        </NavLink>
       </div>
     </nav>
   );

@@ -59,6 +59,8 @@ function WorkingList({
                 const itemsUrl = `http://localhost:8005/api/packing_lists/${packingList.id}/items/`;
                 const packingListItems = await sendData(itemsData, itemsUrl);
                 console.log({"packingList": packingList, "items": packingListItems});
+            } else {
+                console.log("didnt work")
             }
         } else {
             console.log("you cant create an empty packing list")
