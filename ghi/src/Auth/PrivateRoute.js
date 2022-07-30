@@ -1,9 +1,10 @@
-import {Route, Redirect} from 'react-router-dom';
+import {Route, Navigate} from 'react-router-dom';
 
-const PrivateRoute = ({children, ...rest}) => {
+const PrivateRoute = ({children}) => {
     console.log("private route working");
+    const authenticated = false
     return (
-        <Route {...rest}>{children}</Route>
+       !authenticated ? <Navigate to="/login" /> : children
     )
 }
 
