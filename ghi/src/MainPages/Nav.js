@@ -15,7 +15,7 @@ export default function Nav() {
         <NavLink className="navbar-brand nav-link" to="/signup">
           Signup
         </NavLink>
-        {user ? <p onClick={logoutUser}>Logout</p> 
+        {user ? <p className="navbar-brand nav-link" onClick={logoutUser}>Logout</p> 
           :
           <NavLink className="navbar-brand nav-link" to="/login">
             Login
