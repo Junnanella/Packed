@@ -26,6 +26,7 @@ rest_of_path = f"?unitGroup=us&elements=name%2Ctempmax%2Ctempmin%2Ctemp&include=
 
 
 class TempOut(BaseModel):
+    id: int
     date: str
     temperature: float
 
@@ -35,18 +36,23 @@ class TempsOut(BaseModel):
 
 
 class WeatherQueries:
-    def get_date_list(self, today: datetime):
+    def get_date_list(self, departure_date, return_date):
+        departure_month = int(departure_date[5:7])
+        return_month = int(return_date[5:7])
         dates = []
-        month_back = today.month - 1
-        day = today.day if today.day < 29 else 28
-        year_back = today.year
-        while month_back != today.month:
-            if month_back < 1:
-                month_back = 12
-                year_back -= 1
-            two_digit_month = str(month_back) if month_back >= 10 else f"0{month_back}"
-            dates.append(f"{year_back}-{two_digit_month}-{day}")
-            month_back -= 1
+        months = []
+        if departure_month > return_month:
+            return_month = return_month + 12
+        for i in range(departure_month, return_month + 1):
+            if i > 12:
+                i = str(i - 12)
+                months.append(f"0{i}")
+            elif i < 10:
+                months.append(f"0{i}")
+            else:
+                months.append(str(i))
+        for month in months:
+            dates.append(f"2021-{month}-01")
         return dates
 
     def get_weather(self, full_path):
@@ -55,13 +61,29 @@ class WeatherQueries:
         return data
 
 
+# 🐰 🐰 🐰 takes in dates in a "YYYY-MM-DD" format
 @app.get("/api/weather", response_model=TempsOut)
-def temp_list(city: str, country: str, query=Depends(WeatherQueries)):
-    dates = ["today"]
-    dates += query.get_date_list(datetime.date.today())
+def temp_list(
+    city: str,
+    country: str,
+    departure_date: str,
+    return_date: str,
+    query=Depends(WeatherQueries),
+):
+
+    dates = query.get_date_list(departure_date, return_date)
     temps = []
+
+    # 🐰 🐰 🐰 get month names, turn "2023-01-19" to "January"
+    months = []
     for date in dates:
-        date_section = "today" if date == "today" else f"{date}/{date}"
+        month = date[5:7]
+        datetime_obj = datetime.datetime.strptime(month, "%m")
+        month_name = datetime_obj.strftime("%B")
+        months.append(month_name)
+    for i in range(len(dates)):
+        date = dates[i]
+        date_section = f"{date}/{date}"
         search_parameters = f"{city}%20{country}/{date_section}"
         full_path = base_url + search_parameters + rest_of_path
         data = query.get_weather(full_path)
@@ -70,27 +92,24 @@ def temp_list(city: str, country: str, query=Depends(WeatherQueries)):
         #     {"temp_min": data["days"][0]["tempmin"]},
         #     {"temp": data["days"][0]["temp"]},
         # ]})
-        temps.append({"date": date, "temperature": data["days"][0]["temp"]})
+        temps.append(
+            {"id": i, "date": months[i], "temperature": data["days"][0]["temp"]}
+        )
     return {"temps": temps}
+    # 🐰 🐰 🐰 example output {"id": 0, "date": January, "temperature": 75.9}
+
 
 @app.get("/api/weather/fake", response_model=TempsOut)
-def fake_temp_list(country: str, city: str):
+def fake_temp_list(country: str, city: str, departure_date: str, return_date: str):
     random_temperatures = random.sample(range(15, 85), 12)
-    dates = [
-        "today",
-        "2022-06-12",
-        "2022-05-12",
-        "2022-04-12",
-        "2022-03-12",
-        "2022-02-12",
-        "2022-01-12",
-        "2021-12-12",
-        "2021-11-12",
-        "2021-10-12",
-        "2021-09-12",
-        "2021-08-12",
-    ]
+    dates = ["July", "August", "September"]
     temps = []
-    for index in range(12):
-        temps.append({"date": dates[index], "temperature": random_temperatures[index]})
+    for index in range(len(dates)):
+        temps.append(
+            {
+                "id": index,
+                "date": dates[index],
+                "temperature": random_temperatures[index],
+            }
+        )
     return {"temps": temps}

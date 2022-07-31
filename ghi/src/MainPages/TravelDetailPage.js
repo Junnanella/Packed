@@ -32,9 +32,7 @@ export default function TravelDetailPage() {
         <div className="row">
           <div className="col item-column border rounded">
             <UserItemForm setItems={setItems} items={items} />
-            <SuggestedItems
-              setItems={setItems} items={items}
-            />
+            <SuggestedItems setItems={setItems} items={items} />
           </div>
           <div className="col item-column  border rounded">
             <WorkingList setItems={setItems} items={items}
@@ -49,11 +47,13 @@ export default function TravelDetailPage() {
               <WeatherChart
                 destination_city={destination_city}
                 destination_country={destination_country}
+                departure_date={departure_date}
+                return_date={return_date}
               />
             </div>
-            <div className="row">
+            {/* <div className="row">
               <FlightChart />
-            </div>
+            </div> */}
             <div className="row currency-data">
               <CurrencyInfo
                 origin_code={origin_code}
