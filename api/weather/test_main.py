@@ -7,34 +7,26 @@ client = TestClient(app)
 
 class FakeWeatherQueries:
     def get_weather(self, full_path):
+        print(full_path)
         data = {
             "days": [{"temp": 5},]
         }
         return data
     
-    def get_date_list(self, today):
-        return ["2022-06-12", "2022-05-12",]
+    def get_date_list(self, departure_date, return_date):
+        return ["2021-01-01", "2021-02-01",]
 
 
 def test_get_date_list():
     # ARRANGE
-    test_date = datetime.date(2022, 7, 12)
     correct_dates = [
-        "2022-06-12",
-        "2022-05-12",
-        "2022-04-12",
-        "2022-03-12",
-        "2022-02-12",
-        "2022-01-12",
-        "2021-12-12",
-        "2021-11-12",
-        "2021-10-12",
-        "2021-09-12",
-        "2021-08-12",
+        "2021-01-01",
+        "2021-02-01",
+        "2021-03-01",
     ]
 
     # ACT
-    dates = WeatherQueries.get_date_list(self=[],today=test_date)
+    dates = WeatherQueries.get_date_list(self=[],departure_date="2022-01-05", return_date="2022-03-12")
 
     # ASSERT
     assert dates == correct_dates
@@ -45,14 +37,13 @@ def test_temp_list():
     app.dependency_overrides[WeatherQueries] = FakeWeatherQueries
     correct_info = {
         "temps": [
-            {"date": "today", "temperature":  5},
-            {"date": "2022-06-12", "temperature": 5},
-            {"date": "2022-05-12", "temperature": 5},
+            {"id": 0, "date": "January", "temperature":  5},
+            {"id": 1, "date": "February", "temperature": 5},
         ]
     }
 
     # ACT
-    response = client.get("/api/weather?country=berlin&city=germany")
+    response = client.get("/api/weather?country=berlin&city=germany&departure_date=2023-01-05&return_date=2023-02-12")
 
 
     # ASSERT
