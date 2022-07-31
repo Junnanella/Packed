@@ -66,10 +66,10 @@ export const AuthProvider = ({children}) => {
     }
 
     let updateToken = async () => {
-        console.log("Update token called!")
+        console.log("Updated token (every 29 minutes)")
         const url = "http://localhost:8005/auth/token/refresh/";
         const params = {
-            "refresh": authTokens.refresh
+            "refresh": authTokens?.refresh
         }
         const fetchConfig = {
             method: "POST",
@@ -89,29 +89,38 @@ export const AuthProvider = ({children}) => {
         } else {
             logoutUser();
         }
+
+        if (loading) {
+            setLoading(false);
+        }
     }
 
     const contextData = {
         user: user,
+        authTokens: authTokens,
         loginUser: loginUser,
         logoutUser: logoutUser,
     };
 
     useEffect(() => {
-        const fourMinutes = 1000 * 60 * 4
+        if (loading) {
+            updateToken();
+        }
+
+        const fourMinutes = 1000 * 60 * 29;
         let interval = setInterval(() => {
             if (authTokens) {
-                updateToken()
+                updateToken();
             }
         }, fourMinutes)
-        return () => clearInterval(interval)
+        return () => clearInterval(interval);
 
     },[authTokens, loading])
 
     
     return (
         <AuthContext.Provider value={contextData}>
-            {children}
+            {loading ? null : children}
         </AuthContext.Provider>
     );
 }
