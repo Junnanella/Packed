@@ -144,3 +144,13 @@ Today, I worked on:
 The group and I briefly discussed the GHI form page. We also discussed handling weather data from the API differently.
 
 Today was slow work with a lot of errors when creating the views to handle the creation of a packing list. I reconfigured the encoders and ended up rebuilding the database a couple of times. In the end, I created a couple helper functions in the views to actually make create the table rows. I also implemented a feature in the views that checks to make sure a user item that was input does not already exist before creating another one. Instructors will be reviewing our project tomorrow so I created a fairly comprehensive step by step to get the project up and running.
+
+## July 28, 2022
+
+Today, I worked on:
+* Completed create packing list views
+* Integrated Django Rest Framework SimpleJWT auth in the frontend and backend
+
+The group and I discussed goals for the weekend/next week. We also did a bit of pair programming to troubleshoot the refactoring of the weather API.
+
+Today was a large undertaking. I have been putting off implementing authentication but finally jumped in to do it. I learned a lot about custom user models in Django. I also studied up on the React hook, useContext. Keeping track of the JWT's stored in local storage and in the react state was tricky. Writing the functions to refresh tokens periodically was also a huge challenge. However, after today's work, I feel as though I could do this again and take much less time.
