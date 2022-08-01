@@ -1,7 +1,7 @@
 # APIs
 
 - Currency Exchange API: https://apilayer.com/marketplace/exchangerates_data-api#documentation-tab
-- Flight API: Still looking for a free one 
+- Flight API: Still looking for a free one
 - Weather API: https://www.visualcrossing.com/resources/documentation/weather-api/timeline-weather-api/
 - Locations API: localhost:8004/api/locations
 
@@ -10,9 +10,9 @@
 
 Input:
 
-```json 
+```json
 {
-  "origin_country": string,  
+  "origin_country": string,
   "destination_country": string,
 }
 ```
@@ -29,16 +29,15 @@ Output:
 Creating a new origin country/ destination country will query a currency exchange rate API
 and will return the current days exchange rate from USD(example origin country) to the created destinations country's currency. The amount to convert will be hardcoded as 1 so currency rate will only be returned for 1 USD (example origin country)
 
-
-* **Method**: `GET`
-* **Path**: /api/flights
+- **Method**: `GET`
+- **Path**: /api/flights
 
 Input:
 
 ```json
 {
   "departing_from": string,
-  "going_to": string, 
+  "going_to": string,
   "departing_date": string,
   "return_date": string,
   "number_of_passengers": int,
@@ -64,10 +63,10 @@ the location. Then, it saves the name, city, state, and
 image URL to the database. It returns all of the data
 with the new database id.
 
-Creating a new flight date/flight location will query a flight API which will search all available flights to said destination. It will then return a list of all those flights and include their prices. 
+Creating a new flight date/flight location will query a flight API which will search all available flights to said destination. It will then return a list of all those flights and include their prices.
 
-* **Method**: `GET`
-* **Path**: /api/weather
+- **Method**: `GET`
+- **Path**: /api/weather
 
 Input:
 
@@ -75,8 +74,18 @@ Input:
 {
   "city": string,
   "country": string,
+  "departure_date": string,
+  "return_date": string
 }
 ```
+
+🐰 🐰 🐰 example input:
+{
+"city": "Sydney",
+"country": "Australia",
+"departure_date": "2022-12-28",
+"return_date": "2023-01-30"
+}
 
 Output:
 
@@ -84,22 +93,23 @@ Output:
 {
   "temps": [
     {
-      "date": "today",
+      "id": 0,
+      "date": "December",
       "temperature": 75.9
     },
     {
-      "date": "2022-06-14",
+      "id": 1,
+      "date": "January",
       "temperature": 75.9
-    },
+    }
   ]
 }
 ```
 
-Creating a new location will query a weather API to get historical weather data going back 12 months. It will return a monthly breakdown of the average temperature so that the user can determine the best time to travel. 
+Creating a new location will query a weather API to get historical weather data for their trip dates.
 
-
-* **Method**: `GET`
-* **Path**: /api/locations
+- **Method**: `GET`
+- **Path**: /api/locations
 
 Output:
 
@@ -109,13 +119,13 @@ Output:
     {
       "id": 1,
       "currency_code": "EUR",
-      "country": "Germany",
+      "country": "Germany"
     },
     {
       "id": 2,
       "currency_code": "USD",
-      "country": "United States of America",
-    },
+      "country": "United States of America"
+    }
   ]
 }
 ```

@@ -3,6 +3,9 @@ from black import Mode
 from django.http import JsonResponse
 from django.core.exceptions import FieldDoesNotExist
 from django.views.decorators.http import require_http_methods
+from rest_framework.decorators import permission_classes, authentication_classes, api_view
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
 import json
 from common.json import ModelEncoder
 from .encoders import (
@@ -18,6 +21,7 @@ from .models import (
     Category,
     Condition,
     Item,
+    User,
 )
 
 
@@ -232,7 +236,7 @@ def create_packing_list(content):
         "return_date": content["return_date"],
         "destination_city": content["destination_city"],
         "destination_country": content["destination_country"],
-        # owner = content["owner"]
+        "owner": content["owner"],
     }
     try:
         packing_list = PackingList.objects.create(**data)
@@ -266,16 +270,21 @@ def add_packing_list_item(item, packing_list):
     return new_packing_list_item
 
 
-@require_http_methods(["GET", "POST"])
-def api_packing_lists(request, user_id=1):
+@api_view(["GET", "POST"])
+# @authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
+def api_packing_lists(request):
+    user = request.user
+    print(user)
     if request.method == "GET":
-        packing_lists = PackingList.objects.all()
+        packing_lists = PackingList.objects.filter(owner=user)
         return JsonResponse(
             {"packing_lists": packing_lists},
             encoder=PackingListEncoder,
         )
     else:
         content = json.loads(request.body)
+        content["owner"] = user
         packing_list = create_packing_list(content)
         if packing_list:
             return JsonResponse(
@@ -290,7 +299,9 @@ def api_packing_lists(request, user_id=1):
             )
 
 
-@require_http_methods(["GET", "POST"])
+@api_view(["GET", "POST"])
+# @authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def api_packing_list_items(request, pk):
     if request.method == "GET":
         packing_list = PackingList.objects.get(id=pk)

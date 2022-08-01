@@ -1,22 +1,21 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
 
 
-# class User(models.Model): 
-#     username= models.CharField(max_length=100)
-#     email = models.CharField(max_length=150)
-#     password = models.CharField(max_length=50)
+class User(AbstractUser): 
+    email = models.EmailField(unique=True)
 
-    # def __str__(self):
-    #     return self.username
+    def __str__(self):
+        return self.username
 
 
 class PackingList(models.Model):
     title = models.CharField(max_length=100, default="My Packing List")
-    # owner = models.ForeignKey(
-    # User,
-    # related_name = "packing_list",
-    # on_delete=models.CASCADE
-    # )
+    owner = models.ForeignKey(
+        User,
+        related_name = "packing_lists",
+        on_delete=models.CASCADE
+    )
     created = models.DateField(auto_now_add=True)
     departure_date = models.CharField(max_length=10, blank=True)
     return_date = models.CharField(max_length=10, blank=True)
@@ -59,13 +58,6 @@ class Item(models.Model):
         null=True,
         blank=True,
     )
-        
-    # users_item = models.ForeignKey(             
-    # User, 
-    # related_name = "users_packing_list_items", 
-    # on_delete - models.CASCADE
-    # )
-    # user_item = models.PositiveIntegerField(null=True, blank=True)
 
     def __str__(self):
         return self.name
@@ -77,7 +69,6 @@ class PackingListItem(models.Model):
         related_name="packing_lists",
         on_delete= models.CASCADE 
     )
-    # owner = models.PositiveIntegerField(null=True)
     quantity = models.PositiveIntegerField()
     packed = models.BooleanField(default=False)
     packing_list = models.ForeignKey(

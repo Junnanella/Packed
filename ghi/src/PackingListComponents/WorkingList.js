@@ -1,5 +1,8 @@
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useContext } from 'react';
+import AuthContext from '../context/AuthContext';
+
 
 function WorkingList({
     items,
@@ -9,6 +12,8 @@ function WorkingList({
     departure_date,
     return_date,
 }){
+
+    let { authTokens, logoutUser } = useContext(AuthContext)
       
     function findItem(name) {
         for (let index = 0; index < items.length; index ++) {
@@ -25,11 +30,13 @@ function WorkingList({
     };
 
     async function sendData(data, url) {
+        console.log("auth tokens here: ", authTokens)
         const fetchConfig = {
             method: "POST",
             body: JSON.stringify(data),
             headers: {
                 "Content-Type": "application/json",
+                "Authorization": "Bearer " + String(authTokens?.access),
             }
         };
         const response = await fetch(url, fetchConfig);
@@ -37,9 +44,13 @@ function WorkingList({
             const listData = await response.json();
             return listData
 
+        } else if (response.statusText === "Unauthorized") {
+            alert("You must login to create a list")
+            console.error(response.status);
         } else {
             console.error(response.status);
-        };
+            alert("Failed to create packing list")
+        }
     }
 
     async function createList() {
@@ -50,7 +61,6 @@ function WorkingList({
                 "return_date": return_date,
                 "destination_city": destination_city,
                 "destination_country": destination_country,
-                "owner": 1,
             };
             const packingListUrl = "http://localhost:8005/api/packing_lists/"
             const packingList = await sendData(packingListData, packingListUrl)
@@ -59,6 +69,9 @@ function WorkingList({
                 const itemsUrl = `http://localhost:8005/api/packing_lists/${packingList.id}/items/`;
                 const packingListItems = await sendData(itemsData, itemsUrl);
                 console.log({"packingList": packingList, "items": packingListItems});
+                alert("Packing list created successfully")
+            } else {
+                console.log("Unsuccessful creation of packing list")
             }
         } else {
             console.log("you cant create an empty packing list")

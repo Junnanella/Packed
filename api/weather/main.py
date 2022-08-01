@@ -61,6 +61,7 @@ class WeatherQueries:
         return data
 
 
+# 🐰 🐰 🐰 takes in dates in a "YYYY-MM-DD" format
 @app.get("/api/weather", response_model=TempsOut)
 def temp_list(
     city: str,
@@ -73,7 +74,7 @@ def temp_list(
     dates = query.get_date_list(departure_date, return_date)
     temps = []
 
-    # get month names
+    # 🐰 🐰 🐰 get month names, turn "2023-01-19" to "January"
     months = []
     for date in dates:
         month = date[5:7]
@@ -95,6 +96,7 @@ def temp_list(
             {"id": i, "date": months[i], "temperature": data["days"][0]["temp"]}
         )
     return {"temps": temps}
+    # 🐰 🐰 🐰 example output {"id": 0, "date": January, "temperature": 75.9}
 
 
 @app.get("/api/weather/fake", response_model=TempsOut)
