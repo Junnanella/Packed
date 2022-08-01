@@ -78,7 +78,7 @@ export default function SuggestedItems({setItems, items}) {
             <tbody>
               {generalItems.map((item) => {
                 return (
-                  <tr>
+                  <tr key={item.name}>
                     <th scope="row"></th>
                     <td>{item.name}</td>
                     <td>
@@ -101,7 +101,7 @@ export default function SuggestedItems({setItems, items}) {
           <tbody>
             {conditionalItems.map((item) => {
               return (
-                <tr>
+                <tr key={item.name}>
                   <th scope="row"></th>
                   <td>{item.name}</td>
                   <td>
