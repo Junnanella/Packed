@@ -55,13 +55,15 @@ function WorkingList({
 
     async function createList() {
         if (items.length > 0) {
+            const paragraph = document.getElementById("edit").innerHTML;
             const packingListData = {
-                "title": `Packing list for ${destination_city}, ${destination_country}`,
+                "title": paragraph,
                 "departure_date": departure_date,
                 "return_date": return_date,
                 "destination_city": destination_city,
                 "destination_country": destination_country,
             };
+            console.log("packing:", packingListData)
             const packingListUrl = "http://localhost:8005/api/packing_lists/"
             const packingList = await sendData(packingListData, packingListUrl)
             if (packingList) {
@@ -81,6 +83,7 @@ function WorkingList({
     const paragraph = document.getElementById("edit");
     const edit_button = document.getElementById("edit-button");
     const end_button = document.getElementById("end-editing");
+    console.log("paragraph:", paragraph)
     
     edit_button?.addEventListener("click", function() {
       paragraph.contentEditable = true;
@@ -91,11 +94,12 @@ function WorkingList({
       paragraph.contentEditable = false;
       paragraph.style.backgroundColor = "white";
     } )
+    
 
     return (
         <div className="">
                 <div id="container">
-                    <h3 id="edit" > Packing List for {destination_country}</h3>
+                    <h3 id="edit" name="title"> Packing List for {destination_country}</h3>
                     <button type="submit" id="edit-button">Edit</button>
                     <button type="submit" id="end-editing">Save</button>
                 </div>
