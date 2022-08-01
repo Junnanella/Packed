@@ -8,6 +8,7 @@ import TravelDetailPage from "./MainPages/TravelDetailPage";
 import Login from "./Auth/Login";
 import SignUp from "./Auth/SignUp";
 import TestComponent from "./Auth/TestComponent";
+import { PackingLists } from "./PackingListComponents/PackingLists";
 
 export default function App() {
   return (
@@ -15,13 +16,21 @@ export default function App() {
       <AuthProvider>
         <Nav />
         <div>
-            <Routes>
-              <Route path="/" element={<MainPage />} exact />
-              <Route path="/travel_details" element={<TravelDetailPage />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/signup" element={<SignUp />} />
-              <Route path="/test-component" element={<PrivateRoute><TestComponent /></PrivateRoute>} />
-            </Routes>
+          <Routes>
+            <Route path="/" element={<MainPage />} exact />
+            <Route path="/travel_details" element={<TravelDetailPage />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route
+              path="/test-component"
+              element={
+                <PrivateRoute>
+                  <TestComponent />
+                </PrivateRoute>
+              }
+            />
+            <Route path="/packinglists" element={<PackingLists />} />
+          </Routes>
         </div>
       </AuthProvider>
     </BrowserRouter>
