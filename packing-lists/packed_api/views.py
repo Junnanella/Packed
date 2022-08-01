@@ -275,7 +275,6 @@ def add_packing_list_item(item, packing_list):
 @permission_classes([IsAuthenticated])
 def api_packing_lists(request):
     user = request.user
-    print(user)
     if request.method == "GET":
         packing_lists = PackingList.objects.filter(owner=user)
         return JsonResponse(
