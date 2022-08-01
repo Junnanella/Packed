@@ -29,14 +29,24 @@ export const AuthProvider = ({children}) => {
 
     let navigate = useNavigate()
 
-    let loginUser = async (e) => {
-        e.preventDefault();
+
+    let loginUser = async (e, signupData=null) => {
+        let params = {}
+        if (signupData) {
+            params = {
+                "username": signupData.username,
+                "password": signupData.password,
+            }
+        } else {
+            e.preventDefault();
+            params = {
+                "username": e.target.username.value,
+                "password": e.target.password.value,
+            }
+        }
         
         const url = "http://localhost:8005/auth/token/";
-        const params = {
-            "username": e.target.username.value,
-            "password": e.target.password.value,
-        }
+
         const fetchConfig = {
             method: "POST",
             body: JSON.stringify(params),
@@ -66,7 +76,7 @@ export const AuthProvider = ({children}) => {
     }
 
     let updateToken = async () => {
-        console.log("Updated token (every 29 minutes)")
+        console.log("Updated access token (if user inactive, automatically done every 29 minutes)")
         const url = "http://localhost:8005/auth/token/refresh/";
         const params = {
             "refresh": authTokens?.refresh
