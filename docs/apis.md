@@ -106,7 +106,7 @@ Output:
 }
 ```
 
-Creating a new location will query a weather API to get historical weather data going back 12 months. It will return a monthly breakdown of the average temperature so that the user can determine the best time to travel.
+Creating a new location will query a weather API to get historical weather data for their trip dates.
 
 - **Method**: `GET`
 - **Path**: /api/locations
