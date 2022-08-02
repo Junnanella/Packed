@@ -77,7 +77,6 @@ function DetailList() {
         if (updatedItems) {
             setEditMode(!editMode);
             makeRequests();
-            
         } else {
             console.log("something went wrong")
         }
@@ -126,6 +125,7 @@ function DetailList() {
 
     useEffect(() => {
         async function populatePage() {
+            document.body.style.backgroundColor="#d4f4e4"
             await makeRequests();
         }
         populatePage();
@@ -157,7 +157,7 @@ function DetailList() {
                             </div>
                             <h3 className="p-1">{packingList.title}</h3>
                         </div>
-                        {editMode ?
+                        { editMode ?
                             <UserItemForm
                                 setItems={setItems}
                                 items={items}
@@ -187,7 +187,7 @@ function DetailList() {
                         aria-valuemin="0" aria-valuemax="100"
                     />
                 </div>
-                <table className="table table-striped table-bordered">
+                <table className="table">
                     <thead>
                         <tr>
                             <th className="text-center" style={{width: "90px"}}>QTY</th>
@@ -214,8 +214,7 @@ function DetailList() {
                                                     setItems(newItems);
                                                 }}
                                                 defaultValue={item.quantity}
-                                                min={1}
-                                                max={1000}
+                                                min={1} max={1000}
                                             />
                                         }
                                     </td>
