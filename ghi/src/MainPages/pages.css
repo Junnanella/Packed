@@ -28,19 +28,42 @@ div.item-column {
 
 }
 
+div.item-column:hover {
+    background-color: #f5f9f8;
+}
+
 div.data-column {
     text-align: left;
     padding-right: 5em;
     padding-bottom: 3em;
     text-align: center;
     background-color: white;
+    
+}
 
+div.data-column:hover {
+    background-color: #f5f9f8;
 }
 
 div.currency-data {
     margin-top: 1em;
     text-align: center;
     background-color: white;
-
 }
 
+
+div.currency-data:hover {
+    background-color: #f5f9f8;
+}
+
+/* div.item-column {
+    create item/ packing list 
+} */
+
+/* .fa-square-plus:hover {
+    
+} */
+
+div.container {
+    border: 1px solid red;
+}
