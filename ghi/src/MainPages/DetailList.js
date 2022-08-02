@@ -1,7 +1,9 @@
 import { useEffect, useState, useContext } from 'react';
 import AuthContext from '../context/AuthContext';
-import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSave } from '@fortawesome/free-solid-svg-icons';
+import { faEdit } from '@fortawesome/free-solid-svg-icons';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { useLocation } from 'react-router-dom';
 import { UserItemForm } from "../PackingListComponents/UserInputItems";
 
@@ -123,16 +125,28 @@ function DetailList() {
 
     return(
         <div className="container mt-3">
-            <div className="col-6 offset-3 shadow rounded p-4">
-                <h1>{packingList.title}</h1>
-                <p>{departureDate} - {returnDate}</p>
-                <div className="mb-3">
-                    {editMode ?
-                        <button className="btn btn-success" onClick={sendChangesToDatabase}>Save changes</button>
-                    :
-                        <button className="btn btn-success" onClick={()=>setEditMode(!editMode)}>Edit</button>
-                    }
+            <div className="col-8 offset-2 shadow rounded p-4">
+                <div className='input-group'>
+                    <h1 className="mr-2">{packingList.title}</h1>
+                    <div className="p-2">
+                        {editMode ?
+                            <button
+                                className="btn btn-success btn-sm"
+                                onClick={sendChangesToDatabase}
+                            >
+                                <FontAwesomeIcon icon={faSave} />
+                            </button>
+                        :
+                            <button
+                                className="btn btn-success btn-sm"
+                                onClick={()=>setEditMode(!editMode)}
+                            >
+                                <FontAwesomeIcon icon={faEdit} />
+                            </button>
+                        }
+                    </div>
                 </div>
+                <p>{departureDate} - {returnDate}</p>
                 {editMode ?
                     <UserItemForm
                         setItems={setItems}
@@ -142,7 +156,12 @@ function DetailList() {
                     null
                 }
                 <div className="progress m-3">
-                     <div className={`progress-bar ${progressBarColor}`} role="progressbar" style={{width: `${percentagePacked}%`}} aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                     <div
+                        className={`progress-bar ${progressBarColor}`}
+                        role="progressbar" style={{width: `${percentagePacked}%`}}
+                        aria-valuenow={percentagePacked}
+                        aria-valuemin="0" aria-valuemax="100"
+                    />
                 </div>
                 <table className="table table-striped table-bordered">
                     <thead>
