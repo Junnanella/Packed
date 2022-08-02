@@ -110,7 +110,6 @@ function DetailList() {
                     delete item.item_name;
                 })
                 const options = {
-                    weekday: "long",
                       day: "numeric",
                       month: "long",
                       year: "numeric"
@@ -133,30 +132,42 @@ function DetailList() {
 
     return(
         <div className="container mt-3">
-            <div className="col-8 offset-2 shadow rounded p-4">
-                <div className='input-group'>
-                    <h2 className="mr-2">{packingList.title}</h2>
-                    <div className="p-2">
+            <div className="col-10 offset-1 shadow rounded p-4">
+                <div className="row">
+                    <div style={{width: "70%"}}>
+                        <p>{departureDate} - {returnDate}</p>
+                        <div className="input-group">
+                            <div className="p-1">
+                                {editMode ?
+                                    <button
+                                        className="btn btn-success btn-sm"
+                                        onClick={sendChangesToDatabase}
+                                    >
+                                        <FontAwesomeIcon icon={faSave} />
+                                    </button>
+                                :
+                                    <button
+                                        className="btn btn-success btn-sm"
+                                        onClick={()=>setEditMode(!editMode)}
+                                    >
+                                        <FontAwesomeIcon icon={faEdit} />
+                                    </button>
+                                }
+                            </div>
+                            <h3 className="p-1">{packingList.title}</h3>
+                        </div>
                         {editMode ?
-                            <button
-                                className="btn btn-success btn-sm"
-                                onClick={sendChangesToDatabase}
-                            >
-                                <FontAwesomeIcon icon={faSave} />
-                            </button>
+                            <UserItemForm
+                                setItems={setItems}
+                                items={items}
+                                percentagePacked={percentagePacked}
+                                setPercentagePacked={setPercentagePacked}
+                            />
                         :
-                            <button
-                                className="btn btn-success btn-sm"
-                                onClick={()=>setEditMode(!editMode)}
-                            >
-                                <FontAwesomeIcon icon={faEdit} />
-                            </button>
+                            null
                         }
                     </div>
-                </div>
-                <p>{departureDate} - {returnDate}</p>
-                <div className="row">
-                    <div className="col data-column">
+                    <div className="col">
                         <WeatherChart
                             destination_city={cityWeather}
                             destination_country={countryWeather}
@@ -166,16 +177,7 @@ function DetailList() {
                         />
                     </div>
                 </div>
-                {editMode ?
-                    <UserItemForm
-                        setItems={setItems}
-                        items={items}
-                        percentagePacked={percentagePacked}
-                        setPercentagePacked={setPercentagePacked}
-                    />
-                :
-                    null
-                }
+
                 <div className="progress m-3">
                      <div
                         className={`progress-bar ${progressBarColor}`}

@@ -46,12 +46,12 @@ export const UserItemForm = ({items, setItems, percentagePacked=null, setPercent
 
   return (
     <div className="container">
-      <h3>Add Item</h3>
+      {percentagePacked === null ? <h3>Add Item</h3> : null}
       <div className="input-group mb-3">
         <input
           onChange={onChangeUserItem}
           value={userItem}
-          placeholder="Item Name"
+          placeholder="New Item"
           required
           type="text"
           name="user_item"
