@@ -37,3 +37,68 @@ div.currency-data {
     margin-top: 1em;
     text-align: center;
 }
+
+
+/* Packing Lists Page */
+body {
+    background-color: #dff1eb;
+}
+.main-container {
+    background-color: #f5faf8;
+    border-radius: 2%;
+}
+
+.card {
+    width: 250px;
+    height: 350px;
+    border-radius: 15px;
+    margin: 2rem;
+    box-shadow: 12px 12px 2px 1px #c3e6d8;
+    background-size: 250px 350px;
+}
+
+.img_01 {
+    background-image: url("../../public/packing-list-cards/travel_image_01.png")
+}
+
+.img_02 {
+    background-image: url("../../public/packing-list-cards/travel_image_02.png")
+}
+
+.img_03 {
+    background-image: url("../../public/packing-list-cards/travel_image_03.png")
+}
+
+.img_04 {
+    background-image: url("../../public/packing-list-cards/travel_image_04.png")
+}
+
+.img_05 {
+    background-image: url("../../public/packing-list-cards/travel_image_05.png")
+}
+
+.card-details {
+    margin-top: 180px;
+    background-color: #2d675f90;
+    border: transparent;
+    border-radius: 10px;
+    padding: .5em;
+}
+
+.card-title {
+    color: #fdf9fa;
+    font-size: 25px;
+    font-weight: bold;
+    text-shadow: 1px 1px #2b2844;  
+}
+
+.card-subtitle {
+    color: #fdf9fa;
+    text-shadow: 1px 1px #2b2844;
+}
+
+.card-text {
+    color: #fdf9fa;
+    font-weight: bold;
+    text-shadow: 1px 1px #2b2844;
+}

@@ -1,10 +1,14 @@
 import React, { useState, useEffect, useContext } from "react";
 import AuthContext from "../context/AuthContext";
 import { loadPackingLists } from "./MainApi";
+import { Card, Row, Col, Container } from "react-bootstrap";
+import "./pages.css";
 
 export const PackingLists = () => {
   const [packingLists, setPackingLists] = useState([]);
   const { authTokens } = useContext(AuthContext);
+
+  const imageClasses = ["img_01", "img_02", "img_03", "img_04", "img_05"];
 
   useEffect(() => {
     async function fetchData() {
@@ -15,26 +19,26 @@ export const PackingLists = () => {
   }, [authTokens]);
 
   return (
-    <div className="row">
-      {packingLists.map((list) => {
-        return (
-          <div className="col-sm-6">
-            <div className="card">
-              <div key={list.id} className="card-body border-round">
-                <h5 className="card-title">{list.title}</h5>
-                <h6 className="card-subtitle mb-2 text-muted">
-                  created: {list.created}
-                </h6>
-                <p className="card-text">
-                  Departure Date: {list.departure_date}
-                  <br />
-                  Return Date: {list.return_date}
-                </p>
-              </div>
-            </div>
-          </div>
-        );
-      })}
-    </div>
+    <Container>
+      <Row>
+        {packingLists.map((list, k) => (
+          <Col key={k} xs={12} md={6} lg={4}>
+            <Card className={imageClasses[list.id % 5]}>
+              <Card.Body>
+                <div className="card-details">
+                  <Card.Title>{list.title}</Card.Title>
+                  <Card.Subtitle>created: {list.created}</Card.Subtitle>
+                  <Card.Text>
+                    Departure: {list.departure_date}
+                    <br />
+                    Return: {list.return_date}
+                  </Card.Text>
+                </div>
+              </Card.Body>
+            </Card>
+          </Col>
+        ))}
+      </Row>
+    </Container>
   );
 };
