@@ -83,7 +83,6 @@ function WorkingList({
     const paragraph = document.getElementById("edit");
     const edit_button = document.getElementById("edit-button");
     const end_button = document.getElementById("end-editing");
-    console.log("paragraph:", paragraph)
     
     edit_button?.addEventListener("click", function() {
       paragraph.contentEditable = true;
