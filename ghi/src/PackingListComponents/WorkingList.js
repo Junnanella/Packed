@@ -13,7 +13,7 @@ function WorkingList({
     return_date,
 }){
 
-    let { authTokens, logoutUser } = useContext(AuthContext)
+    let { authTokens } = useContext(AuthContext)
       
     function findItem(name) {
         for (let index = 0; index < items.length; index ++) {
