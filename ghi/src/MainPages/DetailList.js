@@ -6,13 +6,18 @@ import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { useLocation } from 'react-router-dom';
 import { UserItemForm } from "../PackingListComponents/UserInputItems";
+import WeatherChart from "../DataCharts/WeatherChart";
 
 // create a table with editing stuff invisible. if they press edit, d-none toggles
 // the view will delete all PackingListItems and then replace them with the new ones
 
 function DetailList() {
     const location = useLocation();
-    const packingListId = location.state.id;
+    const packingListId = location.state.packingList.id;
+    const cityWeather = location.state.packingList.destination_city;
+    const countryWeather = location.state.packingList.destination_country;
+    const departuredDateWeather = location.state.packingList.departure_date;
+    const returnDateWeather = location.state.packingList.departure_date;
     const { authTokens } = useContext(AuthContext);
     const [items, setItems] = useState([]);
     const [packingList, setPackingList] = useState({});
@@ -120,14 +125,17 @@ function DetailList() {
     }
 
     useEffect(() => {
-            makeRequests();
+        async function populatePage() {
+            await makeRequests();
+        }
+        populatePage();
     }, [])
 
     return(
         <div className="container mt-3">
             <div className="col-8 offset-2 shadow rounded p-4">
                 <div className='input-group'>
-                    <h1 className="mr-2">{packingList.title}</h1>
+                    <h2 className="mr-2">{packingList.title}</h2>
                     <div className="p-2">
                         {editMode ?
                             <button
@@ -147,6 +155,17 @@ function DetailList() {
                     </div>
                 </div>
                 <p>{departureDate} - {returnDate}</p>
+                <div className="row">
+                    <div className="col data-column">
+                        <WeatherChart
+                            destination_city={cityWeather}
+                            destination_country={countryWeather}
+                            departure_date={departuredDateWeather}
+                            return_date={returnDateWeather}
+                            detail={true}
+                        />
+                    </div>
+                </div>
                 {editMode ?
                     <UserItemForm
                         setItems={setItems}
