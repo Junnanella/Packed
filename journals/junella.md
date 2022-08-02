@@ -1,3 +1,12 @@
+## August 01, 2022
+
+Today, I worked on:
+
+- Updating the ghi markdown file to include updates to the layout and data provided to the user on the after submit page.
+- Building a page for the logged in user to view their saved packing lists.
+
+It took some time understand how to pass a user's token to the backend in order to authenticate the user to be able to view their packing lists. In order to get this to work, I analyzed Josiah's code in other files to see how he used AuthContext and did some googling. Near the end of class day, I noted that the implementation was still a work in progress and that I wanted to take some more time on it before asking for help. After a nap, I was better able to understand the code and able to get the logged in user's packing lists to render on the browser. Tomorrow, I plan to work on the styling of the packing lists page because right now it's not aesthetically appealing.
+
 ## July 28, 2022
 
 Today, I worked on:
