@@ -9,6 +9,7 @@ import Login from "./Auth/Login";
 import SignUp from "./Auth/SignUp";
 import TestComponent from "./Auth/TestComponent";
 import { PackingLists } from "./PackingListComponents/PackingLists";
+import DetailList from "./MainPages/DetailList";
 
 export default function App() {
   return (
@@ -30,6 +31,7 @@ export default function App() {
               }
             />
             <Route path="/packinglists" element={<PackingLists />} />
+            <Route path="/packing_list" element={<DetailList />} />
           </Routes>
         </div>
       </AuthProvider>

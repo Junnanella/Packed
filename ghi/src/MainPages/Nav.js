@@ -15,9 +15,11 @@ export default function Nav() {
         <NavLink className="navbar-brand nav-link" to="/packinglists">
           my packing lists
         </NavLink>
-        <NavLink className="navbar-brand nav-link" to="/signup">
-          Signup
-        </NavLink>
+        {!user ? (
+          <NavLink className="navbar-brand nav-link" to="/signup">
+            Signup
+          </NavLink>
+        ) : null}
         {user ? (
           <p className="navbar-brand nav-link" onClick={logoutUser}>
             Logout

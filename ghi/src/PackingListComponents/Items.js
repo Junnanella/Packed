@@ -1,9 +1,10 @@
-// list of items suggested from the back end
-// table of items with an add button
-// items could be split into categories
-// rendered file, fetching in packinglistAPI
 import React, { useEffect, useState } from "react";
 import { loadItemsList } from "./PackingListApi";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlusSquare } from '@fortawesome/free-solid-svg-icons';
+
+
+
 
 export default function SuggestedItems({setItems, items}) {
   const [conditionalItems, setConditionalItems] = useState([]);
@@ -20,7 +21,6 @@ export default function SuggestedItems({setItems, items}) {
     fetchData();
   }, []);
 
-  // add onclick with set items in travel detail page , reference user input items
 
   function validate() {
     const tempItems = [...items]
@@ -66,7 +66,7 @@ export default function SuggestedItems({setItems, items}) {
 
   return (
     <div className="container">
-      <h3>Suggested Items</h3>
+      <h4>Things you might need!</h4>
       <div className="input-group mb-3">
         <div>
           <table className="table table-hover">
@@ -79,10 +79,9 @@ export default function SuggestedItems({setItems, items}) {
               {generalItems.map((item) => {
                 return (
                   <tr>
-                    <th scope="row"></th>
                     <td>{item.name}</td>
                     <td>
-                      <button onClick={(e) => addGItem(item)}>Add</button>
+                      <button onClick={(e) => addGItem(item)}><FontAwesomeIcon icon={faPlusSquare} /></button>
                     </td>
                   </tr>
                 );
@@ -90,22 +89,19 @@ export default function SuggestedItems({setItems, items}) {
             </tbody>
           </table>
         </div>
-      </div>
-      <div className="container">
         <table className="table table-hover">
           <thead>
             <tr>
-              <th scope="col">Recommended</th>
+              <th scope="col">Recommended For You</th>
             </tr>
           </thead>
           <tbody>
             {conditionalItems.map((item) => {
               return (
                 <tr>
-                  <th scope="row"></th>
                   <td>{item.name}</td>
                   <td>
-                    <button onClick={(e) => addCItem(item)}>Add</button>
+                    <button onClick={(e) => addCItem(item)}><FontAwesomeIcon icon={faPlusSquare} /></button>
                   </td>
                 </tr>
               );

@@ -1,3 +1,6 @@
+# August 1
+Today I was able to get the edit/save function working for the packing list name. I am now trying to update the add buttons for the suggested items so that they are more appealing. I'm looking at icons on Font Awesome and will try to implement an icon soon. 
+
 # July 28
 Today I worked on implementing the edit/save feature for the packing list name. I got my code to briefly work but it throws some errors, after working with one of the SEIRs I have some docs to look at to try and work issues out. 
 

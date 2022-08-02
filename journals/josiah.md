@@ -154,3 +154,13 @@ Today, I worked on:
 The group and I discussed goals for the weekend/next week. We also did a bit of pair programming to troubleshoot the refactoring of the weather API.
 
 Today was a large undertaking. I have been putting off implementing authentication but finally jumped in to do it. I learned a lot about custom user models in Django. I also studied up on the React hook, useContext. Keeping track of the JWT's stored in local storage and in the react state was tricky. Writing the functions to refresh tokens periodically was also a huge challenge. However, after today's work, I feel as though I could do this again and take much less time.
+
+## Aug 1, 2022
+
+Today, I worked on:
+* Completing sign up functionality
+* Building react page to view and edit an already created packing list
+
+The group and I discussed plans for the week. We are looking to complete front end functionality on Wednesday before moving on to aesthetics. Next week, we will work on deployment.
+
+Today was a lot of fun. I am getting much more comfortable with React and building the detail page was a smooth process of switching between the Django views and the React components. Employing the useNavigate hook in conjunction with the useLocation hook was pretty cool to learn about. Also, I was able to reuse one of the other components which made the one I was working on much more DRY. I was worried about implementing the sign up feature, but it turned out to be quite straightforward with Django Rest Framework.
