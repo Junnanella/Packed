@@ -125,7 +125,7 @@ function DetailList() {
 
     useEffect(() => {
         async function populatePage() {
-            document.body.style.backgroundColor="#d4f4e4"
+            // document.body.style.backgroundColor="#d4f4e4"
             await makeRequests();
         }
         populatePage();
