@@ -37,3 +37,7 @@ div.currency-data {
     margin-top: 1em;
     text-align: center;
 }
+
+div.rcorners1 {
+    border-radius: 25px;
+  }

@@ -7,6 +7,7 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { useLocation } from 'react-router-dom';
 import { UserItemForm } from "../PackingListComponents/UserInputItems";
 import WeatherChart from "../DataCharts/WeatherChart";
+import "./pages.css";
 
 // create a table with editing stuff invisible. if they press edit, d-none toggles
 // the view will delete all PackingListItems and then replace them with the new ones
@@ -132,7 +133,7 @@ function DetailList() {
 
     return(
         <div className="container mt-3">
-            <div className="col-10 offset-1 shadow rounded p-4">
+            <div className="col-10 offset-1 shadow p-4 rcorners1">
                 <div className="row">
                     <div style={{width: "70%"}}>
                         <p>{departureDate} - {returnDate}</p>
@@ -147,7 +148,7 @@ function DetailList() {
                                     </button>
                                 :
                                     <button
-                                        className="btn btn-success btn-sm"
+                                        className="btn btn-outline-success btn-sm"
                                         onClick={()=>setEditMode(!editMode)}
                                     >
                                         <FontAwesomeIcon icon={faEdit} />
