@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
-import { loadPackingLists } from "./PackingListApi";
 import AuthContext from "../context/AuthContext";
+import { loadPackingLists } from "./MainApi";
 
 export const PackingLists = () => {
   const [packingLists, setPackingLists] = useState([]);
@@ -12,7 +12,7 @@ export const PackingLists = () => {
       setPackingLists(packingLists);
     }
     fetchData();
-  }, []);
+  }, [authTokens]);
 
   return (
     <div className="row">
