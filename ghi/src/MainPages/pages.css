@@ -4,7 +4,7 @@
     padding-right: .1em;
 }
 body {
-    background-color: #fefdf9;
+    background-color: #d3f0e4;
 }
 
 div.detail-page-header {
@@ -24,6 +24,8 @@ img.luggage {
 div.item-column {
     padding-top: 3em;
     margin-right: 1em;
+    background-color: white;
+
 }
 
 div.data-column {
@@ -31,9 +33,14 @@ div.data-column {
     padding-right: 5em;
     padding-bottom: 3em;
     text-align: center;
+    background-color: white;
+
 }
 
 div.currency-data {
     margin-top: 1em;
     text-align: center;
+    background-color: white;
+
 }
+

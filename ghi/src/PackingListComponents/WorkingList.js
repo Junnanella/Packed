@@ -104,8 +104,8 @@ function WorkingList({
         <div className="">
                 <div id="container">
                     <h3 id="edit" name="title"> Packing List for {destination_country}</h3>
-                    <button type="submit" id="edit-button"><FontAwesomeIcon icon={faEdit} /></button>
-                    <button type="submit" id="end-editing"><FontAwesomeIcon icon={faSave} /></button>
+                    <button className="btn btn-sm btn-outline-danger"type="submit" id="edit-button"><FontAwesomeIcon icon={faEdit} /></button>
+                    <button className="btn btn-sm btn-outline-danger"type="submit" id="end-editing"><FontAwesomeIcon icon={faSave} /></button>
                 </div>
             <table className="table table-hover">
                 <thead>
