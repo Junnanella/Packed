@@ -1,6 +1,7 @@
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import AuthContext from '../context/AuthContext';
 import { faSave } from '@fortawesome/free-solid-svg-icons';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
@@ -16,7 +17,8 @@ function WorkingList({
     return_date,
 }){
 
-    let { authTokens } = useContext(AuthContext)
+    let { authTokens } = useContext(AuthContext);
+    let navigate = useNavigate();
       
     function findItem(name) {
         for (let index = 0; index < items.length; index ++) {
@@ -74,7 +76,7 @@ function WorkingList({
                 const itemsUrl = `http://localhost:8005/api/packing_lists/${packingList.id}/items/`;
                 const packingListItems = await sendData(itemsData, itemsUrl);
                 console.log({"packingList": packingList, "items": packingListItems});
-                alert("Packing list created successfully")
+                navigate("/packing_list", {state: {id: packingList.id}});
             } else {
                 console.log("Unsuccessful creation of packing list")
             }

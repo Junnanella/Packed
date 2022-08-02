@@ -253,6 +253,7 @@ def add_packing_list_item(item, packing_list):
             "item_name": linked_item,
             "quantity": int(item["quantity"]),
             "packing_list": packing_list,
+            "packed": item.get("packed", False),
         }
     else:
         data = {
@@ -264,8 +265,9 @@ def add_packing_list_item(item, packing_list):
             "item_name": linked_item,
             "quantity": int(item["quantity"]),
             "packing_list": packing_list,
+            "packed": item.get("packed", False),
+
         }
-    print(data)
     new_packing_list_item = PackingListItem.objects.create(**data)
     return new_packing_list_item
 
@@ -297,19 +299,60 @@ def api_packing_lists(request):
                 status=400,
             )
 
+@api_view(["GET", "PUT"])
+@permission_classes([IsAuthenticated])
+def api_packing_list(request, pk):
+    if request.method == "GET":
+        packing_list = PackingList.objects.get(id=pk)
+        return JsonResponse(
+            packing_list,
+            encoder=PackingListEncoder,
+            safe=False,
+        )
+    else:
+        try:
+            content = json.loads(request.body)
+            packing_list = PackingList.objects.update(**content)
+            return JsonResponse(
+                packing_list,
+                encoder=PackingListEncoder,
+                safe=False,
+            )
+        except PackingList.DoesNotExist:
+            return model_instance_does_not_exist_message("PackingList", pk)
+        except FieldDoesNotExist:
+            return field_does_not_exist_error()
 
-@api_view(["GET", "POST"])
-# @authentication_classes([TokenAuthentication])
+
+@api_view(["GET", "PUT", "POST"])
 @permission_classes([IsAuthenticated])
 def api_packing_list_items(request, pk):
     if request.method == "GET":
         packing_list = PackingList.objects.get(id=pk)
         items = PackingListItem.objects.filter(packing_list=packing_list)
-        print(items)
         return JsonResponse(
             {"items": items},
             encoder=PackingListItemEncoder,
         )
+
+    elif request.method =="PUT":
+        content = json.loads(request.body)
+        packing_list = PackingList.objects.get(id=pk)
+        count, _ = PackingListItem.objects.filter(packing_list=packing_list).delete()
+        items = []
+        try:
+            for item in content["items"]:
+                items.append(
+                    add_packing_list_item(item=item, packing_list=packing_list)
+                )
+            return JsonResponse(
+                {"items": items},
+                encoder=PackingListItemEncoder,
+                safe=False,
+            )
+        except TypeError:
+            return type_error_message("Item")
+
     else:
         content = json.loads(request.body)
         packing_list = PackingList.objects.get(id=pk)
