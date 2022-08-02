@@ -8,6 +8,7 @@ import TravelDetailPage from "./MainPages/TravelDetailPage";
 import Login from "./Auth/Login";
 import SignUp from "./Auth/SignUp";
 import TestComponent from "./Auth/TestComponent";
+import DetailList from "./MainPages/DetailList";
 
 export default function App() {
   return (
@@ -18,6 +19,7 @@ export default function App() {
             <Routes>
               <Route path="/" element={<MainPage />} exact />
               <Route path="/travel_details" element={<TravelDetailPage />} />
+              <Route path="/packing_list" element={<DetailList />} />
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<SignUp />} />
               <Route path="/test-component" element={<PrivateRoute><TestComponent /></PrivateRoute>} />

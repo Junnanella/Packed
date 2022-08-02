@@ -297,9 +297,32 @@ def api_packing_lists(request):
                 status=400,
             )
 
+@api_view(["GET", "PUT"])
+@permission_classes([IsAuthenticated])
+def api_packing_list(request, pk):
+    if request.method == "GET":
+        packing_list = PackingList.objects.get(id=pk)
+        return JsonResponse(
+            packing_list,
+            encoder=PackingListEncoder,
+            safe=False,
+        )
+    else:
+        try:
+            content = json.loads(request.body)
+            packing_list = PackingList.objects.update(**content)
+            return JsonResponse(
+                packing_list,
+                encoder=PackingListEncoder,
+                safe=False,
+            )
+        except PackingList.DoesNotExist:
+            return model_instance_does_not_exist_message("PackingList", pk)
+        except FieldDoesNotExist:
+            return field_does_not_exist_error()
+
 
 @api_view(["GET", "POST"])
-# @authentication_classes([TokenAuthentication])
 @permission_classes([IsAuthenticated])
 def api_packing_list_items(request, pk):
     if request.method == "GET":
