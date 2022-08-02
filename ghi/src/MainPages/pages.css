@@ -106,3 +106,7 @@ body {
     font-weight: bold;
     text-shadow: 1px 1px #2b2844;
 }
+div.rcorners1 {
+    border-radius: 25px;
+    background: #ffffff;
+  }

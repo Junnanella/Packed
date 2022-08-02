@@ -47,7 +47,7 @@ def type_error_message(model_name):
 
 
 # Category Views -------
-@require_http_methods(["GET", "POST"])
+@api_view(["GET", "POST"])
 def api_categories(request):
     if request.method == "GET":
         categories = Category.objects.all().order_by("id")

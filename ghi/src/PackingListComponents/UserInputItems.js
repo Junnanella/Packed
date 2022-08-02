@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
-export const UserItemForm = ({items, setItems}) => {
+export const UserItemForm = ({items, setItems, percentagePacked=null, setPercentagePacked=null}) => {
   const [userItem, setUserItem] = useState("");
 
   const onClick = async (event) => {
@@ -19,14 +19,22 @@ export const UserItemForm = ({items, setItems}) => {
       }
     }
     if (valid) {
-      setItems([...items, {
+      const updatedItems = [...items, {
         "name": userItem,
         "suggested": false,
         "quantity": 1,
         "id": null,
-      }]);
+      }]
+      setItems(updatedItems);
+      if (percentagePacked) {
+        const numItems = updatedItems.length;
+        const numPackedItems = updatedItems.filter(item => {
+          return item.packed
+        }).length;
+        setPercentagePacked(Math.floor((numPackedItems / numItems) * 100));
+      }
     } else {
-      alert(message)
+      alert(message);
     }
     setUserItem("");
   };
@@ -38,12 +46,12 @@ export const UserItemForm = ({items, setItems}) => {
 
   return (
     <div className="container">
-      <h3>Create Item</h3>
+      {percentagePacked === null ? <h3>Add Item</h3> : null}
       <div className="input-group mb-3">
         <input
           onChange={onChangeUserItem}
           value={userItem}
-          placeholder="Item Name"
+          placeholder="New Item"
           required
           type="text"
           name="user_item"

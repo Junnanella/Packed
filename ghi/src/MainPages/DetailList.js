@@ -1,23 +1,33 @@
 import { useEffect, useState, useContext } from 'react';
 import AuthContext from '../context/AuthContext';
-import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSave } from '@fortawesome/free-solid-svg-icons';
+import { faEdit } from '@fortawesome/free-solid-svg-icons';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { useLocation } from 'react-router-dom';
 import { UserItemForm } from "../PackingListComponents/UserInputItems";
+import WeatherChart from "../DataCharts/WeatherChart";
+import "./pages.css";
 
 // create a table with editing stuff invisible. if they press edit, d-none toggles
 // the view will delete all PackingListItems and then replace them with the new ones
 
 function DetailList() {
-    const location = useLocation()
-    const packingListId = location.state.id;
+    const location = useLocation();
+    const packingListId = location.state.packingList.id;
+    const cityWeather = location.state.packingList.destination_city;
+    const countryWeather = location.state.packingList.destination_country;
+    const departuredDateWeather = location.state.packingList.departure_date;
+    const returnDateWeather = location.state.packingList.departure_date;
     const { authTokens } = useContext(AuthContext);
     const [items, setItems] = useState([]);
     const [packingList, setPackingList] = useState({});
     const [editMode, setEditMode] = useState(false);
     const [departureDate, setDepartureDate] = useState("");
     const [returnDate, setReturnDate] = useState("");
-    const [sentData, setSentData] = useState(false)
+    const[percentagePacked, setPercentagePacked] = useState(0);
+    const [progressBarColor, setProgressBarColor] = useState("progress-bar-striped bg-warning progress-bar-animated")
+
     const packingListUrl = `http://localhost:8005/api/packing_lists/${packingListId}/`;
     const itemsUrl = `http://localhost:8005/api/packing_lists/${packingListId}/items/`;
 
@@ -48,16 +58,18 @@ function DetailList() {
     function findItem(name) {
         for (let index = 0; index < items.length; index ++) {
             if (items[index].name === name) {
-                return index
+                return index;
             }
         }
-        return "item not found!"
+        return "item not found!";
     }
 
     function deleteItem(event) {
-        const name = event.target.value
-        const item_index = findItem(name)
-        setItems([...items.filter((_, i) => i !== item_index)])
+        const name = event.target.value;
+        const item_index = findItem(name);
+        const updatedItems = [...items.filter((_, i) => i !== item_index)];
+        setItems(updatedItems);
+        percentage(updatedItems);
     };
 
     async function sendChangesToDatabase() {
@@ -65,9 +77,23 @@ function DetailList() {
         if (updatedItems) {
             setEditMode(!editMode);
             makeRequests();
-            
         } else {
             console.log("something went wrong")
+        }
+    }
+
+    function percentage(fetchedItems=null) {
+        const data = !fetchedItems ? items : fetchedItems;
+        const numItems = data.length
+        const numPackedItems = data.filter(item => {
+            return item.packed === true
+        }).length
+        const calculatedPercentage = Math.floor((numPackedItems / numItems) * 100);
+        setPercentagePacked(calculatedPercentage);
+        if (calculatedPercentage === 100) {
+            setProgressBarColor("bg-success");
+        } else {
+            setProgressBarColor("progress-bar-striped bg-warning progress-bar-animated");
         }
     }
 
@@ -77,49 +103,91 @@ function DetailList() {
         if (packingListData) {
             const itemsObject = await fetchData(itemsUrl);
             if (itemsObject) {
-                const listOfItems = itemsObject.items
+                const listOfItems = itemsObject.items;
                 listOfItems.map(item => {
                     item.name = item.item_name.name;
                     item.suggested = item.item_name.suggested;
                     delete item.item_name;
                 })
                 const options = {
-                    weekday: "long",
                       day: "numeric",
                       month: "long",
                       year: "numeric"
-                }
+                };
                 setDepartureDate(new Date(packingListData.departure_date).toLocaleDateString("en-US", options));
                 setReturnDate(new Date(packingListData.return_date).toLocaleDateString("en-US", options));
                 setPackingList(packingListData);
                 setItems(listOfItems);
+                percentage(listOfItems);
             }
         }
     }
 
     useEffect(() => {
-            makeRequests()
-    }, [sentData,])
+        async function populatePage() {
+            // document.body.style.backgroundColor="#d4f4e4"
+            await makeRequests();
+        }
+        populatePage();
+    }, [])
 
     return(
         <div className="container mt-3">
-            <div className="col-6 offset-3">
-                <h1>{packingList.title}</h1>
-                <p>{departureDate} - {returnDate}</p>
-                {editMode ?
-                    <button className="btn btn-success" onClick={sendChangesToDatabase}>Save changes</button>
-                :
-                    <button className="btn btn-success" onClick={()=>setEditMode(!editMode)}>Edit</button>
-                }
-                    {editMode ?
-                        <UserItemForm
-                            setItems={setItems}
-                            items={items}
+            <div className="col-10 offset-1 shadow p-4 rcorners1">
+                <div className="row">
+                    <div style={{width: "70%"}}>
+                        <p>{departureDate} - {returnDate}</p>
+                        <div className="input-group">
+                            <div className="p-1">
+                                {editMode ?
+                                    <button
+                                        className="btn btn-success btn-sm"
+                                        onClick={sendChangesToDatabase}
+                                    >
+                                        <FontAwesomeIcon icon={faSave} />
+                                    </button>
+                                :
+                                    <button
+                                        className="btn btn-outline-success btn-sm"
+                                        onClick={()=>setEditMode(!editMode)}
+                                    >
+                                        <FontAwesomeIcon icon={faEdit} />
+                                    </button>
+                                }
+                            </div>
+                            <h3 className="p-1">{packingList.title}</h3>
+                        </div>
+                        { editMode ?
+                            <UserItemForm
+                                setItems={setItems}
+                                items={items}
+                                percentagePacked={percentagePacked}
+                                setPercentagePacked={setPercentagePacked}
+                            />
+                        :
+                            null
+                        }
+                    </div>
+                    <div className="col">
+                        <WeatherChart
+                            destination_city={cityWeather}
+                            destination_country={countryWeather}
+                            departure_date={departuredDateWeather}
+                            return_date={returnDateWeather}
+                            detail={true}
                         />
-                    :
-                        null
-                    }
-                <table className="table table-striped">
+                    </div>
+                </div>
+
+                <div className="progress m-3">
+                     <div
+                        className={`progress-bar ${progressBarColor}`}
+                        role="progressbar" style={{width: `${percentagePacked}%`}}
+                        aria-valuenow={percentagePacked}
+                        aria-valuemin="0" aria-valuemax="100"
+                    />
+                </div>
+                <table className="table">
                     <thead>
                         <tr>
                             <th className="text-center" style={{width: "90px"}}>QTY</th>
@@ -146,8 +214,7 @@ function DetailList() {
                                                     setItems(newItems);
                                                 }}
                                                 defaultValue={item.quantity}
-                                                min={1}
-                                                max={1000}
+                                                min={1} max={1000}
                                             />
                                         }
                                     </td>
@@ -164,6 +231,7 @@ function DetailList() {
                                                 const index = findItem(item.name)
                                                 newItems[index].packed = e.target.value === "true" ? false : true;
                                                 setItems(newItems);
+                                                percentage()
                                             }}
                                         />
                                     </td>
