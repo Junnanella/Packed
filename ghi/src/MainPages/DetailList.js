@@ -170,6 +170,8 @@ function DetailList() {
                     <UserItemForm
                         setItems={setItems}
                         items={items}
+                        percentagePacked={percentagePacked}
+                        setPercentagePacked={setPercentagePacked}
                     />
                 :
                     null

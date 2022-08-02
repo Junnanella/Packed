@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
-export const UserItemForm = ({items, setItems}) => {
+export const UserItemForm = ({items, setItems, percentagePacked=null, setPercentagePacked=null}) => {
   const [userItem, setUserItem] = useState("");
 
   const onClick = async (event) => {
@@ -19,14 +19,22 @@ export const UserItemForm = ({items, setItems}) => {
       }
     }
     if (valid) {
-      setItems([...items, {
+      const updatedItems = [...items, {
         "name": userItem,
         "suggested": false,
         "quantity": 1,
         "id": null,
-      }]);
+      }]
+      setItems(updatedItems);
+      if (percentagePacked) {
+        const numItems = updatedItems.length;
+        const numPackedItems = updatedItems.filter(item => {
+          return item.packed
+        }).length;
+        setPercentagePacked(Math.floor((numPackedItems / numItems) * 100));
+      }
     } else {
-      alert(message)
+      alert(message);
     }
     setUserItem("");
   };
