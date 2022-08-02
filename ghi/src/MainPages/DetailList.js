@@ -9,7 +9,7 @@ import { UserItemForm } from "../PackingListComponents/UserInputItems";
 // the view will delete all PackingListItems and then replace them with the new ones
 
 function DetailList() {
-    const location = useLocation()
+    const location = useLocation();
     const packingListId = location.state.id;
     const { authTokens } = useContext(AuthContext);
     const [items, setItems] = useState([]);
@@ -17,7 +17,9 @@ function DetailList() {
     const [editMode, setEditMode] = useState(false);
     const [departureDate, setDepartureDate] = useState("");
     const [returnDate, setReturnDate] = useState("");
-    const [sentData, setSentData] = useState(false)
+    const[percentagePacked, setPercentagePacked] = useState(0);
+    const [progressBarColor, setProgressBarColor] = useState("progress-bar-striped bg-warning progress-bar-animated")
+
     const packingListUrl = `http://localhost:8005/api/packing_lists/${packingListId}/`;
     const itemsUrl = `http://localhost:8005/api/packing_lists/${packingListId}/items/`;
 
@@ -48,16 +50,18 @@ function DetailList() {
     function findItem(name) {
         for (let index = 0; index < items.length; index ++) {
             if (items[index].name === name) {
-                return index
+                return index;
             }
         }
-        return "item not found!"
+        return "item not found!";
     }
 
     function deleteItem(event) {
-        const name = event.target.value
-        const item_index = findItem(name)
-        setItems([...items.filter((_, i) => i !== item_index)])
+        const name = event.target.value;
+        const item_index = findItem(name);
+        const updatedItems = [...items.filter((_, i) => i !== item_index)];
+        setItems(updatedItems);
+        percentage(updatedItems);
     };
 
     async function sendChangesToDatabase() {
@@ -71,13 +75,28 @@ function DetailList() {
         }
     }
 
+    function percentage(fetchedItems=null) {
+        const data = !fetchedItems ? items : fetchedItems;
+        const numItems = data.length
+        const numPackedItems = data.filter(item => {
+            return item.packed === true
+        }).length
+        const calculatedPercentage = Math.floor((numPackedItems / numItems) * 100);
+        setPercentagePacked(calculatedPercentage);
+        if (calculatedPercentage === 100) {
+            setProgressBarColor("bg-success");
+        } else {
+            setProgressBarColor("progress-bar-striped bg-warning progress-bar-animated");
+        }
+    }
+
     const makeRequests = async () => {
         const packingListData = await fetchData(packingListUrl);
         
         if (packingListData) {
             const itemsObject = await fetchData(itemsUrl);
             if (itemsObject) {
-                const listOfItems = itemsObject.items
+                const listOfItems = itemsObject.items;
                 listOfItems.map(item => {
                     item.name = item.item_name.name;
                     item.suggested = item.item_name.suggested;
@@ -88,38 +107,44 @@ function DetailList() {
                       day: "numeric",
                       month: "long",
                       year: "numeric"
-                }
+                };
                 setDepartureDate(new Date(packingListData.departure_date).toLocaleDateString("en-US", options));
                 setReturnDate(new Date(packingListData.return_date).toLocaleDateString("en-US", options));
                 setPackingList(packingListData);
                 setItems(listOfItems);
+                percentage(listOfItems);
             }
         }
     }
 
     useEffect(() => {
-            makeRequests()
-    }, [sentData,])
+            makeRequests();
+    }, [])
 
     return(
         <div className="container mt-3">
-            <div className="col-6 offset-3">
+            <div className="col-6 offset-3 shadow rounded p-4">
                 <h1>{packingList.title}</h1>
                 <p>{departureDate} - {returnDate}</p>
-                {editMode ?
-                    <button className="btn btn-success" onClick={sendChangesToDatabase}>Save changes</button>
-                :
-                    <button className="btn btn-success" onClick={()=>setEditMode(!editMode)}>Edit</button>
-                }
+                <div className="mb-3">
                     {editMode ?
-                        <UserItemForm
-                            setItems={setItems}
-                            items={items}
-                        />
+                        <button className="btn btn-success" onClick={sendChangesToDatabase}>Save changes</button>
                     :
-                        null
+                        <button className="btn btn-success" onClick={()=>setEditMode(!editMode)}>Edit</button>
                     }
-                <table className="table table-striped">
+                </div>
+                {editMode ?
+                    <UserItemForm
+                        setItems={setItems}
+                        items={items}
+                    />
+                :
+                    null
+                }
+                <div className="progress m-3">
+                     <div className={`progress-bar ${progressBarColor}`} role="progressbar" style={{width: `${percentagePacked}%`}} aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <table className="table table-striped table-bordered">
                     <thead>
                         <tr>
                             <th className="text-center" style={{width: "90px"}}>QTY</th>
@@ -164,6 +189,7 @@ function DetailList() {
                                                 const index = findItem(item.name)
                                                 newItems[index].packed = e.target.value === "true" ? false : true;
                                                 setItems(newItems);
+                                                percentage()
                                             }}
                                         />
                                     </td>
