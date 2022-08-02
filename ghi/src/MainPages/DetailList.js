@@ -17,25 +17,31 @@ function DetailList() {
     const [editMode, setEditMode] = useState(false);
     const [departureDate, setDepartureDate] = useState("");
     const [returnDate, setReturnDate] = useState("");
+    const [sentData, setSentData] = useState(false)
+    const packingListUrl = `http://localhost:8005/api/packing_lists/${packingListId}/`;
+    const itemsUrl = `http://localhost:8005/api/packing_lists/${packingListId}/items/`;
 
-    async function fetchData(url) {
+    async function fetchData(url, body=null, method="GET") {
         const fetchConfig = {
-            method: "GET",
+            method: method,
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": "Bearer " + String(authTokens?.access),
             }
         };
+        if (body) {
+            fetchConfig.body = JSON.stringify(body);
+        }
         const response = await fetch(url, fetchConfig);
         if (response.ok) {
             return await response.json();
 
         } else if (response.statusText === "Unauthorized") {
-            alert("You must login to view your packing lists")
+            alert("You must login to perform this action")
             console.error(response.status);
         } else {
             console.error(response.status);
-            alert("Failed to fetch packing list")
+            alert("Failed operation")
         }
     }
 
@@ -54,37 +60,46 @@ function DetailList() {
         setItems([...items.filter((_, i) => i !== item_index)])
     };
 
-    useEffect(() => {
-        const packingListUrl = `http://localhost:8005/api/packing_lists/${packingListId}/`;
-        const itemsUrl = `http://localhost:8005/api/packing_lists/${packingListId}/items/`;
-
-        const makeRequests = async () => {
-            const packingListData = await fetchData(packingListUrl);
+    async function sendChangesToDatabase() {
+        const updatedItems = await fetchData(itemsUrl, {items: items}, "PUT")
+        if (updatedItems) {
+            setEditMode(!editMode);
+            makeRequests();
             
-            if (packingListData) {
-                const itemsObject = await fetchData(itemsUrl);
-                if (itemsObject) {
-                    const listOfItems = itemsObject.items
-                    listOfItems.map(item => {
-                        item.name = item.item_name.name;
-                        item.suggested = item.item_name.suggested;
-                        delete item.item_name;
-                    })
-                    const options = {
-                        weekday: "long",
-                          day: "numeric",
-                          month: "long",
-                          year: "numeric"
-                    }
-                    setDepartureDate(new Date(packingListData.departure_date).toLocaleDateString("en-US", options));
-                    setReturnDate(new Date(packingListData.return_date).toLocaleDateString("en-US", options));
-                    setPackingList(packingListData);
-                    setItems(listOfItems);
+        } else {
+            console.log("something went wrong")
+        }
+    }
+
+    const makeRequests = async () => {
+        const packingListData = await fetchData(packingListUrl);
+        
+        if (packingListData) {
+            const itemsObject = await fetchData(itemsUrl);
+            if (itemsObject) {
+                const listOfItems = itemsObject.items
+                listOfItems.map(item => {
+                    item.name = item.item_name.name;
+                    item.suggested = item.item_name.suggested;
+                    delete item.item_name;
+                })
+                const options = {
+                    weekday: "long",
+                      day: "numeric",
+                      month: "long",
+                      year: "numeric"
                 }
+                setDepartureDate(new Date(packingListData.departure_date).toLocaleDateString("en-US", options));
+                setReturnDate(new Date(packingListData.return_date).toLocaleDateString("en-US", options));
+                setPackingList(packingListData);
+                setItems(listOfItems);
             }
         }
-        makeRequests()
-    }, [])
+    }
+
+    useEffect(() => {
+            makeRequests()
+    }, [sentData,])
 
     return(
         <div className="container mt-3">
@@ -92,10 +107,7 @@ function DetailList() {
                 <h1>{packingList.title}</h1>
                 <p>{departureDate} - {returnDate}</p>
                 {editMode ?
-                    <button className="btn btn-success" onClick={(() => {
-                        console.log("submitted items: ", items)
-                        setEditMode(!editMode)
-                    })}>Submit</button>
+                    <button className="btn btn-success" onClick={sendChangesToDatabase}>Save changes</button>
                 :
                     <button className="btn btn-success" onClick={()=>setEditMode(!editMode)}>Edit</button>
                 }
@@ -144,6 +156,7 @@ function DetailList() {
                                         <input
                                             type="checkbox"
                                             className="form-check-input"
+                                            defaultChecked={item.packed}
                                             value={item.packed}
                                             disabled={!editMode ? true : false}
                                             onChange={(e) =>{
