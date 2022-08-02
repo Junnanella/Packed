@@ -69,6 +69,10 @@ class PackingListItem(models.Model):
         related_name="packing_lists",
         on_delete= models.CASCADE 
     )
+    owner = models.ForeignKey(
+        User, related_name="packing_list_items",
+         on_delete=models.CASCADE, null=True
+    )
     quantity = models.PositiveIntegerField()
     packed = models.BooleanField(default=False)
     packing_list = models.ForeignKey(

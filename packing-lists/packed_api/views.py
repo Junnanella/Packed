@@ -99,6 +99,16 @@ def api_category(request, pk):
 
 
 # Item Views ------
+
+def get_user_items(user):
+    user_packing_list_items = PackingListItem.objects.filter(owner=user)
+    items = []
+    for packing_list_item in user_packing_list_items:
+        items.append(
+            Item.objects.get(name=packing_list_item.item_name.name)
+        )
+    return items
+
 @require_http_methods(["GET", "POST"])
 def api_items(request):
     if request.method == "GET":
@@ -119,7 +129,7 @@ def api_items(request):
             return type_error_message("Item")
 
 
-@require_http_methods(["GET"])
+@api_view(["GET"])
 def api_conditional_items(request, condition):
     if request.method == "GET":
         try:
@@ -129,11 +139,18 @@ def api_conditional_items(request, condition):
                 conditional_items = Item.objects.filter(condition=condition)
             any_condition = Condition.objects.get(name="any")
             general_items = Item.objects.filter(condition=any_condition)
-            return JsonResponse(
-                {
+            if str(request.user) != "AnonymousUser":
+                user_favorite_items = get_user_items(request.user)
+            else:
+                user_favorite_items = []
+            items = {
                     "conditional_items": conditional_items,
                     "general_items": general_items,
-                },
+                    "user_favorite_items": user_favorite_items,
+                }
+            print(items)
+            return JsonResponse(
+                items,
                 encoder=ItemEncoder,
                 safe=False,
             )
@@ -245,7 +262,7 @@ def create_packing_list(content):
         return None
 
 
-def add_packing_list_item(item, packing_list):
+def add_packing_list_item(item, packing_list, owner):
     existing_item = Item.objects.filter(name=item["name"])
     if item["suggested"] or len(existing_item) > 0:
         linked_item = Item.objects.get(name=item["name"])
@@ -254,11 +271,14 @@ def add_packing_list_item(item, packing_list):
             "quantity": int(item["quantity"]),
             "packing_list": packing_list,
             "packed": item.get("packed", False),
+            "owner": owner,
         }
     else:
         data = {
             "name": item["name"],
             "suggested": item["suggested"],
+            "category": Category.objects.get(name="user"),
+            "condition": Condition.objects.get(name="user"),
         }
         linked_item = Item.objects.create(**data)
         data = {
@@ -266,6 +286,7 @@ def add_packing_list_item(item, packing_list):
             "quantity": int(item["quantity"]),
             "packing_list": packing_list,
             "packed": item.get("packed", False),
+            "owner": owner,
 
         }
     new_packing_list_item = PackingListItem.objects.create(**data)
@@ -327,6 +348,7 @@ def api_packing_list(request, pk):
 @api_view(["GET", "PUT", "POST"])
 @permission_classes([IsAuthenticated])
 def api_packing_list_items(request, pk):
+    owner = request.user
     if request.method == "GET":
         packing_list = PackingList.objects.get(id=pk)
         items = PackingListItem.objects.filter(packing_list=packing_list)
@@ -343,7 +365,7 @@ def api_packing_list_items(request, pk):
         try:
             for item in content["items"]:
                 items.append(
-                    add_packing_list_item(item=item, packing_list=packing_list)
+                    add_packing_list_item(item=item, packing_list=packing_list, owner=owner)
                 )
             return JsonResponse(
                 {"items": items},
@@ -360,7 +382,7 @@ def api_packing_list_items(request, pk):
         try:
             for item in content["items"]:
                 items.append(
-                    add_packing_list_item(item=item, packing_list=packing_list)
+                    add_packing_list_item(item=item, packing_list=packing_list, owner=owner)
                 )
             return JsonResponse(
                 {"items": items},

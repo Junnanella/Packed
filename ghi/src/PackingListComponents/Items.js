@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { loadItemsList } from "./PackingListApi";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlusSquare } from '@fortawesome/free-solid-svg-icons';
+import AuthContext from "../context/AuthContext";
+import { useContext } from "react";
 
 
 
@@ -9,11 +11,19 @@ import { faPlusSquare } from '@fortawesome/free-solid-svg-icons';
 export default function SuggestedItems({setItems, items}) {
   const [conditionalItems, setConditionalItems] = useState([]);
   const [generalItems, setGeneralItems] = useState([]);
+  let {authTokens} = useContext(AuthContext)
+  const fetchConfig = {
+    method: "GET",
+    headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + String(authTokens?.access),
+    }
+};
 
   useEffect(() => {
     async function fetchData() {
-      const response = await loadItemsList("cold");
-      const conditional = response.conditional_items;
+      const response = await loadItemsList("cold", fetchConfig);
+      const conditional = response.conditional_items.concat(response.user_favorite_items);
       const general = response.general_items;
       setConditionalItems(conditional);
       setGeneralItems(general);
