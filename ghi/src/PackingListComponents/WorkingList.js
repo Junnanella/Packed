@@ -2,6 +2,9 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useContext } from 'react';
 import AuthContext from '../context/AuthContext';
+import { faSave } from '@fortawesome/free-solid-svg-icons';
+import { faEdit } from '@fortawesome/free-solid-svg-icons';
+
 
 
 function WorkingList({
@@ -99,8 +102,8 @@ function WorkingList({
         <div className="">
                 <div id="container">
                     <h3 id="edit" name="title"> Packing List for {destination_country}</h3>
-                    <button type="submit" id="edit-button">Edit</button>
-                    <button type="submit" id="end-editing">Save</button>
+                    <button type="submit" id="edit-button"><FontAwesomeIcon icon={faEdit} /></button>
+                    <button type="submit" id="end-editing"><FontAwesomeIcon icon={faSave} /></button>
                 </div>
             <table className="table table-hover">
                 <thead>

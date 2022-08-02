@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { loadItemsList } from "./PackingListApi";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlusSquare } from '@fortawesome/free-solid-svg-icons';
+
+
 
 
 export default function SuggestedItems({setItems, items}) {
@@ -62,7 +66,7 @@ export default function SuggestedItems({setItems, items}) {
 
   return (
     <div className="container">
-      <h4>Things you may need!</h4>
+      <h4>Things you might need!</h4>
       <div className="input-group mb-3">
         <div>
           <table className="table table-hover">
@@ -77,7 +81,7 @@ export default function SuggestedItems({setItems, items}) {
                   <tr>
                     <td>{item.name}</td>
                     <td>
-                      <button onClick={(e) => addGItem(item)}>Add</button>
+                      <button onClick={(e) => addGItem(item)}><FontAwesomeIcon icon={faPlusSquare} /></button>
                     </td>
                   </tr>
                 );
@@ -97,7 +101,7 @@ export default function SuggestedItems({setItems, items}) {
                 <tr>
                   <td>{item.name}</td>
                   <td>
-                    <button onClick={(e) => addCItem(item)}>Add</button>
+                    <button onClick={(e) => addCItem(item)}><FontAwesomeIcon icon={faPlusSquare} /></button>
                   </td>
                 </tr>
               );
