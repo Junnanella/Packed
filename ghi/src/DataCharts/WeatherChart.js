@@ -45,20 +45,28 @@ export default function WeatherChart(props) {
     if (weather.temperature > 70) {
       return (
         <th key={weather.id} className="weather-data">
-          <img src="../sun.png" alt="sun" className="weather-icon" />
+          <img
+            src="../weather-icons/sun.png"
+            alt="sun"
+            className="weather-icon"
+          />
         </th>
       );
     } else if (weather.temperature < 70 && weather.temperature > 55) {
       return (
         <th key={weather.id} className="weather-data">
-          <img src="../cloudy.png" alt="cloudy" className="weather-icon" />
+          <img
+            src="../weather-icons/cloudy.png"
+            alt="cloudy"
+            className="weather-icon"
+          />
         </th>
       );
     } else {
       return (
         <th key={weather.id} className="weather-data">
           <img
-            src="../snowflake.jpeg"
+            src="../weather-icons/snowflake.jpeg"
             alt="snowflake"
             className="weather-icon"
           />
