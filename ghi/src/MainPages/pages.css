@@ -46,6 +46,10 @@ body {
 .main-container {
     background-color: #f5faf8;
     border-radius: 2%;
+    margin-top: 50px;
+    border: 1px solid transparent;
+    border-radius: 20px;
+    padding: 10px 20px 10px 10px;
 }
 
 .card {

@@ -19,7 +19,7 @@ export const PackingLists = () => {
   }, [authTokens]);
 
   return (
-    <Container>
+    <Container className="main-container shadow">
       <Row>
         {packingLists.map((list, k) => (
           <Col key={k} xs={12} md={6} lg={4}>
