@@ -14,7 +14,7 @@ export default function Nav() {
         </NavLink>
         {!user ? (
           <NavLink className="navbar-brand nav-link" to="/signup">
-            Signup
+            signup
           </NavLink>
         ) : null}
         {user ? (
@@ -23,17 +23,14 @@ export default function Nav() {
           </NavLink>
         ) : null}
         {user ? (
-          <p className="navbar-brand nav-link" onClick={logoutUser}>
-            Logout
-          </p>
+          <div className="navbar-brand nav-link" onClick={logoutUser}>
+            logout
+          </div>
         ) : (
           <NavLink className="navbar-brand nav-link" to="/login">
-            Login
+            login
           </NavLink>
         )}
-        <NavLink className="navbar-brand nav-link" to="/test-component">
-          Test
-        </NavLink>
       </div>
     </nav>
   );
