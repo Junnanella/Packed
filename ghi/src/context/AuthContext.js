@@ -97,7 +97,9 @@ export const AuthProvider = ({children}) => {
             setUser(decodedToken);
             localStorage.setItem("authTokens", JSON.stringify(data));
         } else {
-            logoutUser();
+            if (localStorage.getItem("authTokens")) {
+                logoutUser();
+            }
         }
 
         if (loading) {

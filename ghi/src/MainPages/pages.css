@@ -126,7 +126,6 @@ body {
 }
 
 .card-details {
-    margin-top: 180px;
     background-color: #2d675f90;
     border: transparent;
     border-radius: 10px;
@@ -150,6 +149,7 @@ body {
     font-weight: bold;
     text-shadow: 1px 1px #2b2844;
 }
+
 div.rcorners1 {
     border-radius: 25px;
     background: #ffffff;
