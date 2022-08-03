@@ -1,7 +1,7 @@
 stages:
   - test
-  # - build
-  # - deploy
+  - build
+  - deploy
 
 variables:
   REACT_APP_DJANGO_PACKING_LISTS: https://${HEROKU_APP_DJANGO_PACKING_LISTS}.herokuapp.com
