@@ -5,7 +5,8 @@ import CurrencyInfo from "../DataCharts/CurrencyInfo";
 import { UserItemForm } from "../PackingListComponents/UserInputItems";
 import SuggestedItems from "../PackingListComponents/Items";
 import WorkingList from "../PackingListComponents/WorkingList";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import AuthContext from '../context/AuthContext'
 import "./pages.css";
 
 export default function TravelDetailPage() {
@@ -18,23 +19,27 @@ export default function TravelDetailPage() {
   const departure_date = searchParams.get("departure_date");
   const return_date = searchParams.get("return_date");
   const [items, setItems] = useState([]);
+  let {user, authTokens} = useContext(AuthContext);
+
 
   // Will need to pass the above variable to the corresponding components
   return (
     <div>
+      <div className="travel-page">
       <div className="detail-page-header">
-        <h1 className="detail-page-header-text display-4 fw-normal text-center g-5">
-          Get ready to pack for {destination_city}, {destination_country}!
-        </h1>
-        <img src="../luggage_cartoon_v2.png" alt="luggage" className="luggage" />
+        <h1>Hi {user?.username}! </h1>
+        <h2 className="detail-page-header-text display-4 fw-normal text-center g-5">
+        Create a packing list for {destination_city}, {destination_country}!
+        </h2>
+        <img src="../travel-bags.png" alt="bags" className="bags" /> 
       </div>
       <div className="container">
         <div className="row">
-          <div className="col item-column border rounded">
+          <div className="col item-column detail-columns">
             <UserItemForm setItems={setItems} items={items} />
             <SuggestedItems setItems={setItems} items={items} />
           </div>
-          <div className="col item-column  border rounded">
+          <div className="col item-column detail-columns">
             <WorkingList setItems={setItems} items={items}
               destination_city={destination_city}
               destination_country={destination_country}
@@ -42,7 +47,7 @@ export default function TravelDetailPage() {
               return_date={return_date}
             />
           </div>
-          <div className="col data-column border rounded">
+          <div className="col data-column detail-columns">
             <div className="row">
               <WeatherChart
                 destination_city={destination_city}
@@ -61,8 +66,10 @@ export default function TravelDetailPage() {
               />
             </div>
           </div>
+          <div><img src="../travel-suitcases.png" alt="suitcases" className="suitcases" /> </div>
         </div>
       </div>
+    </div>
     </div>
   );
 }
