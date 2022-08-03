@@ -30,13 +30,9 @@ export const PackingLists = () => {
     setInputText(event.target.value);
   };
 
-  const onSubmit = (event) => {
-    setInputText("");
-  };
-
   return (
     <Container className="main-container shadow">
-      <Form className="d-flex search-form ms-auto" onSubmit={onSubmit}>
+      <Form className="d-flex search-form ms-auto">
         <Form.Control
           onChange={onChangeSearchInput}
           value={inputText}
@@ -45,32 +41,36 @@ export const PackingLists = () => {
           className="me-2 "
           aria-label="Search"
         />
-        <Button variant="outline-success" type="submit">
-          Search
-        </Button>
       </Form>
       <Row>
-        {packingLists.map((list, k) => (
-          <Col key={k} xs={12} md={6} lg={4}>
-            <Card className={imageClasses[list.id % 5]}>
-              <Card.Body>
-                <div className="card-details">
-                  <Card.Title>{list.title}</Card.Title>
-                  <Card.Subtitle>created: {list.created}</Card.Subtitle>
-                  <Card.Text>
-                    Departure: {list.departure_date}
-                    <br />
-                    Return: {list.return_date}
-                  </Card.Text>
-                </div>
-              </Card.Body>
-              <button
-                className="stretched-link card-button"
-                onClick={(e) => detailListUrl(list)}
-              ></button>
-            </Card>
-          </Col>
-        ))}
+        {packingLists
+          .filter((item) => {
+            const searchInput = inputText.toLowerCase();
+            const itemTitle = item.title.toLowerCase();
+
+            return itemTitle.includes(searchInput);
+          })
+          .map((list, k) => (
+            <Col key={k} xs={12} md={6} lg={4}>
+              <Card className={imageClasses[list.id % 5]}>
+                <Card.Body>
+                  <div className="card-details">
+                    <Card.Title>{list.title}</Card.Title>
+                    <Card.Subtitle>created: {list.created}</Card.Subtitle>
+                    <Card.Text>
+                      Departure: {list.departure_date}
+                      <br />
+                      Return: {list.return_date}
+                    </Card.Text>
+                  </div>
+                </Card.Body>
+                <button
+                  className="stretched-link card-button"
+                  onClick={(e) => detailListUrl(list)}
+                ></button>
+              </Card>
+            </Col>
+          ))}
       </Row>
     </Container>
   );
