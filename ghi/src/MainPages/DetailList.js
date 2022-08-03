@@ -20,6 +20,7 @@ function DetailList() {
     const departuredDateWeather = location.state.packingList.departure_date;
     const returnDateWeather = location.state.packingList.departure_date;
     const { authTokens } = useContext(AuthContext);
+    const [mount, setMount] = useState(true);
     const [items, setItems] = useState([]);
     const [packingList, setPackingList] = useState({});
     const [editMode, setEditMode] = useState(false);
@@ -108,6 +109,7 @@ function DetailList() {
                     item.name = item.item_name.name;
                     item.suggested = item.item_name.suggested;
                     delete item.item_name;
+                    return;
                 })
                 const options = {
                       day: "numeric",
@@ -124,12 +126,11 @@ function DetailList() {
     }
 
     useEffect(() => {
-        async function populatePage() {
-            // document.body.style.backgroundColor="#d4f4e4"
-            await makeRequests();
+        if (mount) {
+            makeRequests();
+            setMount(false);
         }
-        populatePage();
-    }, [])
+    }, [makeRequests, mount])
 
     return(
         <div className="container mt-3">

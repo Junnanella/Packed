@@ -26,7 +26,7 @@ export default function SuggestedItems({setItems, items}) {
       setGeneralItems(general);
     }
     fetchData();
-  }, []);
+  }, [loadItemsList]);
 
 
   function validate() {
