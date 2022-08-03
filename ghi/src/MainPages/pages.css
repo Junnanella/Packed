@@ -7,6 +7,22 @@ body {
     background-color: #d3f0e4;
 }
 
+.main-page-background {
+    background-color: #effef6;
+    border-radius: 20px;
+    margin: auto 5rem;
+}
+
+.app-blurb{
+    margin-top: 12rem;;
+}
+
+.trip-form {
+    background-color: #d3f0e480;
+    border-radius: 20px;
+    margin-right: 1rem;
+}
+
 div.detail-page-header {
    text-align: center;
 }
@@ -61,22 +77,26 @@ div.currency-data:hover {
 body {
     background-color: #dff1eb;
 }
+
 .main-container {
     background-color: #f5faf8;
-    border-radius: 2%;
     margin-top: 50px;
     border: 1px solid transparent;
     border-radius: 20px;
     padding: 10px 20px 10px 10px;
 }
 
+.search-form {
+   max-width: 50%;
+}
+
 .card {
     width: 250px;
-    height: 350px;
+    height: 300px;
     border-radius: 15px;
     margin: 2rem;
     box-shadow: 12px 12px 2px 1px #c3e6d8;
-    background-size: 250px 350px;
+    background-size: 250px 300px;
 }
 
 .card-button {
