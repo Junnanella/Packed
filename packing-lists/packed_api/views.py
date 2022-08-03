@@ -132,6 +132,7 @@ def api_items(request):
 @api_view(["GET"])
 @permission_classes([AllowAny])
 def api_conditional_items(request, condition):
+    print("here")
     if request.method == "GET":
         try:
             conditional_items = []
@@ -149,7 +150,6 @@ def api_conditional_items(request, condition):
                     "general_items": general_items,
                     "user_favorite_items": user_favorite_items,
                 }
-            print(items)
             return JsonResponse(
                 items,
                 encoder=ItemEncoder,
