@@ -1,5 +1,4 @@
 import { useEffect, useState, useContext } from 'react';
-// import { Prompt } from 'react-router';
 import AuthContext from '../context/AuthContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSave } from '@fortawesome/free-solid-svg-icons';
@@ -136,10 +135,6 @@ function DetailList() {
 
     return(
         <div className="container mt-3">
-            {/* <Prompt 
-                when={editMode}
-                message="Save your changes!"
-            /> */}
             <div className="col-10 offset-1 shadow p-4 rcorners1">
                 <div className="row">
                     <div style={{width: "70%"}}>
@@ -195,6 +190,13 @@ function DetailList() {
                         </div>
                     </div>
                 </div>
+                {editMode ?
+                    <div className="alert alert-warning col-5 offset-3" role="alert">
+                        Make sure to save your changes!
+                    </div>
+                :
+                    null
+                }
                 <table className="table">
                     <thead>
                         <tr>
