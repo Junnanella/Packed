@@ -154,3 +154,7 @@ div.rcorners1 {
     border-radius: 25px;
     background: #ffffff;
   }
+
+div.save-changes {
+    background: #daf1e8;
+}

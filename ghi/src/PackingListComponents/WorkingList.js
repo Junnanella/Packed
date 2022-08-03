@@ -15,10 +15,15 @@ function WorkingList({
     destination_country,
     departure_date,
     return_date,
+    origin_country,
 }){
 
     let { authTokens } = useContext(AuthContext);
     let navigate = useNavigate();
+
+    function printPage () {
+        window.print();
+    }
       
     function findItem(name) {
         for (let index = 0; index < items.length; index ++) {
@@ -67,6 +72,7 @@ function WorkingList({
                 "return_date": return_date,
                 "destination_city": destination_city,
                 "destination_country": destination_country,
+                "origin_country": origin_country,
             };
             console.log("packing:", packingListData)
             const packingListUrl = `${process.env.REACT_APP_DJANGO_PACKING_LISTS}/api/packing_lists/`
@@ -133,7 +139,7 @@ function WorkingList({
                                     max={1000}
                                 />
                             </td>
-                            <td>{item.suggested ? item.name + " (suggested)" : item.name}</td>
+                            <td>{item.name}</td>
                             <td>
                                 <button
                                     className="btn btn-sm btn-outline-danger"
@@ -148,7 +154,11 @@ function WorkingList({
                 </tbody>
             </table>
             <div>
-                <button className="btn btn-success" onClick={createList}>Create!</button>
+                {authTokens?
+                    <button className="btn btn-success" onClick={createList}>Create!</button>
+                :
+                    <button className="btn btn-success" onClick={printPage}>Save as PDF!</button>
+                }
             </div>
         </div>
     );

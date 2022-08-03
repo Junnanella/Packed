@@ -15,8 +15,15 @@ input.currency_input {
     text-align: center;
     display: inline-block;
     margin-right: 1em;
-    border: 2px solid rgba(75,110,3,.5);
-    
+    border: 2px solid rgba(78, 150, 123, 0.5);
+}
+
+input.currency_input_detail_page {
+    width: 4em;
+    text-align: center;
+    display: inline-block;
+    margin-right: .5em;
+    border: 2px solid rgba(114, 172, 146, 0.5);
 }
 
 .currency_output {
