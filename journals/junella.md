@@ -2,6 +2,17 @@
 
 Today, I worked on:
 
+- Continuing to build out the packing lists page. Today I made use of react-bootstrap to have each list render out on a card. Each card also has one of five images for a background.
+- Turning each card into a clickable element, that then navigates to the corresponding packing list detail page, where the user can edit/update that particular packing list.
+- Updating the navbar styling and limited the visibility of the "my packing lists" link to users that are logged in.
+
+I tried different ways to intergrate bootstrap cards on the packing lists page and ended up using react-bootstrap because it layed a better foundation for the layout of the cards than with the standard bootstrap.
+I also gained more of an understanding on using the useNavigate hook. I had used it earlier on in the project to navigate from the trip form page to the after submit page, but by only using it once before, it took some time to understand it enough to use it in a slightly different way. Which was within the packing lists page, to navigate to the specific packing list detail page after the user clicks on the card. The struggle was in that I was so used to having an id number be at the tail end of a url path to get to a specific instance, but with the useNavigate hook, we did not need to have the id in the path. Josiah was a big help, as he had used this specific for another component to send the user to the packing list detail page after creating the packing list.
+
+## August 01, 2022
+
+Today, I worked on:
+
 - Updating the ghi markdown file to include updates to the layout and data provided to the user on the after submit page.
 - Building a page for the logged in user to view their saved packing lists.
 
