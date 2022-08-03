@@ -16,12 +16,19 @@ import "./pages.css";
 // the view will delete all PackingListItems and then replace them with the new ones
 
 function DetailList() {
+    const options = {
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+    };
     const location = useLocation();
     const packingListId = location.state.packingList.id;
     const cityWeather = location.state.packingList.destination_city;
     const countryWeather = location.state.packingList.destination_country;
     const departuredDateWeather = location.state.packingList.departure_date;
     const returnDateWeather = location.state.packingList.departure_date;
+    const rawCreatedDate = location.state.packingList.created;
+    const createdDate = new Date(rawCreatedDate).toLocaleDateString("en-US", options)
     const { authTokens } = useContext(AuthContext);
     const [mount, setMount] = useState(true);
     const [items, setItems] = useState([]);
@@ -31,8 +38,7 @@ function DetailList() {
     const [returnDate, setReturnDate] = useState("");
     const[percentagePacked, setPercentagePacked] = useState(0);
     const [progressBarColor, setProgressBarColor] = useState("progress-bar-striped bg-warning progress-bar-animated")
-    // const [showDialog, setShowDialog] = useState(false);
-    // const [showPrompt, confirmNavigation, cancelNavigation] = useCallbackPrompt(showDialog)
+
 
     const packingListUrl = `${process.env.REACT_APP_DJANGO_PACKING_LISTS}/api/packing_lists/${packingListId}/`;
     const itemsUrl = `${process.env.REACT_APP_DJANGO_PACKING_LISTS}/api/packing_lists/${packingListId}/items/`;
@@ -116,11 +122,7 @@ function DetailList() {
                     delete item.item_name;
                     return null;
                 })
-                const options = {
-                      day: "numeric",
-                      month: "long",
-                      year: "numeric"
-                };
+
                 setDepartureDate(new Date(packingListData.departure_date).toLocaleDateString("en-US", options));
                 setReturnDate(new Date(packingListData.return_date).toLocaleDateString("en-US", options));
                 setPackingList(packingListData);
@@ -195,7 +197,6 @@ function DetailList() {
                                 className="btn btn-outline-success"
                                 onClick={()=>{
                                     setEditMode(!editMode)
-                                    // setShowDialog(editMode)
                                 }}
                             >
                                 <FontAwesomeIcon icon={faEdit} />
@@ -276,6 +277,7 @@ function DetailList() {
                         })}
                     </tbody>
                 </table>
+                <div style={{textAlign: "right"}}>Created on {createdDate}.</div>
             </div>
         </div>
     )
