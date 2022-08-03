@@ -50,27 +50,40 @@ export const PackingLists = () => {
 
             return itemTitle.includes(searchInput);
           })
-          .map((list, k) => (
-            <Col key={k} xs={12} md={6} lg={4}>
-              <Card className={imageClasses[list.id % 5]}>
-                <Card.Body>
-                  <div className="card-details">
-                    <Card.Title>{list.title}</Card.Title>
-                    <Card.Subtitle>created: {list.created}</Card.Subtitle>
-                    <Card.Text>
-                      Departure: {list.departure_date}
-                      <br />
-                      Return: {list.return_date}
-                    </Card.Text>
-                  </div>
-                </Card.Body>
-                <button
-                  className="stretched-link card-button"
-                  onClick={(e) => detailListUrl(list)}
-                ></button>
-              </Card>
-            </Col>
-          ))}
+          .map((list, k) => {
+            const options = {
+              day: "numeric",
+              month: "numeric",
+              year: "numeric",
+            };
+            const departureDate = new Date(
+              list.departure_date
+            ).toLocaleDateString("en-US", options);
+            const returnDate = new Date(list.return_date).toLocaleDateString(
+              "en-US",
+              options
+            );
+            return (
+              <Col key={k} xs={12} md={6} lg={4}>
+                <Card className={imageClasses[list.id % 5]}>
+                  <Card.Body>
+                    <div className="card-details">
+                      <Card.Title>{list.title}</Card.Title>
+                      <Card.Text>
+                        Departure: {departureDate}
+                        <br />
+                        Return: {returnDate}
+                      </Card.Text>
+                    </div>
+                  </Card.Body>
+                  <button
+                    className="stretched-link card-button"
+                    onClick={(e) => detailListUrl(list)}
+                  ></button>
+                </Card>
+              </Col>
+            );
+          })}
       </Row>
     </Container>
   );
