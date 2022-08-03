@@ -12,12 +12,14 @@ export default function Nav() {
           <img src="./packed_p.png" alt="p" className="packed-logo" />
           packed
         </NavLink>
-        <NavLink className="navbar-brand nav-link" to="/packinglists">
-          my packing lists
-        </NavLink>
         {!user ? (
           <NavLink className="navbar-brand nav-link" to="/signup">
             Signup
+          </NavLink>
+        ) : null}
+        {user ? (
+          <NavLink className="navbar-brand nav-link" to="/packinglists">
+            my packing lists
           </NavLink>
         ) : null}
         {user ? (
