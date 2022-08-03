@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext, useCallback } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import AuthContext from '../context/AuthContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSave } from '@fortawesome/free-solid-svg-icons';
@@ -98,7 +98,7 @@ function DetailList() {
         }
     }
 
-    const makeRequests = useCallback(async () => {
+    async function makeRequests () {
         const packingListData = await fetchData(packingListUrl);
         
         if (packingListData) {
@@ -123,7 +123,7 @@ function DetailList() {
                 percentage(listOfItems);
             }
         }
-    })
+    }
 
     useEffect(() => {
         if (mount) {
