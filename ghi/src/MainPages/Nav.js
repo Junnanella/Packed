@@ -6,7 +6,7 @@ import AuthContext from "../context/AuthContext";
 export default function Nav() {
   let { user, logoutUser } = useContext(AuthContext);
   return (
-    <nav className="navbar navbar-expand-lg ">
+    <nav className="navbar">
       <div className="container-fluid">
         <NavLink className="navbar-brand nav-link" to="/">
           <img src="./packed_p.png" alt="p" className="packed-logo" />

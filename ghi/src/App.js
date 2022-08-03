@@ -8,7 +8,7 @@ import TravelDetailPage from "./MainPages/TravelDetailPage";
 import Login from "./Auth/Login";
 import SignUp from "./Auth/SignUp";
 import TestComponent from "./Auth/TestComponent";
-import { PackingLists } from "./PackingListComponents/PackingLists";
+import { PackingLists } from "./MainPages/PackingLists";
 import DetailList from "./MainPages/DetailList";
 
 export default function App() {

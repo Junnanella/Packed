@@ -29,12 +29,21 @@
 }
 
 nav.navbar {
-  background-color: #769fb9;
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
 }
 
 .nav-link{
-  color: #e1e1e1;
+  color: #2e2c44;
   font-weight: bold;
+}
+
+.nav-link:hover {
+  color: #cef5e8;
+  background-color: #1ec28b;
+  padding: .5em;
+  border: 1px solid transparent;
+  border-radius: 10px;
 }
 
 @keyframes App-logo-spin {

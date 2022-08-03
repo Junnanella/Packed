@@ -76,7 +76,7 @@ function WorkingList({
                 const itemsUrl = `http://localhost:8005/api/packing_lists/${packingList.id}/items/`;
                 const packingListItems = await sendData(itemsData, itemsUrl);
                 console.log({"packingList": packingList, "items": packingListItems});
-                navigate("/packing_list", {state: {id: packingList.id}});
+                navigate("/packing_list", {state: {packingList: packingList,}});
             } else {
                 console.log("Unsuccessful creation of packing list")
             }

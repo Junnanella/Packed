@@ -28,7 +28,7 @@ const useWeatherData = (
 };
 
 export default function WeatherChart(props) {
-  const { destination_city, destination_country, departure_date, return_date } =
+  const { destination_city, destination_country, departure_date, return_date, detail=null } =
     props;
   const weather = useWeatherData(
     destination_city,
@@ -45,20 +45,28 @@ export default function WeatherChart(props) {
     if (weather.temperature > 70) {
       return (
         <th key={weather.id} className="weather-data">
-          <img src="../sun.png" alt="sun" className="weather-icon" />
+          <img
+            src="../weather-icons/sun.png"
+            alt="sun"
+            className="weather-icon"
+          />
         </th>
       );
     } else if (weather.temperature < 70 && weather.temperature > 55) {
       return (
         <th key={weather.id} className="weather-data">
-          <img src="../cloudy.png" alt="cloudy" className="weather-icon" />
+          <img
+            src="../weather-icons/cloudy.png"
+            alt="cloudy"
+            className="weather-icon"
+          />
         </th>
       );
     } else {
       return (
         <th key={weather.id} className="weather-data">
           <img
-            src="../snowflake.jpeg"
+            src="../weather-icons/snowflake.jpeg"
             alt="snowflake"
             className="weather-icon"
           />
@@ -69,7 +77,11 @@ export default function WeatherChart(props) {
 
   return (
     <div className="container-sm offset-1 weather-component">
-      <h3 className="mt-5">Expected Weather</h3>
+      {!detail ?
+        <h3 className="mt-5">Expected Weather</h3>
+      :
+        null
+      }
       <table className="weather-table">
         <thead>
           <tr>{weatherIcon}</tr>
