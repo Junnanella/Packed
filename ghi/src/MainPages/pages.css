@@ -79,6 +79,11 @@ body {
     background-size: 250px 350px;
 }
 
+.card-button {
+    background-color: transparent;
+    border: none;
+}
+
 .img_01 {
     background-image: url("../../public/packing-list-cards/travel_image_01.png")
 }
