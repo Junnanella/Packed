@@ -68,8 +68,10 @@ build-front-end-job:
   variables:
     PUBLIC_URL: https://packed.gitlab.io/packed
   needs:
-    - api-unit-test-job  # These two jobs must succeed for
-    - lint-test-job      # this build-job to run
+    - weather-unit-test-job
+    - locations-unit-test-job
+    - currency-unit-test-job
+    - packing-lists-unit-test-job
   script:
     - cd ghi
     - npm install
@@ -105,6 +107,8 @@ build-django-packing-list-image-job:
   image: docker:20.10.16
   services:
     - docker:20.10.16-dind
+  needs:
+    - packing-lists-unit-test-job
   script:
     # CHANGE THIS TO THE DIRECTORY THAT HAS YOUR Dockerfile
     - cd packing-lists
