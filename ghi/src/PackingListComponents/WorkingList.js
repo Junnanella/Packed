@@ -15,6 +15,7 @@ function WorkingList({
     destination_country,
     departure_date,
     return_date,
+    origin_country,
 }){
 
     let { authTokens } = useContext(AuthContext);
@@ -71,6 +72,7 @@ function WorkingList({
                 "return_date": return_date,
                 "destination_city": destination_city,
                 "destination_country": destination_country,
+                "origin_country": origin_country,
             };
             console.log("packing:", packingListData)
             const packingListUrl = `${process.env.REACT_APP_DJANGO_PACKING_LISTS}/api/packing_lists/`

@@ -8,12 +8,8 @@ import { useLocation } from 'react-router-dom';
 import { UserItemForm } from "../PackingListComponents/UserInputItems";
 import WeatherChart from "../DataCharts/WeatherChart";
 import CurrencyInfo from '../DataCharts/CurrencyInfo';
-// import { useCallbackPrompt } from '../hooks/useCallbackPrompt';
-import { History } from 'history';
 import "./pages.css";
 
-// create a table with editing stuff invisible. if they press edit, d-none toggles
-// the view will delete all PackingListItems and then replace them with the new ones
 
 function DetailList() {
     const options = {
@@ -27,6 +23,7 @@ function DetailList() {
     const countryWeather = location.state.packingList.destination_country;
     const departuredDateWeather = location.state.packingList.departure_date;
     const returnDateWeather = location.state.packingList.departure_date;
+    const originCountry = location.state.packingList.origin_country;
     const rawCreatedDate = location.state.packingList.created;
     const createdDate = new Date(rawCreatedDate).toLocaleDateString("en-US", options)
     const { authTokens } = useContext(AuthContext);
@@ -137,7 +134,7 @@ function DetailList() {
             makeRequests();
             setMount(false);
         }
-    }, [makeRequests, mount])
+    }, [mount])
 
     return(
         <div className="container mt-3">
@@ -156,7 +153,7 @@ function DetailList() {
                         :
                         <div className="mb-2 text-left">
                             <CurrencyInfo
-                                origin_country="United States"
+                                origin_country={originCountry}
                                 destination_country={countryWeather}
                                 detailPage={true}
                             />
