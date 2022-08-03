@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 import dj_database_url
 from pathlib import Path
 from datetime import timedelta
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,7 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-lddlk0ug77=wykgil(3b*j9dv15v*azd$23vs#cv=7aa#s5pah'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = not os.environ.get("DEBUG")
 
 INSTALLED_APPS = [
     "corsheaders",
@@ -90,17 +91,26 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
 }
 
-ALLOWED_HOSTS = ["localhost", "packing-lists"]
-
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000"
+ALLOWED_HOSTS = [
+  ".localhost",
+  "127.0.0.1",
+  "packing-lists",
+  "[::1]",
+  os.environ.get("DEPLOYED_HOST", "localhost"),
 ]
 
-CSRF_TRUSTED_ORIGINS = [
+CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
+    os.environ.get('CORS_HOST', 'http://localhost:3001')
 ]
 
 CORS_ALLOW_CREDENTIALS = True
+
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:3000",
+    os.environ.get("CORS_HOST", "http://localhost:3001"),
+]
+
 
 DJWTO_MODE = "TWO-COOKIES"
 DJWTO_ACCESS_TOKEN_LIFETIME = None

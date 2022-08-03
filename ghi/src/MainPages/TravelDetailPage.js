@@ -1,16 +1,16 @@
 import { useSearchParams } from "react-router-dom";
 import WeatherChart from "../DataCharts/WeatherChart";
-import FlightChart from "../DataCharts/FlightChart";
+// import FlightChart from "../DataCharts/FlightChart";
 import CurrencyInfo from "../DataCharts/CurrencyInfo";
 import { UserItemForm } from "../PackingListComponents/UserInputItems";
 import SuggestedItems from "../PackingListComponents/Items";
 import WorkingList from "../PackingListComponents/WorkingList";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./pages.css";
 
 export default function TravelDetailPage() {
   const [searchParams] = useSearchParams();
-  const origin_country = searchParams.get("origin_country");
+  // const origin_country = searchParams.get("origin_country");
   const origin_code = searchParams.get("origin_code");
   const destination_city = searchParams.get("destination_city");
   const destination_country = searchParams.get("destination_country");

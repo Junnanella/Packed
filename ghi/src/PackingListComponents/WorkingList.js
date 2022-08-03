@@ -69,11 +69,11 @@ function WorkingList({
                 "destination_country": destination_country,
             };
             console.log("packing:", packingListData)
-            const packingListUrl = "http://localhost:8005/api/packing_lists/"
+            const packingListUrl = `${process.env.REACT_APP_DJANGO_PACKING_LISTS}/api/packing_lists/`
             const packingList = await sendData(packingListData, packingListUrl)
             if (packingList) {
                 const itemsData = {"items": items};
-                const itemsUrl = `http://localhost:8005/api/packing_lists/${packingList.id}/items/`;
+                const itemsUrl = `${process.env.REACT_APP_DJANGO_PACKING_LISTS}/api/packing_lists/${packingList.id}/items/`;
                 const packingListItems = await sendData(itemsData, itemsUrl);
                 console.log({"packingList": packingList, "items": packingListItems});
                 navigate("/packing_list", {state: {packingList: packingList,}});

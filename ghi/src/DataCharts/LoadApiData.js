@@ -6,7 +6,7 @@ export const loadWeatherData = async (
 ) => {
   // 🚨🚨🚨 REMOVE "fake" from url before deploying!!
   const response = await fetch(
-    `http://localhost:8001/api/weather?city=${encodeURIComponent(
+    `${process.env.REACT_APP_FASTAPI_WEATHER}/api/weather?city=${encodeURIComponent(
       city
     )}&country=${encodeURIComponent(
       country
@@ -36,7 +36,7 @@ export const loadFlightData = async (
 
   return flights;
   // use and update the below to connect with actual api
-  // const response = await fetch("http://localhost:8002/api/flights");
+  // const response = await fetch(`${process.env.REACT_APP_FASTAPI_FLIGHTS}/api/flights`);
   // const responseJson = await response.json();
   // return responseJson.flights;
 };
@@ -44,7 +44,7 @@ export const loadFlightData = async (
 export const loadCurrencyData = async (origin_country, destination_country) => {
   // 🚨🚨🚨 REMOVE "fake" from url before deploying!!
   const response = await fetch(
-    `http://localhost:8003/api/fake/convert?origin_country=${encodeURIComponent(
+    `${process.env.REACT_APP_FASTAPI_CURRENCY}/api/fake/convert?origin_country=${encodeURIComponent(
       origin_country
     )}&destination_country=${encodeURIComponent(destination_country)}`,
     { mode: "cors" }

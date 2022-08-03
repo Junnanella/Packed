@@ -164,3 +164,14 @@ Today, I worked on:
 The group and I discussed plans for the week. We are looking to complete front end functionality on Wednesday before moving on to aesthetics. Next week, we will work on deployment.
 
 Today was a lot of fun. I am getting much more comfortable with React and building the detail page was a smooth process of switching between the Django views and the React components. Employing the useNavigate hook in conjunction with the useLocation hook was pretty cool to learn about. Also, I was able to reuse one of the other components which made the one I was working on much more DRY. I was worried about implementing the sign up feature, but it turned out to be quite straightforward with Django Rest Framework.
+
+## Aug 2, 2022
+
+Today, I worked on:
+* Continuing to build packing list detail page
+* User historical item integration
+* Continuous Deployment
+
+The group and I talked a lot about the GHI today. Junella found a theme that we are trying to base our look off of. Adding color and various other CSS to the site has breathed life into it. We also talked about the tasks to complete before the end of the week.
+
+Users obviously want to be suggested the items they have packed for trips before. I spent some time updating the views to allow users to be able to do exactly that. I also spent some time learning about css and how to alter the look of the packing list page. After working on that for a while, I dug into continuous deployment. It is a lot of detailed work but will be well worth it when the site is live.
