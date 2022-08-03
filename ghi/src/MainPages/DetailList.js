@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from 'react';
+import { useEffect, useState, useContext, useCallback } from 'react';
 import AuthContext from '../context/AuthContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSave } from '@fortawesome/free-solid-svg-icons';
@@ -98,7 +98,7 @@ function DetailList() {
         }
     }
 
-    const makeRequests = async () => {
+    const makeRequests = useCallback(async () => {
         const packingListData = await fetchData(packingListUrl);
         
         if (packingListData) {
@@ -109,7 +109,7 @@ function DetailList() {
                     item.name = item.item_name.name;
                     item.suggested = item.item_name.suggested;
                     delete item.item_name;
-                    return;
+                    return null;
                 })
                 const options = {
                       day: "numeric",
@@ -123,7 +123,7 @@ function DetailList() {
                 percentage(listOfItems);
             }
         }
-    }
+    })
 
     useEffect(() => {
         if (mount) {

@@ -17,6 +17,8 @@ export default function SuggestedItems({setItems, items}) {
     }
 };
 
+  
+
   useEffect(() => {
     async function fetchData() {
       const response = await loadItemsList("cold", fetchConfig);
@@ -26,7 +28,7 @@ export default function SuggestedItems({setItems, items}) {
       setGeneralItems(general);
     }
     fetchData();
-  }, [loadItemsList]);
+  }, []);
 
 
   function validate() {
