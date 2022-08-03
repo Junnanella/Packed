@@ -3,9 +3,6 @@ import { loadItemsList } from "./PackingListApi";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlusSquare } from '@fortawesome/free-solid-svg-icons';
 
-
-
-
 export default function SuggestedItems({setItems, items}) {
   const [conditionalItems, setConditionalItems] = useState([]);
   const [generalItems, setGeneralItems] = useState([]);
@@ -81,14 +78,13 @@ export default function SuggestedItems({setItems, items}) {
                   <tr>
                     <td>{item.name}</td>
                     <td>
-                      <button onClick={(e) => addGItem(item)}><FontAwesomeIcon icon={faPlusSquare} /></button>
+                      <button className="btn btn-sm btn-outline-danger" onClick={(e) => addGItem(item)}><FontAwesomeIcon icon={faPlusSquare} /></button>
                     </td>
                   </tr>
                 );
               })}
             </tbody>
           </table>
-        </div>
         <table className="table table-hover">
           <thead>
             <tr>
@@ -101,7 +97,7 @@ export default function SuggestedItems({setItems, items}) {
                 <tr>
                   <td>{item.name}</td>
                   <td>
-                    <button onClick={(e) => addCItem(item)}><FontAwesomeIcon icon={faPlusSquare} /></button>
+                    <button className="btn btn-sm btn-outline-danger" onClick={(e) => addCItem(item)}><FontAwesomeIcon icon={faPlusSquare} /></button>
                   </td>
                 </tr>
               );
@@ -110,5 +106,8 @@ export default function SuggestedItems({setItems, items}) {
         </table>
       </div>
     </div>
+  </div>
+  
+  
   );
 }
