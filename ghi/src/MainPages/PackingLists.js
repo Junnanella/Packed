@@ -1,13 +1,14 @@
 import React, { useState, useEffect, useContext } from "react";
 import AuthContext from "../context/AuthContext";
 import { loadPackingLists } from "./MainApi";
-import { Card, Row, Col, Container } from "react-bootstrap";
+import { Card, Row, Col, Container, Form, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import "./pages.css";
 
 export const PackingLists = () => {
   const [packingLists, setPackingLists] = useState([]);
   const { authTokens } = useContext(AuthContext);
+  const [inputText, setInputText] = useState("");
 
   const navigate = useNavigate();
 
@@ -25,8 +26,29 @@ export const PackingLists = () => {
     navigate("/packing_list", { state: { packingList: list } });
   };
 
+  const onChangeSearchInput = (event) => {
+    setInputText(event.target.value);
+  };
+
+  const onSubmit = (event) => {
+    setInputText("");
+  };
+
   return (
     <Container className="main-container shadow">
+      <Form className="d-flex search-form ms-auto" onSubmit={onSubmit}>
+        <Form.Control
+          onChange={onChangeSearchInput}
+          value={inputText}
+          type="search"
+          placeholder="Search"
+          className="me-2 "
+          aria-label="Search"
+        />
+        <Button variant="outline-success" type="submit">
+          Search
+        </Button>
+      </Form>
       <Row>
         {packingLists.map((list, k) => (
           <Col key={k} xs={12} md={6} lg={4}>
