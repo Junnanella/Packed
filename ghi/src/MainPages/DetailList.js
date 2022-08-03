@@ -8,6 +8,8 @@ import { useLocation } from 'react-router-dom';
 import { UserItemForm } from "../PackingListComponents/UserInputItems";
 import WeatherChart from "../DataCharts/WeatherChart";
 import CurrencyInfo from '../DataCharts/CurrencyInfo';
+// import { useCallbackPrompt } from '../hooks/useCallbackPrompt';
+import { History } from 'history';
 import "./pages.css";
 
 // create a table with editing stuff invisible. if they press edit, d-none toggles
@@ -29,6 +31,8 @@ function DetailList() {
     const [returnDate, setReturnDate] = useState("");
     const[percentagePacked, setPercentagePacked] = useState(0);
     const [progressBarColor, setProgressBarColor] = useState("progress-bar-striped bg-warning progress-bar-animated")
+    // const [showDialog, setShowDialog] = useState(false);
+    // const [showPrompt, confirmNavigation, cancelNavigation] = useCallbackPrompt(showDialog)
 
     const packingListUrl = `${process.env.REACT_APP_DJANGO_PACKING_LISTS}/api/packing_lists/${packingListId}/`;
     const itemsUrl = `${process.env.REACT_APP_DJANGO_PACKING_LISTS}/api/packing_lists/${packingListId}/items/`;
@@ -138,8 +142,8 @@ function DetailList() {
             <div className="col-10 offset-1 shadow p-4 rcorners1">
                 <div className="row">
                     <div style={{width: "70%"}}>
-                        <p>{departureDate} - {returnDate}</p>
-                        <h3 className="p-1">{packingList.title}</h3>
+                        <div>{departureDate} - {returnDate}</div>
+                        <h2 className="p-1">{packingList.title}</h2>
                         { editMode ?
                             <UserItemForm
                                 setItems={setItems}
@@ -148,7 +152,13 @@ function DetailList() {
                                 setPercentagePacked={setPercentagePacked}
                             />
                         :
-                            null
+                        <div className="mb-2 text-left">
+                            <CurrencyInfo
+                                origin_country="United States"
+                                destination_country={countryWeather}
+                                detailPage={true}
+                            />
+                        </div>
                         }
                     </div>
                     <div className="col">
@@ -162,6 +172,16 @@ function DetailList() {
                     </div>
                 </div>
                 <div className="row">
+                    <div className="col">
+                        <div className="progress m-3">
+                            <div
+                                className={`progress-bar ${progressBarColor}`}
+                                role="progressbar" style={{width: `${percentagePacked}%`}}
+                                aria-valuenow={percentagePacked}
+                                aria-valuemin="0" aria-valuemax="100"
+                            />
+                        </div>
+                    </div>
                     <div className="col-1 m-1">
                         {editMode ?
                             <button
@@ -173,25 +193,18 @@ function DetailList() {
                         :
                             <button
                                 className="btn btn-outline-success"
-                                onClick={()=>setEditMode(!editMode)}
+                                onClick={()=>{
+                                    setEditMode(!editMode)
+                                    // setShowDialog(editMode)
+                                }}
                             >
                                 <FontAwesomeIcon icon={faEdit} />
                             </button>
                         }
                     </div>
-                    <div className="col">
-                        <div className="progress m-3">
-                            <div
-                                className={`progress-bar ${progressBarColor}`}
-                                role="progressbar" style={{width: `${percentagePacked}%`}}
-                                aria-valuenow={percentagePacked}
-                                aria-valuemin="0" aria-valuemax="100"
-                            />
-                        </div>
-                    </div>
                 </div>
                 {editMode ?
-                    <div className="alert alert-warning col-5 offset-3" role="alert">
+                    <div className="alert save-changes text-center col-6 offset-3" role="alert">
                         Make sure to save your changes!
                     </div>
                 :

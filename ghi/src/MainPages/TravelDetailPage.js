@@ -58,6 +58,7 @@ export default function TravelDetailPage() {
               <CurrencyInfo
                 origin_code={origin_code}
                 destination_code={destination_code}
+                detailPage={false}
               />
             </div>
           </div>
