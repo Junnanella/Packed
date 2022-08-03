@@ -13,10 +13,11 @@ export default function SuggestedItems({setItems, items}) {
     method: "GET",
     headers: {
         "Content-Type": "application/json",
-        "Authorization": "Bearer " + String(authTokens?.access),
     }
-};
-
+  };
+  if (authTokens) {
+    fetchConfig.headers.Authorization = "Bearer " + String(authTokens?.access)
+  }
   
 
   useEffect(() => {
