@@ -28,8 +28,8 @@ function DetailList() {
     const[percentagePacked, setPercentagePacked] = useState(0);
     const [progressBarColor, setProgressBarColor] = useState("progress-bar-striped bg-warning progress-bar-animated")
 
-    const packingListUrl = `http://localhost:8005/api/packing_lists/${packingListId}/`;
-    const itemsUrl = `http://localhost:8005/api/packing_lists/${packingListId}/items/`;
+    const packingListUrl = `${process.env.REACT_APP_DJANGO_PACKING_LISTS}/api/packing_lists/${packingListId}/`;
+    const itemsUrl = `${process.env.REACT_APP_DJANGO_PACKING_LISTS}/api/packing_lists/${packingListId}/items/`;
 
     async function fetchData(url, body=null, method="GET") {
         const fetchConfig = {

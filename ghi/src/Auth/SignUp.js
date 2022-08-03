@@ -11,7 +11,7 @@ const SignUp = () => {
   async function submitSignUp(e) {
     e.preventDefault();
         
-    const signupUrl = "http://localhost:8005/auth/signup/";
+    const signupUrl = `${process.env.REACT_APP_DJANGO_PACKING_LISTS}/auth/signup/`;
     const params = {
         "username": username,
         "password": password,

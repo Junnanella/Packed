@@ -7,7 +7,7 @@ const TestComponent = () => {
   console.log(user)
 
   async function fetchData() {
-    const url = "http://localhost:8005/api/packing_lists/";
+    const url = `${process.env.REACT_APP_DJANGO_PACKING_LISTS}/api/packing_lists/`;
     const fetchConfig = {
       method: "GET",
       headers: {

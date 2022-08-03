@@ -45,7 +45,7 @@ export const AuthProvider = ({children}) => {
             }
         }
         
-        const url = "http://localhost:8005/auth/token/";
+        const url = `${process.env.REACT_APP_DJANGO_PACKING_LISTS}/auth/token/`;
 
         const fetchConfig = {
             method: "POST",
@@ -77,7 +77,7 @@ export const AuthProvider = ({children}) => {
 
     let updateToken = async () => {
         console.log("Updated access token (if user inactive, automatically done every 29 minutes)")
-        const url = "http://localhost:8005/auth/token/refresh/";
+        const url = `${process.env.REACT_APP_DJANGO_PACKING_LISTS}/auth/token/refresh/`;
         const params = {
             "refresh": authTokens?.refresh
         }

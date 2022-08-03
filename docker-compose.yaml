@@ -18,6 +18,9 @@ services:
       REACT_APP_FASTAPI_WEATHER: http://localhost:8001
       REACT_APP_FASTAPI_FLIGHTS: http://localhost:8002
       REACT_APP_FASTAPI_CURRENCY: http://localhost:8003
+      REACT_APP_FASTAPI_LOCATIONS: http://localhost:8004
+      REACT_APP_DJANGO_PACKING_LISTS: http://localhost:8005
+      PUBLIC_URL: http://localhost:3000
   weather:
     build:
       context: ./api/weather
