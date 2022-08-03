@@ -1,4 +1,5 @@
 import { useEffect, useState, useContext } from 'react';
+// import { Prompt } from 'react-router';
 import AuthContext from '../context/AuthContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSave } from '@fortawesome/free-solid-svg-icons';
@@ -7,6 +8,7 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { useLocation } from 'react-router-dom';
 import { UserItemForm } from "../PackingListComponents/UserInputItems";
 import WeatherChart from "../DataCharts/WeatherChart";
+import CurrencyInfo from '../DataCharts/CurrencyInfo';
 import "./pages.css";
 
 // create a table with editing stuff invisible. if they press edit, d-none toggles
@@ -134,30 +136,15 @@ function DetailList() {
 
     return(
         <div className="container mt-3">
+            {/* <Prompt 
+                when={editMode}
+                message="Save your changes!"
+            /> */}
             <div className="col-10 offset-1 shadow p-4 rcorners1">
                 <div className="row">
                     <div style={{width: "70%"}}>
                         <p>{departureDate} - {returnDate}</p>
-                        <div className="input-group">
-                            <div className="p-1">
-                                {editMode ?
-                                    <button
-                                        className="btn btn-success btn-sm"
-                                        onClick={sendChangesToDatabase}
-                                    >
-                                        <FontAwesomeIcon icon={faSave} />
-                                    </button>
-                                :
-                                    <button
-                                        className="btn btn-outline-success btn-sm"
-                                        onClick={()=>setEditMode(!editMode)}
-                                    >
-                                        <FontAwesomeIcon icon={faEdit} />
-                                    </button>
-                                }
-                            </div>
-                            <h3 className="p-1">{packingList.title}</h3>
-                        </div>
+                        <h3 className="p-1">{packingList.title}</h3>
                         { editMode ?
                             <UserItemForm
                                 setItems={setItems}
@@ -179,14 +166,34 @@ function DetailList() {
                         />
                     </div>
                 </div>
-
-                <div className="progress m-3">
-                     <div
-                        className={`progress-bar ${progressBarColor}`}
-                        role="progressbar" style={{width: `${percentagePacked}%`}}
-                        aria-valuenow={percentagePacked}
-                        aria-valuemin="0" aria-valuemax="100"
-                    />
+                <div className="row">
+                    <div className="col-1 m-1">
+                        {editMode ?
+                            <button
+                                className="btn btn-success"
+                                onClick={sendChangesToDatabase}
+                            >
+                                <FontAwesomeIcon icon={faSave} />
+                            </button>
+                        :
+                            <button
+                                className="btn btn-outline-success"
+                                onClick={()=>setEditMode(!editMode)}
+                            >
+                                <FontAwesomeIcon icon={faEdit} />
+                            </button>
+                        }
+                    </div>
+                    <div className="col">
+                        <div className="progress m-3">
+                            <div
+                                className={`progress-bar ${progressBarColor}`}
+                                role="progressbar" style={{width: `${percentagePacked}%`}}
+                                aria-valuenow={percentagePacked}
+                                aria-valuemin="0" aria-valuemax="100"
+                            />
+                        </div>
+                    </div>
                 </div>
                 <table className="table">
                     <thead>
