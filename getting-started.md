@@ -17,8 +17,8 @@ steps with a ( >>> ) indicate to use a terminal or CLI to input the command
 
 4) Populate 'packing-lists' database with essential values (these steps must be done on the browser at localhost:8005/admin)
     i) log in with your credentials
-    ii) create 4 conditions named as follows: 'hot', 'moderate', 'cold', 'any'
-    iii) create 3 categories named as follows: 'clothing', 'electronics', 'essentials', 'misc'
+    ii) create 5 conditions named as follows: 'hot', 'moderate', 'cold', 'any', 'user'
+    iii) create 4 categories named as follows: 'clothing', 'electronics', 'essentials', 'misc', 'user'
     iv) create 2 items with the following properties: 
         1) name: 'passport', condition: 'any', suggested: True, category: 'essentials'
         2) name: 'coat', condition: 'cold', suggested: True, category: 'clothing'

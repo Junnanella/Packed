@@ -5,7 +5,14 @@ from .models import (
     Condition,
     Item,
     PackingListItem,
+    User,
 )
+
+class UserEncoder(ModelEncoder):
+    model = User
+    properties = [
+        "username"
+    ]
 
 class CategoryEncoder(ModelEncoder):
     model = Category
@@ -50,9 +57,11 @@ class PackingListItemEncoder(ModelEncoder):
         "item_name",
         "quantity",
         "packed",
+        # "owner",
     ]
     encoders = {
         "item_name" : SimpleItemEncoder(),
+        # "owner": UserEncoder(),
     }
 
 class PackingListEncoder(ModelEncoder):
