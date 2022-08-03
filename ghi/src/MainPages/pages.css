@@ -5,6 +5,10 @@
 }
 body {
     background-color: #fefdf9;
+    /* background-image: url("../../public/main_page_background.webp");
+    background-repeat: no-repeat;
+    background-position: right 35% bottom 25%;
+    background-size: 1500px; */
 }
 
 div.detail-page-header {
@@ -59,6 +63,11 @@ body {
     margin: 2rem;
     box-shadow: 12px 12px 2px 1px #c3e6d8;
     background-size: 250px 350px;
+}
+
+.card-button {
+    background-color: transparent;
+    border: none;
 }
 
 .img_01 {
