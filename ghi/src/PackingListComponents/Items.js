@@ -88,7 +88,7 @@ export default function SuggestedItems({setItems, items}) {
             <tbody>
               {generalItems.map((item) => {
                 return (
-                  <tr>
+                  <tr key={item.name}>
                     <td>{item.name}</td>
                     <td>
                       <button onClick={(e) => addGItem(item)}><FontAwesomeIcon icon={faPlusSquare} /></button>
@@ -108,7 +108,7 @@ export default function SuggestedItems({setItems, items}) {
           <tbody>
             {conditionalItems.map((item) => {
               return (
-                <tr>
+                <tr key={item.name}>
                   <td>{item.name}</td>
                   <td>
                     <button onClick={(e) => addCItem(item)}><FontAwesomeIcon icon={faPlusSquare} /></button>

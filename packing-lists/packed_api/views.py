@@ -100,13 +100,13 @@ def api_category(request, pk):
 
 # Item Views ------
 
-def get_user_items(user):
+def get_user_items(user, included_items):
     user_packing_list_items = PackingListItem.objects.filter(owner=user)
     items = []
     for packing_list_item in user_packing_list_items:
-        items.append(
-            Item.objects.get(name=packing_list_item.item_name.name)
-        )
+        item = Item.objects.get(name=packing_list_item.item_name.name)
+        if item not in included_items and item not in items:
+            items.append(item)
     return items
 
 @require_http_methods(["GET", "POST"])
@@ -140,7 +140,7 @@ def api_conditional_items(request, condition):
             any_condition = Condition.objects.get(name="any")
             general_items = Item.objects.filter(condition=any_condition)
             if str(request.user) != "AnonymousUser":
-                user_favorite_items = get_user_items(request.user)
+                user_favorite_items = get_user_items(request.user, list(conditional_items) + list(general_items))
             else:
                 user_favorite_items = []
             items = {
