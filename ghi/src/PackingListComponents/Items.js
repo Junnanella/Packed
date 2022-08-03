@@ -27,6 +27,8 @@ export default function SuggestedItems({setItems, items}) {
     }
     fetchData();
   }, []);
+  // console.log("conditional:", conditionalItems)
+  // console.log("general:", generalItems)
 
 
   function validate() {
@@ -73,7 +75,7 @@ export default function SuggestedItems({setItems, items}) {
 
   return (
     <div className="container">
-      <h4>Things you might need!</h4>
+      <h4>Things you might need</h4>
       <div className="input-group mb-3">
         <div>
           <table className="table table-hover">
@@ -117,7 +119,5 @@ export default function SuggestedItems({setItems, items}) {
       </div>
     </div>
   </div>
-  
-  
   );
 }
