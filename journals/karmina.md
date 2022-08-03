@@ -1,3 +1,6 @@
+# August 2
+Today I updated the fontawesome icons to have color, before they were just grey buttons. I also updated the background color of the travel detail page and added some css styling to the tables. My next goals are to add a rounded border to the tables, implement a hover function that displays edit/save etc when you hover over a button and lastly I want to update the main header to add the user's name. 
+
 # August 1
 Today I was able to get the edit/save function working for the packing list name. I am now trying to update the add buttons for the suggested items so that they are more appealing. I'm looking at icons on Font Awesome and will try to implement an icon soon. 
 
