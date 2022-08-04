@@ -15,18 +15,18 @@ function WorkingList({
     departure_date,
     return_date,
     origin_country,
-}){
+}) {
 
     let { authTokens } = useContext(AuthContext);
     let navigate = useNavigate();
 
     // 🚨
-    function printPage () {
+    function printPage() {
         window.print();
     }
-      
+
     function findItem(name) {
-        for (let index = 0; index < items.length; index ++) {
+        for (let index = 0; index < items.length; index++) {
             if (items[index].name === name) {
                 return index
             }
@@ -40,7 +40,6 @@ function WorkingList({
     };
 
     async function sendData(data, url) {
-        console.log("auth tokens here: ", authTokens)
         const fetchConfig = {
             method: "POST",
             body: JSON.stringify(data),
@@ -74,58 +73,56 @@ function WorkingList({
                 "destination_country": destination_country,
                 "origin_country": origin_country,
             };
-            console.log("packing:", packingListData)
             const packingListUrl = `${process.env.REACT_APP_DJANGO_PACKING_LISTS}/api/packing_lists/`
             const packingList = await sendData(packingListData, packingListUrl)
             if (packingList) {
-                const itemsData = {"items": items};
+                const itemsData = { "items": items };
                 const itemsUrl = `${process.env.REACT_APP_DJANGO_PACKING_LISTS}/api/packing_lists/${packingList.id}/items/`;
                 const packingListItems = await sendData(itemsData, itemsUrl);
-                console.log({"packingList": packingList, "items": packingListItems});
-                navigate("/packing_list", {state: {packingList: packingList,}});
+                navigate("/packing_list", { state: { packingList: packingList, } });
             } else {
-                console.log("Unsuccessful creation of packing list")
+                window.alert("Unsuccessful creation of packing list. Try again!")
             }
         } else {
-            console.log("you cant create an empty packing list")
+            window.alert("You can't create an empty packing list!")
         }
     }
-    
+
     // editing/saving packing list name on travel detail page
     const paragraph = document.getElementById("edit");
     const edit_button = document.getElementById("edit-button");
     const end_button = document.getElementById("end-editing");
-    
-    edit_button?.addEventListener("click", function() {
-    paragraph.contentEditable = true;
-    paragraph.style.backgroundColor = "#dddbdb";
-    } );
-    
-    end_button?.addEventListener("click", function() {
-    paragraph.contentEditable = false;
-    paragraph.style.backgroundColor = "transparent";
-    } )
-    
+
+    edit_button?.addEventListener("click", function () {
+        paragraph.contentEditable = true;
+        paragraph.style.backgroundColor = "#dddbdb";
+    });
+
+    end_button?.addEventListener("click", function () {
+        paragraph.contentEditable = false;
+        paragraph.style.backgroundColor = "transparent";
+    })
+
 
     return (
         <div className="">
-                <div id="container">
-                    <table className='packing-header'>
-                        <tbody>
+            <div id="container">
+                <table className='packing-header'>
+                    <tbody>
                         <tr>
                             <td><h3 id="edit" name="title"> Packing List for {destination_country}</h3></td>
                             <td><button className="btn btn-success btn-sm1" type="submit" id="edit-button" data-hover="Edit Name"><FontAwesomeIcon icon={faEdit} /></button></td>
-                            <td> <button className="btn btn-success btn-sm1"type="submit" id="end-editing" data-hover="Save"><FontAwesomeIcon icon={faSave} /></button></td>
+                            <td> <button className="btn btn-success btn-sm1" type="submit" id="end-editing" data-hover="Save"><FontAwesomeIcon icon={faSave} /></button></td>
                         </tr>
-                        </tbody>
-                    </table>
-                </div>
+                    </tbody>
+                </table>
+            </div>
             <table className="table table-hover">
                 <thead>
                     <tr>
-                        <th className="text-center" style={{width: "90px"}}>QTY</th>
+                        <th className="text-center" style={{ width: "90px" }}>QTY</th>
                         <th className="text-center">{items.length === 1 ? 'Item' : "Items"}</th>
-                        <th className="text-center" style={{width: "10%"}}></th>
+                        <th className="text-center" style={{ width: "10%" }}></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -153,7 +150,7 @@ function WorkingList({
                                     onClick={deleteItem}
                                     value={item.name}
                                 >
-                                    <FontAwesomeIcon icon={faTrash}/>
+                                    <FontAwesomeIcon icon={faTrash} />
                                 </button>
                             </td>
                         </tr>)
@@ -161,9 +158,9 @@ function WorkingList({
                 </tbody>
             </table>
             <div>
-                {authTokens?
+                {authTokens ?
                     <button className="btn btn-success" onClick={createList}>Create!</button>
-                :
+                    :
                     <button className="btn btn-success" onClick={printPage}>Save as PDF!</button>
                 }
             </div>
