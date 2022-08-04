@@ -60,6 +60,7 @@ class WeatherQueries:
         data = json.loads(response.content)
         return data
 
+
 # 🚨
 # 🐰 🐰 🐰 takes in dates in a "YYYY-MM-DD" format
 @app.get("/api/weather", response_model=TempsOut)
