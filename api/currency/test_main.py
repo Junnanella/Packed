@@ -17,7 +17,8 @@ def test_get_currency_result():
     result = test_result
     assert result == response.text
 
-
+# Tests the API call output to make sure it's ONLY returning the "result(rate)" key
+# rather than the complete dictionary output 
 def test_get_currency():
     currency = {"result": float}
 
@@ -26,4 +27,4 @@ def test_get_currency():
     response = requests.request("GET", url, headers=headers, data=payload)
     result = response.json()
     result_split = result["result"]
-    assert (currency["result"]) == type(float(result_split))
+    assert (currency["result"]) == isinstance(type(float(result_split)))

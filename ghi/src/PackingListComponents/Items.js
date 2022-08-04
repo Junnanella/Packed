@@ -4,7 +4,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlusSquare } from '@fortawesome/free-solid-svg-icons';
 import AuthContext from "../context/AuthContext";
 import { useContext, useCallback, useMemo } from "react";
-
 function analyzeTemp(tempData) {
   const temperature = tempData[0].temperature
   if (temperature > 70) {
@@ -16,11 +15,10 @@ function analyzeTemp(tempData) {
   }
 }
 
-export default function SuggestedItems({setItems, items, temperature}) {
+export default function SuggestedItems({ setItems, items, temperature }) {
   const [conditionalItems, setConditionalItems] = useState([]);
   const [generalItems, setGeneralItems] = useState([]);
-  let {authTokens} = useContext(AuthContext)
-
+  let { authTokens } = useContext(AuthContext)
   const fetchConfig = useMemo(() => {
     const params = {
       method: "GET",
@@ -36,7 +34,7 @@ export default function SuggestedItems({setItems, items, temperature}) {
 
   const validate = useCallback(() => {
     const tempItems = [...items]
-    for (let i = 0; i < tempItems.length; i ++) {
+    for (let i = 0; i < tempItems.length; i++) {
       let item = tempItems[i]
       for (let generalItem of generalItems) {
         if (item.name.toLowerCase() === generalItem.name.toLowerCase()) {
@@ -60,9 +58,8 @@ export default function SuggestedItems({setItems, items, temperature}) {
       }
     }
   }, [generalItems, conditionalItems, items, setItems])
-
   validate();
-  
+
   const fetchData = useCallback(async () => {
     if (temperature) {
       const response = await loadItemsList(analyzeTemp(temperature), fetchConfig);
@@ -71,19 +68,15 @@ export default function SuggestedItems({setItems, items, temperature}) {
       setConditionalItems(conditional);
       setGeneralItems(general);
     }
-  },[fetchConfig, temperature])
-
+  }, [fetchConfig, temperature])
   useEffect(() => {
     fetchData();
   }, [fetchData]);
-
-
   function addGItem(newItem) {
     newItem.quantity = 1;
     setItems([...items, newItem]);
     setGeneralItems(generalItems.filter((item) => item.id !== newItem.id));
   }
-
   function addCItem(newCItem) {
     newCItem.quantity = 1;
     setItems([...items, newCItem]);
@@ -91,7 +84,6 @@ export default function SuggestedItems({setItems, items, temperature}) {
       conditionalItems.filter((item) => item.id !== newCItem.id)
     );
   }
-
   return (
     <div className="container">
       <h4>Things you might need</h4>
@@ -109,34 +101,34 @@ export default function SuggestedItems({setItems, items, temperature}) {
                   <tr key={item.name}>
                     <td>{item.name}</td>
                     <td>
-                      <button className="btn btn-sm btn-outline-danger" onClick={(e) => addGItem(item)}><FontAwesomeIcon icon={faPlusSquare} /></button>
+                      <button className="btn btn-success btn-sm" onClick={(e) => addGItem(item)}><FontAwesomeIcon icon={faPlusSquare} /></button>
                     </td>
                   </tr>
                 );
               })}
             </tbody>
           </table>
-        <table className="table table-hover">
-          <thead>
-            <tr>
-              <th scope="col">Recommended For You</th>
-            </tr>
-          </thead>
-          <tbody>
-            {conditionalItems.map((item) => {
-              return (
-                <tr key={item.name}>
-                  <td>{item.name}</td>
-                  <td>
-                    <button className="btn btn-sm btn-outline-danger" onClick={(e) => addCItem(item)}><FontAwesomeIcon icon={faPlusSquare} /></button>
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+          <table className="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">Recommended For You</th>
+              </tr>
+            </thead>
+            <tbody>
+              {conditionalItems.map((item) => {
+                return (
+                  <tr key={item.name}>
+                    <td>{item.name}</td>
+                    <td>
+                      <button className="btn btn-success btn-sm" onClick={(e) => addCItem(item)}><FontAwesomeIcon icon={faPlusSquare} /></button>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
-  </div>
   );
 }

@@ -72,19 +72,11 @@ h1.detail-page-header-text {
     margin: 20px auto 20px auto;
 }
 
-/* img.luggage {
-    margin-bottom: 30px;
-    height: 17em;
-    opacity: 90%;
-} */
-
 /* Travel Detail Page */
 div.item-column {
     padding-top: 3em;
     margin-right: 1em;
-    background-color: white;
-    /* add item, packing list */
-    
+    background-color: white;    
 }
 
 div.item-column:hover {
@@ -99,7 +91,6 @@ div.data-column {
     background-color: white;
     border: 1px solid transparent;
     border-radius: 15px;
-    /* weather */
 }
 
 div.data-column:hover {
@@ -124,7 +115,7 @@ div.travel-page {
 }
 
 img.bags {
-    max-width: 100% ;
+    max-width: 100%;
 }
 
 img.suitcases {
@@ -132,7 +123,34 @@ img.suitcases {
     padding-left: 2.5in;
 }
 
+.btn-sm1 {
+    position: relative;
+    /* background-color: green; */
+    size-adjust: 100px;
+  }
+  
+.btn-sm1:before {
+    content: attr(data-hover);
+    visibility: hidden;
+    width: 80px;
+    background-color: lightgrey;
+    color: black;
+    text-align: center;
+    transition: opacity 1s ease-in-out;
+    position: absolute;
+    z-index: 100;
+    left: 100;
+    top: 110%;
+}
+  
+.btn-sm1:hover:before {
+    opacity: 1;
+    visibility: visible;
+}
 
+h3#edit {
+    background-color: transparent;
+}
 
 /* Packing Lists Page */
 body {

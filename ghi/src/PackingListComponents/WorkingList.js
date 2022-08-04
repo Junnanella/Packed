@@ -20,6 +20,7 @@ function WorkingList({
     let { authTokens } = useContext(AuthContext);
     let navigate = useNavigate();
 
+    // 🚨
     function printPage () {
         window.print();
     }
@@ -89,28 +90,35 @@ function WorkingList({
             console.log("you cant create an empty packing list")
         }
     }
-
+    
+    // editing/saving packing list name on travel detail page
     const paragraph = document.getElementById("edit");
     const edit_button = document.getElementById("edit-button");
     const end_button = document.getElementById("end-editing");
     
     edit_button?.addEventListener("click", function() {
-      paragraph.contentEditable = true;
-      paragraph.style.backgroundColor = "#dddbdb";
+    paragraph.contentEditable = true;
+    paragraph.style.backgroundColor = "#dddbdb";
     } );
     
     end_button?.addEventListener("click", function() {
-      paragraph.contentEditable = false;
-      paragraph.style.backgroundColor = "white";
+    paragraph.contentEditable = false;
+    paragraph.style.backgroundColor = "transparent";
     } )
     
 
     return (
         <div className="">
                 <div id="container">
-                    <h3 id="edit" name="title"> Packing List for {destination_country}</h3>
-                    <button className="btn btn-sm btn-outline-danger"type="submit" id="edit-button"><FontAwesomeIcon icon={faEdit} /></button>
-                    <button className="btn btn-sm btn-outline-danger"type="submit" id="end-editing"><FontAwesomeIcon icon={faSave} /></button>
+                    <table className='packing-header'>
+                        <tbody>
+                        <tr>
+                            <td><h3 id="edit" name="title"> Packing List for {destination_country}</h3></td>
+                            <td><button className="btn btn-success btn-sm1" type="submit" id="edit-button" data-hover="Edit Name"><FontAwesomeIcon icon={faEdit} /></button></td>
+                            <td> <button className="btn btn-success btn-sm1"type="submit" id="end-editing" data-hover="Save"><FontAwesomeIcon icon={faSave} /></button></td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
             <table className="table table-hover">
                 <thead>

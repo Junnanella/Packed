@@ -32,6 +32,7 @@ class ErrorMessage(BaseModel):
     message: str
 
 
+# 🚨
 @app.get(
     "/api/locations",
     response_model=Union[CountriesOut, ErrorMessage],

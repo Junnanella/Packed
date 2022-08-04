@@ -3,7 +3,6 @@ export const loadLocationsData = async () => {
   const responseJson = await response.json();
   return responseJson.countries;
 };
-
 export const loadPackingLists = async (authTokens) => {
   const fetchConfig = {
     method: "GET",
