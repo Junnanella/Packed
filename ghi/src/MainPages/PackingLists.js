@@ -38,7 +38,7 @@ export const PackingLists = () => {
           value={inputText}
           type="search"
           placeholder="Search"
-          className="me-2 "
+          className="me-2 search-input"
           aria-label="Search"
         />
       </Form>

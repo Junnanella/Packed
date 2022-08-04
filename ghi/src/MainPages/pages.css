@@ -50,7 +50,13 @@ body {
 }
 
 .form-input:hover {
-    background-color: #e2f2f9;
+    border-color: #fcce3a;
+    box-shadow: 0 0 0 0.25rem #fcce3a80;
+}
+
+.form-input:focus {
+    border-color: #fcce3a;
+    box-shadow: 0 0 0 0.1rem #fcce3a80;
 }
 
 .submit-button:hover {
@@ -122,6 +128,16 @@ body {
 
 .search-form {
    max-width: 50%;
+}
+
+.search-input:hover {
+    border-color: #fcce3a;
+    box-shadow: 0 0 0 0.25rem #fcce3a80;
+}
+
+.search-input:focus {
+    border-color: #fcce3a;
+    box-shadow: 0 0 0 0.1rem #fcce3a80;
 }
 
 .card {
