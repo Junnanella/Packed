@@ -8,7 +8,7 @@ const useWeatherData = (
   destination_country,
   departure_date,
   return_date,
-  setTemperature,
+  setTemperature
 ) => {
   const [weather, setWeather] = useState([]);
 
@@ -22,24 +22,36 @@ const useWeatherData = (
       );
       setWeather(weather_response);
       if (setTemperature) {
-        setTemperature(weather_response)
+        setTemperature(weather_response);
       }
     }
     fetchData();
-  }, [destination_city, destination_country, departure_date, return_date, setTemperature]);
-
-  return weather;
-};
-
-export default function WeatherChart(props) {
-  const { destination_city, destination_country, departure_date, return_date, detail=null, setTemperature=null } =
-    props;
-  const weather = useWeatherData(
+  }, [
     destination_city,
     destination_country,
     departure_date,
     return_date,
     setTemperature,
+  ]);
+
+  return weather;
+};
+
+export default function WeatherChart(props) {
+  const {
+    destination_city,
+    destination_country,
+    departure_date,
+    return_date,
+    detail = null,
+    setTemperature = null,
+  } = props;
+  const weather = useWeatherData(
+    destination_city,
+    destination_country,
+    departure_date,
+    return_date,
+    setTemperature
   );
 
   if (weather === undefined) {
@@ -81,12 +93,8 @@ export default function WeatherChart(props) {
   });
 
   return (
-    <div className="container-sm offset-1 weather-component">
-      {!detail ?
-        <h3 className="mt-5">Expected Weather</h3>
-      :
-        null
-      }
+    <div className="container-sm weather-component">
+      {!detail ? <h3 className="mt-5">Expected Weather</h3> : null}
       <table className="weather-table">
         <thead>
           <tr>{weatherIcon}</tr>

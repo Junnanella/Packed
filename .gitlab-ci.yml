@@ -47,7 +47,15 @@ packing-lists-unit-test-job:
     - cd packing-lists
     - pip install -r requirements.txt
     - python manage.py test
-  
+
+ghi-unit-test-job:
+  image: node:10.17-alpine
+  stage: test
+  script:
+    - cd ghi
+    - npm install
+    - npm run test-ci
+
 packing-lists-linting-job:
   image: python:3-bullseye
   stage: test
@@ -66,22 +74,20 @@ locations-linting-job:
   script:
     - pip install flake8
     - flake8 --max-line-length=88 --ignore=E501 api/locations
-  
+
 currency-linting-job:
   image: python:3-bullseye
   stage: test
   script:
     - pip install flake8
     - flake8 --max-line-length=88 --ignore=E501 api/currency
-  
+
 weather-linting-job:
   image: python:3-bullseye
   stage: test
   script:
     - pip install flake8
     - flake8 --max-line-length=88 --ignore=E501 api/weather
-
-
 # BUILDING AND DEPLOYMENT ARE DIVIDED BY MICROSERVICE
 
 # FRONT END ---------------------
@@ -90,15 +96,15 @@ weather-linting-job:
 #   image: node:lts-bullseye
 #   variables:
 #     PUBLIC_URL: https://packed-module-3.gitlab.io/packed
-  # needs:
-  #   - weather-unit-test-job
-  #   - weather-linting-job
-  #   - locations-unit-test-job
-  #   - locations-linting-job
-  #   - currency-unit-test-job
-  #   - currency-linting-job
-  #   - packing-lists-unit-test-job
-  #   - packing-lists-linting-job
+# needs:
+#   - weather-unit-test-job
+#   - weather-linting-job
+#   - locations-unit-test-job
+#   - locations-linting-job
+#   - currency-unit-test-job
+#   - currency-linting-job
+#   - packing-lists-unit-test-job
+#   - packing-lists-linting-job
 #   script:
 #     - cd ghi
 #     - npm install
@@ -124,7 +130,6 @@ weather-linting-job:
 #   artifacts:
 #     paths:
 #       - public
-
 
 # # PACKING LISTS ------------------
 # build-django-packing-list-image-job:
@@ -194,7 +199,6 @@ weather-linting-job:
 #     # CHANGE web TO worker (1 PLACE)
 #     - heroku container:release web --app $HEROKU_APP_DJANGO_PACKING_LISTS
 
-
 # # WEATHER ------------------------
 # build-fastapi-weather-image-job:
 #   rules:
@@ -262,7 +266,6 @@ weather-linting-job:
 #     # IF THIS IS FOR A BACKGROUND SERVICE LIKE A POLLER,
 #     # CHANGE web TO worker (1 PLACE)
 #     - heroku container:release web --app $HEROKU_APP_FASTAPI_WEATHER
-
 
 # # LOCATIONS ----------------------
 # build-fastapi-locations-image-job:
@@ -333,7 +336,6 @@ weather-linting-job:
 #     # IF THIS IS FOR A BACKGROUND SERVICE LIKE A POLLER,
 #     # CHANGE web TO worker (1 PLACE)
 #     - heroku container:release web --app $HEROKU_APP_FASTAPI_LOCATIONS
-
 
 # # CURRENCY -----------------------
 # build-fastapi-currency-image-job:

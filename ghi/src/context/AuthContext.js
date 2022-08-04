@@ -137,3 +137,18 @@ export const AuthProvider = ({children}) => {
         </AuthContext.Provider>
     );
 }
+
+export const MockAuthProvider = ({ children }) => {
+  const fakeContextData = {
+    user: {},
+    authTokens: [],
+    loginUser: () => {},
+    logoutUser: () => {},
+  };
+
+  return (
+    <AuthContext.Provider value={fakeContextData}>
+      {children}
+    </AuthContext.Provider>
+  );
+};
