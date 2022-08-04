@@ -6,8 +6,9 @@ try:
 except KeyError:
     pool = None
 
+
 class CurrencyQueries:
-    def structure_countries(self, country:list):
+    def structure_countries(self, country: list):
         try:
             return {
                 "id": country[0],
@@ -29,7 +30,7 @@ class CurrencyQueries:
                     """
                 )
                 results = []
-                countries =  cur.fetchall()
+                countries = cur.fetchall()
                 for country in countries:
                     formatted_country = self.structure_countries(country)
                     if "warning" in formatted_country:

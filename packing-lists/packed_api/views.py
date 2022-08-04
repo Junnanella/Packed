@@ -3,7 +3,11 @@ from black import Mode
 from django.http import JsonResponse
 from django.core.exceptions import FieldDoesNotExist
 from django.views.decorators.http import require_http_methods
-from rest_framework.decorators import permission_classes, authentication_classes, api_view
+from rest_framework.decorators import (
+    permission_classes,
+    authentication_classes,
+    api_view,
+)
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated, AllowAny
 import json
@@ -100,6 +104,7 @@ def api_category(request, pk):
 
 # Item Views ------
 
+
 def get_user_items(user, included_items):
     user_packing_list_items = PackingListItem.objects.filter(owner=user)
     items = []
@@ -108,6 +113,7 @@ def get_user_items(user, included_items):
         if item not in included_items and item not in items:
             items.append(item)
     return items
+
 
 @require_http_methods(["GET", "POST"])
 def api_items(request):
@@ -141,14 +147,16 @@ def api_conditional_items(request, condition):
             any_condition = Condition.objects.get(name="any")
             general_items = Item.objects.filter(condition=any_condition)
             if str(request.user) != "AnonymousUser":
-                user_favorite_items = get_user_items(request.user, list(conditional_items) + list(general_items))
+                user_favorite_items = get_user_items(
+                    request.user, list(conditional_items) + list(general_items)
+                )
             else:
                 user_favorite_items = []
             items = {
-                    "conditional_items": conditional_items,
-                    "general_items": general_items,
-                    "user_favorite_items": user_favorite_items,
-                }
+                "conditional_items": conditional_items,
+                "general_items": general_items,
+                "user_favorite_items": user_favorite_items,
+            }
             return JsonResponse(
                 items,
                 encoder=ItemEncoder,
@@ -287,7 +295,6 @@ def add_packing_list_item(item, packing_list, owner):
             "packing_list": packing_list,
             "packed": item.get("packed", False),
             "owner": owner,
-
         }
     new_packing_list_item = PackingListItem.objects.create(**data)
     return new_packing_list_item
@@ -320,7 +327,8 @@ def api_packing_lists(request):
                 status=400,
             )
 
-@api_view(["GET", "PUT", 'DELETE'])
+
+@api_view(["GET", "PUT", "DELETE"])
 @permission_classes([IsAuthenticated])
 def api_packing_list(request, pk):
     if request.method == "GET":
@@ -365,7 +373,7 @@ def api_packing_list_items(request, pk):
             encoder=PackingListItemEncoder,
         )
 
-    elif request.method =="PUT":
+    elif request.method == "PUT":
         content = json.loads(request.body)
         packing_list = PackingList.objects.get(id=pk)
         count, _ = PackingListItem.objects.filter(packing_list=packing_list).delete()
@@ -373,7 +381,9 @@ def api_packing_list_items(request, pk):
         try:
             for item in content["items"]:
                 items.append(
-                    add_packing_list_item(item=item, packing_list=packing_list, owner=owner)
+                    add_packing_list_item(
+                        item=item, packing_list=packing_list, owner=owner
+                    )
                 )
             return JsonResponse(
                 {"items": items},
@@ -390,7 +400,9 @@ def api_packing_list_items(request, pk):
         try:
             for item in content["items"]:
                 items.append(
-                    add_packing_list_item(item=item, packing_list=packing_list, owner=owner)
+                    add_packing_list_item(
+                        item=item, packing_list=packing_list, owner=owner
+                    )
                 )
             return JsonResponse(
                 {"items": items},

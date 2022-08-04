@@ -9,6 +9,7 @@ from ..views import (
 
 # Create your tests here.
 
+
 class HelperFunctionTests(SimpleTestCase):
     def test_field_does_not_exist_error(self):
         # ARRANGE
@@ -22,7 +23,6 @@ class HelperFunctionTests(SimpleTestCase):
         result_content = json.loads(result.content)
         self.assertEqual(result.status_code, expected_status_code)
         self.assertEqual(result_content, expected_message)
-
 
     def test_model_instance_does_not_exist_message(self):
         # ARRANGE
@@ -40,7 +40,7 @@ class HelperFunctionTests(SimpleTestCase):
 
     def test_type_error_message(self):
         # ARRANGE
-        expected_message = {'message': "Failed to create 'Item' instance"}
+        expected_message = {"message": "Failed to create 'Item' instance"}
         expected_status_code = 400
         model = "Item"
 

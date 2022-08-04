@@ -48,12 +48,33 @@ packing-lists-unit-test-job:
     - pip install -r requirements.txt
     - python manage.py test
   
-lint-test-job:
+packing-lists-linting-job:
   image: python:3-bullseye
   stage: test
   script:
     - pip install flake8
     - flake8 packing-lists/packed_api
+
+locations-linting-job:
+  image: python:3-bullseye
+  stage: test
+  script:
+    - pip install flake8
+    - flake8 api/locations
+  
+currency-linting-job:
+  image: python:3-bullseye
+  stage: test
+  script:
+    - pip install flake8
+    - flake8 api/currency
+  
+weather-linting-job:
+  image: python:3-bullseye
+  stage: test
+  script:
+    - pip install flake8
+    - flake8 api/weather
 
 
 # BUILDING AND DEPLOYMENT ARE DIVIDED BY MICROSERVICE
