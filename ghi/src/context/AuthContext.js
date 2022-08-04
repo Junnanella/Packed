@@ -7,14 +7,14 @@ const AuthContext = createContext();
 export default AuthContext;
 
 // 🚨
-export const AuthProvider = ({children}) => {
+export const AuthProvider = ({ children }) => {
 
     let [loading, setLoading] = useState(true);
     let [authTokens, setAuthTokens] = useState(() => {
         return (
             localStorage.getItem("authTokens") ?
                 JSON.parse(localStorage.getItem("authTokens"))
-            :
+                :
                 null
         )
     });
@@ -22,15 +22,15 @@ export const AuthProvider = ({children}) => {
         return (
             localStorage.getItem("authTokens") ?
                 jwt_decode(localStorage.getItem("authTokens"))
-            :
-                null      
+                :
+                null
         )
     });
 
     let navigate = useNavigate()
 
 
-    let loginUser = async (e, signupData=null) => {
+    let loginUser = async (e, signupData = null) => {
         let params = {}
         if (signupData) {
             params = {
@@ -44,7 +44,7 @@ export const AuthProvider = ({children}) => {
                 "password": e.target.password.value,
             }
         }
-        
+
         const url = `${process.env.REACT_APP_DJANGO_PACKING_LISTS}/auth/token/`;
 
         const fetchConfig = {
@@ -64,7 +64,7 @@ export const AuthProvider = ({children}) => {
             localStorage.setItem("authTokens", JSON.stringify(data));
             navigate("/")
         } else {
-            alert("Something went wrong");
+            alert("Invalid username or password");
         }
     }
 
@@ -128,9 +128,9 @@ export const AuthProvider = ({children}) => {
         }, fourMinutes)
         return () => clearInterval(interval);
 
-    },[authTokens, loading, updateToken])
+    }, [authTokens, loading, updateToken])
 
-    
+
     return (
         <AuthContext.Provider value={contextData}>
             {loading ? null : children}

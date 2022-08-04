@@ -18,10 +18,6 @@ function WorkingList({
   let { authTokens } = useContext(AuthContext);
   let navigate = useNavigate();
 
-  function printPage() {
-    window.print();
-  }
-
   // 🚨
   function printPage() {
     window.print();
@@ -42,7 +38,6 @@ function WorkingList({
   }
 
   async function sendData(data, url) {
-    console.log("auth tokens here: ", authTokens);
     const fetchConfig = {
       method: "POST",
       body: JSON.stringify(data),
@@ -75,20 +70,18 @@ function WorkingList({
         destination_country: destination_country,
         origin_country: origin_country,
       };
-      console.log("packing:", packingListData);
       const packingListUrl = `${process.env.REACT_APP_DJANGO_PACKING_LISTS}/api/packing_lists/`;
       const packingList = await sendData(packingListData, packingListUrl);
       if (packingList) {
         const itemsData = { items: items };
         const itemsUrl = `${process.env.REACT_APP_DJANGO_PACKING_LISTS}/api/packing_lists/${packingList.id}/items/`;
-        const packingListItems = await sendData(itemsData, itemsUrl);
-        console.log({ packingList: packingList, items: packingListItems });
+        await sendData(itemsData, itemsUrl);
         navigate("/packing_list", { state: { packingList: packingList } });
       } else {
-        console.log("Unsuccessful creation of packing list");
+        window.alert("Unsuccessful creation of packing list. Try again.")
       }
     } else {
-      console.log("you cant create an empty packing list");
+      window.alert("you cant create an empty packing list");
     }
   }
 

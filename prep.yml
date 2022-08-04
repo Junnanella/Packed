@@ -3,6 +3,7 @@ stages:
   - build
   - deploy
 
+# vars accessed by pages frontend that contain values with the urls to the backend
 variables:
   REACT_APP_DJANGO_PACKING_LISTS: https://${HEROKU_APP_DJANGO_PACKING_LISTS}.herokuapp.com
   REACT_APP_FASTAPI_CURRENCY: https://${HEROKU_APP_FASTAPI_CURRENCY}.herokuapp.com
@@ -12,10 +13,12 @@ variables:
   POSTGRES_PASSWORD: test
   DATABASE_URL: postgresql://postgres:test@postgres:5432/postgres
 
+# DB FOR DJANGO UNIT TESTS --------
 services:
   - postgres:14.2-bullseye
 
-# UNIT TESTS ---------------------
+
+# UNIT TESTS ----------------------
 weather-unit-test-job:
   image: python:3-bullseye
   stage: test
@@ -48,6 +51,14 @@ packing-lists-unit-test-job:
     - pip install -r requirements.txt
     - python manage.py test
 
+ghi-unit-test-job:
+  image: node:10.17-alpine
+  stage: test
+  script:
+    - cd ghi
+    - npm install
+    - npm run test-ci
+    
 
 # LINTING TESTS ---------------------  
 packing-lists-linting-job:
@@ -55,12 +66,7 @@ packing-lists-linting-job:
   stage: test
   script:
     - pip install flake8
-    - flake8 --max-line-length=88 --ignore=E501 packing-lists/packed_api/auth
-    - flake8 --max-line-length=88 --ignore=E501 packing-lists/packed_api/tests
-    - flake8 --max-line-length=88 --ignore=E501 packing-lists/packed_api/encoders
-    - flake8 --max-line-length=88 --ignore=E501 packing-lists/packed_api/models
-    - flake8 --max-line-length=88 --ignore=E501 packing-lists/packed_api/urls
-    - flake8 --max-line-length=88 --ignore=E501 packing-lists/packed_api/views
+    - flake8 --max-line-length=88 --ignore=E501 packing-lists
 
 locations-linting-job:
   image: python:3-bullseye

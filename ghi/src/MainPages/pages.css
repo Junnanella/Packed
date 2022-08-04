@@ -4,6 +4,7 @@
     padding-bottom: .3em;
     padding-right: .1em;
 }
+
 body {
     background-color: #d3f0e4;
 }
@@ -14,7 +15,7 @@ body {
     margin: auto 5rem;
 }
 
-.app-blurb{
+.app-blurb {
     margin-top: 8rem;
     max-width: 100%;
     max-height: 50%;
@@ -43,7 +44,8 @@ body {
     font-weight: bold;
     font-size: calc(0.9vw + 0.9vh);
     color: white;
-    height: 3em;;
+    height: 3em;
+    ;
     width: 50%;
     border-radius: 8px;
     border: none;
@@ -64,8 +66,8 @@ body {
 }
 
 div.detail-page-header {
-   text-align: center;
-   font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 h1.detail-page-header-text {
@@ -76,22 +78,19 @@ h1.detail-page-header-text {
 div.detail-page-header {
     text-align: center;
     font-family: Arial, Helvetica, sans-serif;
- }
- 
- h1.detail-page-header-text {
-     margin: 20px auto 20px auto;
- }
+}
 
-.items-heading, .add-items-heading {
+.items-heading,
+.add-items-heading {
     text-align: center;
- }
+}
 
 div.item-column {
     padding-top: 3em;
     margin-top: 1em;
     margin-right: 1em;
     /* add item, packing list */
-    
+
 }
 
 div.item-column:hover {
@@ -125,18 +124,19 @@ div.travel-page {
     background-color: #effef6;
 }
 
-img.bags, .suitcases {
+img.bags,
+.suitcases {
     display: block;
     margin: auto;
-    max-width: 100% ;
+    max-width: 100%;
 }
 
 .btn-sm1 {
     position: relative;
     /* background-color: green; */
     size-adjust: 100px;
-  }
-  
+}
+
 .btn-sm1:before {
     content: attr(data-hover);
     visibility: hidden;
@@ -150,10 +150,66 @@ img.bags, .suitcases {
     left: 100;
     top: 110%;
 }
-  
+
 .btn-sm1:hover:before {
     opacity: 1;
     visibility: visible;
+}
+
+.btn-sm2 {
+    position: relative;
+    /* background-color: green; */
+    size-adjust: 100px;
+}
+
+.btn-sm2:before {
+    content: attr(data-hover);
+    visibility: hidden;
+    width: 80px;
+    background-color: rgb(228, 242, 235);
+    color: black;
+    text-align: center;
+    transition: opacity .3s ease-in-out;
+    position: absolute;
+    border-radius: 5px;
+    z-index: 100;
+    left: 100;
+    top: 110%;
+    opacity: 40%;
+}
+
+.btn-sm2:hover:before {
+    opacity: 1;
+    visibility: visible;
+    opacity: 98%;
+}
+
+.btn-sm3 {
+    position: relative;
+    /* background-color: green; */
+    size-adjust: 100px;
+}
+
+.btn-sm3:before {
+    content: attr(data-hover);
+    visibility: hidden;
+    width: 80px;
+    background-color: rgb(242, 228, 228);
+    color: black;
+    text-align: center;
+    transition: opacity .3s ease-in-out;
+    position: absolute;
+    border-radius: 5px;
+    z-index: 100;
+    left: 100;
+    top: 110%;
+    opacity: 40%;
+}
+
+.btn-sm3:hover:before {
+    opacity: 1;
+    visibility: visible;
+    opacity: 98%;
 }
 
 h3#edit {
@@ -174,7 +230,7 @@ body {
 }
 
 .search-form {
-   max-width: 50%;
+    max-width: 50%;
 }
 
 .search-input:hover {
@@ -208,23 +264,23 @@ body {
 }
 
 .img_01 {
-    background-image: url("../../public/packing-list-cards/travel_image_01.png")
+    background-image: url("../Images/packing-list-cards/travel_image_01.png")
 }
 
 .img_02 {
-    background-image: url("../../public/packing-list-cards/travel_image_02.png")
+    background-image: url("../Images/packing-list-cards/travel_image_02.png")
 }
 
 .img_03 {
-    background-image: url("../../public/packing-list-cards/travel_image_03.png")
+    background-image: url("../Images/packing-list-cards/travel_image_03.png")
 }
 
 .img_04 {
-    background-image: url("../../public/packing-list-cards/travel_image_04.png")
+    background-image: url("../Images/packing-list-cards/travel_image_04.png")
 }
 
 .img_05 {
-    background-image: url("../../public/packing-list-cards/travel_image_05.png")
+    background-image: url("../Images/packing-list-cards/travel_image_05.png")
 }
 
 .card-details {
@@ -239,7 +295,7 @@ body {
     color: #fdf9fa;
     font-size: 25px;
     font-weight: bold;
-    text-shadow: 1px 1px #2b2844;  
+    text-shadow: 1px 1px #2b2844;
 }
 
 .card-subtitle {
@@ -258,7 +314,8 @@ body {
     font-weight: bold;
     font-size: calc(0.9vw + 0.9vh);
     color: white;
-    height: 2em;;
+    height: 2em;
+    ;
     width: 50%;
     margin-top: 1em;
     border-radius: 8px;
@@ -272,7 +329,7 @@ body {
 div.rcorners1 {
     border-radius: 25px;
     background: #ffffff;
-  }
+}
 
 div.save-changes {
     background: #daf1e8;

@@ -1,4 +1,5 @@
 import "./pages.css";
+import { Modal } from "react-bootstrap";
 import AuthContext from "../context/AuthContext";
 import CurrencyInfo from "../DataCharts/CurrencyInfo";
 import WeatherChart from "../DataCharts/WeatherChart";
@@ -9,6 +10,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState, useContext, useCallback } from "react";
 import { UserItemForm } from "../PackingListComponents/UserInputItems";
+import ReactRouterPrompt from "react-router-prompt";
 function getLocaleDates(date) {
   const options = {
     day: "numeric",
@@ -92,7 +94,7 @@ function DetailList() {
       setEditMode(!editMode);
       makeRequests();
     } else {
-      console.log("something went wrong");
+      window.alert("Something went wrong. Try again.");
     }
   }
   const percentage = useCallback(
@@ -138,6 +140,17 @@ function DetailList() {
   }, [mount, fetchData, makeRequests]);
   return (
     <div className="container mt-5">
+      <ReactRouterPrompt when={editMode}>
+        {({ isActive, onConfirm, onCancel }) => (
+          <Modal show={isActive}>
+            <div>
+              <p>Are you sure you want to leave your unsaved changes?</p>
+              <button onClick={onCancel}>Cancel</button>
+              <button onClick={onConfirm}>Ok</button>
+            </div>
+          </Modal>
+        )}
+      </ReactRouterPrompt>
       <div className="col-10 offset-1 shadow p-4 rcorners1">
         <div className="row">
           <div style={{ width: "70%" }}>
@@ -188,32 +201,26 @@ function DetailList() {
           <div className="col-2 m-1">
             {editMode ? (
               <button
-                className="btn btn-success"
+                className="btn btn-success btn-sm2"
                 onClick={sendChangesToDatabase}
+                data-hover="Save changes"
               >
                 <FontAwesomeIcon icon={faSave} />
               </button>
             ) : (
               <button
-                className="btn btn-outline-success"
+                className="btn btn-outline-success btn-sm2"
                 onClick={() => {
                   setEditMode(!editMode);
                 }}
+                data-hover="Edit items"
               >
                 <FontAwesomeIcon icon={faEdit} />
               </button>
             )}
           </div>
         </div>
-        {editMode ? (
-          <div
-            className="alert save-changes text-center col-6 offset-3"
-            role="alert"
-          >
-            Make sure to save your changes!
-          </div>
-        ) : null}
-        <table className="table">
+        <table className="table table-hover">
           <thead>
             <tr>
               <th className="text-center" style={{ width: "90px" }}>
@@ -288,10 +295,11 @@ function DetailList() {
           {editMode ? (
             <div className="col">
               <button
-                className="btn btn-sm btn-danger"
+                className="btn btn-sm btn-danger btn-sm3"
                 onClick={deletePackingList}
+                data-hover="Delete packing list"
               >
-                <FontAwesomeIcon icon={faTrash} /> Delete Packing List
+                <FontAwesomeIcon icon={faTrash} />
               </button>
             </div>
           ) : null}

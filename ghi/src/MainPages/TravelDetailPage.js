@@ -6,7 +6,9 @@ import { UserItemForm } from "../PackingListComponents/UserInputItems";
 import SuggestedItems from "../PackingListComponents/Items";
 import WorkingList from "../PackingListComponents/WorkingList";
 import React, { useState, useContext } from "react";
-import AuthContext from "../context/AuthContext";
+import AuthContext from '../context/AuthContext'
+import travelBags from "../Images/travel-bags.png"
+import travelSuitcases from "../Images/travel-suitcases.png"
 import "./pages.css";
 
 export default function TravelDetailPage() {
@@ -15,9 +17,9 @@ export default function TravelDetailPage() {
   const origin_code = searchParams.get("origin_code");
   const destination_city = searchParams.get("destination_city");
   const destination_country = searchParams.get("destination_country");
+  const [temperature, setTemperature] = useState(null);
   const destination_code = searchParams.get("destination_code");
   const departure_date = searchParams.get("departure_date");
-  const [temperature, setTemperature] = useState(null);
   const return_date = searchParams.get("return_date");
   const [items, setItems] = useState([]);
   let { user } = useContext(AuthContext);
@@ -31,20 +33,21 @@ export default function TravelDetailPage() {
           <h2 className="d-none d-lg-block detail-page-header-text display-4 fw-normal text-center g-5">
             Create a packing list for {destination_city}, {destination_country}!
           </h2>
-          <h5 className="d-block d-lg-none d-xl-none d-xxl-none">
-            Let's get packing!
-          </h5>
         </div>
         <div className="container">
           <img
-            src="../travel-bags.png"
+            src={travelBags}
             alt="bags"
             className="bags d-none d-lg-block"
           />
           <div className="row">
             <div className="col-sm-12 col-md col-lg item-column detail-columns shadow">
               <UserItemForm setItems={setItems} items={items} />
-              <SuggestedItems setItems={setItems} items={items} />
+              <SuggestedItems
+                setItems={setItems}
+                items={items}
+                temperature={temperature}
+              />
             </div>
             <div className="col-sm-12 col-md col-lg item-column detail-columns shadow">
               <WorkingList
@@ -64,6 +67,7 @@ export default function TravelDetailPage() {
                 departure_date={departure_date}
                 return_date={return_date}
                 origin_country={origin_country}
+                setTemperature={setTemperature}
               />
               <CurrencyInfo
                 origin_code={origin_code}
@@ -74,7 +78,7 @@ export default function TravelDetailPage() {
             </div>
             <div>
               <img
-                src="../travel-suitcases.png"
+                src={travelSuitcases}
                 alt="suitcases"
                 className="suitcases"
               />
