@@ -99,7 +99,7 @@ export default function SuggestedItems({setItems, items, temperature}) {
                   <tr key={item.name}>
                     <td>{item.name}</td>
                     <td>
-                      <button className="btn btn-sm btn-outline-danger" onClick={(e) => addGItem(item)}><FontAwesomeIcon icon={faPlusSquare} /></button>
+                      <button className="btn btn-success btn-sm" onClick={(e) => addGItem(item)}><FontAwesomeIcon icon={faPlusSquare} /></button>
                     </td>
                   </tr>
                 );
@@ -118,7 +118,7 @@ export default function SuggestedItems({setItems, items, temperature}) {
                 <tr key={item.name}>
                   <td>{item.name}</td>
                   <td>
-                    <button className="btn btn-sm btn-outline-danger" onClick={(e) => addCItem(item)}><FontAwesomeIcon icon={faPlusSquare} /></button>
+                    <button className="btn btn-success btn-sm" onClick={(e) => addCItem(item)}><FontAwesomeIcon icon={faPlusSquare} /></button>
                   </td>
                 </tr>
               );

@@ -103,7 +103,7 @@ function WorkingList({
     
     end_button?.addEventListener("click", function() {
     paragraph.contentEditable = false;
-    paragraph.style.backgroundColor = "white";
+    paragraph.style.backgroundColor = "transparent";
     } )
     
 
