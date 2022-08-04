@@ -31,19 +31,24 @@
 nav.navbar {
   background-color: #ffffff;
   box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
+  padding: .4rem 1rem .2rem 1rem;
 }
 
 .nav-link{
   color: #2e2c44;
   font-weight: bold;
+  background-color: transparent;
+  border-radius: 10px;
 }
 
 .nav-link:hover {
-  color: #cef5e8;
-  background-color: #1ec28b;
-  padding: .5em;
-  border: 1px solid transparent;
-  border-radius: 10px;
+  color: white;
+  background-color: #ffb258;
+}
+
+.navbar-brand:hover {
+  color: white;
+  background-color: #1ec28b
 }
 
 @keyframes App-logo-spin {
