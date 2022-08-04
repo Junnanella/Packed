@@ -39,7 +39,7 @@ function DetailList() {
     )
     const itemsUrl = `${process.env.REACT_APP_DJANGO_PACKING_LISTS}/api/packing_lists/${packingListId}/items/`;
     const packingListUrl = `${process.env.REACT_APP_DJANGO_PACKING_LISTS}/api/packing_lists/${packingListId}/`;
-    const fetchData = useCallback(async (url, method="GET", body=null) => {
+    const fetchData = useCallback(async (url, method = "GET", body = null) => {
         const fetchConfig = {
             method: method,
             headers: {
@@ -62,7 +62,7 @@ function DetailList() {
         }
     }, [authTokens?.access])
     function findItem(name) {
-        for (let index = 0; index < items.length; index ++) {
+        for (let index = 0; index < items.length; index++) {
             if (items[index].name === name) {
                 return index;
             }
@@ -84,7 +84,7 @@ function DetailList() {
         }
     }
     async function sendChangesToDatabase() {
-        const updatedItems = await fetchData(itemsUrl,  "PUT", {items: items})
+        const updatedItems = await fetchData(itemsUrl, "PUT", { items: items })
         if (updatedItems) {
             setEditMode(!editMode);
             makeRequests();
@@ -92,7 +92,7 @@ function DetailList() {
             console.log("something went wrong")
         }
     }
-    const percentage = useCallback((fetchedItems=null) => {
+    const percentage = useCallback((fetchedItems = null) => {
         const data = !fetchedItems ? items : fetchedItems;
         const numItems = data.length
         const numPackedItems = data.filter(item => {
@@ -105,7 +105,7 @@ function DetailList() {
         } else {
             setProgressBarColor("progress-bar-striped bg-warning progress-bar-animated");
         }
-    },[items])
+    }, [items])
     const makeRequests = useCallback(async () => {
         const itemsObject = await fetchData(itemsUrl);
         if (itemsObject) {
@@ -119,37 +119,37 @@ function DetailList() {
             setItems(listOfItems);
             percentage(listOfItems);
         }
-    },[fetchData, percentage, itemsUrl])
+    }, [fetchData, percentage, itemsUrl])
     useEffect(() => {
         if (mount) {
             makeRequests();
             setMount(false);
         }
     }, [mount, fetchData, makeRequests])
-    return(
+    return (
         <div className="container mt-3">
             <div className="col-10 offset-1 shadow p-4 rcorners1">
                 <div className="row">
-                    <div style={{width: "70%"}}>
+                    <div style={{ width: "70%" }}>
                         <div>
                             {getLocaleDates(departureDate)} - {getLocaleDates(returnDate)}
                         </div>
                         <h2 className="p-1 col">{packingListTitle}</h2>
-                        { editMode ?
+                        {editMode ?
                             <UserItemForm
                                 setItems={setItems}
                                 items={items}
                                 percentagePacked={percentagePacked}
                                 setPercentagePacked={setPercentagePacked}
                             />
-                        :
-                        <div className="mb-2 text-left">
-                            <CurrencyInfo
-                                origin_country={originCountry}
-                                destination_country={countryWeather}
-                                detailPage={true}
-                            />
-                        </div>
+                            :
+                            <div className="mb-2 text-left">
+                                <CurrencyInfo
+                                    origin_country={originCountry}
+                                    destination_country={countryWeather}
+                                    detailPage={true}
+                                />
+                            </div>
                         }
                     </div>
                     <div className="col">
@@ -162,18 +162,18 @@ function DetailList() {
                         />
                     </div>
                 </div>
-                <div className="row">
+                <div className="row mt-1">
                     <div className="col">
                         <div className="progress m-3">
                             <div
                                 className={`progress-bar ${progressBarColor}`}
-                                role="progressbar" style={{width: `${percentagePacked}%`}}
+                                role="progressbar" style={{ width: `${percentagePacked}%` }}
                                 aria-valuenow={percentagePacked}
                                 aria-valuemin="0" aria-valuemax="100"
                             />
                         </div>
                     </div>
-                    <div className="col-1 m-1">
+                    <div className="col-2 m-1">
                         {editMode ?
                             <button
                                 className="btn btn-success"
@@ -181,10 +181,10 @@ function DetailList() {
                             >
                                 <FontAwesomeIcon icon={faSave} />
                             </button>
-                        :
+                            :
                             <button
                                 className="btn btn-outline-success"
-                                onClick={()=>{
+                                onClick={() => {
                                     setEditMode(!editMode)
                                 }}
                             >
@@ -197,15 +197,15 @@ function DetailList() {
                     <div className="alert save-changes text-center col-6 offset-3" role="alert">
                         Make sure to save your changes!
                     </div>
-                :
+                    :
                     null
                 }
                 <table className="table">
                     <thead>
                         <tr>
-                            <th className="text-center" style={{width: "90px"}}>QTY</th>
+                            <th className="text-center" style={{ width: "90px" }}>QTY</th>
                             <th className="text-center">{items.length === 1 ? 'Item' : "Items"}</th>
-                            <th className="text-center" style={{width: "90px"}}>Packed</th>
+                            <th className="text-center" style={{ width: "90px" }}>Packed</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -213,9 +213,9 @@ function DetailList() {
                             return (
                                 <tr key={item.name}>
                                     <td className="text-center">
-                                        { !editMode ?
+                                        {!editMode ?
                                             item.quantity
-                                        :
+                                            :
                                             <input
                                                 className="form-control form-control-sm"
                                                 type="number"
@@ -238,7 +238,7 @@ function DetailList() {
                                             defaultChecked={item.packed}
                                             value={item.packed}
                                             disabled={!editMode ? true : false}
-                                            onChange={(e) =>{
+                                            onChange={(e) => {
                                                 const newItems = [...items];
                                                 const index = findItem(item.name)
                                                 newItems[index].packed = e.target.value === "true" ? false : true;
@@ -248,16 +248,16 @@ function DetailList() {
                                         />
                                     </td>
                                     {editMode ?
-                                        <td className="text-center" style={{width: "90px"}}>
+                                        <td className="text-center" style={{ width: "90px" }}>
                                             <button
                                                 className="btn btn-sm btn-outline-danger"
                                                 onClick={deleteItem}
                                                 value={item.name}
                                             >
-                                                <FontAwesomeIcon icon={faTrash}/>
+                                                <FontAwesomeIcon icon={faTrash} />
                                             </button>
                                         </td>
-                                    :
+                                        :
                                         null
                                     }
                                 </tr>
@@ -272,13 +272,13 @@ function DetailList() {
                                 className="btn btn-sm btn-danger"
                                 onClick={deletePackingList}
                             >
-                                <FontAwesomeIcon icon={faTrash}/>  Delete Packing List
+                                <FontAwesomeIcon icon={faTrash} />  Delete Packing List
                             </button>
                         </div>
-                    :
+                        :
                         null
                     }
-                    <div className="col" style={{textAlign: "right"}}>Created on {getLocaleDates(createdDate)}.</div>
+                    <div className="col" style={{ textAlign: "right" }}>Created on {getLocaleDates(createdDate)}.</div>
                 </div>
             </div>
         </div>

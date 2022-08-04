@@ -33,7 +33,8 @@ class ErrorMessage(BaseModel):
 
 
 # 🚨
-@app.get("/api/locations",
+@app.get(
+    "/api/locations",
     response_model=Union[CountriesOut, ErrorMessage],
     responses={
         200: {"model": CountriesOut},

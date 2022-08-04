@@ -14,10 +14,11 @@ function analyzeTemp(tempData) {
     return "cold"
   }
 }
-export default function SuggestedItems({setItems, items, temperature}) {
+
+export default function SuggestedItems({ setItems, items, temperature }) {
   const [conditionalItems, setConditionalItems] = useState([]);
   const [generalItems, setGeneralItems] = useState([]);
-  let {authTokens} = useContext(AuthContext)
+  let { authTokens } = useContext(AuthContext)
   const fetchConfig = useMemo(() => {
     const params = {
       method: "GET",
@@ -30,9 +31,10 @@ export default function SuggestedItems({setItems, items, temperature}) {
     }
     return params
   }, [authTokens]);
+
   const validate = useCallback(() => {
     const tempItems = [...items]
-    for (let i = 0; i < tempItems.length; i ++) {
+    for (let i = 0; i < tempItems.length; i++) {
       let item = tempItems[i]
       for (let generalItem of generalItems) {
         if (item.name.toLowerCase() === generalItem.name.toLowerCase()) {
@@ -57,7 +59,7 @@ export default function SuggestedItems({setItems, items, temperature}) {
     }
   }, [generalItems, conditionalItems, items, setItems])
   validate();
-  
+
   const fetchData = useCallback(async () => {
     if (temperature) {
       const response = await loadItemsList(analyzeTemp(temperature), fetchConfig);
@@ -66,7 +68,7 @@ export default function SuggestedItems({setItems, items, temperature}) {
       setConditionalItems(conditional);
       setGeneralItems(general);
     }
-  },[fetchConfig, temperature])
+  }, [fetchConfig, temperature])
   useEffect(() => {
     fetchData();
   }, [fetchData]);
@@ -106,27 +108,27 @@ export default function SuggestedItems({setItems, items, temperature}) {
               })}
             </tbody>
           </table>
-        <table className="table table-hover">
-          <thead>
-            <tr>
-              <th scope="col">Recommended For You</th>
-            </tr>
-          </thead>
-          <tbody>
-            {conditionalItems.map((item) => {
-              return (
-                <tr key={item.name}>
-                  <td>{item.name}</td>
-                  <td>
-                    <button className="btn btn-success btn-sm" onClick={(e) => addCItem(item)}><FontAwesomeIcon icon={faPlusSquare} /></button>
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+          <table className="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">Recommended For You</th>
+              </tr>
+            </thead>
+            <tbody>
+              {conditionalItems.map((item) => {
+                return (
+                  <tr key={item.name}>
+                    <td>{item.name}</td>
+                    <td>
+                      <button className="btn btn-success btn-sm" onClick={(e) => addCItem(item)}><FontAwesomeIcon icon={faPlusSquare} /></button>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
-  </div>
   );
 }
