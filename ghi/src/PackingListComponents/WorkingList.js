@@ -106,20 +106,22 @@ function WorkingList({
     paragraph.style.backgroundColor = "transparent";
     } )
     
+    // function toggleIcons(){
+    //     let icon = {faEdit}
+    //     if( icon !== {faEdit}){
+    //         icon = {faSave}
+    //     }
+    //     else {
+    //         icon = {faEdit}
+    //     }
+    // }
 
+    // onClick={toggleIcons()}
     return (
         <div className="">
-                <div id="container">
-                    <table className='packing-header'>
-                        <tbody>
-                        <tr>
-                            <td><h3 id="edit" name="title"> Packing List for {destination_country}</h3></td>
-                            <td><button className="btn btn-success btn-sm1" type="submit" id="edit-button" data-hover="Edit Name"><FontAwesomeIcon icon={faEdit} /></button></td>
-                            <td> <button className="btn btn-success btn-sm1"type="submit" id="end-editing" data-hover="Save"><FontAwesomeIcon icon={faSave} /></button></td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
+                <h3 id="edit" name="title"> Packing List for {destination_country}</h3>
+                <button className="btn btn-success btn-sm1 btn-sm" type="submit" id="edit-button" data-hover="Edit Name"><FontAwesomeIcon icon={faEdit} /></button>
+                <button className="btn btn-success btn-sm1 btn-sm" type="submit" id="end-editing" data-hover="Save"><FontAwesomeIcon icon={faSave} /></button>
             <table className="table table-hover">
                 <thead>
                     <tr>
