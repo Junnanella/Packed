@@ -17,6 +17,7 @@ export default function TravelDetailPage() {
   const destination_country = searchParams.get("destination_country");
   const destination_code = searchParams.get("destination_code");
   const departure_date = searchParams.get("departure_date");
+  const [temperature, setTemperature] = useState(null)
   const return_date = searchParams.get("return_date");
   const [items, setItems] = useState([]);
   let { user } = useContext(AuthContext);
@@ -37,7 +38,11 @@ export default function TravelDetailPage() {
         <div className="row">
           <div className="col item-column detail-columns">
             <UserItemForm setItems={setItems} items={items} />
-            <SuggestedItems setItems={setItems} items={items} />
+            <SuggestedItems
+              setItems={setItems}
+              items={items}
+              temperature={temperature}
+            />
           </div>
           <div className="col item-column detail-columns">
             <WorkingList setItems={setItems} items={items}
@@ -55,6 +60,7 @@ export default function TravelDetailPage() {
                 destination_country={destination_country}
                 departure_date={departure_date}
                 return_date={return_date}
+                setTemperature={setTemperature}
               />
             </div>
             <div className="row currency-data">

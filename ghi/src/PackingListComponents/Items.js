@@ -5,7 +5,18 @@ import { faPlusSquare } from '@fortawesome/free-solid-svg-icons';
 import AuthContext from "../context/AuthContext";
 import { useContext, useCallback, useMemo } from "react";
 
-export default function SuggestedItems({setItems, items}) {
+function analyzeTemp(tempData) {
+  const temperature = tempData[0].temperature
+  if (temperature > 70) {
+    return "hot"
+  } else if (temperature > 55) {
+    return "moderate"
+  } else {
+    return "cold"
+  }
+}
+
+export default function SuggestedItems({setItems, items, temperature}) {
   const [conditionalItems, setConditionalItems] = useState([]);
   const [generalItems, setGeneralItems] = useState([]);
   let {authTokens} = useContext(AuthContext)
@@ -53,12 +64,14 @@ export default function SuggestedItems({setItems, items}) {
   validate();
   
   const fetchData = useCallback(async () => {
-    const response = await loadItemsList("cold", fetchConfig);
-    const conditional = response.conditional_items.concat(response.user_favorite_items);
-    const general = response.general_items;
-    setConditionalItems(conditional);
-    setGeneralItems(general);
-  },[fetchConfig])
+    if (temperature) {
+      const response = await loadItemsList(analyzeTemp(temperature), fetchConfig);
+      const conditional = response.conditional_items.concat(response.user_favorite_items);
+      const general = response.general_items;
+      setConditionalItems(conditional);
+      setGeneralItems(general);
+    }
+  },[fetchConfig, temperature])
 
   useEffect(() => {
     fetchData();
