@@ -1,7 +1,7 @@
 stages:
   - test
-  - build
-  - deploy
+  # - build
+  # - deploy
 
 variables:
   REACT_APP_DJANGO_PACKING_LISTS: https://${HEROKU_APP_DJANGO_PACKING_LISTS}.herokuapp.com
@@ -48,326 +48,325 @@ packing-lists-unit-test-job:
     - pip install -r requirements.txt
     - python manage.py test
   
-# lint-test-job:
-#   image: python:3-bullseye
-#   stage: test
-#   script:
-#     - pip install flake8
-#     - flake8 api  # Run flake8 on Python project to check
-#                   # for code quality
+lint-test-job:
+  image: python:3-bullseye
+  stage: test
+  script:
+    - pip install flake8
+    - flake8 packing-lists/packed_api
 
 
 # BUILDING AND DEPLOYMENT ARE DIVIDED BY MICROSERVICE
 
 # FRONT END ---------------------
-build-front-end-job:
-  stage: build
-  image: node:lts-bullseye
-  variables:
-    PUBLIC_URL: https://packed-module-3.gitlab.io/packed
-  needs:
-    - weather-unit-test-job
-    - locations-unit-test-job
-    - currency-unit-test-job
-    - packing-lists-unit-test-job
-  script:
-    - cd ghi
-    - npm install
-    - npm run build  # Build the React application
-    - cp build/index.html build/404.html  # Make this a SPA
-  artifacts:
-    paths:
-      - ghi/build/
+# build-front-end-job:
+#   stage: build
+#   image: node:lts-bullseye
+#   variables:
+#     PUBLIC_URL: https://packed-module-3.gitlab.io/packed
+#   needs:
+#     - weather-unit-test-job
+#     - locations-unit-test-job
+#     - currency-unit-test-job
+#     - packing-lists-unit-test-job
+#   script:
+#     - cd ghi
+#     - npm install
+#     - npm run build  # Build the React application
+#     - cp build/index.html build/404.html  # Make this a SPA
+#   artifacts:
+#     paths:
+#       - ghi/build/
 
-pages:  # THIS STEP MUST BE NAME PAGES
-  stage: deploy
-  rules:
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-  dependencies:
-    - build-front-end-job
-  needs:
-    - build-front-end-job
-  script:
-     # THE FIRST PART OF THIS COMMAND MUST BE THE DIRECTORY
-     # THAT YOU cd INTO TO BUILD IT PLUS THE build/ AT THE
-     # END
-    - mv ghi/build/ public
-  artifacts:
-    paths:
-      - public
-
-
-# PACKING LISTS ------------------
-build-django-packing-list-image-job:
-  rules:
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-  stage: build
-  image: docker:20.10.16
-  services:
-    - docker:20.10.16-dind
-  needs:
-    - packing-lists-unit-test-job
-  script:
-    # CHANGE THIS TO THE DIRECTORY THAT HAS YOUR Dockerfile
-    - cd packing-lists
-
-    # EVERYWHERE IT SHOWS packing_lists_api BELOW, CHANGE THOSE
-    # TO A MORE MEANINGFUL SERVICE NAME (5 PLACES)
-    - docker build -t ${CI_REGISTRY_IMAGE}/packing_lists_api:latest .
-    - docker tag ${CI_REGISTRY_IMAGE}/packing_lists_api:latest ${CI_REGISTRY_IMAGE}/packing_lists_api:$CI_JOB_ID
-    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
-    - docker push ${CI_REGISTRY_IMAGE}/packing_lists_api:$CI_JOB_ID
-    - docker push ${CI_REGISTRY_IMAGE}/packing_lists_api:latest
-
-deploy-django-packing-list-image-job:
-  rules:
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-  stage: deploy
-  image: docker:20.10.16
-  needs:
-    - build-django-packing-list-image-job
-  services:
-    - docker:20.10.16-dind
-  script:
-    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
-    - docker login --username=_ --password=$HEROKU_API_KEY registry.heroku.com
-
-    # EVERYWHERE IT SHOWS packing_lists_api BELOW, CHANGE THOSE
-    # TO THE NAME YOU CHOSE FOR THE BUILD STEP (2 PLACES)
-
-    # EVERYWHERE IT SHOWS HEROKU_APP_DJANGO_PACKING_LISTS BELOW, CHANGE
-    # THOSE TO THE VARIABLE NAME YOU CREATED FOR THE CI/CD
-    # SETTINGS (2 PLACES)
-
-    # IF THIS IS FOR A BACKGROUND SERVICE LIKE A POLLER,
-    # CHANGE web TO worker (1 PLACE)
-    - docker pull ${CI_REGISTRY_IMAGE}/packing_lists_api:latest
-    - docker tag ${CI_REGISTRY_IMAGE}/packing_lists_api:latest registry.heroku.com/$HEROKU_APP_DJANGO_PACKING_LISTS/web:latest
-    - docker push registry.heroku.com/$HEROKU_APP_DJANGO_PACKING_LISTS/web:latest
-
-release-django-packing-list-image-job:
-  stage: deploy
-  image: node:10.17-alpine
-  needs:
-    - deploy-django-packing-list-image-job
-  rules:
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-  before_script:
-    - apk add curl bash
-    - curl https://cli-assets.heroku.com/install.sh | sh
-  script:
-    # EVERYWHERE IT SHOWS HEROKU_APP_DJANGO_PACKING_LISTS BELOW, CHANGE
-    # THOSE TO THE VARIABLE NAME YOU CREATED FOR THE CI/CD
-    # SETTINGS (1 PLACE)
-
-    # IF THIS IS FOR A BACKGROUND SERVICE LIKE A POLLER,
-    # CHANGE web TO worker (1 PLACE)
-    - heroku container:release web --app $HEROKU_APP_DJANGO_PACKING_LISTS
+# pages:  # THIS STEP MUST BE NAME PAGES
+#   stage: deploy
+#   rules:
+#     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+#   dependencies:
+#     - build-front-end-job
+#   needs:
+#     - build-front-end-job
+#   script:
+#      # THE FIRST PART OF THIS COMMAND MUST BE THE DIRECTORY
+#      # THAT YOU cd INTO TO BUILD IT PLUS THE build/ AT THE
+#      # END
+#     - mv ghi/build/ public
+#   artifacts:
+#     paths:
+#       - public
 
 
-# WEATHER ------------------------
-build-fastapi-weather-image-job:
-  rules:
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-  stage: build
-  image: docker:20.10.16
-  needs:
-    - weather-unit-test-job
-  services:
-    - docker:20.10.16-dind
-  script:
-    # CHANGE THIS TO THE DIRECTORY THAT HAS YOUR Dockerfile
-    - cd api/weather
+# # PACKING LISTS ------------------
+# build-django-packing-list-image-job:
+#   rules:
+#     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+#   stage: build
+#   image: docker:20.10.16
+#   services:
+#     - docker:20.10.16-dind
+#   needs:
+#     - packing-lists-unit-test-job
+#   script:
+#     # CHANGE THIS TO THE DIRECTORY THAT HAS YOUR Dockerfile
+#     - cd packing-lists
 
-    # EVERYWHERE IT SHOWS weather_api BELOW, CHANGE THOSE
-    # TO A MORE MEANINGFUL SERVICE NAME (5 PLACES)
-    - docker build -t ${CI_REGISTRY_IMAGE}/weather_api:latest .
-    - docker tag ${CI_REGISTRY_IMAGE}/weather_api:latest ${CI_REGISTRY_IMAGE}/weather_api:$CI_JOB_ID
-    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
-    - docker push ${CI_REGISTRY_IMAGE}/weather_api:$CI_JOB_ID
-    - docker push ${CI_REGISTRY_IMAGE}/weather_api:latest
+#     # EVERYWHERE IT SHOWS packing_lists_api BELOW, CHANGE THOSE
+#     # TO A MORE MEANINGFUL SERVICE NAME (5 PLACES)
+#     - docker build -t ${CI_REGISTRY_IMAGE}/packing_lists_api:latest .
+#     - docker tag ${CI_REGISTRY_IMAGE}/packing_lists_api:latest ${CI_REGISTRY_IMAGE}/packing_lists_api:$CI_JOB_ID
+#     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+#     - docker push ${CI_REGISTRY_IMAGE}/packing_lists_api:$CI_JOB_ID
+#     - docker push ${CI_REGISTRY_IMAGE}/packing_lists_api:latest
 
-deploy-fastapi-weather-image-job:
-  rules:
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-  stage: deploy
-  image: docker:20.10.16
-  needs:
-    - build-fastapi-weather-image-job
-  services:
-    - docker:20.10.16-dind
-  script:
-    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
-    - docker login --username=_ --password=$HEROKU_API_KEY registry.heroku.com
+# deploy-django-packing-list-image-job:
+#   rules:
+#     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+#   stage: deploy
+#   image: docker:20.10.16
+#   needs:
+#     - build-django-packing-list-image-job
+#   services:
+#     - docker:20.10.16-dind
+#   script:
+#     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+#     - docker login --username=_ --password=$HEROKU_API_KEY registry.heroku.com
 
-    # EVERYWHERE IT SHOWS weather_api BELOW, CHANGE THOSE
-    # TO THE NAME YOU CHOSE FOR THE BUILD STEP (2 PLACES)
+#     # EVERYWHERE IT SHOWS packing_lists_api BELOW, CHANGE THOSE
+#     # TO THE NAME YOU CHOSE FOR THE BUILD STEP (2 PLACES)
 
-    # EVERYWHERE IT SHOWS HEROKU_APP_FASTAPI_WEATHER BELOW, CHANGE
-    # THOSE TO THE VARIABLE NAME YOU CREATED FOR THE CI/CD
-    # SETTINGS (2 PLACES)
+#     # EVERYWHERE IT SHOWS HEROKU_APP_DJANGO_PACKING_LISTS BELOW, CHANGE
+#     # THOSE TO THE VARIABLE NAME YOU CREATED FOR THE CI/CD
+#     # SETTINGS (2 PLACES)
 
-    # IF THIS IS FOR A BACKGROUND SERVICE LIKE A POLLER,
-    # CHANGE web TO worker (1 PLACE)
-    - docker pull ${CI_REGISTRY_IMAGE}/weather_api:latest
-    - docker tag ${CI_REGISTRY_IMAGE}/weather_api:latest registry.heroku.com/$HEROKU_APP_FASTAPI_WEATHER/web:latest
-    - docker push registry.heroku.com/$HEROKU_APP_FASTAPI_WEATHER/web:latest
+#     # IF THIS IS FOR A BACKGROUND SERVICE LIKE A POLLER,
+#     # CHANGE web TO worker (1 PLACE)
+#     - docker pull ${CI_REGISTRY_IMAGE}/packing_lists_api:latest
+#     - docker tag ${CI_REGISTRY_IMAGE}/packing_lists_api:latest registry.heroku.com/$HEROKU_APP_DJANGO_PACKING_LISTS/web:latest
+#     - docker push registry.heroku.com/$HEROKU_APP_DJANGO_PACKING_LISTS/web:latest
 
-release-fastapi-weather-image-job:
-  stage: deploy
-  image: node:10.17-alpine
-  needs:
-    - deploy-fastapi-weather-image-job
-  rules:
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-  before_script:
-    - apk add curl bash
-    - curl https://cli-assets.heroku.com/install.sh | sh
-  script:
-    # EVERYWHERE IT SHOWS HEROKU_APP_FASTAPI_WEATHER BELOW, CHANGE
-    # THOSE TO THE VARIABLE NAME YOU CREATED FOR THE CI/CD
-    # SETTINGS (1 PLACE)
+# release-django-packing-list-image-job:
+#   stage: deploy
+#   image: node:10.17-alpine
+#   needs:
+#     - deploy-django-packing-list-image-job
+#   rules:
+#     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+#   before_script:
+#     - apk add curl bash
+#     - curl https://cli-assets.heroku.com/install.sh | sh
+#   script:
+#     # EVERYWHERE IT SHOWS HEROKU_APP_DJANGO_PACKING_LISTS BELOW, CHANGE
+#     # THOSE TO THE VARIABLE NAME YOU CREATED FOR THE CI/CD
+#     # SETTINGS (1 PLACE)
 
-    # IF THIS IS FOR A BACKGROUND SERVICE LIKE A POLLER,
-    # CHANGE web TO worker (1 PLACE)
-    - heroku container:release web --app $HEROKU_APP_FASTAPI_WEATHER
-
-
-# LOCATIONS ----------------------
-build-fastapi-locations-image-job:
-  rules:
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-  stage: build
-  image: docker:20.10.16
-  needs:
-    - locations-unit-test-job
-  services:
-    - docker:20.10.16-dind
-  script:
-    # CHANGE THIS TO THE DIRECTORY THAT HAS YOUR Dockerfile
-    - cd api/locations
-
-    # EVERYWHERE IT SHOWS locations_api BELOW, CHANGE THOSE
-    # TO A MORE MEANINGFUL SERVICE NAME (5 PLACES)
-    - docker build -t ${CI_REGISTRY_IMAGE}/locations_api:latest .
-    - docker tag ${CI_REGISTRY_IMAGE}/locations_api:latest ${CI_REGISTRY_IMAGE}/locations_api:$CI_JOB_ID
-    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
-    - docker push ${CI_REGISTRY_IMAGE}/locations_api:$CI_JOB_ID
-    - docker push ${CI_REGISTRY_IMAGE}/locations_api:latest
-
-deploy-fastapi-locations-image-job:
-  rules:
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-  stage: deploy
-  image: docker:20.10.16
-  needs:
-    # CHANGE THIS TO THE JOB NAME FROM THE LAST STEP
-    - build-fastapi-locations-image-job
-  services:
-    - docker:20.10.16-dind
-  script:
-    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
-    - docker login --username=_ --password=$HEROKU_API_KEY registry.heroku.com
-
-    # EVERYWHERE IT SHOWS locations_api BELOW, CHANGE THOSE
-    # TO THE NAME YOU CHOSE FOR THE BUILD STEP (2 PLACES)
-
-    # EVERYWHERE IT SHOWS HEROKU_APP_FASTAPI_LOCATIONS BELOW, CHANGE
-    # THOSE TO THE VARIABLE NAME YOU CREATED FOR THE CI/CD
-    # SETTINGS (2 PLACES)
-
-    # IF THIS IS FOR A BACKGROUND SERVICE LIKE A POLLER,
-    # CHANGE web TO worker (1 PLACE)
-    - docker pull ${CI_REGISTRY_IMAGE}/locations_api:latest
-    - docker tag ${CI_REGISTRY_IMAGE}/locations_api:latest registry.heroku.com/$HEROKU_APP_FASTAPI_LOCATIONS/web:latest
-    - docker push registry.heroku.com/$HEROKU_APP_FASTAPI_LOCATIONS/web:latest
-
-release-fastapi-locations-image-job:
-  stage: deploy
-  image: node:10.17-alpine
-  needs:
-    # CHANGE THIS TO THE JOB NAME FROM THE LAST STEP
-    - deploy-fastapi-locations-image-job
-  rules:
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-  before_script:
-    - apk add curl bash
-    - curl https://cli-assets.heroku.com/install.sh | sh
-  script:
-    # EVERYWHERE IT SHOWS HEROKU_APP_FASTAPI_LOCATIONS BELOW, CHANGE
-    # THOSE TO THE VARIABLE NAME YOU CREATED FOR THE CI/CD
-    # SETTINGS (1 PLACE)
-
-    # IF THIS IS FOR A BACKGROUND SERVICE LIKE A POLLER,
-    # CHANGE web TO worker (1 PLACE)
-    - heroku container:release web --app $HEROKU_APP_FASTAPI_LOCATIONS
+#     # IF THIS IS FOR A BACKGROUND SERVICE LIKE A POLLER,
+#     # CHANGE web TO worker (1 PLACE)
+#     - heroku container:release web --app $HEROKU_APP_DJANGO_PACKING_LISTS
 
 
-# CURRENCY -----------------------
-build-fastapi-currency-image-job:
-  rules:
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-  stage: build
-  image: docker:20.10.16
-  needs:
-    - currency-unit-test-job
-  services:
-    - docker:20.10.16-dind
-  script:
-    # CHANGE THIS TO THE DIRECTORY THAT HAS YOUR Dockerfile
-    - cd api/currency
+# # WEATHER ------------------------
+# build-fastapi-weather-image-job:
+#   rules:
+#     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+#   stage: build
+#   image: docker:20.10.16
+#   needs:
+#     - weather-unit-test-job
+#   services:
+#     - docker:20.10.16-dind
+#   script:
+#     # CHANGE THIS TO THE DIRECTORY THAT HAS YOUR Dockerfile
+#     - cd api/weather
 
-    # EVERYWHERE IT SHOWS currency_api BELOW, CHANGE THOSE
-    # TO A MORE MEANINGFUL SERVICE NAME (5 PLACES)
-    - docker build -t ${CI_REGISTRY_IMAGE}/currency_api:latest .
-    - docker tag ${CI_REGISTRY_IMAGE}/currency_api:latest ${CI_REGISTRY_IMAGE}/currency_api:$CI_JOB_ID
-    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
-    - docker push ${CI_REGISTRY_IMAGE}/currency_api:$CI_JOB_ID
-    - docker push ${CI_REGISTRY_IMAGE}/currency_api:latest
+#     # EVERYWHERE IT SHOWS weather_api BELOW, CHANGE THOSE
+#     # TO A MORE MEANINGFUL SERVICE NAME (5 PLACES)
+#     - docker build -t ${CI_REGISTRY_IMAGE}/weather_api:latest .
+#     - docker tag ${CI_REGISTRY_IMAGE}/weather_api:latest ${CI_REGISTRY_IMAGE}/weather_api:$CI_JOB_ID
+#     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+#     - docker push ${CI_REGISTRY_IMAGE}/weather_api:$CI_JOB_ID
+#     - docker push ${CI_REGISTRY_IMAGE}/weather_api:latest
 
-deploy-fastapi-currency-image-job:
-  rules:
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-  stage: deploy
-  image: docker:20.10.16
-  needs:
-    # CHANGE THIS TO THE JOB NAME FROM THE LAST STEP
-    - build-fastapi-currency-image-job
-  services:
-    - docker:20.10.16-dind
-  script:
-    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
-    - docker login --username=_ --password=$HEROKU_API_KEY registry.heroku.com
+# deploy-fastapi-weather-image-job:
+#   rules:
+#     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+#   stage: deploy
+#   image: docker:20.10.16
+#   needs:
+#     - build-fastapi-weather-image-job
+#   services:
+#     - docker:20.10.16-dind
+#   script:
+#     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+#     - docker login --username=_ --password=$HEROKU_API_KEY registry.heroku.com
 
-    # EVERYWHERE IT SHOWS currency_api BELOW, CHANGE THOSE
-    # TO THE NAME YOU CHOSE FOR THE BUILD STEP (2 PLACES)
+#     # EVERYWHERE IT SHOWS weather_api BELOW, CHANGE THOSE
+#     # TO THE NAME YOU CHOSE FOR THE BUILD STEP (2 PLACES)
 
-    # EVERYWHERE IT SHOWS HEROKU_APP_FASTAPI_CURRENCY BELOW, CHANGE
-    # THOSE TO THE VARIABLE NAME YOU CREATED FOR THE CI/CD
-    # SETTINGS (2 PLACES)
+#     # EVERYWHERE IT SHOWS HEROKU_APP_FASTAPI_WEATHER BELOW, CHANGE
+#     # THOSE TO THE VARIABLE NAME YOU CREATED FOR THE CI/CD
+#     # SETTINGS (2 PLACES)
 
-    # IF THIS IS FOR A BACKGROUND SERVICE LIKE A POLLER,
-    # CHANGE web TO worker (1 PLACE)
-    - docker pull ${CI_REGISTRY_IMAGE}/currency_api:latest
-    - docker tag ${CI_REGISTRY_IMAGE}/currency_api:latest registry.heroku.com/$HEROKU_APP_FASTAPI_CURRENCY/web:latest
-    - docker push registry.heroku.com/$HEROKU_APP_FASTAPI_CURRENCY/web:latest
+#     # IF THIS IS FOR A BACKGROUND SERVICE LIKE A POLLER,
+#     # CHANGE web TO worker (1 PLACE)
+#     - docker pull ${CI_REGISTRY_IMAGE}/weather_api:latest
+#     - docker tag ${CI_REGISTRY_IMAGE}/weather_api:latest registry.heroku.com/$HEROKU_APP_FASTAPI_WEATHER/web:latest
+#     - docker push registry.heroku.com/$HEROKU_APP_FASTAPI_WEATHER/web:latest
 
-release-fastapi-currency-image-job:
-  stage: deploy
-  image: node:10.17-alpine
-  needs:
-    # CHANGE THIS TO THE JOB NAME FROM THE LAST STEP
-    - deploy-fastapi-currency-image-job
-  rules:
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-  before_script:
-    - apk add curl bash
-    - curl https://cli-assets.heroku.com/install.sh | sh
-  script:
-    # EVERYWHERE IT SHOWS HEROKU_APP_FASTAPI_CURRENCY BELOW, CHANGE
-    # THOSE TO THE VARIABLE NAME YOU CREATED FOR THE CI/CD
-    # SETTINGS (1 PLACE)
+# release-fastapi-weather-image-job:
+#   stage: deploy
+#   image: node:10.17-alpine
+#   needs:
+#     - deploy-fastapi-weather-image-job
+#   rules:
+#     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+#   before_script:
+#     - apk add curl bash
+#     - curl https://cli-assets.heroku.com/install.sh | sh
+#   script:
+#     # EVERYWHERE IT SHOWS HEROKU_APP_FASTAPI_WEATHER BELOW, CHANGE
+#     # THOSE TO THE VARIABLE NAME YOU CREATED FOR THE CI/CD
+#     # SETTINGS (1 PLACE)
 
-    # IF THIS IS FOR A BACKGROUND SERVICE LIKE A POLLER,
-    # CHANGE web TO worker (1 PLACE)
-    - heroku container:release web --app $HEROKU_APP_FASTAPI_CURRENCY
+#     # IF THIS IS FOR A BACKGROUND SERVICE LIKE A POLLER,
+#     # CHANGE web TO worker (1 PLACE)
+#     - heroku container:release web --app $HEROKU_APP_FASTAPI_WEATHER
+
+
+# # LOCATIONS ----------------------
+# build-fastapi-locations-image-job:
+#   rules:
+#     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+#   stage: build
+#   image: docker:20.10.16
+#   needs:
+#     - locations-unit-test-job
+#   services:
+#     - docker:20.10.16-dind
+#   script:
+#     # CHANGE THIS TO THE DIRECTORY THAT HAS YOUR Dockerfile
+#     - cd api/locations
+
+#     # EVERYWHERE IT SHOWS locations_api BELOW, CHANGE THOSE
+#     # TO A MORE MEANINGFUL SERVICE NAME (5 PLACES)
+#     - docker build -t ${CI_REGISTRY_IMAGE}/locations_api:latest .
+#     - docker tag ${CI_REGISTRY_IMAGE}/locations_api:latest ${CI_REGISTRY_IMAGE}/locations_api:$CI_JOB_ID
+#     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+#     - docker push ${CI_REGISTRY_IMAGE}/locations_api:$CI_JOB_ID
+#     - docker push ${CI_REGISTRY_IMAGE}/locations_api:latest
+
+# deploy-fastapi-locations-image-job:
+#   rules:
+#     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+#   stage: deploy
+#   image: docker:20.10.16
+#   needs:
+#     # CHANGE THIS TO THE JOB NAME FROM THE LAST STEP
+#     - build-fastapi-locations-image-job
+#   services:
+#     - docker:20.10.16-dind
+#   script:
+#     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+#     - docker login --username=_ --password=$HEROKU_API_KEY registry.heroku.com
+
+#     # EVERYWHERE IT SHOWS locations_api BELOW, CHANGE THOSE
+#     # TO THE NAME YOU CHOSE FOR THE BUILD STEP (2 PLACES)
+
+#     # EVERYWHERE IT SHOWS HEROKU_APP_FASTAPI_LOCATIONS BELOW, CHANGE
+#     # THOSE TO THE VARIABLE NAME YOU CREATED FOR THE CI/CD
+#     # SETTINGS (2 PLACES)
+
+#     # IF THIS IS FOR A BACKGROUND SERVICE LIKE A POLLER,
+#     # CHANGE web TO worker (1 PLACE)
+#     - docker pull ${CI_REGISTRY_IMAGE}/locations_api:latest
+#     - docker tag ${CI_REGISTRY_IMAGE}/locations_api:latest registry.heroku.com/$HEROKU_APP_FASTAPI_LOCATIONS/web:latest
+#     - docker push registry.heroku.com/$HEROKU_APP_FASTAPI_LOCATIONS/web:latest
+
+# release-fastapi-locations-image-job:
+#   stage: deploy
+#   image: node:10.17-alpine
+#   needs:
+#     # CHANGE THIS TO THE JOB NAME FROM THE LAST STEP
+#     - deploy-fastapi-locations-image-job
+#   rules:
+#     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+#   before_script:
+#     - apk add curl bash
+#     - curl https://cli-assets.heroku.com/install.sh | sh
+#   script:
+#     # EVERYWHERE IT SHOWS HEROKU_APP_FASTAPI_LOCATIONS BELOW, CHANGE
+#     # THOSE TO THE VARIABLE NAME YOU CREATED FOR THE CI/CD
+#     # SETTINGS (1 PLACE)
+
+#     # IF THIS IS FOR A BACKGROUND SERVICE LIKE A POLLER,
+#     # CHANGE web TO worker (1 PLACE)
+#     - heroku container:release web --app $HEROKU_APP_FASTAPI_LOCATIONS
+
+
+# # CURRENCY -----------------------
+# build-fastapi-currency-image-job:
+#   rules:
+#     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+#   stage: build
+#   image: docker:20.10.16
+#   needs:
+#     - currency-unit-test-job
+#   services:
+#     - docker:20.10.16-dind
+#   script:
+#     # CHANGE THIS TO THE DIRECTORY THAT HAS YOUR Dockerfile
+#     - cd api/currency
+
+#     # EVERYWHERE IT SHOWS currency_api BELOW, CHANGE THOSE
+#     # TO A MORE MEANINGFUL SERVICE NAME (5 PLACES)
+#     - docker build -t ${CI_REGISTRY_IMAGE}/currency_api:latest .
+#     - docker tag ${CI_REGISTRY_IMAGE}/currency_api:latest ${CI_REGISTRY_IMAGE}/currency_api:$CI_JOB_ID
+#     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+#     - docker push ${CI_REGISTRY_IMAGE}/currency_api:$CI_JOB_ID
+#     - docker push ${CI_REGISTRY_IMAGE}/currency_api:latest
+
+# deploy-fastapi-currency-image-job:
+#   rules:
+#     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+#   stage: deploy
+#   image: docker:20.10.16
+#   needs:
+#     # CHANGE THIS TO THE JOB NAME FROM THE LAST STEP
+#     - build-fastapi-currency-image-job
+#   services:
+#     - docker:20.10.16-dind
+#   script:
+#     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+#     - docker login --username=_ --password=$HEROKU_API_KEY registry.heroku.com
+
+#     # EVERYWHERE IT SHOWS currency_api BELOW, CHANGE THOSE
+#     # TO THE NAME YOU CHOSE FOR THE BUILD STEP (2 PLACES)
+
+#     # EVERYWHERE IT SHOWS HEROKU_APP_FASTAPI_CURRENCY BELOW, CHANGE
+#     # THOSE TO THE VARIABLE NAME YOU CREATED FOR THE CI/CD
+#     # SETTINGS (2 PLACES)
+
+#     # IF THIS IS FOR A BACKGROUND SERVICE LIKE A POLLER,
+#     # CHANGE web TO worker (1 PLACE)
+#     - docker pull ${CI_REGISTRY_IMAGE}/currency_api:latest
+#     - docker tag ${CI_REGISTRY_IMAGE}/currency_api:latest registry.heroku.com/$HEROKU_APP_FASTAPI_CURRENCY/web:latest
+#     - docker push registry.heroku.com/$HEROKU_APP_FASTAPI_CURRENCY/web:latest
+
+# release-fastapi-currency-image-job:
+#   stage: deploy
+#   image: node:10.17-alpine
+#   needs:
+#     # CHANGE THIS TO THE JOB NAME FROM THE LAST STEP
+#     - deploy-fastapi-currency-image-job
+#   rules:
+#     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+#   before_script:
+#     - apk add curl bash
+#     - curl https://cli-assets.heroku.com/install.sh | sh
+#   script:
+#     # EVERYWHERE IT SHOWS HEROKU_APP_FASTAPI_CURRENCY BELOW, CHANGE
+#     # THOSE TO THE VARIABLE NAME YOU CREATED FOR THE CI/CD
+#     # SETTINGS (1 PLACE)
+
+#     # IF THIS IS FOR A BACKGROUND SERVICE LIKE A POLLER,
+#     # CHANGE web TO worker (1 PLACE)
+#     - heroku container:release web --app $HEROKU_APP_FASTAPI_CURRENCY

@@ -9,13 +9,11 @@ variables:
   REACT_APP_FASTAPI_FLIGHTS: https://${HEROKU_APP_FASTAPI_FLIGHTS}.herokuapp.com
   REACT_APP_FASTAPI_LOCATIONS: https://${HEROKU_APP_FASTAPI_LOCATIONS}.herokuapp.com
   REACT_APP_FASTAPI_WEATHER: https://${HEROKU_APP_FASTAPI_WEATHER}.herokuapp.com
+  POSTGRES_PASSWORD: test
+  DATABASE_URL: postgresql://postgres:test@postgres:5432/postgres
 
 services:
   - postgres:14.2-bullseye
-
-variables:
-  POSTGRES_PASSWORD: test
-  DATABASE_URL: postgresql://postgres:test@postgres:5432/postgres
 
 # TEST
 weather-unit-test-job:
@@ -50,13 +48,12 @@ packing-lists-unit-test-job:
     - pip install -r requirements.txt
     - python manage.py test
   
-# lint-test-job:
-#   image: python:3-bullseye
-#   stage: test
-#   script:
-#     - pip install flake8
-#     - flake8 api  # Run flake8 on Python project to check
-#                   # for code quality
+lint-test-job:
+  image: python:3-bullseye
+  stage: test
+  script:
+    - pip install flake8
+    - flake8 packing-lists/packed_api
 
 
 # BUILDING AND DEPLOYMENT ARE DIVIDED BY MICROSERVICE
