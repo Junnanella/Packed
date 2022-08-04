@@ -1,5 +1,4 @@
 import "./pages.css";
-import { useLocation } from 'react-router-dom';
 import AuthContext from '../context/AuthContext';
 import CurrencyInfo from '../DataCharts/CurrencyInfo';
 import WeatherChart from "../DataCharts/WeatherChart";
@@ -7,6 +6,7 @@ import { useEffect, useState, useContext } from 'react';
 import { faSave } from '@fortawesome/free-solid-svg-icons';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { UserItemForm } from "../PackingListComponents/UserInputItems";
 
@@ -20,6 +20,7 @@ function getLocaleDates(date) {
 }
 
 function DetailList() {
+    const navigate = useNavigate();
     const location = useLocation();
     const packingList = location.state.packingList
     const packingListId = packingList.id;
@@ -39,8 +40,9 @@ function DetailList() {
         "progress-bar-striped bg-warning progress-bar-animated"
     )
     const itemsUrl = `${process.env.REACT_APP_DJANGO_PACKING_LISTS}/api/packing_lists/${packingListId}/items/`;
+    const packingListUrl = `${process.env.REACT_APP_DJANGO_PACKING_LISTS}/api/packing_lists/${packingListId}/`;
 
-    async function fetchData(url, body=null, method="GET") {
+    async function fetchData(url, method="GET", body=null) {
         const fetchConfig = {
             method: method,
             headers: {
@@ -74,6 +76,7 @@ function DetailList() {
     }
 
     function deleteItem(event) {
+        event.preventDefault();
         const name = event.target.value;
         const item_index = findItem(name);
         const updatedItems = [...items.filter((_, i) => i !== item_index)];
@@ -81,8 +84,15 @@ function DetailList() {
         percentage(updatedItems);
     };
 
+    async function deletePackingList(event) {
+        event.preventDefault();
+        if (await fetchData(packingListUrl, "DELETE", null) !== null) {
+            navigate("/packinglists");
+        }
+    }
+
     async function sendChangesToDatabase() {
-        const updatedItems = await fetchData(itemsUrl, {items: items}, "PUT")
+        const updatedItems = await fetchData(itemsUrl,  "PUT", {items: items})
         if (updatedItems) {
             setEditMode(!editMode);
             makeRequests();
@@ -136,7 +146,7 @@ function DetailList() {
                         <div>
                             {getLocaleDates(departureDate)} - {getLocaleDates(returnDate)}
                         </div>
-                        <h2 className="p-1">{packingListTitle}</h2>
+                        <h2 className="p-1 col">{packingListTitle}</h2>
                         { editMode ?
                             <UserItemForm
                                 setItems={setItems}
@@ -268,7 +278,21 @@ function DetailList() {
                         })}
                     </tbody>
                 </table>
-                <div style={{textAlign: "right"}}>Created on {getLocaleDates(createdDate)}.</div>
+                <div className="row">
+                    {editMode ?
+                        <div className="col">
+                            <button
+                                className="btn btn-sm btn-danger"
+                                onClick={deletePackingList}
+                            >
+                                <FontAwesomeIcon icon={faTrash}/>  Delete Packing List
+                            </button>
+                        </div>
+                    :
+                        null
+                    }
+                    <div className="col" style={{textAlign: "right"}}>Created on {getLocaleDates(createdDate)}.</div>
+                </div>
             </div>
         </div>
     )

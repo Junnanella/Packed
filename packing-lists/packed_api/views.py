@@ -321,7 +321,7 @@ def api_packing_lists(request):
                 status=400,
             )
 
-@api_view(["GET", "PUT"])
+@api_view(["GET", "PUT", 'DELETE'])
 @permission_classes([IsAuthenticated])
 def api_packing_list(request, pk):
     if request.method == "GET":
@@ -331,6 +331,14 @@ def api_packing_list(request, pk):
             encoder=PackingListEncoder,
             safe=False,
         )
+    elif request.method == "DELETE":
+        try:
+            count, _ = PackingList.objects.get(id=pk).delete()
+            return JsonResponse(
+                {"deleted": count > 0},
+            )
+        except PackingList.DoesNotExist:
+            return model_instance_does_not_exist_message("PackingList", pk)
     else:
         try:
             content = json.loads(request.body)
