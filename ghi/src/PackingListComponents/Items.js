@@ -3,38 +3,27 @@ import { loadItemsList } from "./PackingListApi";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlusSquare } from '@fortawesome/free-solid-svg-icons';
 import AuthContext from "../context/AuthContext";
-import { useContext } from "react";
+import { useContext, useCallback, useMemo } from "react";
 
 export default function SuggestedItems({setItems, items}) {
   const [conditionalItems, setConditionalItems] = useState([]);
   const [generalItems, setGeneralItems] = useState([]);
   let {authTokens} = useContext(AuthContext)
-  const fetchConfig = {
-    method: "GET",
-    headers: {
+
+  const fetchConfig = useMemo(() => {
+    const params = {
+      method: "GET",
+      headers: {
         "Content-Type": "application/json",
+      }
     }
-  };
-  if (authTokens) {
-    fetchConfig.headers.Authorization = "Bearer " + String(authTokens?.access)
-  }
-  
-
-  useEffect(() => {
-    async function fetchData() {
-      const response = await loadItemsList("cold", fetchConfig);
-      const conditional = response.conditional_items.concat(response.user_favorite_items);
-      const general = response.general_items;
-      setConditionalItems(conditional);
-      setGeneralItems(general);
+    if (authTokens) {
+      params.headers.Authorization = "Bearer " + String(authTokens?.access)
     }
-    fetchData();
-  }, []);
-  // console.log("conditional:", conditionalItems)
-  // console.log("general:", generalItems)
+    return params
+  }, [authTokens]);
 
-
-  function validate() {
+  const validate = useCallback(() => {
     const tempItems = [...items]
     for (let i = 0; i < tempItems.length; i ++) {
       let item = tempItems[i]
@@ -59,8 +48,22 @@ export default function SuggestedItems({setItems, items}) {
         }
       }
     }
-  }
+  }, [generalItems, conditionalItems, items, setItems])
+
   validate();
+  
+  const fetchData = useCallback(async () => {
+    const response = await loadItemsList("cold", fetchConfig);
+    const conditional = response.conditional_items.concat(response.user_favorite_items);
+    const general = response.general_items;
+    setConditionalItems(conditional);
+    setGeneralItems(general);
+  },[fetchConfig])
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
+
 
   function addGItem(newItem) {
     newItem.quantity = 1;
