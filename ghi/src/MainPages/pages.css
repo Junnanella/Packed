@@ -63,26 +63,24 @@ body {
     background-color: #feb358;
 }
 
-div.detail-page-header {
-   text-align: center;
-   font-family: Arial, Helvetica, sans-serif;
-}
-
-h1.detail-page-header-text {
-    margin: 20px auto 20px auto;
-}
-
-/* img.luggage {
-    margin-bottom: 30px;
-    height: 17em;
-    opacity: 90%;
-} */
-
 /* Travel Detail Page */
+div.detail-page-header {
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+ }
+ 
+ h1.detail-page-header-text {
+     margin: 20px auto 20px auto;
+ }
+
+ .packing-list-heading, .items-heading, .add-items-heading {
+    text-align: center;
+ }
+
 div.item-column {
     padding-top: 3em;
+    margin-top: 1em;
     margin-right: 1em;
-    background-color: white;
     /* add item, packing list */
     
 }
@@ -92,13 +90,8 @@ div.item-column:hover {
 }
 
 div.data-column {
-    text-align: left;
-    padding-right: 5em;
-    padding-bottom: 3em;
+    margin-top: 1em;
     text-align: center;
-    background-color: white;
-    border: 1px solid transparent;
-    border-radius: 15px;
     /* weather */
 }
 
@@ -108,30 +101,26 @@ div.data-column:hover {
 
 div.currency-data {
     margin-top: 1em;
-    text-align: center;
     background-color: transparent;
-
 }
 
 div.detail-columns {
+    background-color: #fbfcfc;
     border: 1px solid transparent;
     border-radius: 15px;
+    padding-bottom: 2em;
 }
 
 div.travel-page {
-    margin-top: 3em;
-
+    border-radius: 20px;
+    background-color: #effef6;
 }
 
-img.bags {
+img.bags, .suitcases {
+    display: block;
+    margin: auto;
     max-width: 100% ;
 }
-
-img.suitcases {
-    max-width: 100%;
-    padding-left: 2.5in;
-}
-
 
 
 /* Packing Lists Page */

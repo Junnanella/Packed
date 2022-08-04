@@ -23,22 +23,29 @@ export default function TravelDetailPage() {
 
   // Will need to pass the above variable to the corresponding components
   return (
-    <div>
-      <div className="travel-page">
+    <div className="travel-page shadow mx-5 my-5 py-3">
+      <div className="container">
         <div className="detail-page-header">
           <h1>Hi {user?.username}! </h1>
-          <h2 className="detail-page-header-text display-4 fw-normal text-center g-5">
+          <h2 className="d-none d-lg-block detail-page-header-text display-4 fw-normal text-center g-5">
             Create a packing list for {destination_city}, {destination_country}!
           </h2>
-          <img src="../travel-bags.png" alt="bags" className="bags" />
+          <h5 className="d-block d-lg-none d-xl-none d-xxl-none">
+            Let's get packing!
+          </h5>
         </div>
         <div className="container">
+          <img
+            src="../travel-bags.png"
+            alt="bags"
+            className="bags d-none d-lg-block"
+          />
           <div className="row">
-            <div className="col item-column detail-columns">
+            <div className="col-sm-12 col-md col-lg item-column detail-columns shadow">
               <UserItemForm setItems={setItems} items={items} />
               <SuggestedItems setItems={setItems} items={items} />
             </div>
-            <div className="col item-column detail-columns">
+            <div className="col-sm-12 col-md col-lg item-column detail-columns shadow">
               <WorkingList
                 setItems={setItems}
                 items={items}
@@ -49,31 +56,26 @@ export default function TravelDetailPage() {
                 origin_country={origin_country}
               />
             </div>
-            <div className="col data-column detail-columns">
-              <div className="row">
-                <WeatherChart
-                  destination_city={destination_city}
-                  destination_country={destination_country}
-                  departure_date={departure_date}
-                  return_date={return_date}
-                />
-              </div>
-              <div className="row currency-data">
-                <CurrencyInfo
-                  origin_code={origin_code}
-                  destination_code={destination_code}
-                  detailPage={false}
-                />
-              </div>
-            </div>
-            <div>
-              <img
-                src="../travel-suitcases.png"
-                alt="suitcases"
-                className="suitcases"
-              />{" "}
+            <div className="col-sm-12 col-md-12 col-lg data-column detail-columns shadow">
+              <WeatherChart
+                destination_city={destination_city}
+                destination_country={destination_country}
+                departure_date={departure_date}
+                return_date={return_date}
+              />
+              <CurrencyInfo
+                origin_code={origin_code}
+                destination_code={destination_code}
+                detailPage={false}
+                className="currency-data"
+              />
             </div>
           </div>
+          <img
+            src="../travel-suitcases.png"
+            alt="suitcases"
+            className="suitcases"
+          />
         </div>
       </div>
     </div>
