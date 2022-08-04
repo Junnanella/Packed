@@ -17,6 +17,7 @@ export default function TravelDetailPage() {
   const destination_country = searchParams.get("destination_country");
   const destination_code = searchParams.get("destination_code");
   const departure_date = searchParams.get("departure_date");
+  const [temperature, setTemperature] = useState(null);
   const return_date = searchParams.get("return_date");
   const [items, setItems] = useState([]);
   let { user } = useContext(AuthContext);
@@ -62,6 +63,7 @@ export default function TravelDetailPage() {
                 destination_country={destination_country}
                 departure_date={departure_date}
                 return_date={return_date}
+                origin_country={origin_country}
               />
               <CurrencyInfo
                 origin_code={origin_code}
@@ -69,6 +71,13 @@ export default function TravelDetailPage() {
                 detailPage={false}
                 className="currency-data"
               />
+            </div>
+            <div>
+              <img
+                src="../travel-suitcases.png"
+                alt="suitcases"
+                className="suitcases"
+              />{" "}
             </div>
           </div>
           <img

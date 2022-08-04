@@ -8,11 +8,11 @@ from .models import (
     User,
 )
 
+
 class UserEncoder(ModelEncoder):
     model = User
-    properties = [
-        "username"
-    ]
+    properties = ["username"]
+
 
 class CategoryEncoder(ModelEncoder):
     model = Category
@@ -21,12 +21,14 @@ class CategoryEncoder(ModelEncoder):
         "name",
     ]
 
+
 class ConditionEncoder(ModelEncoder):
     model = Condition
     properties = [
         "id",
         "name",
     ]
+
 
 class ItemEncoder(ModelEncoder):
     model = Item
@@ -38,9 +40,10 @@ class ItemEncoder(ModelEncoder):
         "suggested",
     ]
     encoders = {
-        "category" : CategoryEncoder(),
+        "category": CategoryEncoder(),
         "condition": ConditionEncoder(),
     }
+
 
 class SimpleItemEncoder(ModelEncoder):
     model = Item
@@ -49,6 +52,7 @@ class SimpleItemEncoder(ModelEncoder):
         "name",
         "suggested",
     ]
+
 
 class PackingListItemEncoder(ModelEncoder):
     model = PackingListItem
@@ -60,9 +64,10 @@ class PackingListItemEncoder(ModelEncoder):
         # "owner",
     ]
     encoders = {
-        "item_name" : SimpleItemEncoder(),
+        "item_name": SimpleItemEncoder(),
         # "owner": UserEncoder(),
     }
+
 
 class PackingListEncoder(ModelEncoder):
     model = PackingList
@@ -76,7 +81,6 @@ class PackingListEncoder(ModelEncoder):
         "destination_city",
         "destination_country",
     ]
-
 
 
 # class PackingListItemEncoder(ModelEncoder):
@@ -93,5 +97,3 @@ class PackingListEncoder(ModelEncoder):
 #         "item_name" : ItemEncoder(),
 #         "packing_list" : PackingListEncoder()
 #     }
-
-

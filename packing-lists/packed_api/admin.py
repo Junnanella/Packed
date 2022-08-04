@@ -1,13 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import(
-    Category,
-    PackingList,
-    Item,
-    PackingListItem,
-    Condition,
-    User
-) 
+from .models import Category, PackingList, Item, PackingListItem, Condition, User
 
 
 # Register your models here.

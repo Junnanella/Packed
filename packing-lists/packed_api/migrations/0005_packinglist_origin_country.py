@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('packed_api', '0004_packinglistitem_owner'),
+        ("packed_api", "0004_packinglistitem_owner"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='packinglist',
-            name='origin_country',
+            model_name="packinglist",
+            name="origin_country",
             field=models.CharField(max_length=70, null=True),
         ),
     ]

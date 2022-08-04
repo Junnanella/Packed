@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect, useCallback } from "react";
 import jwt_decode from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 
@@ -6,7 +6,7 @@ const AuthContext = createContext();
 
 export default AuthContext;
 
-
+// 🚨
 export const AuthProvider = ({children}) => {
 
     let [loading, setLoading] = useState(true);
@@ -68,16 +68,17 @@ export const AuthProvider = ({children}) => {
         }
     }
 
-    let logoutUser = () => {
+    let logoutUser = useCallback(() => {
         setAuthTokens(null)
         setUser(null)
         localStorage.removeItem("authTokens")
         navigate("/")
-    }
+    }, [navigate])
 
-    let updateToken = async () => {
+    let updateToken = useCallback(async () => {
         console.log("Updated access token (if user inactive, automatically done every 29 minutes)")
         const url = `${process.env.REACT_APP_DJANGO_PACKING_LISTS}/auth/token/refresh/`;
+
         const params = {
             "refresh": authTokens?.refresh
         }
@@ -105,7 +106,7 @@ export const AuthProvider = ({children}) => {
         if (loading) {
             setLoading(false);
         }
-    }
+    }, [authTokens?.refresh, loading, logoutUser])
 
     const contextData = {
         user: user,
@@ -127,7 +128,7 @@ export const AuthProvider = ({children}) => {
         }, fourMinutes)
         return () => clearInterval(interval);
 
-    },[authTokens, loading])
+    },[authTokens, loading, updateToken])
 
     
     return (

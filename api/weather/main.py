@@ -9,10 +9,7 @@ import os
 
 app = FastAPI()
 
-origins = [
-    "http://localhost:3000",
-    os.environ.get("CORS_HOST", None)
-]
+origins = ["http://localhost:3000", os.environ.get("CORS_HOST", None)]
 
 app.add_middleware(
     CORSMiddleware,
@@ -64,6 +61,7 @@ class WeatherQueries:
         return data
 
 
+# 🚨
 # 🐰 🐰 🐰 takes in dates in a "YYYY-MM-DD" format
 @app.get("/api/weather", response_model=TempsOut)
 def temp_list(

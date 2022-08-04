@@ -9,15 +9,13 @@ variables:
   REACT_APP_FASTAPI_FLIGHTS: https://${HEROKU_APP_FASTAPI_FLIGHTS}.herokuapp.com
   REACT_APP_FASTAPI_LOCATIONS: https://${HEROKU_APP_FASTAPI_LOCATIONS}.herokuapp.com
   REACT_APP_FASTAPI_WEATHER: https://${HEROKU_APP_FASTAPI_WEATHER}.herokuapp.com
+  POSTGRES_PASSWORD: test
+  DATABASE_URL: postgresql://postgres:test@postgres:5432/postgres
 
 services:
   - postgres:14.2-bullseye
 
-variables:
-  POSTGRES_PASSWORD: test
-  DATABASE_URL: postgresql://postgres:test@postgres:5432/postgres
-
-# TEST
+# UNIT TESTS ---------------------
 weather-unit-test-job:
   image: python:3-bullseye
   stage: test
@@ -49,14 +47,41 @@ packing-lists-unit-test-job:
     - cd packing-lists
     - pip install -r requirements.txt
     - python manage.py test
+
+
+# LINTING TESTS ---------------------  
+packing-lists-linting-job:
+  image: python:3-bullseye
+  stage: test
+  script:
+    - pip install flake8
+    - flake8 --max-line-length=88 --ignore=E501 packing-lists/packed_api/auth
+    - flake8 --max-line-length=88 --ignore=E501 packing-lists/packed_api/tests
+    - flake8 --max-line-length=88 --ignore=E501 packing-lists/packed_api/encoders
+    - flake8 --max-line-length=88 --ignore=E501 packing-lists/packed_api/models
+    - flake8 --max-line-length=88 --ignore=E501 packing-lists/packed_api/urls
+    - flake8 --max-line-length=88 --ignore=E501 packing-lists/packed_api/views
+
+locations-linting-job:
+  image: python:3-bullseye
+  stage: test
+  script:
+    - pip install flake8
+    - flake8 --max-line-length=88 --ignore=E501 api/locations
   
-# lint-test-job:
-#   image: python:3-bullseye
-#   stage: test
-#   script:
-#     - pip install flake8
-#     - flake8 api  # Run flake8 on Python project to check
-#                   # for code quality
+currency-linting-job:
+  image: python:3-bullseye
+  stage: test
+  script:
+    - pip install flake8
+    - flake8 --max-line-length=88 --ignore=E501 api/currency
+  
+weather-linting-job:
+  image: python:3-bullseye
+  stage: test
+  script:
+    - pip install flake8
+    - flake8 --max-line-length=88 --ignore=E501 api/weather
 
 
 # BUILDING AND DEPLOYMENT ARE DIVIDED BY MICROSERVICE
@@ -66,7 +91,7 @@ build-front-end-job:
   stage: build
   image: node:lts-bullseye
   variables:
-    PUBLIC_URL: https://packed.gitlab.io/packed
+    PUBLIC_URL: https://packed-module-3.gitlab.io/packed
   needs:
     - weather-unit-test-job
     - locations-unit-test-job
@@ -109,6 +134,7 @@ build-django-packing-list-image-job:
     - docker:20.10.16-dind
   needs:
     - packing-lists-unit-test-job
+    - packing-lists-linting-job
   script:
     # CHANGE THIS TO THE DIRECTORY THAT HAS YOUR Dockerfile
     - cd packing-lists
@@ -175,6 +201,7 @@ build-fastapi-weather-image-job:
   image: docker:20.10.16
   needs:
     - weather-unit-test-job
+    - weather-linting-job
   services:
     - docker:20.10.16-dind
   script:
@@ -243,6 +270,7 @@ build-fastapi-locations-image-job:
   image: docker:20.10.16
   needs:
     - locations-unit-test-job
+    - locations-linting-job
   services:
     - docker:20.10.16-dind
   script:
@@ -313,6 +341,7 @@ build-fastapi-currency-image-job:
   image: docker:20.10.16
   needs:
     - currency-unit-test-job
+    - currency-linting-job
   services:
     - docker:20.10.16-dind
   script:
