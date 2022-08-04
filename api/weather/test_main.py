@@ -1,5 +1,4 @@
 from main import app, WeatherQueries
-import datetime
 import json
 from fastapi.testclient import TestClient
 
