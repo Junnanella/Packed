@@ -19,7 +19,7 @@ export default function TravelDetailPage() {
   const departure_date = searchParams.get("departure_date");
   const return_date = searchParams.get("return_date");
   const [items, setItems] = useState([]);
-  let {user, authTokens} = useContext(AuthContext);
+  let { user } = useContext(AuthContext);
 
 
   // Will need to pass the above variable to the corresponding components
