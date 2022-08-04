@@ -1,6 +1,6 @@
 // 🚨
 export const loadLocationsData = async () => {
-  const response = await fetch(`${process.env.REACT_APP_FASTAPI_LOCATIONS}/api/locations`);
+  const response = await fetch(`${process.env.REACT_APP_FASTAPI_LOCATIONS}/api/locations/`);
   const responseJson = await response.json();
   return responseJson.countries;
 };
