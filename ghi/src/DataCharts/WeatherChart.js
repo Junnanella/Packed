@@ -28,8 +28,13 @@ const useWeatherData = (
 };
 
 export default function WeatherChart(props) {
-  const { destination_city, destination_country, departure_date, return_date, detail=null } =
-    props;
+  const {
+    destination_city,
+    destination_country,
+    departure_date,
+    return_date,
+    detail = null,
+  } = props;
   const weather = useWeatherData(
     destination_city,
     destination_country,
@@ -76,12 +81,8 @@ export default function WeatherChart(props) {
   });
 
   return (
-    <div className="container-sm offset-1 weather-component">
-      {!detail ?
-        <h3 className="mt-5">Expected Weather</h3>
-      :
-        null
-      }
+    <div className="container-sm weather-component">
+      {!detail ? <h3 className="mt-5">Expected Weather</h3> : null}
       <table className="weather-table">
         <thead>
           <tr>{weatherIcon}</tr>
