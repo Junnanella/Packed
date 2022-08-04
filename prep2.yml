@@ -55,10 +55,10 @@ packing-lists-linting-job:
     - pip install flake8
     - flake8 --max-line-length=88 --ignore=E501 packing-lists/packed_api/auth
     - flake8 --max-line-length=88 --ignore=E501 packing-lists/packed_api/tests
-    - flake8 --max-line-length=88 --ignore=E501 packing-lists/packed_api/encoders.py
-    - flake8 --max-line-length=88 --ignore=E501 packing-lists/packed_api/models.py
-    - flake8 --max-line-length=88 --ignore=E501 packing-lists/packed_api/urls.py
-    - flake8 --max-line-length=88 --ignore=E501 packing-lists/packed_api/views.py
+    - flake8 --max-line-length=88 --ignore=E501 packing-lists/packed_api/encoders
+    - flake8 --max-line-length=88 --ignore=E501 packing-lists/packed_api/models
+    - flake8 --max-line-length=88 --ignore=E501 packing-lists/packed_api/urls
+    - flake8 --max-line-length=88 --ignore=E501 packing-lists/packed_api/views
 
 locations-linting-job:
   image: python:3-bullseye
@@ -90,15 +90,11 @@ weather-linting-job:
 #   image: node:lts-bullseye
 #   variables:
 #     PUBLIC_URL: https://packed-module-3.gitlab.io/packed
-  # needs:
-  #   - weather-unit-test-job
-  #   - weather-linting-job
-  #   - locations-unit-test-job
-  #   - locations-linting-job
-  #   - currency-unit-test-job
-  #   - currency-linting-job
-  #   - packing-lists-unit-test-job
-  #   - packing-lists-linting-job
+#   needs:
+#     - weather-unit-test-job
+#     - locations-unit-test-job
+#     - currency-unit-test-job
+#     - packing-lists-unit-test-job
 #   script:
 #     - cd ghi
 #     - npm install
@@ -136,7 +132,6 @@ weather-linting-job:
 #     - docker:20.10.16-dind
 #   needs:
 #     - packing-lists-unit-test-job
-#     - packing-lists-linting-job
 #   script:
 #     # CHANGE THIS TO THE DIRECTORY THAT HAS YOUR Dockerfile
 #     - cd packing-lists
@@ -203,7 +198,6 @@ weather-linting-job:
 #   image: docker:20.10.16
 #   needs:
 #     - weather-unit-test-job
-#     - weather-linting-job
 #   services:
 #     - docker:20.10.16-dind
 #   script:
@@ -272,7 +266,6 @@ weather-linting-job:
 #   image: docker:20.10.16
 #   needs:
 #     - locations-unit-test-job
-#     - locations-linting-job
 #   services:
 #     - docker:20.10.16-dind
 #   script:
@@ -343,7 +336,6 @@ weather-linting-job:
 #   image: docker:20.10.16
 #   needs:
 #     - currency-unit-test-job
-#     - currency-linting-job
 #   services:
 #     - docker:20.10.16-dind
 #   script:

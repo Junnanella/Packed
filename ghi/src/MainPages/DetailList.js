@@ -2,12 +2,12 @@ import "./pages.css";
 import AuthContext from '../context/AuthContext';
 import CurrencyInfo from '../DataCharts/CurrencyInfo';
 import WeatherChart from "../DataCharts/WeatherChart";
-import { useEffect, useState, useContext } from 'react';
 import { faSave } from '@fortawesome/free-solid-svg-icons';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useEffect, useState, useContext, useCallback } from 'react';
 import { UserItemForm } from "../PackingListComponents/UserInputItems";
 
 function getLocaleDates(date) {
@@ -44,7 +44,7 @@ function DetailList() {
     async function fetchData(url, body=null, method="GET") {
     const packingListUrl = `${process.env.REACT_APP_DJANGO_PACKING_LISTS}/api/packing_lists/${packingListId}/`;
 
-    async function fetchData(url, method="GET", body=null) {
+    const fetchData = useCallback(async (url, method="GET", body=null) => {
         const fetchConfig = {
             method: method,
             headers: {
@@ -66,7 +66,7 @@ function DetailList() {
             console.error(response.status);
             alert("Failed operation")
         }
-    }
+    }, [authTokens?.access])
 
     function findItem(name) {
         for (let index = 0; index < items.length; index ++) {
@@ -104,6 +104,8 @@ function DetailList() {
     }
     // 🚨
     function percentage(fetchedItems=null) {
+
+    const percentage = useCallback((fetchedItems=null) => {
         const data = !fetchedItems ? items : fetchedItems;
         const numItems = data.length
         const numPackedItems = data.filter(item => {
@@ -119,6 +121,9 @@ function DetailList() {
     }
     // 🚨
     async function makeRequests () {
+    },[items])
+
+    const makeRequests = useCallback(async () => {
         const itemsObject = await fetchData(itemsUrl);
         if (itemsObject) {
             const listOfItems = itemsObject.items;
@@ -131,14 +136,14 @@ function DetailList() {
             setItems(listOfItems);
             percentage(listOfItems);
         }
-    }
+    },[fetchData, percentage, itemsUrl])
 
     useEffect(() => {
         if (mount) {
             makeRequests();
             setMount(false);
         }
-    }, [mount])
+    }, [mount, fetchData, makeRequests])
 
     return(
         <div className="container mt-3">

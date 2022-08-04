@@ -7,10 +7,7 @@ from db import CurrencyQueries
 
 app = FastAPI()
 
-origins = [
-    "http://localhost:3000",
-    os.environ.get("CORS_HOST", None)
-]
+origins = ["http://localhost:3000", os.environ.get("CORS_HOST", None)]
 
 app.add_middleware(
     CORSMiddleware,
@@ -34,16 +31,22 @@ class CountriesOut(BaseModel):
 class ErrorMessage(BaseModel):
     message: str
 
+<<<<<<< HEAD
 # 🚨
 @app.get("/api/locations",
+=======
+
+@app.get(
+    "/api/locations",
+>>>>>>> 942cb8be5a00baac349d4295db68187cf5d7da35
     response_model=Union[CountriesOut, ErrorMessage],
     responses={
-    200: {"model": CountriesOut},
-    404: {"model": ErrorMessage},
-},
+        200: {"model": CountriesOut},
+        404: {"model": ErrorMessage},
+    },
 )
 def get_countries_and_currencies(
-    response:Response,
+    response: Response,
     query=Depends(CurrencyQueries),
 ):
     countries = query.get_list_from_db()

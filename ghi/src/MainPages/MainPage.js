@@ -1,5 +1,6 @@
 import { TripForm } from "./TripForm";
 import "./pages.css";
+import group from "../Images/group.png"
 
 export default function MainPage() {
   return (
@@ -15,7 +16,7 @@ export default function MainPage() {
         </div>
       </div>
       <div className="row">
-        <img className="group-pic" src="../group.png" alt="group" />
+        <img className="group-pic" src={group} alt="group" />
       </div>
     </div>
   );

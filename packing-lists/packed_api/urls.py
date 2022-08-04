@@ -17,10 +17,18 @@ urlpatterns = [
     path("categories/<int:pk>/", api_category, name="api_category"),
     path("items", api_items, name="api_items"),
     path("items/<int:pk>/", api_item, name="api_item"),
-    path("items/conditions/<str:condition>/", api_conditional_items, name="api_conditional_items"),    
-    path("conditions", api_conditions, name="api_conditions"), 
+    path(
+        "items/conditions/<str:condition>/",
+        api_conditional_items,
+        name="api_conditional_items",
+    ),
+    path("conditions", api_conditions, name="api_conditions"),
     path("conditions/<int:pk>/", api_condition, name="api_condition"),
     path("packing_lists/", api_packing_lists, name="api_packing_lists"),
     path("packing_lists/<int:pk>/", api_packing_list, name="api_packing_list"),
-    path("packing_lists/<int:pk>/items/", api_packing_list_items, name="api_packing_list_items"),
+    path(
+        "packing_lists/<int:pk>/items/",
+        api_packing_list_items,
+        name="api_packing_list_items",
+    ),
 ]

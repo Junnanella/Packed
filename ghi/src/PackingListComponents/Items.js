@@ -3,36 +3,43 @@ import { loadItemsList } from "./PackingListApi";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlusSquare } from '@fortawesome/free-solid-svg-icons';
 import AuthContext from "../context/AuthContext";
-import { useContext } from "react";
+import { useContext, useCallback, useMemo } from "react";
 
-export default function SuggestedItems({setItems, items}) {
+function analyzeTemp(tempData) {
+  const temperature = tempData[0].temperature
+  if (temperature > 70) {
+    return "hot"
+  } else if (temperature > 55) {
+    return "moderate"
+  } else {
+    return "cold"
+  }
+}
+
+export default function SuggestedItems({setItems, items, temperature}) {
   const [conditionalItems, setConditionalItems] = useState([]);
   const [generalItems, setGeneralItems] = useState([]);
   let {authTokens} = useContext(AuthContext)
-  const fetchConfig = {
-    method: "GET",
-    headers: {
-        "Content-Type": "application/json",
-    }
-  };
-  if (authTokens) {
-    fetchConfig.headers.Authorization = "Bearer " + String(authTokens?.access)
-  }
-  
 
-  useEffect(() => {
-    async function fetchData() {
-      const response = await loadItemsList("cold", fetchConfig);
-      const conditional = response.conditional_items.concat(response.user_favorite_items);
-      const general = response.general_items;
-      setConditionalItems(conditional);
-      setGeneralItems(general);
+  const fetchConfig = useMemo(() => {
+    const params = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      }
+    }
+    if (authTokens) {
+      params.headers.Authorization = "Bearer " + String(authTokens?.access)
     }
     fetchData();
   }, []);
 
   
   function validate() {
+    return params
+  }, [authTokens]);
+
+  const validate = useCallback(() => {
     const tempItems = [...items]
     for (let i = 0; i < tempItems.length; i ++) {
       let item = tempItems[i]
@@ -57,8 +64,24 @@ export default function SuggestedItems({setItems, items}) {
         }
       }
     }
-  }
+  }, [generalItems, conditionalItems, items, setItems])
+
   validate();
+  
+  const fetchData = useCallback(async () => {
+    if (temperature) {
+      const response = await loadItemsList(analyzeTemp(temperature), fetchConfig);
+      const conditional = response.conditional_items.concat(response.user_favorite_items);
+      const general = response.general_items;
+      setConditionalItems(conditional);
+      setGeneralItems(general);
+    }
+  },[fetchConfig, temperature])
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
+
 
   function addGItem(newItem) {
     newItem.quantity = 1;

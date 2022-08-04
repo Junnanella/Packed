@@ -7,10 +7,7 @@ CURRENCY_RATE_API_KEY = os.environ["CURRENCY_RATE_API_KEY"]
 
 app = FastAPI()
 
-origins = [
-    "http://localhost:3000",
-    os.environ.get("CORS_HOST", None)
-]
+origins = ["http://localhost:3000", os.environ.get("CORS_HOST", None)]
 
 app.add_middleware(
     CORSMiddleware,

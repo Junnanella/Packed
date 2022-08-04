@@ -7,7 +7,8 @@ const useWeatherData = (
   destination_city,
   destination_country,
   departure_date,
-  return_date
+  return_date,
+  setTemperature,
 ) => {
   const [weather, setWeather] = useState([]);
 
@@ -20,21 +21,25 @@ const useWeatherData = (
         return_date
       );
       setWeather(weather_response);
+      if (setTemperature) {
+        setTemperature(weather_response)
+      }
     }
     fetchData();
-  }, [destination_city, destination_country, departure_date, return_date]);
+  }, [destination_city, destination_country, departure_date, return_date, setTemperature]);
 
   return weather;
 };
 
 export default function WeatherChart(props) {
-  const { destination_city, destination_country, departure_date, return_date, detail=null } =
+  const { destination_city, destination_country, departure_date, return_date, detail=null, setTemperature=null } =
     props;
   const weather = useWeatherData(
     destination_city,
     destination_country,
     departure_date,
-    return_date
+    return_date,
+    setTemperature,
   );
 
   if (weather === undefined) {

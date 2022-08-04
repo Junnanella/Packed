@@ -175,3 +175,14 @@ Today, I worked on:
 The group and I talked a lot about the GHI today. Junella found a theme that we are trying to base our look off of. Adding color and various other CSS to the site has breathed life into it. We also talked about the tasks to complete before the end of the week.
 
 Users obviously want to be suggested the items they have packed for trips before. I spent some time updating the views to allow users to be able to do exactly that. I also spent some time learning about css and how to alter the look of the packing list page. After working on that for a while, I dug into continuous deployment. It is a lot of detailed work but will be well worth it when the site is live.
+
+## Aug 3, 2022
+
+Today, I worked on:
+* Fixing various errors around the frontend
+* Improving the look of the detailed packing list page
+* Deploying the site
+
+The group and I spent a good chunk of the morning discussing the GHI and making a game plan to complete it before due date. It was a good chance to give/receive feedback on our work and implement the suggestions.
+
+Today was a struggle for me to implement a feature on the detail packing list page. I still have not gotten it to work and am a bit burned out. I will give it a fresh attempt tomorrow. Deployment has been a good experience overall. I had a bug in the gitlab-ci module that took a while to find but now the website seems to be deployed semi-successfully. Tomorrow, I will go over the steps of deployment with the group.

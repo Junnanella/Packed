@@ -7,7 +7,6 @@ import { faSave } from '@fortawesome/free-solid-svg-icons';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 
 
-
 function WorkingList({
     items,
     setItems,
