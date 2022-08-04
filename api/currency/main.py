@@ -29,7 +29,8 @@ headers = {"apikey": CURRENCY_RATE_API_KEY}
 class ApiRateLimitExceeded(Exception):
     pass
 
-
+# get_currency_rate makes sure only the "result" key, which holds the currency exchange 
+# rate, is pulled from the Currency API call using the built in splitines() method
 def get_currency_rate(url):
     payload = {}
     headers = {"apikey": CURRENCY_RATE_API_KEY}
@@ -54,25 +55,10 @@ def currency_exchange_rate(origin_country, destination_country):
     except ApiRateLimitExceeded:
         raise HTTPException(status_code=400, detail="Currency API rate limit exceeded")
 
-
+# 🚨🚨🚨 REMOVE fake function before deploying!!
+# **DEV USE ONLY**
+# fake_currency_exchange_rate allows a set amount to be returned during testing to limit API calls 
 @app.get("/api/fake/convert")
 def fake_currency_exchange_rate(origin_country, destination_country):
     return "0.987"
 
-
-# API call output
-
-# {
-#     "success": true,
-#     "query": {
-#         "from": "USD",
-#         "to": "EUR",
-#         "amount": 1
-#     },
-#     "info": {
-#         "timestamp": 1657670399,
-#         "rate": 0.997805
-#     },
-#     "date": "2022-07-11",
-#     "result": 0.997805
-# }

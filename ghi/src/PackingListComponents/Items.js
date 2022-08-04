@@ -30,10 +30,8 @@ export default function SuggestedItems({setItems, items}) {
     }
     fetchData();
   }, []);
-  // console.log("conditional:", conditionalItems)
-  // console.log("general:", generalItems)
 
-
+  
   function validate() {
     const tempItems = [...items]
     for (let i = 0; i < tempItems.length; i ++) {
@@ -80,7 +78,7 @@ export default function SuggestedItems({setItems, items}) {
     <div className="container">
       <h4>Things you might need</h4>
       <div className="input-group mb-3">
-        <div>
+        <div className="item-tables">
           <table className="table table-hover">
             <thead>
               <tr>
@@ -93,7 +91,7 @@ export default function SuggestedItems({setItems, items}) {
                   <tr key={item.name}>
                     <td>{item.name}</td>
                     <td>
-                      <button className="btn btn-sm btn-outline-danger" onClick={(e) => addGItem(item)}><FontAwesomeIcon icon={faPlusSquare} /></button>
+                      <button className="btn btn-success btn-sm" onClick={(e) => addGItem(item)}><FontAwesomeIcon icon={faPlusSquare} /></button>
                     </td>
                   </tr>
                 );
@@ -112,7 +110,7 @@ export default function SuggestedItems({setItems, items}) {
                 <tr key={item.name}>
                   <td>{item.name}</td>
                   <td>
-                    <button className="btn btn-sm btn-outline-danger" onClick={(e) => addCItem(item)}><FontAwesomeIcon icon={faPlusSquare} /></button>
+                    <button className="btn btn-success btn-sm" onClick={(e) => addCItem(item)}><FontAwesomeIcon icon={faPlusSquare} /></button>
                   </td>
                 </tr>
               );

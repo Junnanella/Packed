@@ -31,7 +31,7 @@ function DetailList() {
 
     const packingListUrl = `${process.env.REACT_APP_DJANGO_PACKING_LISTS}/api/packing_lists/${packingListId}/`;
     const itemsUrl = `${process.env.REACT_APP_DJANGO_PACKING_LISTS}/api/packing_lists/${packingListId}/items/`;
-
+    // 🚨
     async function fetchData(url, body=null, method="GET") {
         const fetchConfig = {
             method: method,
@@ -64,7 +64,7 @@ function DetailList() {
         }
         return "item not found!";
     }
-
+    
     function deleteItem(event) {
         const name = event.target.value;
         const item_index = findItem(name);
@@ -82,7 +82,7 @@ function DetailList() {
             console.log("something went wrong")
         }
     }
-
+    // 🚨
     function percentage(fetchedItems=null) {
         const data = !fetchedItems ? items : fetchedItems;
         const numItems = data.length
@@ -97,7 +97,7 @@ function DetailList() {
             setProgressBarColor("progress-bar-striped bg-warning progress-bar-animated");
         }
     }
-
+    // 🚨
     async function makeRequests () {
         const packingListData = await fetchData(packingListUrl);
         
