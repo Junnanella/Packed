@@ -1,17 +1,12 @@
-from tkinter import Pack
-from black import Mode
 from django.http import JsonResponse
 from django.core.exceptions import FieldDoesNotExist
 from django.views.decorators.http import require_http_methods
 from rest_framework.decorators import (
     permission_classes,
-    authentication_classes,
     api_view,
 )
-from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated, AllowAny
 import json
-from common.json import ModelEncoder
 from .encoders import (
     PackingListItemEncoder,
     PackingListEncoder,
@@ -25,7 +20,6 @@ from .models import (
     Category,
     Condition,
     Item,
-    User,
 )
 
 
@@ -301,7 +295,6 @@ def add_packing_list_item(item, packing_list, owner):
 
 
 @api_view(["GET", "POST"])
-# @authentication_classes([TokenAuthentication])
 @permission_classes([IsAuthenticated])
 def api_packing_lists(request):
     user = request.user
