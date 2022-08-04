@@ -51,35 +51,39 @@ packing-lists-unit-test-job:
 packing-lists-linting-job:
   image: python:3-bullseye
   stage: test
-  script:
+  before script:
     - pip install flake8
-    - flake8 packing-lists/packed_api/auth
-    - flake8 packing-lists/packed_api/tests
-    - flake8 packing-lists/packed_api/encoders
-    - flake8 packing-lists/packed_api/models
-    - flake8 packing-lists/packed_api/urls
-    - flake8 packing-lists/packed_api/views
+  script:
+    - flake8 --max-line-length=120 --ignore=E501 packing-lists/packed_api/auth
+    - flake8 --max-line-length=120 --ignore=E501 packing-lists/packed_api/tests
+    - flake8 --max-line-length=120 --ignore=E501 packing-lists/packed_api/encoders
+    - flake8 --max-line-length=120 --ignore=E501 packing-lists/packed_api/models
+    - flake8 --max-line-length=120 --ignore=E501 packing-lists/packed_api/urls
+    - flake8 --max-line-length=120 --ignore=E501 packing-lists/packed_api/views
 
 locations-linting-job:
   image: python:3-bullseye
   stage: test
-  script:
+  before script:
     - pip install flake8
-    - flake8 api/locations
+  script:
+    - flake8 --max-line-length=120 --ignore=E501 api/locations
   
 currency-linting-job:
   image: python:3-bullseye
   stage: test
-  script:
+  before script:
     - pip install flake8
-    - flake8 api/currency
+  script:
+    - flake8 --max-line-length=120 --ignore=E501 api/currency
   
 weather-linting-job:
   image: python:3-bullseye
   stage: test
-  script:
+  before script:
     - pip install flake8
-    - flake8 api/weather
+  script:
+    - flake8 --max-line-length=120 --ignore=E501 api/weather
 
 
 # BUILDING AND DEPLOYMENT ARE DIVIDED BY MICROSERVICE
