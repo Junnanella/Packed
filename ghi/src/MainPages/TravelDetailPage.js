@@ -7,6 +7,8 @@ import SuggestedItems from "../PackingListComponents/Items";
 import WorkingList from "../PackingListComponents/WorkingList";
 import React, { useState, useContext } from "react";
 import AuthContext from '../context/AuthContext'
+import travelBags from "../Images/travel-bags.png"
+import travelSuitcases from "../Images/travel-suitcases.png"
 import "./pages.css";
 
 export default function TravelDetailPage() {
@@ -32,7 +34,7 @@ export default function TravelDetailPage() {
           <h2 className="detail-page-header-text display-4 fw-normal text-center g-5">
             Create a packing list for {destination_city}, {destination_country}!
           </h2>
-          <img src="../travel-bags.png" alt="bags" className="bags" />
+          <img src={travelBags} alt="bags" className="bags" />
         </div>
         <div className="container">
           <div className="row">
@@ -71,7 +73,7 @@ export default function TravelDetailPage() {
                 />
               </div>
             </div>
-            <div><img src="../travel-suitcases.png" alt="suitcases" className="suitcases" /> </div>
+            <div><img src={travelSuitcases} alt="suitcases" className="suitcases" /> </div>
           </div>
         </div>
       </div>

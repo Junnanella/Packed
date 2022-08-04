@@ -189,24 +189,26 @@ function DetailList() {
                     <div className="col-2 m-1">
                         {editMode ?
                             <button
-                                className="btn btn-success"
+                                className="btn btn-success btn-sm2"
                                 onClick={sendChangesToDatabase}
+                                data-hover="Save changes"
                             >
                                 <FontAwesomeIcon icon={faSave} />
                             </button>
                             :
                             <button
-                                className="btn btn-outline-success"
+                                className="btn btn-outline-success btn-sm2"
                                 onClick={() => {
                                     setEditMode(!editMode)
                                 }}
+                                data-hover="Edit items"
                             >
                                 <FontAwesomeIcon icon={faEdit} />
                             </button>
                         }
                     </div>
                 </div>
-                <table className="table">
+                <table className="table table-hover">
                     <thead>
                         <tr>
                             <th className="text-center" style={{ width: "90px" }}>QTY</th>
@@ -275,10 +277,11 @@ function DetailList() {
                     {editMode ?
                         <div className="col">
                             <button
-                                className="btn btn-sm btn-danger"
+                                className="btn btn-sm btn-danger btn-sm3"
                                 onClick={deletePackingList}
+                                data-hover="Delete packing list"
                             >
-                                <FontAwesomeIcon icon={faTrash} />  Delete Packing List
+                                <FontAwesomeIcon icon={faTrash} />
                             </button>
                         </div>
                         :

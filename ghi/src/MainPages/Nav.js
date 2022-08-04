@@ -2,6 +2,7 @@ import { NavLink } from "react-router-dom";
 import React, { useContext } from "react";
 import "./pages.css";
 import AuthContext from "../context/AuthContext";
+import packedLogo from "../Images/packed_p.png"
 
 export default function Nav() {
   let { user, logoutUser } = useContext(AuthContext);
@@ -9,7 +10,7 @@ export default function Nav() {
     <nav className="navbar">
       <div className="d-flex justify-content-start">
         <NavLink className="navbar-brand nav-link" to="/">
-          <img src="./packed_p.png" alt="packed" className="packed-logo" />
+          <img src={packedLogo} alt="packed" className="packed-logo" />
           packed
         </NavLink>
         {user ? (
