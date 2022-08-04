@@ -148,6 +148,10 @@ img.suitcases {
     visibility: visible;
 }
 
+h3#edit {
+    background-color: transparent;
+}
+
 /* Packing Lists Page */
 body {
     background-color: #dff1eb;
