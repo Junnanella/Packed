@@ -285,19 +285,3 @@ function DetailList() {
     )
 }
 export default DetailList
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
