@@ -44,6 +44,7 @@ export default function WeatherChart(props) {
     departure_date,
     return_date,
     detail = null,
+    setTemperature = null,
   } = props;
   const weather = useWeatherData(
     destination_city,

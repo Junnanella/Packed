@@ -77,14 +77,9 @@ export default function TravelDetailPage() {
                 src="../travel-suitcases.png"
                 alt="suitcases"
                 className="suitcases"
-              />{" "}
+              />
             </div>
           </div>
-          <img
-            src="../travel-suitcases.png"
-            alt="suitcases"
-            className="suitcases"
-          />
         </div>
       </div>
     </div>
