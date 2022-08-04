@@ -51,39 +51,35 @@ packing-lists-unit-test-job:
 packing-lists-linting-job:
   image: python:3-bullseye
   stage: test
-  before script:
-    - pip install flake8
   script:
-    - flake8 --max-line-length=120 --ignore=E501 packing-lists/packed_api/auth
-    - flake8 --max-line-length=120 --ignore=E501 packing-lists/packed_api/tests
-    - flake8 --max-line-length=120 --ignore=E501 packing-lists/packed_api/encoders
-    - flake8 --max-line-length=120 --ignore=E501 packing-lists/packed_api/models
-    - flake8 --max-line-length=120 --ignore=E501 packing-lists/packed_api/urls
-    - flake8 --max-line-length=120 --ignore=E501 packing-lists/packed_api/views
+    - pip install flake8
+    - flake8 --max-line-length=88 --ignore=E501 packing-lists/packed_api/auth
+    - flake8 --max-line-length=88 --ignore=E501 packing-lists/packed_api/tests
+    - flake8 --max-line-length=88 --ignore=E501 packing-lists/packed_api/encoders
+    - flake8 --max-line-length=88 --ignore=E501 packing-lists/packed_api/models
+    - flake8 --max-line-length=88 --ignore=E501 packing-lists/packed_api/urls
+    - flake8 --max-line-length=88 --ignore=E501 packing-lists/packed_api/views
 
 locations-linting-job:
   image: python:3-bullseye
   stage: test
-  before script:
-    - pip install flake8
   script:
-    - flake8 --max-line-length=120 --ignore=E501 api/locations
+    - pip install flake8
+    - flake8 --max-line-length=88 --ignore=E501 api/locations
   
 currency-linting-job:
   image: python:3-bullseye
   stage: test
-  before script:
-    - pip install flake8
   script:
-    - flake8 --max-line-length=120 --ignore=E501 api/currency
+    - pip install flake8
+    - flake8 --max-line-length=88 --ignore=E501 api/currency
   
 weather-linting-job:
   image: python:3-bullseye
   stage: test
-  before script:
-    - pip install flake8
   script:
-    - flake8 --max-line-length=120 --ignore=E501 api/weather
+    - pip install flake8
+    - flake8 --max-line-length=88 --ignore=E501 api/weather
 
 
 # BUILDING AND DEPLOYMENT ARE DIVIDED BY MICROSERVICE
