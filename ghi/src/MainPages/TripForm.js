@@ -87,7 +87,7 @@ export const TripForm = (props) => {
               type="text"
               name="origin_city"
               id="origin_city"
-              className="form-control"
+              className="form-control form-input"
             />
             <label htmlFor="origin_city">Origin City</label>
           </div>
@@ -98,7 +98,7 @@ export const TripForm = (props) => {
               required
               name="origin_country"
               id="origin_country"
-              className="form-select"
+              className="form-select form-input"
             >
               <option value="">Select Origin Country</option>
               {locations.map((location) => {
@@ -119,7 +119,7 @@ export const TripForm = (props) => {
               type="text"
               name="destination_city"
               id="destination_city"
-              className="form-control"
+              className="form-control form-input"
             />
             <label htmlFor="destination_city">Destination City</label>
           </div>
@@ -130,7 +130,7 @@ export const TripForm = (props) => {
               required
               name="destination_country"
               id="destination_country"
-              className="form-select"
+              className="form-select form-input"
             >
               <option value="">Select Destination Country</option>
               {locations.map((location) => {
@@ -151,7 +151,7 @@ export const TripForm = (props) => {
               type="date"
               name="departure_date"
               id="departure_date"
-              className="form-control"
+              className="form-control form-input"
             />
             <label htmlFor="name">Departure Date</label>
           </div>
@@ -164,11 +164,11 @@ export const TripForm = (props) => {
               type="date"
               name="return_date"
               id="return_date"
-              className="form-control"
+              className="form-control form-input"
             />
             <label htmlFor="name">Return Date</label>
           </div>
-          <button className="btn btn-primary">Submit</button>
+          <button className="submit-button">Get to Packing</button>
         </form>
       </div>
     </div>

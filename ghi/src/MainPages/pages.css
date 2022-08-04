@@ -30,6 +30,8 @@ body {
     background-position-y: 9rem;
 }
 
+/* Trip form */
+
 .trip-form {
     background-color: #d3f0e480;
     border-radius: 20px;
@@ -47,8 +49,12 @@ body {
     border: none;
 }
 
+.form-input:hover {
+    background-color: #e2f2f9;
+}
+
 .submit-button:hover {
-    background-color: #ffb258;
+    background-color: #feb358;
 }
 
 div.detail-page-header {
