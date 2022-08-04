@@ -28,7 +28,7 @@ def test_get_countries_and_currencies_404():
     app.dependency_overrides[CurrencyQueries] = FakeCurrencyQueriesFailure
 
     # ACT
-    response = client.get("/api/locations")
+    response = client.get("/api/locations/")
 
     # ASSERT
     assert response.status_code == 404
@@ -46,7 +46,7 @@ def test_get_countries_and_currencies_200():
     app.dependency_overrides[CurrencyQueries] = FakeCurrencyQueriesSuccess
 
     # ACT
-    response = client.get("/api/locations")
+    response = client.get("/api/locations/")
 
     # ASSERT
     assert response.status_code == 200
