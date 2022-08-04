@@ -31,6 +31,7 @@ class CountriesOut(BaseModel):
 class ErrorMessage(BaseModel):
     message: str
 
+
 # 🚨
 @app.get("/api/locations",
     response_model=Union[CountriesOut, ErrorMessage],
@@ -39,6 +40,8 @@ class ErrorMessage(BaseModel):
         404: {"model": ErrorMessage},
     },
 )
+
+
 def get_countries_and_currencies(
     response: Response,
     query=Depends(CurrencyQueries),
