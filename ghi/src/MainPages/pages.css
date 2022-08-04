@@ -82,7 +82,7 @@ div.detail-page-header {
      margin: 20px auto 20px auto;
  }
 
- .packing-list-heading, .items-heading, .add-items-heading {
+.items-heading, .add-items-heading {
     text-align: center;
  }
 
