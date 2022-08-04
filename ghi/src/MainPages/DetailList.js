@@ -9,7 +9,6 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useState, useContext, useCallback } from 'react';
 import { UserItemForm } from "../PackingListComponents/UserInputItems";
-
 function getLocaleDates(date) {
     const options = {
         day: "numeric",
@@ -18,7 +17,6 @@ function getLocaleDates(date) {
     };
     return new Date(date).toLocaleDateString("en-us", options)
 }
-
 function DetailList() {
     const navigate = useNavigate();
     const location = useLocation();
@@ -40,10 +38,7 @@ function DetailList() {
         "progress-bar-striped bg-warning progress-bar-animated"
     )
     const itemsUrl = `${process.env.REACT_APP_DJANGO_PACKING_LISTS}/api/packing_lists/${packingListId}/items/`;
-    // 🚨
-    async function fetchData(url, body=null, method="GET") {
     const packingListUrl = `${process.env.REACT_APP_DJANGO_PACKING_LISTS}/api/packing_lists/${packingListId}/`;
-
     const fetchData = useCallback(async (url, method="GET", body=null) => {
         const fetchConfig = {
             method: method,
@@ -58,7 +53,6 @@ function DetailList() {
         const response = await fetch(url, fetchConfig);
         if (response.ok) {
             return await response.json();
-
         } else if (response.statusText === "Unauthorized") {
             alert("You must login to perform this action")
             console.error(response.status);
@@ -67,7 +61,6 @@ function DetailList() {
             alert("Failed operation")
         }
     }, [authTokens?.access])
-
     function findItem(name) {
         for (let index = 0; index < items.length; index ++) {
             if (items[index].name === name) {
@@ -76,7 +69,6 @@ function DetailList() {
         }
         return "item not found!";
     }
-    
     function deleteItem(event) {
         event.preventDefault();
         const name = event.target.value;
@@ -85,14 +77,12 @@ function DetailList() {
         setItems(updatedItems);
         percentage(updatedItems);
     };
-
     async function deletePackingList(event) {
         event.preventDefault();
         if (await fetchData(packingListUrl, "DELETE", null) !== null) {
             navigate("/packinglists");
         }
     }
-
     async function sendChangesToDatabase() {
         const updatedItems = await fetchData(itemsUrl,  "PUT", {items: items})
         if (updatedItems) {
@@ -102,9 +92,6 @@ function DetailList() {
             console.log("something went wrong")
         }
     }
-    // 🚨
-    function percentage(fetchedItems=null) {
-
     const percentage = useCallback((fetchedItems=null) => {
         const data = !fetchedItems ? items : fetchedItems;
         const numItems = data.length
@@ -118,11 +105,7 @@ function DetailList() {
         } else {
             setProgressBarColor("progress-bar-striped bg-warning progress-bar-animated");
         }
-    }
-    // 🚨
-    async function makeRequests () {
     },[items])
-
     const makeRequests = useCallback(async () => {
         const itemsObject = await fetchData(itemsUrl);
         if (itemsObject) {
@@ -137,14 +120,12 @@ function DetailList() {
             percentage(listOfItems);
         }
     },[fetchData, percentage, itemsUrl])
-
     useEffect(() => {
         if (mount) {
             makeRequests();
             setMount(false);
         }
     }, [mount, fetchData, makeRequests])
-
     return(
         <div className="container mt-3">
             <div className="col-10 offset-1 shadow p-4 rcorners1">
@@ -225,7 +206,6 @@ function DetailList() {
                             <th className="text-center" style={{width: "90px"}}>QTY</th>
                             <th className="text-center">{items.length === 1 ? 'Item' : "Items"}</th>
                             <th className="text-center" style={{width: "90px"}}>Packed</th>
-
                         </tr>
                     </thead>
                     <tbody>
@@ -304,7 +284,20 @@ function DetailList() {
         </div>
     )
 }
-}
-
 export default DetailList
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

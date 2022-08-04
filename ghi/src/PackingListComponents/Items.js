@@ -4,7 +4,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlusSquare } from '@fortawesome/free-solid-svg-icons';
 import AuthContext from "../context/AuthContext";
 import { useContext, useCallback, useMemo } from "react";
-
 function analyzeTemp(tempData) {
   const temperature = tempData[0].temperature
   if (temperature > 70) {
@@ -15,12 +14,10 @@ function analyzeTemp(tempData) {
     return "cold"
   }
 }
-
 export default function SuggestedItems({setItems, items, temperature}) {
   const [conditionalItems, setConditionalItems] = useState([]);
   const [generalItems, setGeneralItems] = useState([]);
   let {authTokens} = useContext(AuthContext)
-
   const fetchConfig = useMemo(() => {
     const params = {
       method: "GET",
@@ -31,14 +28,8 @@ export default function SuggestedItems({setItems, items, temperature}) {
     if (authTokens) {
       params.headers.Authorization = "Bearer " + String(authTokens?.access)
     }
-    fetchData();
-  }, []);
-
-  
-  function validate() {
     return params
   }, [authTokens]);
-
   const validate = useCallback(() => {
     const tempItems = [...items]
     for (let i = 0; i < tempItems.length; i ++) {
@@ -65,7 +56,6 @@ export default function SuggestedItems({setItems, items, temperature}) {
       }
     }
   }, [generalItems, conditionalItems, items, setItems])
-
   validate();
   
   const fetchData = useCallback(async () => {
@@ -77,18 +67,14 @@ export default function SuggestedItems({setItems, items, temperature}) {
       setGeneralItems(general);
     }
   },[fetchConfig, temperature])
-
   useEffect(() => {
     fetchData();
   }, [fetchData]);
-
-
   function addGItem(newItem) {
     newItem.quantity = 1;
     setItems([...items, newItem]);
     setGeneralItems(generalItems.filter((item) => item.id !== newItem.id));
   }
-
   function addCItem(newCItem) {
     newCItem.quantity = 1;
     setItems([...items, newCItem]);
@@ -96,12 +82,11 @@ export default function SuggestedItems({setItems, items, temperature}) {
       conditionalItems.filter((item) => item.id !== newCItem.id)
     );
   }
-
   return (
     <div className="container">
       <h4>Things you might need</h4>
       <div className="input-group mb-3">
-        <div className="item-tables">
+        <div>
           <table className="table table-hover">
             <thead>
               <tr>
@@ -114,7 +99,7 @@ export default function SuggestedItems({setItems, items, temperature}) {
                   <tr key={item.name}>
                     <td>{item.name}</td>
                     <td>
-                      <button className="btn btn-success btn-sm" onClick={(e) => addGItem(item)}><FontAwesomeIcon icon={faPlusSquare} /></button>
+                      <button className="btn btn-sm btn-outline-danger" onClick={(e) => addGItem(item)}><FontAwesomeIcon icon={faPlusSquare} /></button>
                     </td>
                   </tr>
                 );
@@ -133,7 +118,7 @@ export default function SuggestedItems({setItems, items, temperature}) {
                 <tr key={item.name}>
                   <td>{item.name}</td>
                   <td>
-                    <button className="btn btn-success btn-sm" onClick={(e) => addCItem(item)}><FontAwesomeIcon icon={faPlusSquare} /></button>
+                    <button className="btn btn-sm btn-outline-danger" onClick={(e) => addCItem(item)}><FontAwesomeIcon icon={faPlusSquare} /></button>
                   </td>
                 </tr>
               );
