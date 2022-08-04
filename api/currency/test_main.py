@@ -26,5 +26,5 @@ def test_get_currency():
     response.status_code == 200
     response = requests.request("GET", url, headers=headers, data=payload)
     result = response.json()
-    result_split = type(result["result"])
-    assert isinstance(float(currency["result"]),result_split)
+    result_split = int(result["result"])
+    assert isinstance(result_split,int)
