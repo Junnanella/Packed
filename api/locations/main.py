@@ -41,8 +41,6 @@ class ErrorMessage(BaseModel):
         404: {"model": ErrorMessage},
     },
 )
-
-
 def get_countries_and_currencies(
     response: Response,
     query=Depends(CurrencyQueries),
