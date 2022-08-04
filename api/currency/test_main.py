@@ -27,4 +27,4 @@ def test_get_currency():
     response = requests.request("GET", url, headers=headers, data=payload)
     result = response.json()
     result_split = result["result"]
-    assert (currency["result"]) == type(float(result_split))
+    assert (currency["result"]) == isinstance(type(float(result_split)))
