@@ -1,3 +1,4 @@
+/* main */
 .packed-logo {
     width: 1.2em;
     padding-bottom: .3em;
@@ -5,6 +6,61 @@
 }
 body {
     background-color: #d3f0e4;
+}
+
+.main-page-background {
+    background-color: #effef6;
+    border-radius: 20px;
+    margin: auto 5rem;
+}
+
+.app-blurb{
+    margin-top: 12rem;
+}
+/* 
+.blurb-text {
+    font-weight: bold;
+    text-shadow: 1px 1px  #effef6;  
+} */
+
+.blurb-background {
+    background-image: url("../../public/front_open_suitcase_blurb.png");
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position-y: 9rem;
+}
+
+/* Trip form */
+
+.trip-form {
+    background-color: #d3f0e480;
+    border-radius: 20px;
+    margin-right: 1rem;
+}
+
+.submit-button {
+    background-color: #ef2a46;
+    font-size: 30px;
+    font-weight: bold;
+    color: white;
+    height: 2em;;
+    width: 50%;
+    border-radius: 8px;
+    border: none;
+}
+
+.form-input:hover {
+    border-color: #fcce3a;
+    box-shadow: 0 0 0 0.25rem #fcce3a80;
+}
+
+.form-input:focus {
+    border-color: #fcce3a;
+    box-shadow: 0 0 0 0.1rem #fcce3a80;
+}
+
+.submit-button:hover {
+    background-color: #feb358;
 }
 
 div.detail-page-header {
@@ -82,22 +138,42 @@ img.suitcases {
 body {
     background-color: #dff1eb;
 }
+
 .main-container {
     background-color: #f5faf8;
-    border-radius: 2%;
     margin-top: 50px;
     border: 1px solid transparent;
     border-radius: 20px;
     padding: 10px 20px 10px 10px;
 }
 
+.search-form {
+   max-width: 50%;
+}
+
+.search-input:hover {
+    border-color: #fcce3a;
+    box-shadow: 0 0 0 0.25rem #fcce3a80;
+}
+
+.search-input:focus {
+    border-color: #fcce3a;
+    box-shadow: 0 0 0 0.1rem #fcce3a80;
+}
+
 .card {
     width: 250px;
-    height: 350px;
+    height: 300px;
     border-radius: 15px;
     margin: 2rem;
-    box-shadow: 12px 12px 2px 1px #c3e6d8;
-    background-size: 250px 350px;
+    box-shadow: 12px 12px 2px 1px #d0ece1;
+    background-size: cover;
+}
+
+.card:hover {
+    width: 260px;
+    height: 310px;
+    box-shadow: 14px 14px 4px 2px #d0f2e4;
 }
 
 .card-button {
@@ -130,6 +206,7 @@ body {
     border: transparent;
     border-radius: 10px;
     padding: .5em;
+    max-width: 100%;
 }
 
 .card-title {

@@ -3,16 +3,20 @@ import { useNavigate } from "react-router-dom";
 import { loadLocationsData } from "./MainApi";
 
 export const TripForm = (props) => {
-  let tomorrow = new Date()
-  tomorrow.setDate(tomorrow.getDate() + 1)
-  let nextWeek = new Date()
-  nextWeek.setDate(nextWeek.getDate() + 8)
+  let tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  let nextWeek = new Date();
+  nextWeek.setDate(nextWeek.getDate() + 8);
   const [originCity, setOriginCity] = useState("");
   const [originCountryId, setOriginCountryId] = useState("");
   const [destinationCity, setDestinationCity] = useState("");
   const [destinationCountryId, setDestinationCountryId] = useState("");
-  const [departureDate, setDepartureDate] = useState(tomorrow.toISOString().slice(0,10));
-  const [returnDate, setReturnDate] = useState(nextWeek.toISOString().slice(0,10));
+  const [departureDate, setDepartureDate] = useState(
+    tomorrow.toISOString().slice(0, 10)
+  );
+  const [returnDate, setReturnDate] = useState(
+    nextWeek.toISOString().slice(0, 10)
+  );
   const [locations, setLocations] = useState([]);
 
   const locationsById = {};
@@ -70,104 +74,102 @@ export const TripForm = (props) => {
   };
 
   return (
-    <div className="row">
-      <div className="offset-3 col-6">
-        <div className="shadow p-4 mt-4">
-          <h1>Enter Trip Details</h1>
-          <form onSubmit={onSubmit}>
-            <div className="form-floating mb-3">
-              <input
-                onChange={onChangeOriginCity}
-                value={originCity}
-                placeholder="Coming from"
-                required
-                type="text"
-                name="origin_city"
-                id="origin_city"
-                className="form-control"
-              />
-              <label htmlFor="origin_city">Origin City</label>
-            </div>
-            <div className="form-floating mb-3">
-              <select
-                onChange={onChangeOriginCountryId}
-                value={originCountryId}
-                required
-                name="origin_country"
-                id="origin_country"
-                className="form-select"
-              >
-                <option value="">Select Origin Country</option>
-                {locations.map((location) => {
-                  return (
-                    <option key={location.id} value={location.id}>
-                      {location.country}
-                    </option>
-                  );
-                })}
-              </select>
-            </div>
-            <div className="form-floating mb-3">
-              <input
-                onChange={onChangeDestinationCity}
-                value={destinationCity}
-                placeholder="Going to"
-                required
-                type="text"
-                name="destination_city"
-                id="destination_city"
-                className="form-control"
-              />
-              <label htmlFor="destination_city">Destination City</label>
-            </div>
-            <div className="form-floating mb-3">
-              <select
-                onChange={onChangeDestinationCountryId}
-                value={destinationCountryId}
-                required
-                name="destination_country"
-                id="destination_country"
-                className="form-select"
-              >
-                <option value="">Select Destination Country</option>
-                {locations.map((location) => {
-                  return (
-                    <option key={location.id} value={location.id}>
-                      {location.country}
-                    </option>
-                  );
-                })}
-              </select>
-            </div>
-            <div className="form-floating mb-3">
-              <input
-                onChange={onChangeDepartureDate}
-                value={departureDate}
-                placeholder="Departing"
-                required
-                type="date"
-                name="departure_date"
-                id="departure_date"
-                className="form-control"
-              />
-              <label htmlFor="name">Departure Date</label>
-            </div>
-            <div className="form-floating mb-3">
-              <input
-                onChange={onChangeReturnDate}
-                value={returnDate}
-                placeholder="Returning"
-                required
-                type="date"
-                name="return_date"
-                id="return_date"
-                className="form-control"
-              />
-              <label htmlFor="name">Return Date</label>
-            </div>
-            <button className="btn btn-primary">Submit</button>
-          </form>
-        </div>
+    <div>
+      <div className="p-4 w-80 trip-form shadow">
+        <h4>Enter your trip details</h4>
+        <form onSubmit={onSubmit}>
+          <div className="form-floating mb-3">
+            <input
+              onChange={onChangeOriginCity}
+              value={originCity}
+              placeholder="Coming from"
+              required
+              type="text"
+              name="origin_city"
+              id="origin_city"
+              className="form-control form-input"
+            />
+            <label htmlFor="origin_city">Origin City</label>
+          </div>
+          <div className="form-floating mb-3">
+            <select
+              onChange={onChangeOriginCountryId}
+              value={originCountryId}
+              required
+              name="origin_country"
+              id="origin_country"
+              className="form-select form-input"
+            >
+              <option value="">Select Origin Country</option>
+              {locations.map((location) => {
+                return (
+                  <option key={location.id} value={location.id}>
+                    {location.country}
+                  </option>
+                );
+              })}
+            </select>
+          </div>
+          <div className="form-floating mb-3">
+            <input
+              onChange={onChangeDestinationCity}
+              value={destinationCity}
+              placeholder="Going to"
+              required
+              type="text"
+              name="destination_city"
+              id="destination_city"
+              className="form-control form-input"
+            />
+            <label htmlFor="destination_city">Destination City</label>
+          </div>
+          <div className="form-floating mb-3">
+            <select
+              onChange={onChangeDestinationCountryId}
+              value={destinationCountryId}
+              required
+              name="destination_country"
+              id="destination_country"
+              className="form-select form-input"
+            >
+              <option value="">Select Destination Country</option>
+              {locations.map((location) => {
+                return (
+                  <option key={location.id} value={location.id}>
+                    {location.country}
+                  </option>
+                );
+              })}
+            </select>
+          </div>
+          <div className="form-floating mb-3">
+            <input
+              onChange={onChangeDepartureDate}
+              value={departureDate}
+              placeholder="Departing"
+              required
+              type="date"
+              name="departure_date"
+              id="departure_date"
+              className="form-control form-input"
+            />
+            <label htmlFor="name">Departure Date</label>
+          </div>
+          <div className="form-floating mb-3">
+            <input
+              onChange={onChangeReturnDate}
+              value={returnDate}
+              placeholder="Returning"
+              required
+              type="date"
+              name="return_date"
+              id="return_date"
+              className="form-control form-input"
+            />
+            <label htmlFor="name">Return Date</label>
+          </div>
+          <button className="submit-button">Get to Packing</button>
+        </form>
       </div>
     </div>
   );

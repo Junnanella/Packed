@@ -7,27 +7,29 @@ export default function Nav() {
   let { user, logoutUser } = useContext(AuthContext);
   return (
     <nav className="navbar">
-      <div className="container-fluid">
+      <div className="d-flex justify-content-start">
         <NavLink className="navbar-brand nav-link" to="/">
-          <img src="./packed_p.png" alt="p" className="packed-logo" />
+          <img src="./packed_p.png" alt="packed" className="packed-logo" />
           packed
         </NavLink>
+        {user ? (
+          <NavLink className="nav-link " to="/packinglists">
+            my packing lists
+          </NavLink>
+        ) : null}
+      </div>
+      <div className="d-flex justify-content-end">
         {!user ? (
-          <NavLink className="navbar-brand nav-link" to="/signup">
+          <NavLink className="nav-link" to="/signup">
             signup
           </NavLink>
         ) : null}
         {user ? (
-          <NavLink className="navbar-brand nav-link" to="/packinglists">
-            my packing lists
-          </NavLink>
-        ) : null}
-        {user ? (
-          <div className="navbar-brand nav-link" onClick={logoutUser}>
+          <div className="nav-link me-5" onClick={logoutUser}>
             logout
           </div>
         ) : (
-          <NavLink className="navbar-brand nav-link" to="/login">
+          <NavLink className="nav-link me-5" to="/login">
             login
           </NavLink>
         )}
