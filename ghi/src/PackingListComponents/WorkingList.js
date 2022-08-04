@@ -75,7 +75,7 @@ function WorkingList({
       if (packingList) {
         const itemsData = { items: items };
         const itemsUrl = `${process.env.REACT_APP_DJANGO_PACKING_LISTS}/api/packing_lists/${packingList.id}/items/`;
-        const packingListItems = await sendData(itemsData, itemsUrl);
+        await sendData(itemsData, itemsUrl);
         navigate("/packing_list", { state: { packingList: packingList } });
       } else {
         window.alert("Unsuccessful creation of packing list. Try again.")
