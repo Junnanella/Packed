@@ -66,7 +66,7 @@ build-front-end-job:
   stage: build
   image: node:lts-bullseye
   variables:
-    PUBLIC_URL: https://packed.gitlab.io/packed
+    PUBLIC_URL: https://packed-module-3.gitlab.io/packed
   needs:
     - weather-unit-test-job
     - locations-unit-test-job
