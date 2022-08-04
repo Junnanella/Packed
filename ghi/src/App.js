@@ -14,7 +14,6 @@ import DetailList from "./MainPages/DetailList";
 export default function App() {
   const domain = /https:\/\/[^/]+/;
   const basename = process.env.PUBLIC_URL.replace(domain, '');
-  console.log(basename)
   return (
     <BrowserRouter basename={basename}>
       <AuthProvider>

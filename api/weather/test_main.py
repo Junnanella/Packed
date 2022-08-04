@@ -7,7 +7,6 @@ client = TestClient(app)
 
 class FakeWeatherQueries:
     def get_weather(self, full_path):
-        print(full_path)
         data = {
             "days": [{"temp": 5},]
         }

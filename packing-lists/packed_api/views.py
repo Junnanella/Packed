@@ -132,7 +132,6 @@ def api_items(request):
 @api_view(["GET"])
 @permission_classes([AllowAny])
 def api_conditional_items(request, condition):
-    print("here")
     if request.method == "GET":
         try:
             conditional_items = []
