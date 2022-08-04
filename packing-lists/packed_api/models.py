@@ -25,14 +25,18 @@ class PackingList(models.Model):
     def __str__(self):
         return self.title
 
-
+# the category model holds categories for items a user can pack such as
+# electronics or clothing 
 class Category(models.Model):
     name = models.CharField(max_length=20, unique=True)
 
     def __str__(self):
         return self.name
 
-
+# the condition model holds values for climate conditions such as hot, 
+# cold and moderate. This allows us to determine items to suggest for the
+# user's trip. We compare the weather data from their location to the items
+# listed under our conditions to make that determination.
 class Condition(models.Model):
     name = models.CharField(max_length=50)
 
@@ -61,7 +65,9 @@ class Item(models.Model):
     def __str__(self):
         return self.name
 
-
+# the packing list item model holds the information for the user's packing list(s)
+# once they create it. The user can go back and select whether or not an item
+# is packed and update the list of items. 
 class PackingListItem(models.Model):
     item_name = models.ForeignKey(
         Item, related_name="packing_lists", on_delete=models.CASCADE

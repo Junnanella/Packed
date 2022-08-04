@@ -97,8 +97,6 @@ def api_category(request, pk):
 
 
 # Item Views ------
-
-
 def get_user_items(user, included_items):
     user_packing_list_items = PackingListItem.objects.filter(owner=user)
     items = []
