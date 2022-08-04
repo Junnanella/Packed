@@ -3,7 +3,7 @@
 - Currency Exchange API: https://apilayer.com/marketplace/exchangerates_data-api#documentation-tab
 - Flight API: Still looking for a free one
 - Weather API: https://www.visualcrossing.com/resources/documentation/weather-api/timeline-weather-api/
-- Locations API: localhost:8004/api/locations
+- Locations API: localhost:8004/api/locations/
 
 * **Method**: `GET`
 * **Path**: /api/convert
@@ -109,7 +109,7 @@ Output:
 Creating a new location will query a weather API to get historical weather data for their trip dates.
 
 - **Method**: `GET`
-- **Path**: /api/locations
+- **Path**: /api/locations/
 
 Output:
 
