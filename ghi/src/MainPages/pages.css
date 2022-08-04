@@ -216,6 +216,22 @@ body {
     text-shadow: 1px 1px #2b2844;
 }
 
+.no-packing-lists-button {
+    background-color: #faac3e;
+    font-weight: bold;
+    font-size: calc(0.9vw + 0.9vh);
+    color: white;
+    height: 2em;;
+    width: 50%;
+    margin-top: 1em;
+    border-radius: 8px;
+    border: none;
+}
+
+.no-packing-lists-button:hover {
+    background-color: #1ec28b;
+}
+
 div.rcorners1 {
     border-radius: 25px;
     background: #ffffff;

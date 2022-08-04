@@ -30,6 +30,27 @@ export const PackingLists = () => {
     setInputText(event.target.value);
   };
 
+  const navigateHome = () => {
+    navigate("/");
+  };
+
+  if (packingLists.length === 0) {
+    return (
+      <Container className="main-container shadow text-center py-4">
+        <div>
+          <h5>Looks like you have no saved packing lists. </h5>
+          <h4>Let's change that!</h4>
+          <button
+            className="no-packing-lists-button shadow"
+            onClick={navigateHome}
+          >
+            head back to the homepage
+          </button>
+        </div>
+      </Container>
+    );
+  }
+
   return (
     <Container className="main-container shadow">
       <Form className="d-flex search-form ms-auto">
