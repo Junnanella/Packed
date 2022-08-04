@@ -5,7 +5,7 @@ from django.core.exceptions import FieldDoesNotExist
 from django.views.decorators.http import require_http_methods
 from rest_framework.decorators import permission_classes, authentication_classes, api_view
 from rest_framework.authentication import TokenAuthentication
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 import json
 from common.json import ModelEncoder
 from .encoders import (
@@ -130,7 +130,9 @@ def api_items(request):
 
 
 @api_view(["GET"])
+@permission_classes([AllowAny])
 def api_conditional_items(request, condition):
+    print("here")
     if request.method == "GET":
         try:
             conditional_items = []
@@ -148,7 +150,6 @@ def api_conditional_items(request, condition):
                     "general_items": general_items,
                     "user_favorite_items": user_favorite_items,
                 }
-            print(items)
             return JsonResponse(
                 items,
                 encoder=ItemEncoder,
@@ -320,7 +321,7 @@ def api_packing_lists(request):
                 status=400,
             )
 
-@api_view(["GET", "PUT"])
+@api_view(["GET", "PUT", 'DELETE'])
 @permission_classes([IsAuthenticated])
 def api_packing_list(request, pk):
     if request.method == "GET":
@@ -330,6 +331,14 @@ def api_packing_list(request, pk):
             encoder=PackingListEncoder,
             safe=False,
         )
+    elif request.method == "DELETE":
+        try:
+            count, _ = PackingList.objects.get(id=pk).delete()
+            return JsonResponse(
+                {"deleted": count > 0},
+            )
+        except PackingList.DoesNotExist:
+            return model_instance_does_not_exist_message("PackingList", pk)
     else:
         try:
             content = json.loads(request.body)

@@ -20,7 +20,7 @@ const useCurrencyData = (origin_country, destination_country) => {
 };
 
 export default function CurrencyInfo(props) {
-  const { origin_code, destination_code } = props;
+  const { origin_code, destination_code, detailPage } = props;
   const currencyRate = useCurrencyData(origin_code, destination_code);
 
   const [currencyInput, setCurrencyInput] = useState(1);
@@ -36,8 +36,12 @@ export default function CurrencyInfo(props) {
   };
 
   return (
-    <div className="container-sm offset-1">
-      <h3 className="mt-5">Current Exchange Rate</h3>
+    <div className={!detailPage?"container-sm offset-1":""}>
+      {!detailPage ?
+        <h3 className="mt-5">Current Exchange Rate</h3>
+      :
+        <h6>Current Exchange Rate</h6>
+      }
       <input
         onChange={onChangeCurrencyInput}
         value={currencyInput}
@@ -46,11 +50,11 @@ export default function CurrencyInfo(props) {
         type="text"
         name="currency_input"
         id="currency_input"
-        className="currency_input rounded"
+        className={!detailPage?"currency_input rounded":"currency_input_detail_page rounded"}
       />
-      <h4 className="currency_output">
+      <h5 className="currency_output">
         {origin_code} = {exchangeOutput} {destination_code}
-      </h4>
+      </h5>
     </div>
   );
 }

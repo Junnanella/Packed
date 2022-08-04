@@ -22,6 +22,7 @@ class PackingList(models.Model):
     completed = models.BooleanField(default=False)
     destination_city = models.CharField(max_length=70, blank=True)
     destination_country = models.CharField(max_length=70, blank=True)
+    origin_country = models.CharField(max_length=70, null=True)
     
     def __str__(self):
         return self.title
