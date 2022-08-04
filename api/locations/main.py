@@ -31,14 +31,8 @@ class CountriesOut(BaseModel):
 class ErrorMessage(BaseModel):
     message: str
 
-<<<<<<< HEAD
 # 🚨
 @app.get("/api/locations",
-=======
-
-@app.get(
-    "/api/locations",
->>>>>>> 942cb8be5a00baac349d4295db68187cf5d7da35
     response_model=Union[CountriesOut, ErrorMessage],
     responses={
         200: {"model": CountriesOut},
