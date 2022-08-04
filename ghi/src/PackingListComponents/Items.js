@@ -102,7 +102,7 @@ export default function SuggestedItems({ setItems, items, temperature }) {
            <table className="table table-hover">
             <thead>
               <tr>
-                <th scope="col">Recommended For You</th>
+                <th scope="col">General Items To Pack</th>
               </tr>
             </thead>
             <tbody>
