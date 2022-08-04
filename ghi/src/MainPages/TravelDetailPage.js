@@ -17,9 +17,9 @@ export default function TravelDetailPage() {
   const origin_code = searchParams.get("origin_code");
   const destination_city = searchParams.get("destination_city");
   const destination_country = searchParams.get("destination_country");
+  const [temperature, setTemperature] = useState(null);
   const destination_code = searchParams.get("destination_code");
   const departure_date = searchParams.get("departure_date");
-  const [temperature, setTemperature] = useState(null);
   const return_date = searchParams.get("return_date");
   const [items, setItems] = useState([]);
   let { user } = useContext(AuthContext);
