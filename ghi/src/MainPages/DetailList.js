@@ -1,38 +1,50 @@
-import { useEffect, useState, useContext } from 'react';
+import "./pages.css";
 import AuthContext from '../context/AuthContext';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import CurrencyInfo from '../DataCharts/CurrencyInfo';
+import WeatherChart from "../DataCharts/WeatherChart";
+import { useEffect, useState, useContext } from 'react';
 import { faSave } from '@fortawesome/free-solid-svg-icons';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { UserItemForm } from "../PackingListComponents/UserInputItems";
-import WeatherChart from "../DataCharts/WeatherChart";
-import "./pages.css";
 
-// create a table with editing stuff invisible. if they press edit, d-none toggles
-// the view will delete all PackingListItems and then replace them with the new ones
+function getLocaleDates(date) {
+    const options = {
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+    };
+    return new Date(date).toLocaleDateString("en-us", options)
+}
 
 function DetailList() {
+    const navigate = useNavigate();
     const location = useLocation();
-    const packingListId = location.state.packingList.id;
-    const cityWeather = location.state.packingList.destination_city;
-    const countryWeather = location.state.packingList.destination_country;
-    const departuredDateWeather = location.state.packingList.departure_date;
-    const returnDateWeather = location.state.packingList.departure_date;
+    const packingList = location.state.packingList
+    const packingListId = packingList.id;
+    const packingListTitle = packingList.title;
+    const cityWeather = packingList.destination_city;
+    const countryWeather = packingList.destination_country;
+    const departureDate = packingList.departure_date;
+    const returnDate = packingList.departure_date;
+    const originCountry = packingList.origin_country;
+    const createdDate = packingList.created;
     const { authTokens } = useContext(AuthContext);
     const [mount, setMount] = useState(true);
     const [items, setItems] = useState([]);
-    const [packingList, setPackingList] = useState({});
     const [editMode, setEditMode] = useState(false);
-    const [departureDate, setDepartureDate] = useState("");
-    const [returnDate, setReturnDate] = useState("");
-    const[percentagePacked, setPercentagePacked] = useState(0);
-    const [progressBarColor, setProgressBarColor] = useState("progress-bar-striped bg-warning progress-bar-animated")
-
-    const packingListUrl = `${process.env.REACT_APP_DJANGO_PACKING_LISTS}/api/packing_lists/${packingListId}/`;
+    const [percentagePacked, setPercentagePacked] = useState(0);
+    const [progressBarColor, setProgressBarColor] = useState(
+        "progress-bar-striped bg-warning progress-bar-animated"
+    )
     const itemsUrl = `${process.env.REACT_APP_DJANGO_PACKING_LISTS}/api/packing_lists/${packingListId}/items/`;
     // 🚨
     async function fetchData(url, body=null, method="GET") {
+    const packingListUrl = `${process.env.REACT_APP_DJANGO_PACKING_LISTS}/api/packing_lists/${packingListId}/`;
+
+    async function fetchData(url, method="GET", body=null) {
         const fetchConfig = {
             method: method,
             headers: {
@@ -66,6 +78,7 @@ function DetailList() {
     }
     
     function deleteItem(event) {
+        event.preventDefault();
         const name = event.target.value;
         const item_index = findItem(name);
         const updatedItems = [...items.filter((_, i) => i !== item_index)];
@@ -73,8 +86,15 @@ function DetailList() {
         percentage(updatedItems);
     };
 
+    async function deletePackingList(event) {
+        event.preventDefault();
+        if (await fetchData(packingListUrl, "DELETE", null) !== null) {
+            navigate("/packinglists");
+        }
+    }
+
     async function sendChangesToDatabase() {
-        const updatedItems = await fetchData(itemsUrl, {items: items}, "PUT")
+        const updatedItems = await fetchData(itemsUrl,  "PUT", {items: items})
         if (updatedItems) {
             setEditMode(!editMode);
             makeRequests();
@@ -99,29 +119,17 @@ function DetailList() {
     }
     // 🚨
     async function makeRequests () {
-        const packingListData = await fetchData(packingListUrl);
-        
-        if (packingListData) {
-            const itemsObject = await fetchData(itemsUrl);
-            if (itemsObject) {
-                const listOfItems = itemsObject.items;
-                listOfItems.map(item => {
-                    item.name = item.item_name.name;
-                    item.suggested = item.item_name.suggested;
-                    delete item.item_name;
-                    return null;
-                })
-                const options = {
-                      day: "numeric",
-                      month: "long",
-                      year: "numeric"
-                };
-                setDepartureDate(new Date(packingListData.departure_date).toLocaleDateString("en-US", options));
-                setReturnDate(new Date(packingListData.return_date).toLocaleDateString("en-US", options));
-                setPackingList(packingListData);
-                setItems(listOfItems);
-                percentage(listOfItems);
-            }
+        const itemsObject = await fetchData(itemsUrl);
+        if (itemsObject) {
+            const listOfItems = itemsObject.items;
+            listOfItems.map(item => {
+                item.name = item.item_name.name;
+                item.suggested = item.item_name.suggested;
+                delete item.item_name;
+                return null;
+            })
+            setItems(listOfItems);
+            percentage(listOfItems);
         }
     }
 
@@ -130,34 +138,17 @@ function DetailList() {
             makeRequests();
             setMount(false);
         }
-    }, [makeRequests, mount])
+    }, [mount])
 
     return(
         <div className="container mt-3">
             <div className="col-10 offset-1 shadow p-4 rcorners1">
                 <div className="row">
                     <div style={{width: "70%"}}>
-                        <p>{departureDate} - {returnDate}</p>
-                        <div className="input-group">
-                            <div className="p-1">
-                                {editMode ?
-                                    <button
-                                        className="btn btn-success btn-sm"
-                                        onClick={sendChangesToDatabase}
-                                    >
-                                        <FontAwesomeIcon icon={faSave} />
-                                    </button>
-                                :
-                                    <button
-                                        className="btn btn-outline-success btn-sm"
-                                        onClick={()=>setEditMode(!editMode)}
-                                    >
-                                        <FontAwesomeIcon icon={faEdit} />
-                                    </button>
-                                }
-                            </div>
-                            <h3 className="p-1">{packingList.title}</h3>
+                        <div>
+                            {getLocaleDates(departureDate)} - {getLocaleDates(returnDate)}
                         </div>
+                        <h2 className="p-1 col">{packingListTitle}</h2>
                         { editMode ?
                             <UserItemForm
                                 setItems={setItems}
@@ -166,28 +157,63 @@ function DetailList() {
                                 setPercentagePacked={setPercentagePacked}
                             />
                         :
-                            null
+                        <div className="mb-2 text-left">
+                            <CurrencyInfo
+                                origin_country={originCountry}
+                                destination_country={countryWeather}
+                                detailPage={true}
+                            />
+                        </div>
                         }
                     </div>
                     <div className="col">
                         <WeatherChart
                             destination_city={cityWeather}
                             destination_country={countryWeather}
-                            departure_date={departuredDateWeather}
-                            return_date={returnDateWeather}
+                            departure_date={departureDate}
+                            return_date={returnDate}
                             detail={true}
                         />
                     </div>
                 </div>
-
-                <div className="progress m-3">
-                     <div
-                        className={`progress-bar ${progressBarColor}`}
-                        role="progressbar" style={{width: `${percentagePacked}%`}}
-                        aria-valuenow={percentagePacked}
-                        aria-valuemin="0" aria-valuemax="100"
-                    />
+                <div className="row">
+                    <div className="col">
+                        <div className="progress m-3">
+                            <div
+                                className={`progress-bar ${progressBarColor}`}
+                                role="progressbar" style={{width: `${percentagePacked}%`}}
+                                aria-valuenow={percentagePacked}
+                                aria-valuemin="0" aria-valuemax="100"
+                            />
+                        </div>
+                    </div>
+                    <div className="col-1 m-1">
+                        {editMode ?
+                            <button
+                                className="btn btn-success"
+                                onClick={sendChangesToDatabase}
+                            >
+                                <FontAwesomeIcon icon={faSave} />
+                            </button>
+                        :
+                            <button
+                                className="btn btn-outline-success"
+                                onClick={()=>{
+                                    setEditMode(!editMode)
+                                }}
+                            >
+                                <FontAwesomeIcon icon={faEdit} />
+                            </button>
+                        }
+                    </div>
                 </div>
+                {editMode ?
+                    <div className="alert save-changes text-center col-6 offset-3" role="alert">
+                        Make sure to save your changes!
+                    </div>
+                :
+                    null
+                }
                 <table className="table">
                     <thead>
                         <tr>
@@ -254,6 +280,21 @@ function DetailList() {
                         })}
                     </tbody>
                 </table>
+                <div className="row">
+                    {editMode ?
+                        <div className="col">
+                            <button
+                                className="btn btn-sm btn-danger"
+                                onClick={deletePackingList}
+                            >
+                                <FontAwesomeIcon icon={faTrash}/>  Delete Packing List
+                            </button>
+                        </div>
+                    :
+                        null
+                    }
+                    <div className="col" style={{textAlign: "right"}}>Created on {getLocaleDates(createdDate)}.</div>
+                </div>
             </div>
         </div>
     )

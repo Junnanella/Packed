@@ -11,7 +11,7 @@ import "./pages.css";
 
 export default function TravelDetailPage() {
   const [searchParams] = useSearchParams();
-  // const origin_country = searchParams.get("origin_country");
+  const origin_country = searchParams.get("origin_country");
   const origin_code = searchParams.get("origin_code");
   const destination_city = searchParams.get("destination_city");
   const destination_country = searchParams.get("destination_country");
@@ -45,6 +45,7 @@ export default function TravelDetailPage() {
               destination_country={destination_country}
               departure_date={departure_date}
               return_date={return_date}
+              origin_country={origin_country}
             />
           </div>
           <div className="col data-column detail-columns">
@@ -56,13 +57,11 @@ export default function TravelDetailPage() {
                 return_date={return_date}
               />
             </div>
-            {/* <div className="row">
-              <FlightChart />
-            </div> */}
             <div className="row currency-data">
               <CurrencyInfo
                 origin_code={origin_code}
                 destination_code={destination_code}
+                detailPage={false}
               />
             </div>
           </div>

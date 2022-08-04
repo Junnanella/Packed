@@ -1,4 +1,17 @@
-## August 01, 2022
+## August 03, 2022
+
+Today, I worked on:
+
+- Designing the main page. I added images, updated the app tagline, and updated the layout.
+- Updating the look of the trip form by changing the color, size, and text in submit button. Also added styling to when the user is hovering or focused on a particular input field.
+- Updating the style and layout of the navbar, like putting the "my packing lists" link towards the packed home page link and aligning the other links (logout, login, and signup) to the right of the navbar.
+- Adding a search bar to the my packing lists page that filters which packing list cards are rendered on the page based on what the user is typing.
+- Formatting the dates that are rendered on the packing list cards.
+- Writing a unit test for the frontend.
+
+As a team, we had a lot of discussions today in regards to the styling of our application. We worked really well with each other to bounce ideas off of each other and get suggestions on how to improve the particular pages we were working on.
+
+## August 02, 2022
 
 Today, I worked on:
 
