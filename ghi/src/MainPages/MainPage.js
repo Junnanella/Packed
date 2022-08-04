@@ -5,12 +5,19 @@ export default function MainPage() {
   return (
     <div className="px-4 py-5 my-5 text-center main-page-background shadow">
       <div className="row">
-        <div className="col-4 blurb-background">
-          {/* <h3 className="app-blurb blurb-text">helping you get </h3>
-          <h1 className="blurb-text">packed</h1>
-          <h3 className="blurb-text">for your next trip</h3> */}
+        <div className="col-sm-12 d-block d-lg-none d-xl-none d-xxl-none">
+          <h4 className="small-screen-blurb">
+            helping you get <strong>packed</strong> for your next trip
+          </h4>
         </div>
-        <div className="col">
+        <div className="col-sm-12 col-md-4 d-none d-lg-block">
+          <img
+            className="app-blurb"
+            src="./front_open_suitcase_blurb.png"
+            alt="blurb"
+          />
+        </div>
+        <div className="col-sm-12 col-md">
           <TripForm />
         </div>
       </div>
