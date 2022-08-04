@@ -1,5 +1,4 @@
-from django.test import TestCase, SimpleTestCase
-from django.http import JsonResponse
+from django.test import SimpleTestCase
 import json
 from ..views import (
     model_instance_does_not_exist_message,

@@ -1,5 +1,4 @@
 from db import CurrencyQueries
-from fastapi.testclient import TestClient
 
 
 def test_structure_queries():
