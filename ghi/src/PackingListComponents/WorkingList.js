@@ -115,7 +115,6 @@ function WorkingList({
             <tr>
               <td>
                 <h3 id="edit" name="title" className="packing-list-heading">
-                  {" "}
                   Packing List for {destination_country}
                 </h3>
               </td>
@@ -130,7 +129,6 @@ function WorkingList({
                 </button>
               </td>
               <td>
-                {" "}
                 <button
                   className="btn btn-success btn-sm1"
                   type="submit"
