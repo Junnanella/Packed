@@ -102,7 +102,7 @@ ALLOWED_HOSTS = [
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     os.environ.get('CORS_HOST', 'http://localhost:3001'),
-    os.environ.get("DEPLOYED_HOST", "localhost"),
+    f"https://{os.environ.get('DEPLOYED_HOST')}",
 ]
 
 CORS_ALLOW_CREDENTIALS = True
@@ -110,7 +110,7 @@ CORS_ALLOW_CREDENTIALS = True
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:3000",
     os.environ.get("CORS_HOST", "http://localhost:3001"),
-    os.environ.get("DEPLOYED_HOST", "localhost"),
+    f"https://{os.environ.get('DEPLOYED_HOST')}",
 ]
 
 
