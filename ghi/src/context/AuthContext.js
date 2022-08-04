@@ -78,6 +78,11 @@ export const AuthProvider = ({children}) => {
     let updateToken = useCallback(async () => {
         console.log("Updated access token (if user inactive, automatically done every 29 minutes)")
         const url = `${process.env.REACT_APP_DJANGO_PACKING_LISTS}/auth/token/refresh/`;
+        console.log("url: ", url)
+        const domain = /https:\/\/[^/]+/;
+        const basename = process.env.PUBLIC_URL.replace(domain, '');
+        console.log("basename: ", basename)
+
         const params = {
             "refresh": authTokens?.refresh
         }

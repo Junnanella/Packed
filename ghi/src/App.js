@@ -14,26 +14,27 @@ import DetailList from "./MainPages/DetailList";
 export default function App() {
   const domain = /https:\/\/[^/]+/;
   const basename = process.env.PUBLIC_URL.replace(domain, '');
+  console.log(basename)
   return (
     <BrowserRouter basename={basename}>
       <AuthProvider>
         <Nav />
         <div>
           <Routes>
-            <Route path="/" element={<MainPage />} exact />
-            <Route path="/travel_details" element={<TravelDetailPage />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<SignUp />} />
+            <Route path="" element={<MainPage />} exact />
+            <Route path="travel_details" element={<TravelDetailPage />} />
+            <Route path="login" element={<Login />} />
+            <Route path="signup" element={<SignUp />} />
             <Route
-              path="/test-component"
+              path="test-component"
               element={
                 <PrivateRoute>
                   <TestComponent />
                 </PrivateRoute>
               }
             />
-            <Route path="/packinglists" element={<PackingLists />} />
-            <Route path="/packing_list" element={<DetailList />} />
+            <Route path="packinglists" element={<PackingLists />} />
+            <Route path="packing_list" element={<DetailList />} />
           </Routes>
         </div>
       </AuthProvider>
