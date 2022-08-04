@@ -99,34 +99,6 @@ export default function SuggestedItems({ setItems, items, temperature }) {
     <div className="container">
       <h4 className="items-heading">Things you might need</h4>
       <div className="input-group mb-3">
-        <div>
-          {/* <table className="table table-hover">
-            <thead>
-              <tr>
-                <th scope="col">General Items</th>
-              </tr>
-            </thead>
-            <tbody>
-              {generalItems.map((item) => {
-                return (
-                  <tr className="ms-auto"key={item.name}>
-                    <div className="mx-auto">
-                    <td>{item.name}</td>
-                    <td>
-                      <button
-                        className="btn btn-success btn-sm"
-                        onClick={(e) => addGItem(item)}
-                      >
-                        <FontAwesomeIcon icon={faPlusSquare} />
-                      </button>
-                    </td>
-                    </div>
-                  </tr>
-                  
-                );
-              })}
-            </tbody>
-          </table> */}
            <table className="table table-hover">
             <thead>
               <tr>
@@ -177,6 +149,5 @@ export default function SuggestedItems({ setItems, items, temperature }) {
           </table>
         </div>
       </div>
-    </div>
   );
 }
