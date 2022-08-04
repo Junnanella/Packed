@@ -123,39 +123,30 @@ img.suitcases {
     padding-left: 2.5in;
 }
 
-/* div.item-tables {
-    background-color: red;
-} */
-
-/* div.title{
-    background-color: red;
-} */
-.btn-success {
-    background-color: green;
-}
-.hovertext {
+.btn-sm1 {
     position: relative;
-    background-color: green;
+    /* background-color: green; */
+    size-adjust: 100px;
   }
   
-  .hovertext:before {
+.btn-sm1:before {
     content: attr(data-hover);
     visibility: hidden;
     width: 80px;
     background-color: lightgrey;
-    color: #fff;
+    color: black;
     text-align: center;
     transition: opacity 1s ease-in-out;
     position: absolute;
     z-index: 100;
     left: 100;
     top: 110%;
-  }
+}
   
-  .hovertext:hover:before {
+.btn-sm1:hover:before {
     opacity: 1;
     visibility: visible;
-  }
+}
 
 /* Packing Lists Page */
 body {
