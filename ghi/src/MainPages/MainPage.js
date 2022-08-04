@@ -6,9 +6,7 @@ export default function MainPage() {
     <div className="px-4 py-5 my-5 text-center main-page-background shadow">
       <div className="row">
         <div className="col-sm-12 d-block d-lg-none d-xl-none d-xxl-none">
-          <h4 className="small-screen-blurb">
-            helping you get <strong>packed</strong> for your next trip
-          </h4>
+          <h4 className="small-screen-blurb">Let's start planning!</h4>
         </div>
         <div className="col-sm-12 col-md-4 d-none d-lg-block">
           <img
