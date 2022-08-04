@@ -1,3 +1,4 @@
+/* main */
 .packed-logo {
     width: 1.2em;
     padding-bottom: .3em;
@@ -14,13 +15,40 @@ body {
 }
 
 .app-blurb{
-    margin-top: 12rem;;
+    margin-top: 12rem;
+}
+/* 
+.blurb-text {
+    font-weight: bold;
+    text-shadow: 1px 1px  #effef6;  
+} */
+
+.blurb-background {
+    background-image: url("../../public/front_open_suitcase_blurb.png");
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position-y: 9rem;
 }
 
 .trip-form {
     background-color: #d3f0e480;
     border-radius: 20px;
     margin-right: 1rem;
+}
+
+.submit-button {
+    background-color: #ef2a46;
+    font-size: 30px;
+    font-weight: bold;
+    color: white;
+    height: 2em;;
+    width: 50%;
+    border-radius: 8px;
+    border: none;
+}
+
+.submit-button:hover {
+    background-color: #ffb258;
 }
 
 div.detail-page-header {
