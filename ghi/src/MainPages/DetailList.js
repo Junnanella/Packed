@@ -299,5 +299,7 @@ function DetailList() {
         </div>
     )
 }
+}
 
 export default DetailList
+
