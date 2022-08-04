@@ -91,7 +91,7 @@ function DetailList() {
             setEditMode(!editMode);
             makeRequests();
         } else {
-            console.log("something went wrong")
+            window.alert("Something went wrong. Try again.")
         }
     }
     const percentage = useCallback((fetchedItems = null) => {

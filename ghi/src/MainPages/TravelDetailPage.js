@@ -19,26 +19,29 @@ export default function TravelDetailPage() {
   const destination_country = searchParams.get("destination_country");
   const destination_code = searchParams.get("destination_code");
   const departure_date = searchParams.get("departure_date");
-  const [temperature, setTemperature] = useState(null)
+  const [temperature, setTemperature] = useState(null);
   const return_date = searchParams.get("return_date");
   const [items, setItems] = useState([]);
   let { user } = useContext(AuthContext);
 
-
   // Will need to pass the above variable to the corresponding components
   return (
-    <div>
-      <div className="travel-page">
+    <div className="travel-page shadow mx-5 my-5 py-3">
+      <div className="container">
         <div className="detail-page-header">
-          {user?.username ? <h1>Hi {user?.username}! </h1> : null}
-          <h2 className="detail-page-header-text display-4 fw-normal text-center g-5">
+          <h1>Hi {user?.username}! </h1>
+          <h2 className="d-none d-lg-block detail-page-header-text display-4 fw-normal text-center g-5">
             Create a packing list for {destination_city}, {destination_country}!
           </h2>
-          <img src={travelBags} alt="bags" className="bags" />
         </div>
         <div className="container">
+          <img
+            src={travelBags}
+            alt="bags"
+            className="bags d-none d-lg-block"
+          />
           <div className="row">
-            <div className="col item-column detail-columns">
+            <div className="col-sm-12 col-md col-lg item-column detail-columns shadow">
               <UserItemForm setItems={setItems} items={items} />
               <SuggestedItems
                 setItems={setItems}
@@ -46,8 +49,10 @@ export default function TravelDetailPage() {
                 temperature={temperature}
               />
             </div>
-            <div className="col item-column detail-columns">
-              <WorkingList setItems={setItems} items={items}
+            <div className="col-sm-12 col-md col-lg item-column detail-columns shadow">
+              <WorkingList
+                setItems={setItems}
+                items={items}
                 destination_city={destination_city}
                 destination_country={destination_country}
                 departure_date={departure_date}
@@ -55,25 +60,29 @@ export default function TravelDetailPage() {
                 origin_country={origin_country}
               />
             </div>
-            <div className="col data-column detail-columns">
-              <div className="row">
-                <WeatherChart
-                  destination_city={destination_city}
-                  destination_country={destination_country}
-                  departure_date={departure_date}
-                  return_date={return_date}
-                  setTemperature={setTemperature}
-                />
-              </div>
-              <div className="row currency-data">
-                <CurrencyInfo
-                  origin_code={origin_code}
-                  destination_code={destination_code}
-                  detailPage={false}
-                />
-              </div>
+            <div className="col-sm-12 col-md-12 col-lg data-column detail-columns shadow">
+              <WeatherChart
+                destination_city={destination_city}
+                destination_country={destination_country}
+                departure_date={departure_date}
+                return_date={return_date}
+                origin_country={origin_country}
+                setTemperature={setTemperature}
+              />
+              <CurrencyInfo
+                origin_code={origin_code}
+                destination_code={destination_code}
+                detailPage={false}
+                className="currency-data"
+              />
             </div>
-            <div><img src={travelSuitcases} alt="suitcases" className="suitcases" /> </div>
+            <div>
+              <img
+                src={travelSuitcases}
+                alt="suitcases"
+                className="suitcases"
+              />
+            </div>
           </div>
         </div>
       </div>
