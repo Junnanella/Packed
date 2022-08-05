@@ -25,10 +25,12 @@ export default function CurrencyInfo(props) {
 
   const [currencyInput, setCurrencyInput] = useState(1);
 
+  // in case there is a delay in fetching currency data, render Loading...
   if (currencyRate === null) {
     return "Loading...";
   }
 
+  // update exchangeOutput as user changes currencyInput on the browser
   const exchangeOutput = currencyInput * currencyRate;
 
   const onChangeCurrencyInput = (event) => {
@@ -36,6 +38,7 @@ export default function CurrencyInfo(props) {
   };
 
   return (
+    // component layout is different if viewing on Detail Page vs Travel Detail Page
     <div className={!detailPage ? "container-sm" : ""}>
       {!detailPage ? (
         <h3 className="mt-5">Current Exchange Rate</h3>
