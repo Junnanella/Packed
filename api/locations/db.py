@@ -19,6 +19,11 @@ class CurrencyQueries:
             return {"warning": "impropertly formatted country."}
 
     def get_list_from_db(self):
+        """
+        Arguments: N/A
+        Returns: a list containing data about each country, received
+        from the database
+        """
         with pool.connection() as conn:
             with conn.cursor() as cur:
                 cur.execute(
