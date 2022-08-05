@@ -16,10 +16,12 @@ export default function Footer() {
         </li>
         <li className="nav-item">
             <a className="nav-link" href="https://www.linkedin.com/in/williamacarter/"target="_blank">William</a>
+        </li>
       <div className="footer-copyright text-center py-3">
         © 2022 packed:
         <a href="https://packed-module-3.gitlab.io/packed/"> packed.io</a>
       </div>
+    </ul>
     </footer>
   );
 }
