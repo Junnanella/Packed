@@ -338,9 +338,15 @@ div.save-changes {
     text-align: center;
 }
 
+.login-signup-parent {
+    display: flex;
+    justify-content: center;
+}
+
 .login-signup {
     border-radius: 20px;
     background: #cbe4da;
+    width: 23em;
 }
 
 .login-signup-link-text-color {

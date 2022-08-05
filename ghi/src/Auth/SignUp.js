@@ -50,7 +50,7 @@ const SignUp = () => {
 
 
     return (
-        <div className="container col-4">
+        <div className="login-signup-parent">
             <div className="shadow p-4 mt-4 login-signup">
                 <h1>Sign Up</h1>
                 <form onSubmit={submitSignUp}>
