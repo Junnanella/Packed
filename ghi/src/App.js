@@ -38,7 +38,7 @@ export default function App(props) {
             </PrivateRoute>
           }
         />
-        <Route path="/packinglists" element={<PackingLists />} />
+        <Route path="/packinglists" element={<PrivateRoute><PackingLists /></PrivateRoute>} />
         <Route path="/packing_list" element={<DetailList />} />
       </Routes>
     </>

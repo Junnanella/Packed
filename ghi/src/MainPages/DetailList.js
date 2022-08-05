@@ -42,6 +42,9 @@ function DetailList() {
     )
     const itemsUrl = `${process.env.REACT_APP_DJANGO_PACKING_LISTS}/api/packing_lists/${packingListId}/items/`;
     const packingListUrl = `${process.env.REACT_APP_DJANGO_PACKING_LISTS}/api/packing_lists/${packingListId}/`;
+    // function that handles making GET, PUT and DELETE methods to the backend
+    // arguments: url:str, method:str, body:str
+    // returns: an object with the response data from the backend
     const fetchData = useCallback(async (url, method = "GET", body = null) => {
         const fetchConfig = {
             method: method,
@@ -64,6 +67,9 @@ function DetailList() {
             alert("Failed operation")
         }
     }, [authTokens?.access])
+    // helper function to find item in items
+    // argument: name:str
+    // returns: index of item:int
     function findItem(name) {
         for (let index = 0; index < items.length; index++) {
             if (items[index].name === name) {
@@ -75,6 +81,8 @@ function DetailList() {
     function printPackingList() {
         window.print();
     }
+    // helper function to delete an item from items
+    // argument: event - contains the name of the sought item
     function deleteItem(event) {
         event.preventDefault();
         const name = event.target.value;
@@ -83,12 +91,16 @@ function DetailList() {
         setItems(updatedItems);
         percentage(updatedItems);
     };
+    // function that structures the DELETE request to be sent to the backend
+    // reroutes to packing lists page
     async function deletePackingList(event) {
         event.preventDefault();
         if (await fetchData(packingListUrl, "DELETE", null) !== null) {
             navigate("/packinglists");
         }
     }
+    // function that structures the PUT request to be sent to the backend
+    // updates state with new data
     async function sendChangesToDatabase() {
         const updatedItems = await fetchData(itemsUrl, "PUT", { items: items })
         if (updatedItems) {
@@ -98,6 +110,9 @@ function DetailList() {
             window.alert("Something went wrong. Try again.")
         }
     }
+    // sets the percentage packed. this info is used to update the progress bar
+    // arguments: items fetched from the database or the already existing items
+    // sets the percentage packed and the color of the progress bar
     const percentage = useCallback((fetchedItems = null) => {
         const data = !fetchedItems ? items : fetchedItems;
         const numItems = data.length
@@ -105,13 +120,15 @@ function DetailList() {
             return item.packed === true
         }).length
         const calculatedPercentage = Math.floor((numPackedItems / numItems) * 100);
-        setPercentagePacked(calculatedPercentage);
+        setPercentagePacked(numItems > 0 ? calculatedPercentage : 0);
         if (calculatedPercentage === 100) {
             setProgressBarColor("bg-success");
         } else {
             setProgressBarColor("progress-bar-striped bg-warning progress-bar-animated");
         }
     }, [items])
+    // function used to clean the PackingListItems from the backend and turn
+    // them into valid Item instances
     const makeRequests = useCallback(async () => {
         const itemsObject = await fetchData(itemsUrl);
         if (itemsObject) {
@@ -158,6 +175,7 @@ function DetailList() {
                                 items={items}
                                 percentagePacked={percentagePacked}
                                 setPercentagePacked={setPercentagePacked}
+                                setProgressBarColor={setProgressBarColor}
                             />
                             :
                             <div className="mb-2 text-left">

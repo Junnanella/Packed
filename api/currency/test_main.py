@@ -18,9 +18,11 @@ def test_get_currency_result():
     assert result == response.text
 
 
-# Tests the API call output to make sure it's ONLY returning the "result" key
-# rather than the complete dictionary output by checking if it's an integer
 def test_get_currency():
+    """
+    Tests the API call output to make sure it's ONLY returning the "result" key
+    rather than the complete dictionary output by checking if it's an integer """
+
     response = client.get("/api/convert")
     response.status_code == 200
     response = requests.request("GET", url, headers=headers, data=payload)

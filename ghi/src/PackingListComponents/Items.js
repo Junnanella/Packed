@@ -16,6 +16,13 @@ function analyzeTemp(tempData) {
 }
 
 export default function SuggestedItems({ setItems, items, temperature }) {
+
+//  Takes 3 parameters to determine the best suggested items for a user.
+//  setItems/items is used to pull items from our suggested list to be 
+//  rendered to the user. Temperature makes sure only items that fall under
+//  specific weather data points are rendered in the conditional items table. 
+//  For example we would not want to suggest a heavy coat for a user if weather 
+//  data states it will be hot.
   const [conditionalItems, setConditionalItems] = useState([]);
   const [generalItems, setGeneralItems] = useState([]);
   let { authTokens } = useContext(AuthContext);
@@ -84,11 +91,21 @@ export default function SuggestedItems({ setItems, items, temperature }) {
     fetchData();
   }, [fetchData]);
   function addGItem(newItem) {
+
+//  Takes newItem parameter that allows the user to add
+//  an item from our general items suggested list, if the
+//  item is already in their packing list it will not be
+//  duplicated
     newItem.quantity = 1;
     setItems([...items, newItem]);
     setGeneralItems(generalItems.filter((item) => item.id !== newItem.id));
   }
   function addCItem(newCItem) {
+
+//  Takes newCItem parameter that allows the user to add
+//  an item from our conditional items suggested list, if the
+//  item is already in their packing list it will not be
+//  duplicated
     newCItem.quantity = 1;
     setItems([...items, newCItem]);
     setConditionalItems(

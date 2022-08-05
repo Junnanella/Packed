@@ -186,3 +186,16 @@ Today, I worked on:
 The group and I spent a good chunk of the morning discussing the GHI and making a game plan to complete it before due date. It was a good chance to give/receive feedback on our work and implement the suggestions.
 
 Today was a struggle for me to implement a feature on the detail packing list page. I still have not gotten it to work and am a bit burned out. I will give it a fresh attempt tomorrow. Deployment has been a good experience overall. I had a bug in the gitlab-ci module that took a while to find but now the website seems to be deployed semi-successfully. Tomorrow, I will go over the steps of deployment with the group.
+
+## Aug 4, 2022
+
+Today, I worked on:
+* CSS for DetailList page
+* Creating page navigation blocker
+* CI/CD
+* Linting
+* Writing function comments
+
+The group and I collaborated a lot today. Brainstorming and troubleshooting is both fun and very productive. Most of our discussions were about the GHI and completing the project to meet the deadline.
+
+Going into today, I was worried about implementing a page navigation blocker to prevent people from leaving their list with unsaved changes. It turned out to be a very straightforward process. Implementing that is a big user experience improvement. Also, I have really enjoyed deploying the site. As of today, it is fully deployed and operational. The rest of of the work tomorrow will be touching up stuff. Linting my python was easy to do with black and flake8.

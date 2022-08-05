@@ -26,7 +26,6 @@ export default function TravelDetailPage() {
   // access user name of logged in user
   let { user } = useContext(AuthContext);
 
-  // Will need to pass the above variable to the corresponding components
   return (
     <div className="travel-page shadow mx-5 my-5 py-3">
       <div className="container">
@@ -67,12 +66,14 @@ export default function TravelDetailPage() {
                 origin_country={origin_country}
                 setTemperature={setTemperature}
               />
+              <div className="currency-data">
               <CurrencyInfo
                 origin_code={origin_code}
                 destination_code={destination_code}
                 detailPage={false}
                 className="currency-data"
               />
+            </div>
             </div>
             <div>
               <img
