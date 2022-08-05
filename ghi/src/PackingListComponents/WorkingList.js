@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
 import { faSave } from "@fortawesome/free-solid-svg-icons";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
+import { useState } from 'react';
 
 function WorkingList({
   items,
@@ -17,8 +18,8 @@ function WorkingList({
 }) {
   let { authTokens } = useContext(AuthContext);
   let navigate = useNavigate();
+  const [editMode, setEditMode] = useState(false)
 
-  // 🚨
   function printPage() {
     window.print();
   }
@@ -93,11 +94,13 @@ function WorkingList({
   edit_button?.addEventListener("click", function () {
     paragraph.contentEditable = true;
     paragraph.style.backgroundColor = "#dddbdb";
+    setEditMode(true);
   });
 
   end_button?.addEventListener("click", function () {
     paragraph.contentEditable = false;
     paragraph.style.backgroundColor = "transparent";
+    setEditMode(false);
   });
 
   return (
@@ -106,23 +109,25 @@ function WorkingList({
         <h3 id="edit" name="title" className="packing-list-heading">
           Packing List for {destination_country}
         </h3>
-
-        <button
-          className="btn btn-success btn-sm1 btn-sm me-1"
-          type="submit"
-          id="edit-button"
-          data-hover="Edit Name"
-        >
-          <FontAwesomeIcon icon={faEdit} />
-        </button>
-        <button
-          className="btn btn-success btn-sm1 btn-sm"
-          type="submit"
-          id="end-editing"
-          data-hover="Save"
-        >
-          <FontAwesomeIcon icon={faSave} />
-        </button>
+        {editMode ?
+          <button
+            className="btn btn-success btn-sm1 btn-sm"
+            type="submit"
+            id="end-editing"
+            data-hover="Save"
+          >
+            <FontAwesomeIcon icon={faSave} />
+          </button>
+          :
+          <button
+            className="btn btn-outline-success btn-sm1 btn-sm me-1"
+            type="submit"
+            id="edit-button"
+            data-hover="Edit Name"
+          >
+            <FontAwesomeIcon icon={faEdit} />
+          </button>
+        }
       </div>
       <table className="table table-hover">
         <thead>
