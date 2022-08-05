@@ -13,11 +13,15 @@ import DetailList from "./MainPages/DetailList";
 import { createElement } from "react";
 
 export default function App(props) {
+  // when running App for testing, App.test.js will pass in MockAuthProvider
+  // to bypass need for user data
+  // if nothing is passed into props, then authProvider will default to AuthProvider
   const { authProvider = AuthProvider } = props;
 
   const domain = /https:\/\/[^/]+/;
   const basename = process.env.PUBLIC_URL.replace(domain, "");
 
+  // abstract Components
   const navAndRoutes = (
     <>
       <Nav />
@@ -40,6 +44,9 @@ export default function App(props) {
     </>
   );
 
+  // can not simply plug in authProvider variable as a component, so
+  // using createElemnent to create a new react element to include
+  // authProvider
   return (
     <BrowserRouter basename={basename}>
       {createElement(authProvider, {}, navAndRoutes)}
