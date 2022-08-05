@@ -1,7 +1,7 @@
 # APIs
 
 - Currency Exchange API: https://apilayer.com/marketplace/exchangerates_data-api#documentation-tab
-- Flight API: Still looking for a free one
+- Flight API: Stretch goal
 - Weather API: https://www.visualcrossing.com/resources/documentation/weather-api/timeline-weather-api/
 - Locations API: localhost:8004/api/locations/
 
@@ -27,7 +27,7 @@ Output:
 ```
 
 Creating a new origin country/ destination country will query a currency exchange rate API
-and will return the current days exchange rate from USD(example origin country) to the created destinations country's currency. The amount to convert will be hardcoded as 1 so currency rate will only be returned for 1 USD (example origin country)
+and will return the current days exchange rate from USD(example origin country) to the created destinations country's currency. The amount to convert will be defaulted to 1 so currency rate will only be returned for 1 USD (example origin country)
 
 - **Method**: `GET`
 - **Path**: /api/flights
@@ -79,14 +79,6 @@ Input:
 }
 ```
 
-🐰 🐰 🐰 example input:
-{
-"city": "Sydney",
-"country": "Australia",
-"departure_date": "2022-12-28",
-"return_date": "2023-01-30"
-}
-
 Output:
 
 ```json
@@ -106,7 +98,7 @@ Output:
 }
 ```
 
-Creating a new location will query a weather API to get historical weather data for their trip dates.
+Creating a new location will query a weather API to get historical weather data for their trip dates. The API will go back a maximum of 12 months and pull weather data from the same month from the prior year
 
 - **Method**: `GET`
 - **Path**: /api/locations/
