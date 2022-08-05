@@ -4,7 +4,6 @@ export const loadWeatherData = async (
   departure_date,
   return_date
 ) => {
-  // 🚨🚨🚨 REMOVE "fake" from url before deploying!!
   const response = await fetch(
     `${process.env.REACT_APP_FASTAPI_WEATHER}/api/weather?city=${encodeURIComponent(
       city
@@ -42,9 +41,8 @@ export const loadFlightData = async (
 };
 
 export const loadCurrencyData = async (origin_country, destination_country) => {
-  // 🚨🚨🚨 REMOVE "fake" from url before deploying!!
   const response = await fetch(
-    `${process.env.REACT_APP_FASTAPI_CURRENCY}/api/fake/convert?origin_country=${encodeURIComponent(
+    `${process.env.REACT_APP_FASTAPI_CURRENCY}/api/convert?origin_country=${encodeURIComponent(
       origin_country
     )}&destination_country=${encodeURIComponent(destination_country)}`,
     { mode: "cors" }
