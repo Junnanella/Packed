@@ -11,6 +11,8 @@ import TestComponent from "./Auth/TestComponent";
 import { PackingLists } from "./MainPages/PackingLists";
 import DetailList from "./MainPages/DetailList";
 import { createElement } from "react";
+import Footer from "./MainPages/Footer.js";
+
 
 export default function App(props) {
   const { authProvider = AuthProvider } = props;
@@ -37,12 +39,16 @@ export default function App(props) {
         <Route path="/packinglists" element={<PackingLists />} />
         <Route path="/packing_list" element={<DetailList />} />
       </Routes>
+      <Footer />
     </>
   );
 
   return (
+    
     <BrowserRouter basename={basename}>
       {createElement(authProvider, {}, navAndRoutes)}
     </BrowserRouter>
+    
   );
+
 }
