@@ -2,16 +2,21 @@ import { render, screen } from "@testing-library/react";
 import App from "./App";
 import { MockAuthProvider } from "./context/AuthContext";
 
-test("renders 'packed'", () => {
+test("renders a logo that mentions 'packed'", () => {
+  // expect(button).toBeInTheDocument();
   render(<App authProvider={MockAuthProvider} />);
 
-  const logoText = screen.getByText(/packed/i);
-  expect(logoText).toBeInTheDocument();
+  const logo = screen.getByTestId("logo");
+  // expect(logoText).toBeInTheDocument();
+
+  expect(logo.textContent).toEqual(expect.stringMatching(/packed/i));
 });
 
-test("renders 'get to packing' CTA", () => {
+test("renders a button CTA", () => {
   render(<App authProvider={MockAuthProvider} />);
 
-  const cta = screen.getByText(/get to packing/i);
+  const cta = screen.getByTestId("cta");
+  // expect(logoText).toBeInTheDocument();
+
   expect(cta).toBeInTheDocument();
 });

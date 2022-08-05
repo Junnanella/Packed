@@ -168,7 +168,9 @@ export const TripForm = (props) => {
             />
             <label htmlFor="name">Return Date</label>
           </div>
-          <button className="submit-button">Get to Packing</button>
+          <button className="submit-button" data-testid="cta">
+            Get to Packing
+          </button>
         </form>
       </div>
     </div>
