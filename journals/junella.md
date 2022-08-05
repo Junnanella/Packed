@@ -1,3 +1,15 @@
+## August 04, 2022
+
+Today, I worked on:
+
+- Updating my ghi unit tests.
+- Adjusting the layout for the travel detail page to account for scaling the browser window.
+- Adding a message on the packing lists page for a user that has no saved packing lists and a button for them to go back to the home page.
+
+Merging was a bit more challenging today, with all of us making minor adjustments on the same pages, which led to a lot of overlap and the need to handle merge conflicts. One struggle is that I have an autoformatter, so if I pulled files that didn't match the formatting, there would be a lot more merge conflicts to handle and it was a bit difficult to see if the conflicts were just formatting or if choosing the current or incoming changes would affect the application.
+
+The ghi unit tests were also a bit difficult because prior to looking into it, I didn't really know how to test things for the frontend. Took a lot of googling and reading docs to even get the simple tests I have up and passing. I hope with more practice, I will be able to write more meaningful tests for the frontend. Right now they are pretty simple, just making sure that we have our "packed" logo and making sure that we have a call to action button for our form.
+
 ## August 03, 2022
 
 Today, I worked on:
