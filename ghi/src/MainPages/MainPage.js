@@ -2,6 +2,8 @@ import { TripForm } from "./TripForm";
 import "./pages.css";
 import group from "../Images/group.png"
 
+
+
 export default function MainPage() {
   return (
     <div className="px-4 py-5 my-5 text-center main-page-background shadow">
@@ -23,15 +25,6 @@ export default function MainPage() {
       <div className="row">
         <img className="group-pic" src={group} alt="group" />
       </div>
-      <div className="footer">
-        <footer className="py-5 bg-light">
-          <div className="container">
-            <p className="m-0 text-center text-grey">
-              Copyright &copy; packed 2022
-            </p>
-          </div>
-        </footer>
       </div>
-    </div>
   );
 }

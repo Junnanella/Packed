@@ -2,6 +2,7 @@ from fastapi import FastAPI, HTTPException
 import requests
 import os
 from fastapi.middleware.cors import CORSMiddleware
+import json
 
 CURRENCY_RATE_API_KEY = os.environ["CURRENCY_RATE_API_KEY"]
 
@@ -39,10 +40,9 @@ def get_currency_rate(url):
 
     if not response.ok and "API rate limit" in response.text:
         raise ApiRateLimitExceeded()
-
-    result = response.text
-    result_split = str(result).splitlines()[-2]
-    rate = result_split[12:-1]
+    data = json.loads(response.content)
+    total_rate = data["result"]
+    rate = float("{0:.2f}".format(total_rate))
     return rate
 
 
@@ -54,11 +54,3 @@ def currency_exchange_rate(origin_country, destination_country):
         return currency_rate
     except ApiRateLimitExceeded:
         raise HTTPException(status_code=400, detail="Currency API rate limit exceeded")
-
-
-# 🚨🚨🚨 REMOVE fake function before deploying!!
-# **DEV USE ONLY**
-# fake_currency_exchange_rate allows a set amount to be returned during testing to limit API calls
-@app.get("/api/fake/convert")
-def fake_currency_exchange_rate(origin_country, destination_country):
-    return "0.987"

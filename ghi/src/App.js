@@ -11,6 +11,8 @@ import TestComponent from "./Auth/TestComponent";
 import { PackingLists } from "./MainPages/PackingLists";
 import DetailList from "./MainPages/DetailList";
 import { createElement } from "react";
+import Footer from "./MainPages/Footer.js";
+
 
 export default function App(props) {
   // when running App for testing, App.test.js will pass in MockAuthProvider
@@ -41,6 +43,7 @@ export default function App(props) {
         <Route path="/packinglists" element={<PrivateRoute><PackingLists /></PrivateRoute>} />
         <Route path="/packing_list" element={<DetailList />} />
       </Routes>
+      <Footer />
     </>
   );
 
@@ -48,8 +51,11 @@ export default function App(props) {
   // using createElemnent to create a new react element to include
   // authProvider
   return (
+    
     <BrowserRouter basename={basename}>
       {createElement(authProvider, {}, navAndRoutes)}
     </BrowserRouter>
+    
   );
+
 }
