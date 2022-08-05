@@ -1,7 +1,7 @@
 # APIs
 
 - Currency Exchange API: https://apilayer.com/marketplace/exchangerates_data-api#documentation-tab
-- Flight API: Stretch goal
+- Flight API: Actively trying to implement 
 - Weather API: https://www.visualcrossing.com/resources/documentation/weather-api/timeline-weather-api/
 - Locations API: localhost:8004/api/locations/
 
@@ -22,17 +22,18 @@ Output:
 ```json
 {
   "id": int,
-  "result": float,
+  "rate": float,
 }
 ```
 
-Creating a new origin country/ destination country will query a currency exchange rate API
-and will return the current days exchange rate from USD(example origin country) to the created destinations country's currency. The amount to convert will be defaulted to 1 so currency rate will only be returned for 1 USD (example origin country)
+Creating a new origin_country/destination_country will query a currency exchange rate API
+and will return the current days exchange rate from USD(example origin_country) to the created 
+destinations country's currency. The amount to convert will be defaulted to 1 but the user can edit the amount.
 
 - **Method**: `GET`
 - **Path**: /api/flights
 
-Input:
+Expected Input:
 
 ```json
 {
@@ -45,7 +46,7 @@ Input:
 }
 ```
 
-Output:
+Expected Output:
 
 ```json
 {
@@ -57,13 +58,12 @@ Output:
 }
 ```
 
-Creating a new location uses the incoming city and state
-data to query an image API to get a URL for an image for
-the location. Then, it saves the name, city, state, and
-image URL to the database. It returns all of the data
-with the new database id.
+Expected: 
 
-Creating a new flight date/flight location will query a flight API which will search all available flights to said destination. It will then return a list of all those flights and include their prices.
+Creating a new flight destination with a date will query a flight API which will search 
+all available flights to said destination. It will then return a list of all those flights and 
+include their prices/airline/flight number with a link to book the flight.
+
 
 - **Method**: `GET`
 - **Path**: /api/weather
@@ -72,8 +72,8 @@ Input:
 
 ```json
 {
-  "city": string,
-  "country": string,
+  "destination_city": string,
+  "destination_country": string,
   "departure_date": string,
   "return_date": string
 }
@@ -98,7 +98,9 @@ Output:
 }
 ```
 
-Creating a new location will query a weather API to get historical weather data for their trip dates. The API will go back a maximum of 12 months and pull weather data from the same month from the prior year
+Creating a new destination location will query a weather API to get historical weather data for the user's 
+trip dates. The API will go back a maximum of 12 months and pull weather data from the same month from 
+the prior year to give the user an idea of what the weather could look like. 
 
 - **Method**: `GET`
 - **Path**: /api/locations/
@@ -122,4 +124,6 @@ Output:
 }
 ```
 
-The list of returned countries will be used to populate the country dropdown form in the GHI. When a user selects a country, the currency_code is sent to the currency api and the country is sent to the weather api
+The list of returned countries will be used to populate the country dropdown form in the GHI. When a 
+user selects a country, the currency_code is sent to the currency api and the country is sent to 
+the weather api.
