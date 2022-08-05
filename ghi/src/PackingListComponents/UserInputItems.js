@@ -11,6 +11,10 @@ export const UserItemForm = ({
 }) => {
   const [userItem, setUserItem] = useState("");
 
+  // when a user submits a new item, this function cleans the
+  // entry to make sure it is not blank and that there is not
+  // an existing item with that name
+  // if data is valid, this function adds the new item to items
   const onClick = async (event) => {
     let valid = true;
     let message = "";
@@ -35,6 +39,8 @@ export const UserItemForm = ({
         },
       ];
       setItems(updatedItems);
+      // this if statement is used by the DetailList page. It ensures the packing
+      // progress bar is updated correctly when a user adds an item
       if (percentagePacked) {
         const numItems = updatedItems.length;
         const numPackedItems = updatedItems.filter((item) => {
