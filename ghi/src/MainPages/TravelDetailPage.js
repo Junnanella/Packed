@@ -69,13 +69,13 @@ export default function TravelDetailPage() {
                 setTemperature={setTemperature}
               />
               <div className="currency-data">
-              <CurrencyInfo
-                origin_code={origin_code}
-                destination_code={destination_code}
-                detailPage={false}
-                className="currency-data"
-              />
-            </div>
+                <CurrencyInfo
+                  origin_code={origin_code}
+                  destination_code={destination_code}
+                  detailPage={false}
+                  className="currency-data"
+                />
+              </div>
             </div>
             <div>
               <img

@@ -360,6 +360,7 @@ def create_packing_list(content):
         "return_date": content["return_date"],
         "destination_city": content["destination_city"],
         "destination_country": content["destination_country"],
+        "origin_country": content["origin_country"],
         "owner": content["owner"],
     }
     try:

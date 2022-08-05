@@ -8,8 +8,8 @@ import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { useState } from 'react';
 
 function WorkingList({
-  items,
   setItems,
+  items,
   destination_city,
   destination_country,
   departure_date,

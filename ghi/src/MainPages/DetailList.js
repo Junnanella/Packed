@@ -27,12 +27,14 @@ function DetailList() {
     const packingListId = packingList.id;
     const packingListTitle = packingList.title;
     const cityWeather = packingList.destination_city;
-    const countryWeather = packingList.destination_country;
+    const destinationCountry = packingList.destination_country;
     const departureDate = packingList.departure_date;
     const returnDate = packingList.departure_date;
     const originCountry = packingList.origin_country;
     const createdDate = packingList.created;
     const { authTokens } = useContext(AuthContext);
+    const [originCurrencyCode, setOriginCurrencyCode] = useState("");
+    const [destinationCurrencyCode, setDestinationCurrencyCode] = useState("");
     const [mount, setMount] = useState(true);
     const [items, setItems] = useState([]);
     const [editMode, setEditMode] = useState(false);
@@ -42,6 +44,7 @@ function DetailList() {
     )
     const itemsUrl = `${process.env.REACT_APP_DJANGO_PACKING_LISTS}/api/packing_lists/${packingListId}/items/`;
     const packingListUrl = `${process.env.REACT_APP_DJANGO_PACKING_LISTS}/api/packing_lists/${packingListId}/`;
+    const currencyCodesUrl = `${process.env.REACT_APP_FASTAPI_LOCATIONS}/api/locations/${originCountry}/${destinationCountry}/`
     // function that handles making GET, PUT and DELETE methods to the backend
     // arguments: url:str, method:str, body:str
     // returns: an object with the response data from the backend
@@ -143,12 +146,21 @@ function DetailList() {
             percentage(listOfItems);
         }
     }, [fetchData, percentage, itemsUrl])
+    const getCurrencyCodesFromBackend = useCallback(async () => {
+        const response = await fetch(currencyCodesUrl);
+        const data = await response.json();
+        if (response.ok) {
+            setOriginCurrencyCode(data.origin_code);
+            setDestinationCurrencyCode(data.destination_code);
+        }
+    }, [currencyCodesUrl, destinationCurrencyCode, originCurrencyCode])
     useEffect(() => {
+        getCurrencyCodesFromBackend();
         if (mount) {
             makeRequests();
             setMount(false);
         }
-    }, [mount, fetchData, makeRequests])
+    }, [mount, fetchData, makeRequests, getCurrencyCodesFromBackend, destinationCurrencyCode, originCurrencyCode])
     return (
         <div className="container mt-3">
             <ReactRouterPrompt when={editMode}>
@@ -179,18 +191,22 @@ function DetailList() {
                             />
                             :
                             <div className="mb-2 text-left">
+                                {/* {destinationCurrencyCode === originCurrencyCode || destinationCurrencyCode.length <= 0 ?
+                                    null
+                                    : */}
                                 <CurrencyInfo
-                                    origin_country={originCountry}
-                                    destination_country={countryWeather}
+                                    origin_code={originCurrencyCode}
+                                    destination_code={destinationCurrencyCode}
                                     detailPage={true}
                                 />
+                                {/* } */}
                             </div>
                         }
                     </div>
                     <div className="col">
                         <WeatherChart
                             destination_city={cityWeather}
-                            destination_country={countryWeather}
+                            destination_country={destinationCountry}
                             departure_date={departureDate}
                             return_date={returnDate}
                             detail={true}

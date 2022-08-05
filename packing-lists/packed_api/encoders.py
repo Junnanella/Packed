@@ -78,4 +78,5 @@ class PackingListEncoder(ModelEncoder):
         "completed",
         "destination_city",
         "destination_country",
+        "origin_country",
     ]
