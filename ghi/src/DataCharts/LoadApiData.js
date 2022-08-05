@@ -5,9 +5,9 @@ export const loadWeatherData = async (
   return_date
 ) => {
   const response = await fetch(
-    `${process.env.REACT_APP_FASTAPI_WEATHER}/api/weather?city=${encodeURIComponent(
-      city
-    )}&country=${encodeURIComponent(
+    `${
+      process.env.REACT_APP_FASTAPI_WEATHER
+    }/api/weather?city=${encodeURIComponent(city)}&country=${encodeURIComponent(
       country
     )}&departure_date=${departure_date}&return_date=${return_date}`
   );
@@ -21,24 +21,28 @@ export const loadWeatherData = async (
   return responseJson.temps;
 };
 
-export const loadFlightData = async (
-  origin_city,
-  destination_city,
-  departure_date,
-  return_date
-) => {
-  const flights = [
-    { date: "today", cost: 100.0 },
-    { date: "2022-06-14", cost: 150.0 },
-    { date: "2022-05-14", cost: 250.0 },
-  ];
+// Flights feature not yet implemented into application
+// uncomment below when ready to implement
 
-  return flights;
-  // use and update the below to connect with actual api
-  // const response = await fetch(`${process.env.REACT_APP_FASTAPI_FLIGHTS}/api/flights`);
-  // const responseJson = await response.json();
-  // return responseJson.flights;
-};
+// export const loadFlightData = async (
+//   origin_city,
+//   destination_city,
+//   departure_date,
+//   return_date
+// ) => {
+//   const flights = [
+//     { date: "today", cost: 100.0 },
+//     { date: "2022-06-14", cost: 150.0 },
+//     { date: "2022-05-14", cost: 250.0 },
+//   ];
+
+//   return flights;
+
+// use and update the below to connect with actual api
+// const response = await fetch(`${process.env.REACT_APP_FASTAPI_FLIGHTS}/api/flights`);
+// const responseJson = await response.json();
+// return responseJson.flights;
+// };
 
 export const loadCurrencyData = async (origin_country, destination_country) => {
   const response = await fetch(

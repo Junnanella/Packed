@@ -5,6 +5,7 @@ import AuthContext from "../context/AuthContext";
 import packedLogo from "../Images/packed_p.png";
 
 export default function Nav() {
+  // to access whether a user is logged in or not
   let { user, logoutUser } = useContext(AuthContext);
   return (
     <nav className="navbar">
