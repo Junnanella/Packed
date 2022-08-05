@@ -1,7 +1,7 @@
 import { TripForm } from "./TripForm";
 import "./pages.css";
 import group from "../Images/group.png"
-import Footer from "./Footer.js"
+
 
 
 export default function MainPage() {
