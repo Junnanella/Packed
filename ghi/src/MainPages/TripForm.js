@@ -24,7 +24,6 @@ export const TripForm = (props) => {
   // create an object to store location currency code and country name
   // which will then be accessed in the onSubmit function
   const locationsById = {};
-  console.log(locationsById);
   for (const location of locations) {
     locationsById[location.id] = location;
   }
