@@ -6,6 +6,7 @@ import WeatherChart from "../DataCharts/WeatherChart";
 import { faSave } from '@fortawesome/free-solid-svg-icons';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faPrint } from "@fortawesome/free-solid-svg-icons";
 import { useLocation, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useState, useContext, useCallback } from 'react';
@@ -71,6 +72,9 @@ function DetailList() {
         }
         return "item not found!";
     }
+    function printPackingList() {
+        window.print();
+    }
     function deleteItem(event) {
         event.preventDefault();
         const name = event.target.value;
@@ -132,7 +136,7 @@ function DetailList() {
         <div className="container mt-3">
             <ReactRouterPrompt when={editMode}>
                 {({ isActive, onConfirm, onCancel }) => (
-                    <Modal show={isActive}>
+                    <Modal className="popup1" show={isActive}>
                         <div>
                             <p>Are you sure you want to leave your unsaved changes?</p>
                             <button onClick={onCancel}>Cancel</button>
@@ -285,7 +289,15 @@ function DetailList() {
                             </button>
                         </div>
                         :
-                        null
+                        <div className="col">
+                            <button
+                                className="btn btn-sm btn-success btn-sm3"
+                                onClick={printPackingList}
+                                data-hover="Print"
+                            >
+                                <FontAwesomeIcon icon={faPrint} />
+                            </button>
+                        </div>
                     }
                     <div className="col" style={{ textAlign: "right" }}>Created on {getLocaleDates(createdDate)}.</div>
                 </div>

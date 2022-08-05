@@ -120,12 +120,12 @@ export const AuthProvider = ({ children }) => {
             updateToken();
         }
 
-        const fourMinutes = 1000 * 60 * 29;
+        const twentyNineMinutes = 1000 * 60 * 29;
         let interval = setInterval(() => {
             if (authTokens) {
                 updateToken();
             }
-        }, fourMinutes)
+        }, twentyNineMinutes)
         return () => clearInterval(interval);
 
     }, [authTokens, loading, updateToken])
@@ -139,16 +139,16 @@ export const AuthProvider = ({ children }) => {
 }
 
 export const MockAuthProvider = ({ children }) => {
-  const fakeContextData = {
-    user: {},
-    authTokens: [],
-    loginUser: () => {},
-    logoutUser: () => {},
-  };
+    const fakeContextData = {
+        user: {},
+        authTokens: [],
+        loginUser: () => { },
+        logoutUser: () => { },
+    };
 
-  return (
-    <AuthContext.Provider value={fakeContextData}>
-      {children}
-    </AuthContext.Provider>
-  );
+    return (
+        <AuthContext.Provider value={fakeContextData}>
+            {children}
+        </AuthContext.Provider>
+    );
 };
