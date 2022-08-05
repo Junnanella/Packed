@@ -1,15 +1,25 @@
+# August 5
+I spent the final day making small changes to the main page and updating the functionality of the footer making it look better and our adding our about us seciton.
+
+# August 4
+I created the initial design of the footer and worked through several different implementation styles. 
+
+# August 3
+I was unable to work on the project due to some personal issues.
+
+# August 2
+I was unable to work on the project due to some personal issues.
+
 # August 1
+I was unable to work on the project due to some personal issues.
 
 # July 29
 
-# July 28
-
-# July 27
-
 # July 26
+I worked on finding serveral styling choices for the main page. And decided with the team that the Flight section would need to be a stretch goal As i am having no sort of luck finding a working implementation, even after speaking with SIERS i was unable to get a working functional version of what i wanted. 
 
 # July 25
-I reserached button/icon types and possible backgrounds and images for our main page an our design. Junella and I decided to use certain containers to keep the app looking clean and functional. 
+I reserached button/icon types and possible backgrounds and images for our main page an our design. Junella and I decided to use certain containers to keep the app looking clean and functional. We spent the day touching up the main page and the detail page adding links and the nav items.
 
 # July 22
 Today I spoke with my team and we decided our GHI needed some additional work, i worked with Junella to add some features to the app such as color and background designs. 
@@ -37,7 +47,7 @@ I decided to attempt to tackle a flight booking app for part of our project and 
 I spent the day researching/struggling to find all sorts of flight APIS to find a viable option for our app. I also applied for a key on the amadeus API to try using the platform.
 
 # July 12
-I spent the day researching flight APIS to try and find a viable option for our flights. 
+I spent the day researching flight APIS all over the internet to try and find a viable option for our flights. 
 
 # July 11 
 We started our docker containers and decided on a direction on the project, set up using port 8000 and looked into ideas. 
