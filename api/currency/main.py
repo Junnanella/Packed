@@ -54,4 +54,3 @@ def currency_exchange_rate(origin_country, destination_country):
         return currency_rate
     except ApiRateLimitExceeded:
         raise HTTPException(status_code=400, detail="Currency API rate limit exceeded")
-
