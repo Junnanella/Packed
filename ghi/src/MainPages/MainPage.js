@@ -3,6 +3,7 @@ import "./pages.css";
 import group from "../Images/group.png"
 import Footer from "./Footer.js"
 
+
 export default function MainPage() {
   return (
     <div className="px-4 py-5 my-5 text-center main-page-background shadow">
