@@ -71,6 +71,14 @@ def temp_list(
     return_date: str,
     query=Depends(WeatherQueries),
 ):
+    """
+    Arguments: strings representing city, country, departure_date, and
+    return_date sent by the frontend
+
+    Returns: a dictionary with the key of 'temps' that has a list of
+    dictionaries containing temperature data from each month of the
+    travel time
+    """
 
     dates = query.get_date_list(departure_date, return_date)
     temps = []
@@ -88,20 +96,24 @@ def temp_list(
         search_parameters = f"{city}%20{country}/{date_section}"
         full_path = base_url + search_parameters + rest_of_path
         data = query.get_weather(full_path)
-        # temps.append({ date:[
-        #     {"temp_max": data["days"][0]["tempmax"]},
-        #     {"temp_min": data["days"][0]["tempmin"]},
-        #     {"temp": data["days"][0]["temp"]},
-        # ]})
         temps.append(
             {"id": i, "date": months[i], "temperature": data["days"][0]["temp"]}
         )
     return {"temps": temps}
-    # 🐰 🐰 🐰 example output {"id": 0, "date": January, "temperature": 75.9}
 
 
 @app.get("/api/weather/fake", response_model=TempsOut)
 def fake_temp_list(country: str, city: str, departure_date: str, return_date: str):
+    """
+    Arguments: strings representing city, country, departure_date, and
+    return_date sent by the frontend
+
+    Returns a dictionary with the key of 'temps' with fake weather data
+    for testing purposes
+
+    Use this function if develpoing features related to weather data as
+    the weather api gets 1000 calls per day maximum
+    """
     random_temperatures = random.sample(range(15, 85), 12)
     dates = ["July", "August", "September"]
     temps = []
