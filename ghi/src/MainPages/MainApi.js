@@ -26,6 +26,5 @@ export const loadPackingLists = async (authTokens) => {
     fetchConfig
   );
   const responseJson = await response.json();
-  console.log(responseJson);
   return responseJson.packing_lists;
 };

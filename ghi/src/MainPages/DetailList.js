@@ -191,15 +191,15 @@ function DetailList() {
                             />
                             :
                             <div className="mb-2 text-left">
-                                {/* {destinationCurrencyCode === originCurrencyCode || destinationCurrencyCode.length <= 0 ?
+                                {destinationCurrencyCode === originCurrencyCode || destinationCurrencyCode.length <= 0 ?
                                     null
-                                    : */}
-                                <CurrencyInfo
-                                    origin_code={originCurrencyCode}
-                                    destination_code={destinationCurrencyCode}
-                                    detailPage={true}
-                                />
-                                {/* } */}
+                                    :
+                                    <CurrencyInfo
+                                        origin_code={originCurrencyCode}
+                                        destination_code={destinationCurrencyCode}
+                                        detailPage={true}
+                                    />
+                                }
                             </div>
                         }
                     </div>

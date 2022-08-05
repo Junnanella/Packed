@@ -55,7 +55,6 @@ export const TripForm = (props) => {
 
   const onChangeOriginCountryId = (event) => {
     setOriginCountryId(() => event.target.value);
-    console.log(originCountryId);
   };
 
   const onChangeOriginCity = (event) => {
