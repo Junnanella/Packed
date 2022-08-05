@@ -29,7 +29,7 @@ export default function CurrencyInfo(props) {
     return "Loading...";
   }
 
-  if (origin_code == destination_code) {
+  if (origin_code === destination_code) {
     return <h3 id="currency">Looks like your destination uses the same currency!</h3>
   }
 
