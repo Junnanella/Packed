@@ -16,7 +16,7 @@ export default function Footer() {
             <a className="nav-link" href="https://www.linkedin.com/in/karminabarajas/">Karmina</a>
         </li>
         <li className="nav-item">
-            <a className="nav-link" href="https://www.linkedin.com/in/william-carter-3b05b7237/">William</a>
+            <a className="nav-link" href="https://www.linkedin.com/in/williamacarter/">William</a>
         </li>
     </ul>
         <div className="footer-copyright text-center py-3">© 2022 packed:
