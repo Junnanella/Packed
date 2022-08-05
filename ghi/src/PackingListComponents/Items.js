@@ -99,15 +99,14 @@ export default function SuggestedItems({ setItems, items, temperature }) {
     <div className="container">
       <h4 className="items-heading">Things you might need</h4>
       <div className="input-group mb-3">
-        <div>
-          <table className="table table-hover">
+           <table className="table table-hover">
             <thead>
               <tr>
-                <th scope="col">General Items</th>
+                <th scope="col">General Items To Pack</th>
               </tr>
             </thead>
             <tbody>
-              {generalItems.map((item) => {
+            {generalItems.map((item) => {
                 return (
                   <tr key={item.name}>
                     <td>{item.name}</td>
@@ -150,6 +149,5 @@ export default function SuggestedItems({ setItems, items, temperature }) {
           </table>
         </div>
       </div>
-    </div>
   );
 }

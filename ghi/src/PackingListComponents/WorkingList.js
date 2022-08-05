@@ -108,14 +108,13 @@ function WorkingList({
         </h3>
 
         <button
-          className="btn btn-success btn-sm1 btn-sm"
+          className="btn btn-success btn-sm1 btn-sm me-1"
           type="submit"
           id="edit-button"
           data-hover="Edit Name"
         >
           <FontAwesomeIcon icon={faEdit} />
         </button>
-
         <button
           className="btn btn-success btn-sm1 btn-sm"
           type="submit"
