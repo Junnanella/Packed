@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState, useContext } from 'react'
 import AuthContext from '../context/AuthContext'
+import "../MainPages/pages.css"
 
 const SignUp = () => {
     const { loginUser } = useContext(AuthContext);
@@ -50,7 +51,7 @@ const SignUp = () => {
 
     return (
         <div className="container col-4">
-            <div className="shadow p-4 mt-4">
+            <div className="shadow p-4 mt-4 login-signup">
                 <h1>Sign Up</h1>
                 <form onSubmit={submitSignUp}>
                     <div className="form-floating mb-3">
@@ -88,7 +89,7 @@ const SignUp = () => {
                     <button className="btn btn-success" type="submit">Sign Up</button>
                 </form>
                 <div className='mt-2'>
-                    Already have an account? <a href="/login">Sign in</a>
+                    Already have an account? <a className="login-signup-link-text-color" href="/login">Sign in here</a>
                 </div>
             </div>
         </div>
