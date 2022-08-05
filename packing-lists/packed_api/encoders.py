@@ -61,11 +61,9 @@ class PackingListItemEncoder(ModelEncoder):
         "item_name",
         "quantity",
         "packed",
-        # "owner",
     ]
     encoders = {
         "item_name": SimpleItemEncoder(),
-        # "owner": UserEncoder(),
     }
 
 
@@ -81,19 +79,3 @@ class PackingListEncoder(ModelEncoder):
         "destination_city",
         "destination_country",
     ]
-
-
-# class PackingListItemEncoder(ModelEncoder):
-#     model = PackingListItem
-#     properties = [
-#         "id",
-#         "item_name",
-#         "owner",
-#         "quantity",
-#         "packed",
-#         "packing_list",
-#     ]
-#     encoders = {
-#         "item_name" : ItemEncoder(),
-#         "packing_list" : PackingListEncoder()
-#     }
