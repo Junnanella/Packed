@@ -24,15 +24,15 @@ export default function MainPage() {
         <img className="group-pic" src={group} alt="group" />
       </div>
       <div className="footer">
-      <footer class="py-5 bg-light">
-        <div class="container">
-          <p class="m-0 text-center text-grey">
-            Copyright &copy; packed 2022
-          </p>
-        </div>
-        
-      </footer>
-    </div>
+        <footer className="py-5 bg-light">
+          <div className="container">
+            <p className="m-0 text-center text-grey">
+              Copyright &copy; packed 2022
+            </p>
+          </div>
+
+        </footer>
+      </div>
     </div>
   );
 }
