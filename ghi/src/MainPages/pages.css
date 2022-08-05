@@ -215,6 +215,10 @@ h3#edit {
     background-color: transparent;
 }
 
+h3#currency {
+    margin: 3em;
+}
+
 /* Packing Lists Page */
 body {
     background-color: #dff1eb;
