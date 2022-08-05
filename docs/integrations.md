@@ -1,17 +1,11 @@
 # Integrations
 
-The application will need to get the following kinds of
-data from third-party sources:
+The application gets the following data from external APIs:
 
-
-* Weather API
-   - Will show historical data for weather so a user can 
-    see what the weather may be like on their desired travel date/location 
-   - Data will be shown to the user in months, so they can decide what time of year they would like to travel 
-* Currency Exchange Rate API: 
-    - Will provide the user with the current days exchange rate from USD to their desired location's currency
-    - Since future exchange rates cannot be shown the user will use the current
-    days exchange rate as a reference for a later date trip 
-* Flight Price API: (still researching for a free one)
-    - Our goal is for the API to show the user the current prices for flights to their desired location
-    - This API will also help the user determine the cheapest flights and destinations if they do not have a desired location to travel in mind 
+* [Visual Crossing - Weather](https://www.visualcrossing.com/resources/documentation/weather-api/timeline-weather-api/)
+   - Shows historical weather data for the future travel dates input by the user, enabling them to better plan for their trip
+   - For each month of travel time, an additional temperature datapoint is fetched to ensure the most accuracy
+* [Currency Exchange Rate API](https://apilayer.com/marketplace/exchangerates_data-api#documentation-tab): 
+    - Provides international travelers with current exchange rate between the origin country and destination
+    - Each time authenticated users access their created packing list, the forex rate will be fetched live
+ 

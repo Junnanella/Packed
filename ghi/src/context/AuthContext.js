@@ -31,7 +31,10 @@ export const AuthProvider = ({ children }) => {
 
     let navigate = useNavigate()
 
-
+    // this function handles the sending of user data to the backend
+    // to ensure they are authenticated
+    // arguments: the envent containing form data OR signupData passed
+    // from signup
     let loginUser = async (e, signupData = null) => {
         let params = {}
         if (signupData) {

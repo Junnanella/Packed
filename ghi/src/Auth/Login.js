@@ -4,8 +4,8 @@ import AuthContext from '../context/AuthContext';
 const Login = () => {
     let { loginUser } = useContext(AuthContext);
     return (
-        <div className="container col-4">
-            <div className="shadow p-4 mt-4">
+        <div className="login-signup-parent">
+            <div className="shadow p-4 mt-4 login-signup">
                 <h1>Login</h1>
                 <form onSubmit={loginUser}>
                     <div className="form-floating mb-3">
@@ -19,7 +19,7 @@ const Login = () => {
                     <button className="btn btn-success" type="submit">Login</button>
                 </form>
                 <div className='mt-2'>
-                    Don't have an account? <a href="/signup">Sign up</a>
+                    Don't have an account? <a className="login-signup-link-text-color" href="/signup">Sign up here</a>
                 </div>
             </div>
         </div>
