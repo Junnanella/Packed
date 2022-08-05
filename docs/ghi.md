@@ -2,7 +2,7 @@
 
 ## Navbar
 
-Options on the navbar dependent on whether user is logged in or not. If logged in, the user will have an extra link that leads to their packing lists page. If not logged in, will be an option to login or sign up.
+Options on the navbar dependent on whether the user is logged in or not. If logged in, the user will have an extra link that leads to their packing lists page. If not logged in, there will be links to login or sign up.
 
 ![logged in navbar](wireframes/rendered_versions/logged_in.png)
 ![logged out navbar](wireframes/rendered_versions/logged_out.png)
@@ -26,7 +26,7 @@ The user can also update the input of currency for their origin location and get
 On this page, the user can now start building their packing list, which is broken down into three sections:
 
 - One section will be an input where the user can type any items of their choosing to add to the packing list.
-- One section will have pre-loaded suggestions for basic travel items, like a toothbrush, that the user add to their packing list
+- One section will have pre-loaded suggestions for basic travel items, like a toothbrush, that the user can add to their packing list
 - Last section will have pre-loaded suggestions for travel items based on location, like a coat for a cold region or swim suit for a tropical region, that the user add to their packing list
 
 Once the user has built their packing list, an non-authenticated user/ logged out user can save their list as a pdf or print it. A logged in user will be able to save their packing list. Once they hit the Create button, they will be directed to the detail page of their newly created packing list.
@@ -35,7 +35,7 @@ Once the user has built their packing list, an non-authenticated user/ logged ou
 
 ## Packing Lists Page
 
-On this page, a logged in user can see the names of all of their packing lists and will be able to click on them to redirect to the details of that particular packing list.
+On this page, a logged in user can see the names of all of their packing lists and will be able to click on them to redirect to the details of that particular packing list. The user can also use the search bar to find a particular packing list by name.
 
 A user without any saved packing lists will be greated with a message and button to navigate them back to the home page to start making a packing list.
 
