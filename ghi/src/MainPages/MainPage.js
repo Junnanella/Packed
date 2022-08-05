@@ -30,7 +30,6 @@ export default function MainPage() {
               Copyright &copy; packed 2022
             </p>
           </div>
-
         </footer>
       </div>
     </div>
