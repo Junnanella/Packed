@@ -32,7 +32,6 @@ class ErrorMessage(BaseModel):
     message: str
 
 
-# 🚨
 @app.get(
     "/api/locations/",
     response_model=Union[CountriesOut, ErrorMessage],
@@ -45,6 +44,11 @@ def get_countries_and_currencies(
     response: Response,
     query=Depends(CurrencyQueries),
 ):
+    """
+    Arguments: N/A
+    Returns: a dictionary with a list of objects containing the name, id and
+    currency abbreviation for every country on earth
+    """
     countries = query.get_list_from_db()
     if len(countries) < 5:
         response.status_code = status.HTTP_404_NOT_FOUND

@@ -27,9 +27,11 @@ class ApiRateLimitExceeded(Exception):
     pass
 
 
-# get_currency_rate makes sure only the "result" key, which holds the currency exchange
-# rate, is pulled from the Currency API call using the built in splitines() method
 def get_currency_rate(url):
+    """
+    Takes the API url and makes sure only the "result" key, which holds
+    the currency exchange rate, is pulled from the API call using the built in splitines() method """
+
     payload = {}
     headers = {"apikey": CURRENCY_RATE_API_KEY}
 

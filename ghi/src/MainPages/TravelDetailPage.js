@@ -6,12 +6,13 @@ import { UserItemForm } from "../PackingListComponents/UserInputItems";
 import SuggestedItems from "../PackingListComponents/Items";
 import WorkingList from "../PackingListComponents/WorkingList";
 import React, { useState, useContext } from "react";
-import AuthContext from '../context/AuthContext'
-import travelBags from "../Images/travel-bags.png"
-import travelSuitcases from "../Images/travel-suitcases.png"
+import AuthContext from "../context/AuthContext";
+import travelBags from "../Images/travel-bags.png";
+import travelSuitcases from "../Images/travel-suitcases.png";
 import "./pages.css";
 
 export default function TravelDetailPage() {
+  // access variables and user input data from the url params passed from Trip Form
   const [searchParams] = useSearchParams();
   const origin_country = searchParams.get("origin_country");
   const origin_code = searchParams.get("origin_code");
@@ -22,9 +23,9 @@ export default function TravelDetailPage() {
   const departure_date = searchParams.get("departure_date");
   const return_date = searchParams.get("return_date");
   const [items, setItems] = useState([]);
+  // access user name of logged in user
   let { user } = useContext(AuthContext);
 
-  // Will need to pass the above variable to the corresponding components
   return (
     <div className="travel-page shadow mx-5 my-5 py-3">
       <div className="container">
@@ -35,11 +36,7 @@ export default function TravelDetailPage() {
           </h2>
         </div>
         <div className="container">
-          <img
-            src={travelBags}
-            alt="bags"
-            className="bags d-none d-lg-block"
-          />
+          <img src={travelBags} alt="bags" className="bags d-none d-lg-block" />
           <div className="row">
             <div className="col-sm-12 col-md col-lg item-column detail-columns shadow">
               <UserItemForm setItems={setItems} items={items} />
@@ -69,12 +66,14 @@ export default function TravelDetailPage() {
                 origin_country={origin_country}
                 setTemperature={setTemperature}
               />
+              <div className="currency-data">
               <CurrencyInfo
                 origin_code={origin_code}
                 destination_code={destination_code}
                 detailPage={false}
                 className="currency-data"
               />
+            </div>
             </div>
             <div>
               <img

@@ -22,6 +22,10 @@ class FakeWeatherQueries:
 
 
 def test_get_date_list():
+    """
+    test ensures dates input into the date formatting helper
+    function return in the correct format
+    """
     # ARRANGE
     correct_dates = [
         "2021-01-01",
@@ -39,6 +43,10 @@ def test_get_date_list():
 
 
 def test_temp_list():
+    """
+    tests to make sure properly formatted data from the frontend
+    returns a properly formattted object with a list of objects
+    """
     # ARRANGE
     app.dependency_overrides[WeatherQueries] = FakeWeatherQueries
     correct_info = {

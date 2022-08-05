@@ -6,7 +6,9 @@ const AuthContext = createContext();
 
 export default AuthContext;
 
-// 🚨
+// this component handles authenticating users and passes
+// user data and auth credentials to all components in 
+// browser router using Context
 export const AuthProvider = ({ children }) => {
 
     let [loading, setLoading] = useState(true);
@@ -75,8 +77,9 @@ export const AuthProvider = ({ children }) => {
         navigate("/")
     }, [navigate])
 
+    // this function is run every 29 minutes to update a users token or log them out if
+    // the refresh token is expired
     let updateToken = useCallback(async () => {
-        console.log("Updated access token (if user inactive, automatically done every 29 minutes)")
         const url = `${process.env.REACT_APP_DJANGO_PACKING_LISTS}/auth/token/refresh/`;
 
         const params = {
@@ -108,6 +111,7 @@ export const AuthProvider = ({ children }) => {
         }
     }, [authTokens?.refresh, loading, logoutUser])
 
+    // this data is available to all child components
     const contextData = {
         user: user,
         authTokens: authTokens,
@@ -119,13 +123,14 @@ export const AuthProvider = ({ children }) => {
         if (loading) {
             updateToken();
         }
-
-        const fourMinutes = 1000 * 60 * 29;
+        // this ensures that useeffect is run every 29 minutes
+        // access tokens expire every 30 minutes
+        const twentyNineMinutes = 1000 * 60 * 29;
         let interval = setInterval(() => {
             if (authTokens) {
                 updateToken();
             }
-        }, fourMinutes)
+        }, twentyNineMinutes)
         return () => clearInterval(interval);
 
     }, [authTokens, loading, updateToken])
@@ -139,16 +144,16 @@ export const AuthProvider = ({ children }) => {
 }
 
 export const MockAuthProvider = ({ children }) => {
-  const fakeContextData = {
-    user: {},
-    authTokens: [],
-    loginUser: () => {},
-    logoutUser: () => {},
-  };
+    const fakeContextData = {
+        user: {},
+        authTokens: [],
+        loginUser: () => { },
+        logoutUser: () => { },
+    };
 
-  return (
-    <AuthContext.Provider value={fakeContextData}>
-      {children}
-    </AuthContext.Provider>
-  );
+    return (
+        <AuthContext.Provider value={fakeContextData}>
+            {children}
+        </AuthContext.Provider>
+    );
 };

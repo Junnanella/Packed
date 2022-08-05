@@ -24,8 +24,6 @@ export default function MainPage() {
       <div className="row">
         <img className="group-pic" src={group} alt="group" />
       </div>
-      <div> <footer />
       </div>
-    </div>
   );
 }

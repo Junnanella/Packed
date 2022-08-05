@@ -47,6 +47,16 @@ def type_error_message(model_name):
 # Category Views -------
 @api_view(["GET", "POST"])
 def api_categories(request):
+    """
+    Arguments: the POST method includes a json string containing the data
+    needed to create a new catagory.
+
+    Returns: (all json stringified)
+    GET: a dictionary with the key of 'categories' containing a queryset
+    of all Categories in the database
+
+    POST: a dictionary containing the newly created Category
+    """
     if request.method == "GET":
         categories = Category.objects.all().order_by("id")
         return JsonResponse(
@@ -64,6 +74,21 @@ def api_categories(request):
 
 @require_http_methods(["GET", "PUT", "DELETE"])
 def api_category(request, pk):
+    """
+    Arguments:
+    - pk represents the id number of a category for the PUT and DELETE
+    methods
+    - for the PUT method, request.body contains json strings of the data
+    to be used to update an existing Category
+
+    Returns: (all json stringified)
+    GET: a dictionary containing the desired Condition
+
+    POST: a dictionary containing the newly created Condition
+
+    DELETE: a dictionary with the key of 'deleted' and a value of a boolean
+    indicating whether the delete was successful or not
+    """
     if request.method == "GET":
         try:
             category = Category.objects.get(id=pk)
@@ -97,9 +122,19 @@ def api_category(request, pk):
 
 
 # Item Views ------
-
-
 def get_user_items(user, included_items):
+    """
+    This is a helper function used by 'api_conditional_items' that
+    removes duplicate suggested items from a list that will be offered
+    to the user
+
+    Arguments:
+    - user: a User object
+    - included_items: a list of Item instances that will be checked
+    against for duplicates
+
+    Returns: a list of Item objects
+    """
     user_packing_list_items = PackingListItem.objects.filter(owner=user)
     items = []
     for packing_list_item in user_packing_list_items:
@@ -111,6 +146,16 @@ def get_user_items(user, included_items):
 
 @require_http_methods(["GET", "POST"])
 def api_items(request):
+    """
+    Arguments: request.body in the POST method contains a json string
+    with the data needed to create a new Item instance
+
+    Returns: (all json stringified)
+    GET: a dictionary with the key of 'items' containing a list of all
+    Item rows in the database
+
+    POST: a dictionary with a newly created Item row
+    """
     if request.method == "GET":
         items = Item.objects.all()
         return JsonResponse({"items": items}, encoder=ItemEncoder)
@@ -132,6 +177,16 @@ def api_items(request):
 @api_view(["GET"])
 @permission_classes([AllowAny])
 def api_conditional_items(request, condition):
+    """
+    This pivotal function receives a condition from the frontend and handles
+    the selection of appropriate items to be returned to the frontend
+
+    Arguments:
+    - a string containing the name of an existing condition
+
+    Returns: a json stringified dictionary containing three key-value pairs:
+    conditional_items, general_items and user_favorite_items
+    """
     if request.method == "GET":
         try:
             conditional_items = []
@@ -167,6 +222,21 @@ def api_conditional_items(request, condition):
 
 @require_http_methods(["GET", "PUT", "DELETE"])
 def api_item(request, pk):
+    """
+    Arguments:
+    - pk represents the id number of an Item for the PUT and DELETE
+    methods
+    - for the PUT method, request.body contains json strings of the data
+    to be used to update an existing Item
+
+    Returns: (all json stringified)
+    GET: a dictionary containing the desired Item
+
+    POST: a dictionary containing the newly created Item
+
+    DELETE: a dictionary with the key of 'deleted' and a value of a boolean
+    indicating whether the delete was successful or not
+    """
     if request.method == "GET":
         try:
             item = Item.objects.get(id=pk)
@@ -198,6 +268,16 @@ def api_item(request, pk):
 # Condition Views -----
 @require_http_methods(["GET", "POST"])
 def api_conditions(request):
+    """
+    Arguments: the POST method includes a json string containing the data
+    needed to create a new condition.
+
+    Returns: (all json stringified)
+    GET: a dictionary with the key of 'conditions' containing a queryset
+    of all Conditions in the database
+
+    POST: a dictionary containing the newly created Condition
+    """
     if request.method == "GET":
         all_conditions = Condition.objects.all()
         return JsonResponse(
@@ -219,6 +299,21 @@ def api_conditions(request):
 
 @require_http_methods(["GET", "DELETE", "PUT"])
 def api_condition(request, pk):
+    """
+    Arguments:
+    - pk represents the id number of a condition for the PUT and DELETE
+    methods
+    - for the PUT method, request.body contains json strings of the data
+    to be used to update an existing Condition
+
+    Returns: (all json stringified)
+    GET: a dictionary containing the desired Condition
+
+    POST: a dictionary containing the newly created Condition
+
+    DELETE: a dictionary with the key of 'deleted' and a value of a boolean
+    indicating whether the delete was successful or not
+    """
     if request.method == "GET":
         try:
             condition = Condition.objects.get(id=pk)
@@ -249,6 +344,16 @@ def api_condition(request, pk):
 
 # PackingList Views -----
 def create_packing_list(content):
+    """
+    This is a helper function for 'api_packing_lists' POST method that
+    creates a new PackingList instance
+
+    Arguments: a dictionary containing the content the PackingList will
+    be created with
+
+    Returns: the newly created PackingList model instance
+
+    """
     data = {
         "title": content["title"],
         "departure_date": content["departure_date"],
@@ -265,6 +370,25 @@ def create_packing_list(content):
 
 
 def add_packing_list_item(item, packing_list, owner):
+    """
+    This is a helper function used by 'api_packing_list_items'
+    PUT and POST methods
+
+    It first decides whether the Item passed in already is in the
+    database or not. If so, it finds that item and uses it to
+    create a new PackingListItme. If not, it creates an Item and
+    then creates a PackingListItem with that newly created Item.
+
+    Arguments:
+    - a dictionary containing an Item instance
+    - a PackingList model instance the PackingListItem will soon
+    belong to
+    - a User model instance the PackingListItem will soon belong
+    to
+
+    Returns:
+    an instance of a newly created PackingListItem
+    """
     existing_item = Item.objects.filter(name=item["name"])
     if item["suggested"] or len(existing_item) > 0:
         linked_item = Item.objects.get(name=item["name"])
@@ -297,6 +421,19 @@ def add_packing_list_item(item, packing_list, owner):
 @api_view(["GET", "POST"])
 @permission_classes([IsAuthenticated])
 def api_packing_lists(request):
+    """
+    Arguments:
+    - for the POST method, the function receives a json string
+    containing data to create a new PackingLIst
+    - request.user contains the user info to help get the right lists
+
+    Returns: (all json stringified)
+    GET: a dictionary containing a list of a user's PackingLists.
+    These are formatted in a dictionary with the key of 'packing_lists'
+    and the value of a list of dictionaries.
+
+    POST: a dictionary containing the newly created PackingList
+    """
     user = request.user
     if request.method == "GET":
         packing_lists = PackingList.objects.filter(owner=user)
@@ -324,6 +461,20 @@ def api_packing_lists(request):
 @api_view(["GET", "PUT", "DELETE"])
 @permission_classes([IsAuthenticated])
 def api_packing_list(request, pk):
+    """
+    Arugments:
+    - an integer representing the ID of a packing list
+    - for the PUT method it receives a json string containing updated
+    data for one packing list in request.body
+
+    Returns: (all json stringified)
+    GET: a dictionary containing the requested PackingList
+
+    PUT: a dictionary containing the updated PackingList
+
+    DELETE: a dictionary with the key of 'deleted' and the value
+    of a boolean indicating whether the delete was successful or not
+    """
     if request.method == "GET":
         packing_list = PackingList.objects.get(id=pk)
         return JsonResponse(
@@ -357,6 +508,24 @@ def api_packing_list(request, pk):
 @api_view(["GET", "PUT", "POST"])
 @permission_classes([IsAuthenticated])
 def api_packing_list_items(request, pk):
+    """
+    Arguments:
+    - an integer representing the ID of a packing list
+    - for PUT and POST methods it receives one more many PackingListItems in
+    request.body in the format of a json string
+
+    Returns: (all json stringified)
+    GET: an object with the key 'items' with a list of dictionaries representing
+    all the items in that packing list
+
+    PUT: an object with the key 'items' with a list of dictionaries representing
+    all the updated items in that packing list. Note: PackingListObjects are
+    ValueObjects and treated as immutable. They are deleted and recreated in this
+    mehtod.
+
+    POST: a dictionary with the key 'items' containing a list of dictionaries
+    containing the newly created PackingListObjects
+    """
     owner = request.user
     if request.method == "GET":
         packing_list = PackingList.objects.get(id=pk)

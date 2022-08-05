@@ -15,11 +15,15 @@ import Footer from "./MainPages/Footer.js";
 
 
 export default function App(props) {
+  // when running App for testing, App.test.js will pass in MockAuthProvider
+  // to bypass need for user data
+  // if nothing is passed into props, then authProvider will default to AuthProvider
   const { authProvider = AuthProvider } = props;
 
   const domain = /https:\/\/[^/]+/;
   const basename = process.env.PUBLIC_URL.replace(domain, "");
 
+  // abstract Components
   const navAndRoutes = (
     <>
       <Nav />
@@ -36,13 +40,16 @@ export default function App(props) {
             </PrivateRoute>
           }
         />
-        <Route path="/packinglists" element={<PackingLists />} />
+        <Route path="/packinglists" element={<PrivateRoute><PackingLists /></PrivateRoute>} />
         <Route path="/packing_list" element={<DetailList />} />
       </Routes>
       <Footer />
     </>
   );
 
+  // can not simply plug in authProvider variable as a component, so
+  // using createElemnent to create a new react element to include
+  // authProvider
   return (
     
     <BrowserRouter basename={basename}>

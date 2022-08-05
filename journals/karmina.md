@@ -1,5 +1,12 @@
+# August 4
+Today we had a lot of merge conflicts, since we are all pretty much working on the front end design we were coding on the same files. LUckily we were able to work through it as a team and keep our app up to date with the latest changes. 
+
+I was also able to align my items tables and make a couple buttons a bit smaller to fit the page better.
+I look forward to tomorrow being our final day to work on the project, I'm excited for deployment and making the site live!
+
 # August 3
 Today I updated the travel details page, with the help of my team I redesigned the page to fit our esthetic. I also updated the color of the buttons to fit the page better as well and began the process of adding comments to the project. I also added a hover text feature for the edit/save buttons. 
+
 # August 2
 Today I updated the fontawesome icons to have color, before they were just grey buttons. I also updated the background color of the travel detail page and added some css styling to the tables. My next goals are to add a rounded border to the tables, implement a hover function that displays edit/save etc when you hover over a button and lastly I want to update the main header to add the user's name. 
 

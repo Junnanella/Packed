@@ -3,30 +3,32 @@ import { useNavigate } from "react-router-dom";
 import { loadLocationsData } from "./MainApi";
 
 export const TripForm = (props) => {
+  // variables to set default dates in the form's date input fields
   let tomorrow = new Date();
   tomorrow.setDate(tomorrow.getDate() + 1);
   let nextWeek = new Date();
   nextWeek.setDate(nextWeek.getDate() + 8);
-  const [originCity, setOriginCity] = useState("");
-  const [originCountryId, setOriginCountryId] = useState("");
-  const [destinationCity, setDestinationCity] = useState("");
-  const [destinationCountryId, setDestinationCountryId] = useState("");
   const [departureDate, setDepartureDate] = useState(
     tomorrow.toISOString().slice(0, 10)
   );
   const [returnDate, setReturnDate] = useState(
     nextWeek.toISOString().slice(0, 10)
   );
+
+  const [originCity, setOriginCity] = useState("");
+  const [originCountryId, setOriginCountryId] = useState("");
+  const [destinationCity, setDestinationCity] = useState("");
+  const [destinationCountryId, setDestinationCountryId] = useState("");
   const [locations, setLocations] = useState([]);
 
+  // create an object to store location currency code and country name
+  // which will then be accessed in the onSubmit function
   const locationsById = {};
-
   for (const location of locations) {
     locationsById[location.id] = location;
   }
 
-  // to navigate to travel details page
-  // and pass user input data
+  // to be used in the onSubmit function
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -37,7 +39,9 @@ export const TripForm = (props) => {
     fetchData();
   }, []);
 
+  // pass user's inputs to Travel Details page through the urls params
   const onSubmit = async (event) => {
+    // pull specific data from locationsByID
     const originCountry = locationsById[originCountryId].country;
     const originCode = locationsById[originCountryId].currency_code;
     const destinationCountry = locationsById[destinationCountryId].country;
@@ -51,6 +55,7 @@ export const TripForm = (props) => {
 
   const onChangeOriginCountryId = (event) => {
     setOriginCountryId(() => event.target.value);
+    console.log(originCountryId);
   };
 
   const onChangeOriginCity = (event) => {
@@ -168,7 +173,9 @@ export const TripForm = (props) => {
             />
             <label htmlFor="name">Return Date</label>
           </div>
-          <button className="submit-button">Get to Packing</button>
+          <button className="submit-button" data-testid="cta">
+            Get to Packing
+          </button>
         </form>
       </div>
     </div>

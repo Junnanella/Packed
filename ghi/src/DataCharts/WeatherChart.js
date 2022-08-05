@@ -2,9 +2,9 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { loadWeatherData } from "./LoadApiData";
 import "./data.css";
-import sun from "../Images/weather-icons/sun.png"
-import cloudy from "../Images/weather-icons/cloudy.png"
-import snowflake from "../Images/weather-icons/snowflake.jpeg"
+import sun from "../Images/weather-icons/sun.png";
+import cloudy from "../Images/weather-icons/cloudy.png";
+import snowflake from "../Images/weather-icons/snowflake.jpeg";
 
 const useWeatherData = (
   destination_city,
@@ -61,35 +61,24 @@ export default function WeatherChart(props) {
     return "Loading...";
   }
 
+  // Render an icon based on the temperature returned from API call
   const weatherIcon = weather.map((weather) => {
     if (weather.temperature > 70) {
       return (
         <th key={weather.id} className="weather-data">
-          <img
-            src={sun}
-            alt="sun"
-            className="weather-icon"
-          />
+          <img src={sun} alt="sun" className="weather-icon" />
         </th>
       );
     } else if (weather.temperature < 70 && weather.temperature > 55) {
       return (
         <th key={weather.id} className="weather-data">
-          <img
-            src={cloudy}
-            alt="cloudy"
-            className="weather-icon"
-          />
+          <img src={cloudy} alt="cloudy" className="weather-icon" />
         </th>
       );
     } else {
       return (
         <th key={weather.id} className="weather-data">
-          <img
-            src={snowflake}
-            alt="snowflake"
-            className="weather-icon"
-          />
+          <img src={snowflake} alt="snowflake" className="weather-icon" />
         </th>
       );
     }
