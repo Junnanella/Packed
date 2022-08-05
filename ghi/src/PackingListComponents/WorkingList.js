@@ -24,6 +24,9 @@ function WorkingList({
     window.print();
   }
 
+  // args: a string representing a name of an item
+  // returns: an integer representing the index of the desired
+  // item within items
   function findItem(name) {
     for (let index = 0; index < items.length; index++) {
       if (items[index].name === name) {
@@ -60,6 +63,7 @@ function WorkingList({
     }
   }
 
+  // handles cleaning data to be sent to backend
   async function createList() {
     if (items.length > 0) {
       const paragraph = document.getElementById("edit").innerHTML;
@@ -114,7 +118,7 @@ function WorkingList({
             className="btn btn-success btn-sm1 btn-sm"
             type="submit"
             id="end-editing"
-            data-hover="Save"
+            data-hover="Save name"
           >
             <FontAwesomeIcon icon={faSave} />
           </button>
@@ -123,7 +127,7 @@ function WorkingList({
             className="btn btn-outline-success btn-sm1 btn-sm me-1"
             type="submit"
             id="edit-button"
-            data-hover="Edit Name"
+            data-hover="Edit name"
           >
             <FontAwesomeIcon icon={faEdit} />
           </button>
