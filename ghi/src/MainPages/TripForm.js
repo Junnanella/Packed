@@ -43,7 +43,6 @@ export const TripForm = (props) => {
     const destinationCountry = locationsById[destinationCountryId].country;
     const destinationCode = locationsById[destinationCountryId].currency_code;
     event.preventDefault();
-    // need to define the correct attribute names for navigate url
     navigate(
       `/travel_details?origin_city=${originCity}origin_country=${originCountry}&origin_code=${originCode}&destination_city=${destinationCity}&destination_country=${destinationCountry}&destination_code=${destinationCode}&departure_date=${departureDate}&return_date=${returnDate}`
     );
