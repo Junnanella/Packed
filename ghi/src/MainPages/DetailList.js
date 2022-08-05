@@ -105,7 +105,7 @@ function DetailList() {
             return item.packed === true
         }).length
         const calculatedPercentage = Math.floor((numPackedItems / numItems) * 100);
-        setPercentagePacked(calculatedPercentage);
+        setPercentagePacked(numItems > 0 ? calculatedPercentage : 0);
         if (calculatedPercentage === 100) {
             setProgressBarColor("bg-success");
         } else {
@@ -158,6 +158,7 @@ function DetailList() {
                                 items={items}
                                 percentagePacked={percentagePacked}
                                 setPercentagePacked={setPercentagePacked}
+                                setProgressBarColor={setProgressBarColor}
                             />
                             :
                             <div className="mb-2 text-left">

@@ -7,6 +7,7 @@ export const UserItemForm = ({
   setItems,
   percentagePacked = null,
   setPercentagePacked = null,
+  setProgressBarColor = null,
 }) => {
   const [userItem, setUserItem] = useState("");
 
@@ -39,7 +40,13 @@ export const UserItemForm = ({
         const numPackedItems = updatedItems.filter((item) => {
           return item.packed;
         }).length;
-        setPercentagePacked(Math.floor((numPackedItems / numItems) * 100));
+        const newPercentage = Math.floor((numPackedItems / numItems) * 100)
+        setPercentagePacked(newPercentage);
+        if (newPercentage === 100 && numItems > 0) {
+          setProgressBarColor("bg-success");
+        } else {
+          setProgressBarColor("progress-bar-striped bg-warning progress-bar-animated");
+        }
       }
     } else {
       alert(message);
