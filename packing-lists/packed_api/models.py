@@ -40,7 +40,7 @@ class Category(models.Model):
 # user's trip. We compare the weather data from their location to the items
 # listed under our conditions to make that determination.
 class Condition(models.Model):
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=50, unique=True)
 
     def __str__(self):
         return self.name
