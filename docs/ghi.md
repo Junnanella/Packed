@@ -2,9 +2,10 @@
 
 ## Navbar
 
-Options on the navbar dependent on whether user is logged in or not.
+Options on the navbar dependent on whether user is logged in or not. If not logged in, there is also an option to sign up.
 
-![navbar](wireframes/navbar.png)
+![logged in navbar](wireframes/rendered_versions/logged_in.png)
+![logged out navbar](wireframesrendered_versions/logged_out.png)
 
 ## Homepage
 
