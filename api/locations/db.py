@@ -42,7 +42,7 @@ class CurrencyQueries:
                         return []
                     results.append(formatted_country)
                 return results
-    
+
     def get_currency_code_pair(self, origin_country, destination_country):
         with pool.connection() as conn:
             with conn.cursor() as cur:
@@ -51,7 +51,8 @@ class CurrencyQueries:
                         SELECT currency_code
                         FROM currency
                         WHERE %s = country
-                    """, [origin_country],
+                    """,
+                    [origin_country],
                 )
                 origin_code = cur.fetchall()[0][0]
                 cur.execute(
@@ -59,7 +60,8 @@ class CurrencyQueries:
                         SELECT currency_code
                         FROM currency
                         WHERE %s = country
-                    """, [destination_country],
+                    """,
+                    [destination_country],
                 )
                 destination_code = cur.fetchall()[0][0]
                 return [origin_code, destination_code]
