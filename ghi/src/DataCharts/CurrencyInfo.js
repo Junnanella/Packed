@@ -22,7 +22,6 @@ const useCurrencyData = (origin_country, destination_country) => {
 export default function CurrencyInfo(props) {
   const { origin_code, destination_code, detailPage } = props;
   const currencyRate = useCurrencyData(origin_code, destination_code);
-  console.log(currencyRate)
 
   const [currencyInput, setCurrencyInput] = useState(1);
 
