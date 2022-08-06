@@ -1,3 +1,14 @@
+## August 05, 2022
+
+Today, I worked on:
+
+- Adding comments to frontend files for clarity.
+- Making minor layout adjustments to Footer.js
+- Updating Ghi md
+- Updating ReadMe
+
+As a team, we also went through a final walkthrough of the application to make sure everything was working as expected. Josiah did a great job in doing a walkthrough of the deployment process for future reference.
+
 ## August 04, 2022
 
 Today, I worked on:
