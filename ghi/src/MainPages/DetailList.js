@@ -153,7 +153,7 @@ function DetailList() {
             setOriginCurrencyCode(data.origin_code);
             setDestinationCurrencyCode(data.destination_code);
         }
-    }, [currencyCodesUrl, destinationCurrencyCode, originCurrencyCode])
+    }, [currencyCodesUrl])
     useEffect(() => {
         getCurrencyCodesFromBackend();
         if (mount) {

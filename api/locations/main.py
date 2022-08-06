@@ -1,4 +1,3 @@
-from lib2to3.pytree import Base
 from fastapi import FastAPI, Depends, Response, status
 from fastapi.middleware.cors import CORSMiddleware
 from typing import Union
@@ -61,6 +60,7 @@ def get_countries_and_currencies(
         return {"message": "Results returned incompatible format. Check database"}
     return {"countries": countries}
 
+
 @app.get(
     "/api/locations/{origin_country}/{destination_country}/",
     response_model=Union[CurrencyCodesOut, ErrorMessage],
@@ -71,8 +71,8 @@ def get_countries_and_currencies(
 )
 def get_two_country_codes(
     response: Response,
-    origin_country:str,
-    destination_country:str,
+    origin_country: str,
+    destination_country: str,
     query=Depends(CurrencyQueries),
 ):
     countries = query.get_currency_code_pair(origin_country, destination_country)

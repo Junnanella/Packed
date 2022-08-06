@@ -4,43 +4,46 @@ CONDITIONS:
 - moderate
 - cold
 - any
-- international
+- user
 --------
 
 CATEGORY: clothing:
 - winter hat (cold)
-- coat (cold)
-- sunglasses (hot)
+- coat (cold) *
+- sunglasses (hot) *
+- sunglasses (moderate) *
+- hat *
 - scarf (cold)
 - summer hat (hot)
-- swimsuit (hot)
-- gloves (cold)
+- swimsuit (hot) *
+- gloves (cold) *
 
 CATEGORY: electronics:
-- phone charger
-- external battery
-- power adapter for that country
-- camera
-- laptop and charger
-- tablet and charger
+- phone charger (any) *
+- external battery (any) *
+- local power adapter (any) *
+- camera (any)
+- laptop and charger (any)
+- tablet and charger (any)
 
-CATEGORY: toiletries
+CATEGORY: toiletries (any)
 - sunblock / sunscreen
 - moisturizer
 - cleanser
 - toothpaste
-- toothbrush
+- toothbrush *
 - floss
 - shaving cream
-- shampoo
-- conditioner
+- hair products
+- hair straightener (not if bald) *
 - soap
 - hair brush / comb
 
 CATEGORY: essentials:
-- passport (international)
-- eSIM for that country (not packable but an important thing)
-- eyeglasses / contact lenses
+- passport/ID *
+- visa
+- eSIM card
+- eyeglasses / contact lenses *
 
 
 Remember to check if the country you are traveling to needs a VISA.
