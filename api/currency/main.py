@@ -42,7 +42,7 @@ def get_currency_rate(url):
         raise ApiRateLimitExceeded()
     data = json.loads(response.content)
     total_rate = data["result"]
-    rate = float("{0:.2f}".format(total_rate))
+    rate = float(total_rate)
     return rate
 
 
