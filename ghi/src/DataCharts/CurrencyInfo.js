@@ -22,6 +22,7 @@ const useCurrencyData = (origin_country, destination_country) => {
 export default function CurrencyInfo(props) {
   const { origin_code, destination_code, detailPage } = props;
   const currencyRate = useCurrencyData(origin_code, destination_code);
+  console.log(currencyRate)
 
   const [currencyInput, setCurrencyInput] = useState(1);
 
@@ -36,7 +37,7 @@ export default function CurrencyInfo(props) {
   }
 
   // update exchangeOutput as user changes currencyInput on the browser
-  const exchangeOutput = currencyInput * currencyRate;
+  const exchangeOutput = currencyInput / currencyRate;
 
   const onChangeCurrencyInput = (event) => {
     setCurrencyInput(() => event.target.value);
@@ -65,7 +66,7 @@ export default function CurrencyInfo(props) {
         }
       />
       <h5 className="currency_output">
-        {origin_code} = {exchangeOutput} {destination_code}
+        {origin_code} = {exchangeOutput.toFixed(2)} {destination_code}
       </h5>
     </div>
   );

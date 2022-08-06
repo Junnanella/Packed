@@ -199,3 +199,15 @@ Today, I worked on:
 The group and I collaborated a lot today. Brainstorming and troubleshooting is both fun and very productive. Most of our discussions were about the GHI and completing the project to meet the deadline.
 
 Going into today, I was worried about implementing a page navigation blocker to prevent people from leaving their list with unsaved changes. It turned out to be a very straightforward process. Implementing that is a big user experience improvement. Also, I have really enjoyed deploying the site. As of today, it is fully deployed and operational. The rest of of the work tomorrow will be touching up stuff. Linting my python was easy to do with black and flake8.
+
+## Aug 5, 2022
+
+Today, I worked on:
+* Fixing a bug with currency - detaillist integration
+* Continuous Integration
+* Bug hunting
+* Writing the docs
+
+The group and I discussed final goals for the project and how to split up the linting/cleaning/writing docs. I was also able to give a mini lesson on how to deploy the site to the other group member. Hopefully, it will save them trouble down the line.
+
+I thought today was going to be pretty easy in terms of writing the docs. I WAS WRONG. A huge bug involving the currency api and my model structure for packing lists showed up. Thankfully, the rest of the team was able to focus on the docs while I wrote some new endpoints and restructured the DetailList page logic. That aside, the day went very smoothly. I got to learn some new CSS tips and tricks. With the due date coming up in 6 minutes, I am grateful that we completed on time. Myself and the others learned a ton about engineering and teamwork on this project, it was a great experience.
