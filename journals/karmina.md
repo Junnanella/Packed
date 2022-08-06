@@ -1,3 +1,6 @@
+# August 5
+Today the project is being submitted so I am very excited to take a break and prep for the exam on Monday. I'm so thankful for my team they were all great and I really enjoyed working with all of them. 
+
 # August 4
 Today we had a lot of merge conflicts, since we are all pretty much working on the front end design we were coding on the same files. LUckily we were able to work through it as a team and keep our app up to date with the latest changes. 
 
