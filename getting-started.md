@@ -1,3 +1,13 @@
+Please note, for the application to run successfully locally please obtain your own Weather and Currency API keys from the links provided in [apis.md](docs/apis.md)
+
+Once the API keys have been obtained follow the steps below: 
+   - Create .env file
+   - Copy the variables below into .env file: 
+
+      CURRENCY_RATE_API_KEY= Your API key here
+      
+      WEATHER_API_KEY= Your API key here
+
 After cloning the repo or deleting the database, follow these steps to get the database into working order
 steps with a ( >>> ) indicate to use a terminal or CLI to input the command
 
