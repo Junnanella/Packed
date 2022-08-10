@@ -29,7 +29,7 @@ function DetailList() {
     const cityWeather = packingList.destination_city;
     const destinationCountry = packingList.destination_country;
     const departureDate = packingList.departure_date;
-    const returnDate = packingList.departure_date;
+    const returnDate = packingList.return_date;
     const originCountry = packingList.origin_country;
     const createdDate = packingList.created;
     const { authTokens } = useContext(AuthContext);

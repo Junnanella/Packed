@@ -72,6 +72,8 @@ const SignUp = () => {
                             placeholder="Enter Username"
                             value={username}
                             onChange={changeUsername}
+                            minLength={6}
+                            maxLength={25}
                         />
                         <label htmlFor="username">Username</label>
                     </div>
@@ -83,6 +85,8 @@ const SignUp = () => {
                             placeholder="Enter Password"
                             onChange={changePassword}
                             value={password}
+                            minLength={8}
+                            maxLength={25}
                         />
                         <label htmlFor="password">Password</label>
                     </div>

@@ -9,11 +9,21 @@ const Login = () => {
                 <h1>Login</h1>
                 <form onSubmit={loginUser}>
                     <div className="form-floating mb-3">
-                        <input className="form-control" type="text" name="username" placeholder="Enter Username" />
+                        <input className="form-control"
+                            type="text" name="username"
+                            placeholder="Enter Username"
+                            minLength={6}
+                            maxLength={25}
+                        />
                         <label htmlFor="username">Username</label>
                     </div>
                     <div className="form-floating mb-3">
-                        <input className="form-control" type="password" name="password" placeholder="Enter Password" />
+                        <input className="form-control"
+                            type="password" name="password"
+                            placeholder="Enter Password"
+                            minLength={8}
+                            maxLength={25}
+                        />
                         <label htmlFor="password">Password</label>
                     </div>
                     <button className="btn btn-success" type="submit">Login</button>

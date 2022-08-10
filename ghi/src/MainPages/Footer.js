@@ -19,9 +19,9 @@ export default function Footer() {
           <a className="nav-link" href="https://www.linkedin.com/in/williamacarter/">William</a>
         </li>
       </ul>
-      <div className="footer-copyright text-center py-3">© 2022 packed:
-        <a href="https://packed-module-3.gitlab.io/packed/"> packed.io</a>
-      </div>
+      <a className="footer-link-color" href="https://gitlab.com/packed-module-3/packed">
+        <div className="footer-copyright text-center py-3">©2022 packed</div>
+      </a>
     </footer>
   );
 }

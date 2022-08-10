@@ -354,3 +354,8 @@ div.save-changes {
     color: rgb(65, 96, 78);
     text-decoration: solid;
 }
+
+.footer-link-color {
+    color: black;
+    text-decoration: solid;
+}

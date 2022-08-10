@@ -18,13 +18,13 @@ If this is not the case, proceed to 'REPOPULATING THE DATABASE' below.
 
 REPOPULATING THE DATABASE:
 
-STEP 1: Connect to 'locations' database:
-- You need to access postgres-1 CLI terminal from Docker Desktop (or use docker exec -it <container-name> bash)
+STEP 1: Connect to database:
+- You need to access 'postgres-1' CLI terminal from Docker Desktop (or use docker exec -it <container-name> bash)
 - When connected to the CLI, run the following two commands to connect to the locations database: (do NOT type '>>>')
 >>> psql -U locations locations
 >>> \c locations
 
-STEP 2: Create 'currency' table in 'locations' database:
+STEP 2: Create 'currency' table in database:
 >>> CREATE TABLE currency (
   id SERIAL NOT NULL PRIMARY KEY,
   country VARCHAR(100) NOT NULL,
