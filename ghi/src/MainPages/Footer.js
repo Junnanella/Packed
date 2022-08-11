@@ -1,4 +1,6 @@
 import React from "react"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSquareGitlab } from '@fortawesome/free-brands-svg-icons'
 
 
 export default function Footer() {
@@ -19,9 +21,12 @@ export default function Footer() {
           <a className="nav-link" href="https://www.linkedin.com/in/williamacarter/">William</a>
         </li>
       </ul>
-      <a className="footer-link-color" href="https://gitlab.com/packed-module-3/packed">
-        <div className="footer-copyright text-center py-3">©2022 packed</div>
-      </a>
+      <div className="footer-copyright text-center py-3">
+        ©2022 packed
+        <a className="footer-link-color p-2" href="https://gitlab.com/packed-module-3/packed">
+          <FontAwesomeIcon icon={faSquareGitlab} />
+        </a>
+      </div>
     </footer>
   );
 }
