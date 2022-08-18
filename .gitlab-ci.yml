@@ -3,6 +3,7 @@ stages:
   - build
   - deploy
 
+# when changing backend servers, all values in this module should not be changed. env var changes must be done on gitlab
 # vars accessed by pages frontend that contain values with the urls to the backend
 variables:
   REACT_APP_DJANGO_PACKING_LISTS: https://${HEROKU_APP_DJANGO_PACKING_LISTS}.herokuapp.com
@@ -58,9 +59,9 @@ ghi-unit-test-job:
     - cd ghi
     - npm install
     - npm run test-ci
-    
 
-# LINTING TESTS ---------------------  
+
+# LINTING TESTS ---------------------
 packing-lists-linting-job:
   image: python:3-bullseye
   stage: test
@@ -74,14 +75,14 @@ locations-linting-job:
   script:
     - pip install flake8
     - flake8 --max-line-length=88 --ignore=E501 api/locations
-  
+
 currency-linting-job:
   image: python:3-bullseye
   stage: test
   script:
     - pip install flake8
     - flake8 --max-line-length=88 --ignore=E501 api/currency
-  
+
 weather-linting-job:
   image: python:3-bullseye
   stage: test
