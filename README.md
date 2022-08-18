@@ -1,35 +1,33 @@
 # packed
 
+A webapp to help you plan and and pack for your next trip.
+
 ## Design
 
+Reference the documentation listed below for an in-depth look at the design of Packed.
+
 - [API design](docs/apis.md)
-- [Data model](docs/data-model.md)
+- [Data models](docs/data-model.md)
 - [GHI](docs/ghi.md)
-- [Integrations](docs/integrations.md)
-
-## Team
-
-- Junella
-- Josiah
-- Karmina
-- William
-
-A useful webapp for planning and packing for your next trip.
+- [External API Integrations](docs/integrations.md)
+- Tech stack: Django, React, Python, JavaScript, PostgreSQL, FastAPI, Docker, Django REST framework, SimpleJWT auth
 
 ## Intended market
 
-For any traveler who wants to keep track of items they will need to bring or for those who may need help deciding what they need for their next trip. For casual or frequent travelers to save all their previous packing lists in one place.
+Packed is for any traveler who wants a simple and intuitive place to keep track of items they plan to bring on their next adventure. For casual or frequent travelers to save all their previous packing lists in one place.
 
 ## Functionality
 
-A user will input an origin city and country, destination city and country, as well as travel dates. When the form is submitted, the user is presented with the following:
+Users input an origin city and country, destination city and country, as well as travel dates. They are presented with the following:
 
-- An empty packing list, which they can start filling with their own inputs and/or add suggested items that we provide based on the weather of their destination during the duration of their trip. There are also suggestions for general items needed for any trip, like your phone charger or passport.
-- The expected temperatures of their desitination for the duration of their trip.
-- The current exchange rate between the origin country and destination country, if they differ. The user can also change the input for the origin rate and get live updates to the amount in the destination's currency.
+- An empty packing list, which they can fill out with their own inputs and/or add catered item suggestions based on the anticipated weather of their destination and items on their previous lists. There are also suggestions for general items needed for any trip, like phone charger or passport.
+- Expected temperatures of their desitination for the duration of their trip are provided from an external API.
+- The current currency exchange rate between the origin country and destination country is provided from an external API call. The user can also change the input amount for the origin rate and get live updates with the amount in the destination's currency.
 
-User authentication system. Someone with an account can view all their saved packing lists and navigate to the detail page for each of them to make further updates or just to reference.
+This web application uses JWTs stored in local storage to handle user authentication. Account holders can visit their saved packing lists and navigate to the detail page for each of them to view, print or make further updates.
 
 ## Getting Started
 
-After forking the repo, reference the [getting-started.md](getting-started.md) module to correctly populate your database and spin up the docker containers.
+Feel free to create an account and poke around on the [deployed site](https://packed-module-3.gitlab.io/packed)! NOTE: The backend servers are deployed on the free version of Heroku and may take a few moments to start.
+
+You are also welcome to spin up the project locally. After forking and cloning the repo, reference the [getting-started.md](getting-started.md) module to populate your database.

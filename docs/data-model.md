@@ -1,5 +1,5 @@
 # Data models
-All schema for databases created for this project can be referenced here.
+All schema for the PostgreSQL databases can be referenced here.
 
 ## Packing List Microservice (Django)
 
