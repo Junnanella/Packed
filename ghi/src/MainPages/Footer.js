@@ -6,10 +6,10 @@ import { faSquareGitlab } from '@fortawesome/free-brands-svg-icons'
 export default function Footer() {
   return (
     <footer className="py-3 mt-5 bg-light fixed">
-      <h1 className="nav justify-content-center"> About Us </h1>
+      <h2 className="nav justify-content-center"> About Us </h2>
       <ul className="nav justify-content-center">
         <li className="nav-item">
-          <a className="nav-link" href="https://josiah-pederson.github.io/personal-site/">Josiah</a>
+          <a className="nav-link" href="https://josiahpederson.com/">Josiah</a>
         </li>
         <li className="nav-item">
           <a className="nav-link" href="https://www.linkedin.com/in/junella-caringal/">Junella</a>
