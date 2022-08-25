@@ -30,4 +30,4 @@ This web application uses JWTs stored in local storage to handle user authentica
 
 ## Getting Started
 
-You are also welcome to spin up the project locally. After forking and cloning the repo, reference the [getting-started.md](getting-started.md) module to populate your database.
+You are welcome to spin up the project locally. After forking and cloning the repo, reference the [getting-started.md](getting-started.md) module to populate your database.
