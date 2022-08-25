@@ -2,6 +2,8 @@
 
 A webapp to help you plan and and pack for your next trip.
 
+Feel free to create an account and poke around on the [deployed site](https://packed-module-3.gitlab.io/packed)! NOTE: The backend servers are deployed a free Heroku account and may take a few moments to start.
+
 ## Design
 
 Reference the documentation listed below for an in-depth look at the design of Packed.
@@ -27,7 +29,5 @@ Users input an origin city and country, destination city and country, as well as
 This web application uses JWTs stored in local storage to handle user authentication. Account holders can visit their saved packing lists and navigate to the detail page for each of them to view, print or make further updates.
 
 ## Getting Started
-
-Feel free to create an account and poke around on the [deployed site](https://packed-module-3.gitlab.io/packed)! NOTE: The backend servers are deployed on the free version of Heroku and may take a few moments to start.
 
 You are also welcome to spin up the project locally. After forking and cloning the repo, reference the [getting-started.md](getting-started.md) module to populate your database.
