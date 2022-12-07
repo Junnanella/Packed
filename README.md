@@ -2,8 +2,6 @@
 
 A webapp to help you plan and and pack for your next trip.
 
-Feel free to create an account and poke around on the [deployed site](https://packed-module-3.gitlab.io/packed)! NOTE: The backend servers are deployed a free Heroku account and may take a few moments to start.
-
 ## Design
 
 Reference the documentation listed below for an in-depth look at the design of Packed.
