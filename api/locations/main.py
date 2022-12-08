@@ -6,7 +6,6 @@ import os
 from db import CurrencyQueries
 
 
-
 app = FastAPI()
 
 origins = ["http://localhost:3000", os.environ.get("CORS_HOST", None)]

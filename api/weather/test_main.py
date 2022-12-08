@@ -58,7 +58,7 @@ def test_temp_list():
 
     # ACT
     response = client.get(
-        "/api/weather?country=berlin&city=germany&departure_date=2023-01-05&return_date=2023-02-12"
+        "/api/weather?country=berlin&city=germany&departure_date=2023-01-05&return_date=2023-02-12"  # noqa: E501
     )
 
     # ASSERT

@@ -21,8 +21,8 @@ app.add_middleware(
 
 
 WEATHER_API_KEY = os.environ["WEATHER_API_KEY"]
-base_url = "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/"
-rest_of_path = f"?unitGroup=us&elements=name%2Ctempmax%2Ctempmin%2Ctemp&include=days%2Ccurrent&key={WEATHER_API_KEY}&contentType=json"
+base_url = "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/"  # noqa: E501
+rest_of_path = f"?unitGroup=us&elements=name%2Ctempmax%2Ctempmin%2Ctemp&include=days%2Ccurrent&key={WEATHER_API_KEY}&contentType=json"  # noqa: E501
 
 
 class TempOut(BaseModel):

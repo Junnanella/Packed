@@ -31,7 +31,9 @@ class ApiRateLimitExceeded(Exception):
 def get_currency_rate(url):
     """
     Takes the API url and makes sure only the "result" key, which holds
-    the currency exchange rate, is pulled from the API call using the built in splitines() method """
+    the currency exchange rate, is pulled from the API call using the
+    built in splitines() method
+    """
 
     payload = {}
     headers = {"apikey": CURRENCY_RATE_API_KEY}
@@ -49,7 +51,7 @@ def get_currency_rate(url):
 @app.get("/api/convert")
 def currency_exchange_rate(origin_country, destination_country):
     try:
-        url = f"https://api.apilayer.com/exchangerates_data/convert?to={origin_country}&from={destination_country}&amount=1"
+        url = f"https://api.apilayer.com/exchangerates_data/convert?to={origin_country}&from={destination_country}&amount=1"  # noqa: E501
         currency_rate = get_currency_rate(url)
         return currency_rate
     except ApiRateLimitExceeded:
