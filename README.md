@@ -1,6 +1,7 @@
 # packed
 
 A webapp to help you plan and and pack for your next trip.
+Visit the deployed site [here](https://packed-module-3.gitlab.io/packed/)! (note: This is deployed on heroku's free servers so it may take a few moments to load)
 
 ## Design
 
